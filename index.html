@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Pusula — İş Merkezi</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0b0c11; --surf:#13151d; --surf2:#1b1e2a; --surf3:#222637;
+  --brd:#292d41; --brd2:#3a3f5a;
+  --text:#eaecf4; --muted:#5f6480;
+  --accent:#f0b429; --green:#10b981; --red:#ef4444; --blue:#3b82f6;
+  --c0:#f0b429; --c1:#8b5cf6; --c2:#ec4899; --c3:#14b8a6; --c4:#f97316; --c5:#3b82f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* ═══ HERO ════════════════════════════════════════════════════ */
+.hero{position:relative;background:var(--surf);border-bottom:1px solid var(--brd);padding:26px 40px 0;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--brd) 1px,transparent 1px),linear-gradient(90deg,var(--brd) 1px,transparent 1px);background-size:40px 40px;opacity:.3;pointer-events:none;}
+.hero-top{position:relative;display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;}
+.brand-name{font-family:'Syne',sans-serif;font-weight:900;font-size:2.8rem;letter-spacing:-.04em;line-height:1;background:linear-gradient(135deg,var(--accent) 0%,#fff 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.brand-sub{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px;}
+.hclock{font-family:'DM Mono',monospace;font-size:.9rem;color:var(--muted);text-align:right;}
+.hdate{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--muted);margin-top:3px;text-align:right;}
+
+/* ═══ FLOWCHART NAV ═══════════════════════════════════════════ */
+.flowchart{position:relative;display:flex;flex-direction:column;align-items:center;padding-bottom:0;user-select:none;}
+
+/* TOP ROW — 6 root nodes */
+.flow-row1{position:relative;display:flex;justify-content:center;align-items:flex-start;width:100%;gap:0;}
+
+/* horizontal connector line */
+.flow-hline{position:absolute;top:24px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,var(--brd2) 10%,var(--brd2) 90%,transparent);pointer-events:none;}
+
+/* root node */
+.fnode{display:flex;flex-direction:column;align-items:center;flex:1;max-width:170px;cursor:pointer;transition:transform .15s;}
+.fnode:hover{transform:translateY(-2px);}
+
+.fnode-stem{width:2px;height:20px;background:var(--brd2);transition:background .2s;}
+.fnode.active > .fnode-stem{background:var(--nc);}
+
+.fnode-pill{display:flex;flex-direction:column;align-items:center;gap:4px;padding:11px 14px 9px;border-radius:12px;border:1.5px solid var(--brd2);background:var(--surf2);min-width:100px;transition:all .2s;position:relative;}
+.fnode.active > .fnode-pill{border-color:var(--nc);background:var(--surf3);box-shadow:0 0 0 1px var(--nc),0 6px 20px rgba(0,0,0,.4);}
+.fnode.active > .fnode-pill::after{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--nc);box-shadow:0 0 8px var(--nc);}
+
+.fnode-icon{font-size:1.2rem;}
+.fnode-label{font-family:'Syne',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.02em;color:var(--muted);text-align:center;white-space:nowrap;transition:color .2s;}
+.fnode.active > .fnode-pill .fnode-label,.fnode:hover > .fnode-pill .fnode-label{color:var(--text);}
+
+/* tail + arrow from active root down */
+.fnode-tail{width:2px;height:0;background:var(--nc);transition:height .22s ease,opacity .22s;opacity:0;}
+.fnode.active > .fnode-tail{height:14px;opacity:1;}
+.fnode-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--nc);opacity:0;transition:opacity .22s;}
+.fnode.active > .fnode-arrow{opacity:1;}
+
+/* ── SECOND ROW (branches) ──────────────────────────────────── */
+.flow-branches{display:none;flex-direction:column;align-items:center;width:100%;margin-top:0;}
+.flow-branches.visible{display:flex;}
+
+/* branch container for a given root */
+.branch-group{display:none;flex-direction:column;align-items:center;width:100%;}
+.branch-group.visible{display:flex;}
+
+/* horizontal line connecting branches */
+.branch-hline-wrap{position:relative;display:flex;justify-content:center;align-items:flex-start;width:50%;max-width:500px;gap:0;}
+.branch-hline{position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--brd2);pointer-events:none;}
+
+.bnode{display:flex;flex-direction:column;align-items:center;flex:1;cursor:pointer;transition:transform .15s;}
+.bnode:hover{transform:translateY(-2px);}
+
+.bnode-stem{width:2px;height:16px;background:var(--brd2);transition:background .2s;}
+.bnode.active > .bnode-stem{background:var(--nc);}
+
+.bnode-pill{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 12px 8px;border-radius:10px;border:1.5px solid var(--brd2);background:var(--surf2);min-width:90px;transition:all .2s;position:relative;}
+.bnode.active > .bnode-pill{border-color:var(--nc);background:var(--surf3);box-shadow:0 0 0 1px var(--nc),0 4px 14px rgba(0,0,0,.3);}
+
+.bnode-icon{font-size:1rem;}
+.bnode-label{font-family:'Syne',sans-serif;font-weight:700;font-size:.62rem;color:var(--muted);text-align:center;white-space:nowrap;transition:color .2s;}
+.bnode.active > .bnode-pill .bnode-label,.bnode:hover > .bnode-pill .bnode-label{color:var(--text);}
+
+.bnode-tail{width:2px;height:0;background:var(--nc);transition:height .2s,opacity .2s;opacity:0;}
+.bnode.active > .bnode-tail{height:12px;opacity:1;}
+.bnode-arrow{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--nc);opacity:0;transition:opacity .2s;}
+.bnode.active > .bnode-arrow{opacity:1;}
+
+/* spacer so arrow + bottom gap look clean */
+.flow-bottom-gap{height:20px;}
+
+/* ═══ CONTENT ══════════════════════════════════════════════════ */
+.content{max-width:1400px;margin:0 auto;padding:0 32px 60px;}
+.section{display:none;padding-top:26px;animation:fadeUp .2s ease;}
+.section.open{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+.sec-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--brd);}
+.sec-bar{width:4px;height:44px;border-radius:4px;flex-shrink:0;}
+.sec-icon-big{font-size:1.7rem;}
+.sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;line-height:1;}
+.sec-sub{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--muted);margin-top:5px;}
+
+.two-col{display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start;}
+
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:18px;margin-bottom:14px;}
+.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.ct-tag{font-family:'DM Mono',monospace;font-size:.56rem;padding:2px 7px;border-radius:4px;background:var(--surf2);color:var(--muted);font-weight:400;}
+
+/* ═══ WEEK NAV ══════════════════════════════════════════════════ */
+.week-nav{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.wnav-btn{background:var(--surf2);border:1px solid var(--brd2);border-radius:8px;color:var(--text);font-size:.8rem;padding:7px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .15s;}
+.wnav-btn:hover{border-color:var(--accent);color:var(--accent);}
+.wnav-label{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--text);flex:1;text-align:center;}
+.wnav-today{background:none;border:1px solid var(--brd);border-radius:8px;color:var(--muted);font-size:.72rem;padding:7px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.wnav-today:hover{border-color:var(--brd2);color:var(--text);}
+
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;margin-bottom:16px;}
+.day-col{background:var(--surf);border:1px solid var(--brd);border-radius:10px;}
+.day-col.today{border-color:var(--accent);}
+.day-hdr{padding:9px 10px 7px;border-bottom:1px solid var(--brd);background:var(--surf2);border-radius:10px 10px 0 0;}
+.day-nm{font-family:'Syne',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.04em;text-transform:uppercase;}
+.day-col.today .day-nm{color:var(--accent);}
+.day-num{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:1px;}
+.day-tasks{padding:5px;display:flex;flex-direction:column;gap:3px;}
+.task-chip{display:flex;align-items:flex-start;gap:4px;padding:5px;border-radius:5px;background:var(--surf2);font-size:.63rem;line-height:1.3;border:1px solid transparent;}
+.task-chip:hover{border-color:var(--brd2);}
+.tdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.tlabel{flex:1;cursor:text;word-break:break-word;min-width:0;}
+.tlabel:focus{outline:none;}
+.tacts{display:none;flex-direction:column;gap:1px;flex-shrink:0;}
+.task-chip:hover .tacts{display:flex;}
+.tbtn{background:none;border:none;cursor:pointer;font-size:.62rem;color:var(--muted);padding:1px 2px;border-radius:3px;line-height:1;}
+.tbtn:hover{color:var(--text);}
+.tbtn.del:hover{color:var(--red);}
+.tbtn.chk.done{color:var(--green);}
+.task-chip.done .tlabel{text-decoration:line-through;opacity:.4;}
+.add-task-row{display:flex;align-items:center;gap:3px;padding:4px 5px;margin:3px 5px 5px;border-radius:5px;border:1px dashed var(--brd2);cursor:pointer;opacity:.5;font-size:.6rem;color:var(--muted);transition:all .15s;}
+.add-task-row:hover{opacity:1;border-color:var(--accent);color:var(--accent);}
+.add-task-input{display:none;padding:0 5px 5px;gap:3px;flex-wrap:wrap;}
+.add-task-input input{flex:1;min-width:60px;background:var(--surf2);border:1px solid var(--brd2);border-radius:5px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.63rem;padding:4px 6px;outline:none;}
+.add-task-input input:focus{border-color:var(--accent);}
+.add-task-input select{background:var(--surf2);border:1px solid var(--brd2);border-radius:5px;color:var(--text);font-family:'DM Mono',monospace;font-size:.58rem;padding:4px 3px;outline:none;max-width:80px;}
+.ib{background:var(--accent);border:none;border-radius:5px;color:#000;font-size:.65rem;font-weight:700;padding:4px 7px;cursor:pointer;}
+.cb{background:var(--surf);border:1px solid var(--brd);border-radius:5px;color:var(--muted);font-size:.62rem;padding:4px 5px;cursor:pointer;}
+
+/* ═══ CHECKLIST ════════════════════════════════════════════════ */
+.checklist{display:flex;flex-direction:column;gap:2px;}
+.cl-item{display:flex;align-items:center;gap:7px;font-size:.74rem;color:var(--muted);padding:6px 0;border-top:1px solid var(--brd);cursor:pointer;user-select:none;}
+.cl-item:hover{color:var(--text);}
+.cl-box{width:14px;height:14px;border-radius:3px;border:1px solid var(--brd2);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:transparent;flex-shrink:0;transition:all .15s;}
+.cl-item.done .cl-box{background:var(--green);border-color:var(--green);color:white;}
+.cl-item.done .cl-txt{text-decoration:line-through;opacity:.4;}
+.cl-txt{flex:1;}
+.cl-del{display:none;background:none;border:none;color:var(--red);cursor:pointer;font-size:.7rem;padding:0 2px;}
+.cl-item:hover .cl-del{display:block;}
+.cl-add-btn{font-size:.64rem;color:var(--muted);background:none;border:1px dashed var(--brd2);border-radius:5px;padding:4px 10px;cursor:pointer;margin-top:6px;width:100%;font-family:'DM Sans',sans-serif;transition:all .15s;text-align:left;}
+.cl-add-btn:hover{border-color:var(--accent);color:var(--accent);}
+.cl-add-row{display:none;gap:4px;margin-top:5px;}
+.cl-add-row input{flex:1;background:var(--surf2);border:1px solid var(--brd2);border-radius:5px;color:var(--text);font-size:.72rem;font-family:'DM Sans',sans-serif;padding:5px 8px;outline:none;}
+.cl-add-row input:focus{border-color:var(--accent);}
+.cl-add-row .sv{background:var(--accent);border:none;border-radius:5px;color:#000;font-size:.65rem;font-weight:700;padding:5px 8px;cursor:pointer;}
+.cl-add-row .cx{background:none;border:1px solid var(--brd);border-radius:5px;color:var(--muted);font-size:.65rem;padding:5px 6px;cursor:pointer;}
+
+/* ═══ LINKS ════════════════════════════════════════════════════ */
+.link-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;margin-bottom:4px;transition:background .15s;}
+.link-item:hover{background:var(--surf2);}
+.link-emoji{font-size:1rem;flex-shrink:0;width:22px;text-align:center;}
+.link-info{flex:1;min-width:0;}
+.link-name{font-size:.76rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.link-url{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.link-open{background:none;border:1px solid var(--brd);border-radius:6px;color:var(--muted);font-size:.62rem;padding:4px 8px;cursor:pointer;text-decoration:none;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.link-open:hover{border-color:var(--brd2);color:var(--text);}
+.link-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;padding:3px 5px;border-radius:4px;opacity:0;transition:opacity .15s;flex-shrink:0;}
+.link-item:hover .link-del{opacity:.6;}
+.link-del:hover{opacity:1!important;}
+.add-link-btn{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:8px;border:1px dashed var(--brd2);background:none;color:var(--muted);font-size:.71rem;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;transition:all .15s;margin-top:6px;}
+.add-link-btn:hover{border-color:var(--accent);color:var(--accent);}
+.add-link-form{display:none;flex-direction:column;gap:6px;margin-top:8px;padding:12px;background:var(--surf2);border-radius:8px;border:1px solid var(--brd);}
+.add-link-form.show{display:flex;}
+.aff-row{display:flex;gap:6px;}
+.aff-inp{flex:1;background:var(--surf);border:1px solid var(--brd2);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.75rem;padding:7px 10px;outline:none;transition:border-color .15s;}
+.aff-inp:focus{border-color:var(--accent);}
+.aff-inp::placeholder{color:var(--muted);}
+.aff-save{background:var(--accent);border:none;border-radius:6px;color:#000;font-weight:700;font-size:.72rem;padding:7px 14px;cursor:pointer;white-space:nowrap;}
+.aff-cancel{background:none;border:1px solid var(--brd);border-radius:6px;color:var(--muted);font-size:.72rem;padding:7px 10px;cursor:pointer;}
+
+/* ═══ STATS ════════════════════════════════════════════════════ */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.stat-box{background:var(--surf2);border-radius:10px;padding:13px;text-align:center;border:1px solid var(--brd);}
+.stat-val{font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:500;}
+.sv-pos{color:var(--green);} .sv-neg{color:var(--red);} .sv-acc{color:var(--accent);}
+.stat-lbl{font-size:.6rem;color:var(--muted);margin-top:4px;}
+
+textarea.notes{width:100%;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text);font-family:'DM Mono',monospace;font-size:.73rem;padding:10px 12px;resize:none;height:110px;outline:none;line-height:1.65;transition:border-color .15s;}
+textarea.notes:focus{border-color:var(--brd2);}
+textarea.notes::placeholder{color:var(--muted);}
+
+.focus-banner{background:linear-gradient(135deg,rgba(240,180,41,.07),rgba(240,180,41,.02));border:1px solid rgba(240,180,41,.2);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start;}
+.fb-icon{font-size:1.4rem;flex-shrink:0;}
+.fb-title{font-weight:600;color:var(--accent);font-size:.83rem;margin-bottom:3px;}
+.fb-text{font-size:.73rem;color:var(--muted);line-height:1.55;}
+[contenteditable]{outline:none;}
+[contenteditable]:hover{background:rgba(255,255,255,.03);border-radius:3px;}
+[contenteditable]:focus{background:rgba(255,255,255,.05);border-radius:3px;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="brand-name">Para Pusula</div>
+      <div class="brand-sub">İş Operasyon Merkezi</div>
+    </div>
+    <div>
+      <div class="hclock" id="clock">--:--:--</div>
+      <div class="hdate" id="hdate">--</div>
+    </div>
+  </div>
+
+  <!-- FLOWCHART ROW 1 — root nodes -->
+  <div class="flowchart">
+    <div class="flow-row1">
+      <div class="flow-hline"></div>
+
+      <!-- 0: Haftalık Plan (no branches) -->
+      <div class="fnode" id="fn-0" style="--nc:var(--c0)" onclick="clickRoot(0)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">📅</div>
+          <div class="fnode-label">Haftalık Plan</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+      <!-- 1: Robot (no branches) -->
+      <div class="fnode" id="fn-1" style="--nc:var(--c1)" onclick="clickRoot(1)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">🤖</div>
+          <div class="fnode-label">Robot EA</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+      <!-- 2: İçerik (branches) -->
+      <div class="fnode" id="fn-2" style="--nc:var(--c2)" onclick="clickRoot(2)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">📸</div>
+          <div class="fnode-label">İçerik</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+      <!-- 3: Aplikasyon (no branches) -->
+      <div class="fnode" id="fn-3" style="--nc:var(--c3)" onclick="clickRoot(3)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">📱</div>
+          <div class="fnode-label">Aplikasyon</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+      <!-- 4: Reklam (branches) -->
+      <div class="fnode" id="fn-4" style="--nc:var(--c4)" onclick="clickRoot(4)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">📢</div>
+          <div class="fnode-label">Reklam</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+      <!-- 5: Sanal Sunucu (no branches) -->
+      <div class="fnode" id="fn-5" style="--nc:var(--c5)" onclick="clickRoot(5)">
+        <div class="fnode-stem"></div>
+        <div class="fnode-pill">
+          <div class="fnode-icon">🖥️</div>
+          <div class="fnode-label">Sanal Sunucu</div>
+        </div>
+        <div class="fnode-tail"></div>
+        <div class="fnode-arrow"></div>
+      </div>
+
+    </div><!-- /flow-row1 -->
+
+    <!-- BRANCH ROW -->
+    <div class="flow-branches" id="flowBranches">
+
+      <!-- İçerik branches (root 2) -->
+      <div class="branch-group" id="bg-2" style="--nc:var(--c2)">
+        <div class="branch-hline-wrap">
+          <div class="branch-hline"></div>
+          <div class="bnode" id="bn-2-0" style="--nc:var(--c2)" onclick="clickBranch(2,0)">
+            <div class="bnode-stem"></div>
+            <div class="bnode-pill">
+              <div class="bnode-icon">🌍</div>
+              <div class="bnode-label">Herkese Açık</div>
+            </div>
+            <div class="bnode-tail"></div>
+            <div class="bnode-arrow"></div>
+          </div>
+          <div class="bnode" id="bn-2-1" style="--nc:var(--c2)" onclick="clickBranch(2,1)">
+            <div class="bnode-stem"></div>
+            <div class="bnode-pill">
+              <div class="bnode-icon">💎</div>
+              <div class="bnode-label">Ücretli Aboneler</div>
+            </div>
+            <div class="bnode-tail"></div>
+            <div class="bnode-arrow"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reklam branches (root 4) -->
+      <div class="branch-group" id="bg-4" style="--nc:var(--c4)">
+        <div class="branch-hline-wrap">
+          <div class="branch-hline"></div>
+          <div class="bnode" id="bn-4-0" style="--nc:var(--c4)" onclick="clickBranch(4,0)">
+            <div class="bnode-stem"></div>
+            <div class="bnode-pill">
+              <div class="bnode-icon">📷</div>
+              <div class="bnode-label">Instagram Reklamı</div>
+            </div>
+            <div class="bnode-tail"></div>
+            <div class="bnode-arrow"></div>
+          </div>
+          <div class="bnode" id="bn-4-1" style="--nc:var(--c4)" onclick="clickBranch(4,1)">
+            <div class="bnode-stem"></div>
+            <div class="bnode-pill">
+              <div class="bnode-icon">📱</div>
+              <div class="bnode-label">Aplikasyon Reklamı</div>
+            </div>
+            <div class="bnode-tail"></div>
+            <div class="bnode-arrow"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /flowBranches -->
+
+    <div class="flow-bottom-gap"></div>
+  </div><!-- /flowchart -->
+</div><!-- /hero -->
+
+<!-- ══════════════════════════ CONTENT ══════════════════════ -->
+<div class="content">
+
+  <!-- 0: HAFTALIK PLAN -->
+  <div class="section open" id="sec-0">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c0)"></div>
+      <div class="sec-icon-big">📅</div>
+      <div>
+        <div class="sec-title">Haftalık Plan</div>
+        <div class="sec-sub" id="weekLabel">--</div>
+      </div>
+    </div>
+
+    <div class="focus-banner">
+      <div class="fb-icon">🎯</div>
+      <div>
+        <div class="fb-title" contenteditable="true" spellcheck="false" id="focusTitle">Bu Haftanın Odak Noktası</div>
+        <div class="fb-text" contenteditable="true" spellcheck="false" id="focusText">Odak noktanı buraya yaz...</div>
+      </div>
+    </div>
+
+    <div class="week-nav">
+      <button class="wnav-btn" onclick="shiftWeek(-1)">← Önceki Hafta</button>
+      <div class="wnav-label" id="wnav-label">--</div>
+      <button class="wnav-btn" onclick="shiftWeek(1)">Sonraki Hafta →</button>
+      <button class="wnav-today" onclick="goToday()">Bugün</button>
+    </div>
+
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+
+  <!-- 1: ROBOT -->
+  <div class="section" id="sec-1">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c1)"></div>
+      <div class="sec-icon-big">🤖</div>
+      <div>
+        <div class="sec-title">Robot EA</div>
+        <div class="sec-sub">Algoritma geliştirme · Müşteri takibi · Performans</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-val sv-pos">+197.5%</div><div class="stat-lbl">Toplam Getiri</div></div>
+          <div class="stat-box"><div class="stat-val sv-neg">-17.2%</div><div class="stat-lbl">Maks. Drawdown</div></div>
+          <div class="stat-box"><div class="stat-val sv-pos">+0.218%</div><div class="stat-lbl">Ort. Günlük</div></div>
+          <div class="stat-box"><div class="stat-val sv-acc">73</div><div class="stat-lbl">Aktif Müşteri</div></div>
+        </div>
+        <div class="card"><div class="card-title">📋 Yapılacaklar</div><div id="cl-robot"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-robot" placeholder="Algoritma fikirleri, test edilecek parametreler..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler <span class="ct-tag">ekle · düzenle</span></div><div id="links-1"></div><button class="add-link-btn" onclick="showLF(1)">＋ Link ekle</button><div class="add-link-form" id="lf-1"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-1-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-1-n"></div><input class="aff-inp" placeholder="https://..." id="lf-1-u"><div class="aff-row"><button class="aff-save" onclick="saveLink(1)">Kaydet</button><button class="aff-cancel" onclick="hideLF(1)">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-0: İÇERİK — Herkese Açık -->
+  <div class="section" id="sec-2-0">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c2)"></div>
+      <div class="sec-icon-big">🌍</div>
+      <div>
+        <div class="sec-title">Herkese Açık Videolar</div>
+        <div class="sec-sub">Pazartesi · Salı · Çarşamba · Perşembe · Pazar — 17:30</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📋 Günlük Kontrol</div><div id="cl-content"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-content" placeholder="Video konuları, planlama notları..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-20"></div><button class="add-link-btn" onclick="showLF('20')">＋ Link ekle</button><div class="add-link-form" id="lf-20"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-20-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-20-n"></div><input class="aff-inp" placeholder="https://..." id="lf-20-u"><div class="aff-row"><button class="aff-save" onclick="saveLink('20')">Kaydet</button><button class="aff-cancel" onclick="hideLF('20')">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2-1: İÇERİK — Ücretli Aboneler -->
+  <div class="section" id="sec-2-1">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c2)"></div>
+      <div class="sec-icon-big">💎</div>
+      <div>
+        <div class="sec-title">Ücretli Aboneler</div>
+        <div class="sec-sub">IG Üyelik · YouTube Kanal Üyeliği · Aplikasyon</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📋 Kontrol Listesi</div><div id="cl-subs"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-subs" placeholder="Şirket analizleri, bilanço takvimi, abone içerik planı..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-21"></div><button class="add-link-btn" onclick="showLF('21')">＋ Link ekle</button><div class="add-link-form" id="lf-21"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-21-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-21-n"></div><input class="aff-inp" placeholder="https://..." id="lf-21-u"><div class="aff-row"><button class="aff-save" onclick="saveLink('21')">Kaydet</button><button class="aff-cancel" onclick="hideLF('21')">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: APLİKASYON -->
+  <div class="section" id="sec-3">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c3)"></div>
+      <div class="sec-icon-big">📱</div>
+      <div>
+        <div class="sec-title">Aplikasyon</div>
+        <div class="sec-sub">Güç dengesi · Al-sat sinyalleri · Yapay zeka analizi · Instagram tanıtım</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📱 Uygulama Tanıtımı <span class="ct-tag">⚠ Henüz başlanmadı</span></div><div id="cl-app"></div></div>
+        <div class="card"><div class="card-title">🤖 Robot Instagram Sayfası <span class="ct-tag">⚠ Henüz başlanmadı</span></div><div id="cl-robotig"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-app" placeholder="Uygulama notları, tanıtım fikirleri..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-3"></div><button class="add-link-btn" onclick="showLF(3)">＋ Link ekle</button><div class="add-link-form" id="lf-3"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-3-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-3-n"></div><input class="aff-inp" placeholder="https://..." id="lf-3-u"><div class="aff-row"><button class="aff-save" onclick="saveLink(3)">Kaydet</button><button class="aff-cancel" onclick="hideLF(3)">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4-0: REKLAM — Instagram -->
+  <div class="section" id="sec-4-0">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c4)"></div>
+      <div class="sec-icon-big">📷</div>
+      <div>
+        <div class="sec-title">Instagram Reklamı</div>
+        <div class="sec-sub">Ads Manager · Takipçi büyümesi · İçerik reklamları</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📋 Kontrol Listesi</div><div id="cl-ads-ig"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-ads-ig" placeholder="Reklam performansı, A/B testler, bütçe kararları..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-40"></div><button class="add-link-btn" onclick="showLF('40')">＋ Link ekle</button><div class="add-link-form" id="lf-40"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-40-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-40-n"></div><input class="aff-inp" placeholder="https://..." id="lf-40-u"><div class="aff-row"><button class="aff-save" onclick="saveLink('40')">Kaydet</button><button class="aff-cancel" onclick="hideLF('40')">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4-1: REKLAM — Aplikasyon -->
+  <div class="section" id="sec-4-1">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c4)"></div>
+      <div class="sec-icon-big">📱</div>
+      <div>
+        <div class="sec-title">Aplikasyon Reklamı</div>
+        <div class="sec-sub">Uygulama tanıtım reklamları · Yeni kullanıcı kazanımı</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📋 Kontrol Listesi</div><div id="cl-ads-app"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-ads-app" placeholder="Hedef kitle, kreatif testler, dönüşüm notları..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-41"></div><button class="add-link-btn" onclick="showLF('41')">＋ Link ekle</button><div class="add-link-form" id="lf-41"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-41-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-41-n"></div><input class="aff-inp" placeholder="https://..." id="lf-41-u"><div class="aff-row"><button class="aff-save" onclick="saveLink('41')">Kaydet</button><button class="aff-cancel" onclick="hideLF('41')">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: SANAL SUNUCU -->
+  <div class="section" id="sec-5">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--c5)"></div>
+      <div class="sec-icon-big">🖥️</div>
+      <div>
+        <div class="sec-title">Sanal Sunucu</div>
+        <div class="sec-sub">Vizyon ortaklığı · VPS satışı · Robot müşterileri</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card"><div class="card-title">📋 Başlangıç Adımları <span class="ct-tag">Yeni İş Dalı</span></div><div id="cl-vps"></div></div>
+        <div class="card"><div class="card-title">📝 Notlar</div><textarea class="notes" id="note-vps" placeholder="Vizyon görüşmeleri, fiyatlandırma, teknik notlar..."></textarea></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🔗 Linkler</div><div id="links-5"></div><button class="add-link-btn" onclick="showLF(5)">＋ Link ekle</button><div class="add-link-form" id="lf-5"><div class="aff-row"><input class="aff-inp" placeholder="🔗" id="lf-5-e" maxlength="4" style="flex:0 0 52px"><input class="aff-inp" placeholder="Bağlantı adı" id="lf-5-n"></div><input class="aff-inp" placeholder="https://..." id="lf-5-u"><div class="aff-row"><button class="aff-save" onclick="saveLink(5)">Kaydet</button><button class="aff-cancel" onclick="hideLF(5)">İptal</button></div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+// ── UTILS ──────────────────────────────────────────────────────
+const DAYS=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
+const MONTHS=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+const DS=['Paz','Pzt','Sal','Çrş','Prş','Cum','Cmt'];
+const CLRS={robot:'#8b5cf6',içerik:'#ec4899',app:'#14b8a6',reklam:'#f97316',vps:'#3b82f6',subs:'#10b981',genel:'#5f6480'};
+const COPTS=Object.entries(CLRS).map(([k,v])=>`<option value="${v}">${k}</option>`).join('');
+function ld(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch{return d;}}
+function sv(k,v){localStorage.setItem(k,JSON.stringify(v));}
+
+// ── CLOCK ──────────────────────────────────────────────────────
+function tick(){
+  const n=new Date();
+  document.getElementById('clock').textContent=n.toLocaleTimeString('tr-TR');
+  document.getElementById('hdate').textContent=`${DAYS[n.getDay()]}, ${n.getDate()} ${MONTHS[n.getMonth()]} ${n.getFullYear()}`;
+}
+tick(); setInterval(tick,1000);
+
+// ── FOCUS ──────────────────────────────────────────────────────
+['focusTitle','focusText'].forEach(id=>{
+  const el=document.getElementById(id);
+  const s=localStorage.getItem('fx_'+id); if(s)el.textContent=s;
+  el.addEventListener('input',()=>localStorage.setItem('fx_'+id,el.textContent));
+});
+
+// ── NOTES ──────────────────────────────────────────────────────
+['note-robot','note-content','note-subs','note-app','note-ads-ig','note-ads-app','note-vps'].forEach(id=>{
+  const el=document.getElementById(id); if(!el)return;
+  const s=localStorage.getItem('nt_'+id); if(s!==null)el.value=s;
+  el.addEventListener('input',()=>localStorage.setItem('nt_'+id,el.value));
+});
+
+// ── NAV STATE ──────────────────────────────────────────────────
+// Roots with branches: 2 (İçerik), 4 (Reklam)
+// activeSec = '0','1','2-0','2-1','3','4-0','4-1','5'
+const BRANCH_ROOTS = [2, 4];
+let activeSec = ld('activeSec6','0');
+
+function showSection(secId) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'));
+  const el = document.getElementById('sec-'+secId);
+  if(el) el.classList.add('open');
+  sv('activeSec6', secId);
+  activeSec = secId;
+}
+
+function clearAllNodes() {
+  document.querySelectorAll('.fnode').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.bnode').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.branch-group').forEach(g=>g.classList.remove('visible'));
+  document.getElementById('flowBranches').classList.remove('visible');
+}
+
+function clickRoot(rootIdx) {
+  clearAllNodes();
+  const fn = document.getElementById('fn-'+rootIdx);
+  fn.classList.add('active');
+
+  if (BRANCH_ROOTS.includes(rootIdx)) {
+    // Show branches, don't open a section yet — open first branch by default
+    document.getElementById('flowBranches').classList.add('visible');
+    document.getElementById('bg-'+rootIdx).classList.add('visible');
+    // Auto-select first branch
+    clickBranch(rootIdx, 0);
+  } else {
+    showSection(String(rootIdx));
+  }
+}
+
+function clickBranch(rootIdx, branchIdx) {
+  // Keep root active
+  document.querySelectorAll('.fnode').forEach(n=>n.classList.remove('active'));
+  document.getElementById('fn-'+rootIdx).classList.add('active');
+
+  // Deactivate all bnodes in this group, activate the clicked one
+  document.querySelectorAll(`#bg-${rootIdx} .bnode`).forEach(b=>b.classList.remove('active'));
+  document.getElementById(`bn-${rootIdx}-${branchIdx}`).classList.add('active');
+
+  showSection(`${rootIdx}-${branchIdx}`);
+}
+
+// Restore state
+(function restore(){
+  const s = activeSec;
+  if(s.includes('-')) {
+    const [root, branch] = s.split('-').map(Number);
+    document.getElementById('fn-'+root).classList.add('active');
+    document.getElementById('flowBranches').classList.add('visible');
+    document.getElementById('bg-'+root).classList.add('visible');
+    document.getElementById(`bn-${root}-${branch}`).classList.add('active');
+    showSection(s);
+  } else {
+    const root = parseInt(s);
+    document.getElementById('fn-'+root).classList.add('active');
+    if(BRANCH_ROOTS.includes(root)){
+      document.getElementById('flowBranches').classList.add('visible');
+      document.getElementById('bg-'+root).classList.add('visible');
+      document.getElementById(`bn-${root}-0`).classList.add('active');
+      showSection(s+'-0');
+    } else {
+      showSection(s);
+    }
+  }
+})();
+
+// ── WEEK ──────────────────────────────────────────────────────
+let weekOffset = ld('weekOffset', 0); // 0 = current week, 1 = next, -1 = prev
+
+function getMonday(offset) {
+  const now = new Date();
+  const dow = now.getDay();
+  const mon = new Date(now);
+  mon.setDate(now.getDate() + (dow===0?-6:1-dow) + offset*7);
+  mon.setHours(0,0,0,0);
+  return mon;
+}
+
+function shiftWeek(delta) {
+  weekOffset += delta;
+  sv('weekOffset', weekOffset);
+  buildWeek();
+}
+
+function goToday() {
+  weekOffset = 0;
+  sv('weekOffset', 0);
+  buildWeek();
+}
+
+const DEF_WEEK={
+  1:[{label:'Herkese açık IG video (17:30)',color:CLRS['içerik'],id:'m1'},{label:'Robot izle / müşteri paneli',color:CLRS.robot,id:'m2'}],
+  2:[{label:'Herkese açık IG video (17:30)',color:CLRS['içerik'],id:'t1'},{label:'Şirket analizi içerik',color:CLRS.subs,id:'t2'},{label:'Robot geliştirme',color:CLRS.robot,id:'t3'}],
+  3:[{label:'Herkese açık IG video (17:30)',color:CLRS['içerik'],id:'w1'},{label:'Ads Manager kontrol',color:CLRS.reklam,id:'w2'}],
+  4:[{label:'Herkese açık IG video (17:30)',color:CLRS['içerik'],id:'h1'},{label:'Robot geliştirme (ODAK)',color:CLRS.robot,id:'h2'},{label:'VPS takip',color:CLRS.vps,id:'h3'}],
+  5:[{label:'Haftalık değerlendirme',color:CLRS.genel,id:'f1'},{label:'Gelecek hafta planla',color:CLRS.genel,id:'f2'}],
+  6:[{label:'Robot geliştirme (uzun seans)',color:CLRS.robot,id:'s1'}],
+  0:[{label:'Herkese açık IG video',color:CLRS['içerik'],id:'p1'},{label:'Ads performans gözden geçir',color:CLRS.reklam,id:'p2'}],
+};
+
+// Tasks are stored per week-key (e.g. "2026-W10") so each week is independent
+function getWeekKey(offset){
+  const mon = getMonday(offset);
+  const jan1 = new Date(mon.getFullYear(),0,1);
+  const weekNum = Math.ceil(((mon-jan1)/86400000+jan1.getDay()+1)/7);
+  return `${mon.getFullYear()}-W${weekNum}`;
+}
+
+function getWT(offset){ return ld('wt6_'+getWeekKey(offset), DEF_WEEK); }
+function setWT(offset,v){ sv('wt6_'+getWeekKey(offset),v); }
+
+function renderDay(dow) {
+  const wt = getWT(weekOffset);
+  const tasks = wt[dow]||[];
+  const wk = getWeekKey(weekOffset);
+  const done = ld('dn6_'+wk+'_'+dow,[]);
+  const ct = document.getElementById('dt-'+dow); if(!ct)return; ct.innerHTML='';
+  tasks.forEach((t,i)=>{
+    const d=done.includes(t.id);
+    const c=document.createElement('div'); c.className='task-chip'+(d?' done':'');
+    c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel" contenteditable="true" spellcheck="false">${t.label}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone(${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel(${dow},${i},event)">×</button></div>`;
+    c.querySelector('.tlabel').addEventListener('blur',function(){const wt2=getWT(weekOffset);if(wt2[dow]&&wt2[dow][i]){wt2[dow][i].label=this.textContent.trim();setWT(weekOffset,wt2);}});
+    ct.appendChild(c);
+  });
+}
+
+function tDone(dow,i,id,e){e.stopPropagation();const wk=getWeekKey(weekOffset);const dn=ld('dn6_'+wk+'_'+dow,[]);const x=dn.indexOf(id);if(x>-1)dn.splice(x,1);else dn.push(id);sv('dn6_'+wk+'_'+dow,dn);renderDay(dow);}
+function tDel(dow,i,e){e.stopPropagation();const wt2=getWT(weekOffset);wt2[dow].splice(i,1);setWT(weekOffset,wt2);renderDay(dow);}
+function showAdd(d){document.getElementById('atr-'+d).style.display='none';const r=document.getElementById('ati-'+d);r.style.display='flex';r.querySelector('input').focus();}
+function hideAdd(d){document.getElementById('atr-'+d).style.display='flex';const r=document.getElementById('ati-'+d);r.style.display='none';r.querySelector('input').value='';}
+function addTask(d){const inp=document.getElementById('ati-'+d).querySelector('input');const label=inp.value.trim();if(!label)return;const color=document.getElementById('ac-'+d).value;const wt2=getWT(weekOffset);if(!wt2[d])wt2[d]=[];wt2[d].push({label,color,id:'t'+d+Date.now()});setWT(weekOffset,wt2);hideAdd(d);renderDay(d);}
+
+function buildWeek(){
+  const now=new Date();
+  const mon=getMonday(weekOffset);
+
+  const monEnd=new Date(mon); monEnd.setDate(mon.getDate()+6);
+  const wkLabel=`${mon.getDate()} ${MONTHS[mon.getMonth()]}${mon.getMonth()!==monEnd.getMonth()?' – '+monEnd.getDate()+' '+MONTHS[monEnd.getMonth()]:' – '+monEnd.getDate()+' '+MONTHS[monEnd.getMonth()]} ${mon.getFullYear()}`;
+  document.getElementById('weekLabel').textContent=wkLabel;
+  document.getElementById('wnav-label').textContent=
+    weekOffset===0?'Bu Hafta':weekOffset===1?'Sonraki Hafta':weekOffset===-1?'Geçen Hafta':
+    (weekOffset>0?`+${weekOffset} hafta`:`${weekOffset} hafta`);
+
+  const grid=document.getElementById('weekGrid'); grid.innerHTML='';
+  [1,2,3,4,5,6,0].forEach(dow=>{
+    const dd=new Date(mon); dd.setDate(mon.getDate()+(dow===0?6:dow-1));
+    const isT=dd.toDateString()===now.toDateString();
+    const col=document.createElement('div'); col.className='day-col'+(isT?' today':'');
+    col.innerHTML=`<div class="day-hdr"><div class="day-nm">${DS[dow]}</div><div class="day-num">${dd.getDate()}</div></div><div class="day-tasks" id="dt-${dow}"></div><div class="add-task-row" id="atr-${dow}" onclick="showAdd(${dow})">+ görev</div><div class="add-task-input" id="ati-${dow}"><input type="text" placeholder="Görev..."/><select id="ac-${dow}">${COPTS}</select><button class="ib" onclick="addTask(${dow})">✓</button><button class="cb" onclick="hideAdd(${dow})">✕</button></div>`;
+    grid.appendChild(col); renderDay(dow);
+    document.getElementById('ati-'+dow).querySelector('input').addEventListener('keydown',e=>{if(e.key==='Enter')addTask(dow);if(e.key==='Escape')hideAdd(dow);});
+  });
+}
+
+// ── CHECKLIST ──────────────────────────────────────────────────
+const DEF_CL={
+  'cl-robot':[{label:'Müşteri panelini kontrol et',done:false},{label:'Kopuk hesap var mı?',done:false},{label:'Algoritma geliştirme çalış',done:false}],
+  'cl-content':[{label:'Bugün video çekildi mi?',done:false},{label:'3 platforma yüklendi mi? (IG + YT + Uygulama)',done:false}],
+  'cl-subs':[{label:'Bu haftanın şirket analizi planlandı mı?',done:false},{label:'Bekleyen bilanço var mı?',done:false},{label:'Abone içeriği 3 platforma yüklendi mi?',done:false}],
+  'cl-app':[{label:'Instagram sayfası açıldı mı?',done:false},{label:'İlk tanıtım videosu çekildi mi?',done:false},{label:'Özellik görselleri hazırlandı mı?',done:false}],
+  'cl-robotig':[{label:'Sayfa oluşturuldu mu?',done:false},{label:'Performans grafiği görseli hazır mı?',done:false},{label:'İlk 3 içerik planlandı mı?',done:false}],
+  'cl-ads-ig':[{label:'Haftalık reklam performansı kontrol edildi mi?',done:false},{label:'Bütçe optimizasyonu yapıldı mı?',done:false},{label:'Yeni reklam videosu gerekiyor mu?',done:false}],
+  'cl-ads-app':[{label:'Aplikasyon reklam kampanyası oluşturuldu mu?',done:false},{label:'Hedef kitle tanımlandı mı?',done:false},{label:'Reklam görselleri hazır mı?',done:false}],
+  'cl-vps':[{label:'Vizyon ile anlaşma tamamlandı mı?',done:false},{label:'Fiyatlandırma belirlendi mi?',done:false},{label:'Mevcut müşterilere duyuru yapıldı mı?',done:false},{label:'Teknik altyapı hazır mı?',done:false}],
+};
+
+function makeChecklist(elId){
+  function getIt(){return ld('cl6_'+elId,DEF_CL[elId]||[]);}
+  function setIt(v){sv('cl6_'+elId,v);}
+  function render(wrap){
+    wrap.innerHTML='';
+    getIt().forEach((it,i)=>{
+      const row=document.createElement('div'); row.className='cl-item'+(it.done?' done':'');
+      row.innerHTML=`<div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      row.querySelector('.cl-txt').addEventListener('blur',function(){const its=getIt();if(its[i])its[i].label=this.textContent.trim();setIt(its);});
+      row.addEventListener('click',e=>{if(e.target.classList.contains('cl-del')||e.target.getAttribute('contenteditable'))return;const its=getIt();its[i].done=!its[i].done;setIt(its);render(wrap);});
+      wrap.appendChild(row);
+    });
+    const ab=document.createElement('button'); ab.className='cl-add-btn'; ab.textContent='+ Adım ekle';
+    ab.onclick=()=>{ab.style.display='none';ar.style.display='flex';ar.querySelector('input').focus();};
+    wrap.appendChild(ab);
+    const ar=document.createElement('div'); ar.className='cl-add-row';
+    ar.innerHTML=`<input type="text" placeholder="Yeni adım..."><button class="sv">✓</button><button class="cx">✕</button>`;
+    ar.querySelector('.sv').onclick=()=>{const v=ar.querySelector('input').value.trim();if(v){const its=getIt();its.push({label:v,done:false});setIt(its);}render(wrap);};
+    ar.querySelector('.cx').onclick=()=>render(wrap);
+    ar.querySelector('input').addEventListener('keydown',e=>{if(e.key==='Enter')ar.querySelector('.sv').click();if(e.key==='Escape')render(wrap);});
+    wrap.appendChild(ar);
+  }
+  const el=document.getElementById(elId);
+  if(el){const wrap=document.createElement('div');wrap.className='checklist';render(wrap);el.appendChild(wrap);}
+}
+window.clDel=function(e,id,i){e.stopPropagation();const its=ld('cl6_'+id,[]);its.splice(i,1);sv('cl6_'+id,its);const el=document.getElementById(id);if(el){el.innerHTML='';makeChecklist(id);}};
+
+// ── LINKS ──────────────────────────────────────────────────────
+function getLnk(s){return ld('lnk6_'+s,[]);}
+function setLnk(s,v){sv('lnk6_'+s,v);}
+function renderLinks(s){
+  const panel=document.getElementById('links-'+s);if(!panel)return;panel.innerHTML='';
+  getLnk(s).forEach((l,i)=>{
+    const row=document.createElement('div');row.className='link-item';
+    row.innerHTML=`<div class="link-emoji">${l.e||'🔗'}</div><div class="link-info"><div class="link-name">${l.n}</div><div class="link-url">${l.u}</div></div><a class="link-open" href="${l.u}" target="_blank" rel="noopener">Aç ↗</a><button class="link-del" onclick="delLnk('${s}',${i})">×</button>`;
+    panel.appendChild(row);
+  });
+}
+function showLF(s){document.getElementById('lf-'+s).classList.add('show');document.getElementById('lf-'+s+'-n').focus();}
+function hideLF(s){document.getElementById('lf-'+s).classList.remove('show');['e','n','u'].forEach(f=>{const el=document.getElementById('lf-'+s+'-'+f);if(el)el.value='';});}
+function saveLink(s){
+  const n=document.getElementById('lf-'+s+'-n').value.trim();
+  const u=document.getElementById('lf-'+s+'-u').value.trim();
+  const e=document.getElementById('lf-'+s+'-e').value.trim()||'🔗';
+  if(!n||!u)return;
+  const lnks=getLnk(s);lnks.push({n,u:u.startsWith('http')?u:'https://'+u,e});
+  setLnk(s,lnks);hideLF(s);renderLinks(s);
+}
+window.delLnk=function(s,i){const lnks=getLnk(s);lnks.splice(i,1);setLnk(s,lnks);renderLinks(s);};
+setTimeout(()=>{
+  ['1','20','21','3','40','41','5'].forEach(s=>{
+    const el=document.getElementById('lf-'+s+'-u');
+    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')saveLink(s);if(e.key==='Escape')hideLF(s);});
+  });
+},300);
+
+// ── INIT ──────────────────────────────────────────────────────
+buildWeek();
+['cl-robot','cl-content','cl-subs','cl-app','cl-robotig','cl-ads-ig','cl-ads-app','cl-vps'].forEach(makeChecklist);
+['1','20','21','3','40','41','5'].forEach(renderLinks);
+</script>
+</body>
+</html>
