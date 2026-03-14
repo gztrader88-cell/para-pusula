@@ -211,6 +211,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .link-card{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;position:relative;text-decoration:none;display:block;}
 .link-card:hover{border-color:var(--lc,var(--brd2));transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3);}
 .lc-emoji{font-size:1.6rem;margin-bottom:8px;}
+.lc-favicon{width:40px;height:40px;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center;}
+.lc-favicon img{width:40px;height:40px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.08);padding:4px;}
+.lc-favicon-fallback{font-size:1.6rem;display:none;}
+.lc-favicon img:not([src])+.lc-favicon-fallback,.lc-favicon img[src=""]+.lc-favicon-fallback{display:block;}
 .lc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);line-height:1.3;word-break:break-word;}
 .lc-url{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .lc-del{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px;}
@@ -714,10 +718,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="modal-overlay" id="shortcutModal">
   <div class="modal" onclick="event.stopPropagation()" style="width:360px;">
     <div class="modal-title">⚡ Kısa Yol Ekle</div>
-    <div class="modal-field">
-      <label class="modal-label">İkon (emoji)</label>
-      <input class="modal-inp" id="sc-icon" placeholder="😀" maxlength="4" style="width:80px;">
-    </div>
+
     <div class="modal-field">
       <label class="modal-label">Ad</label>
       <input class="modal-inp" id="sc-name" placeholder="WhatsApp">
@@ -798,9 +799,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="modal-overlay" id="linkModal">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-title">🔗 Yeni Link Ekle</div>
-    <div style="display:flex;gap:10px;margin-bottom:14px;">
-      <div><label class="modal-label">Emoji</label><input class="modal-inp" id="ml-emoji" placeholder="🔗" maxlength="4" style="width:70px"></div>
-      <div style="flex:1"><label class="modal-label">Link Adı</label><input class="modal-inp" id="ml-name" placeholder="Müşteri Paneli"></div>
+    <div class="modal-field">
+      <label class="modal-label">Link Adı</label>
+      <input class="modal-inp" id="ml-name" placeholder="Müşteri Paneli">
     </div>
     <div class="modal-field"><label class="modal-label">URL</label><input class="modal-inp" id="ml-url" placeholder="https://..."></div>
     <div class="modal-field">
@@ -1398,17 +1399,17 @@ function setLinks(sec,v){sv('lnk9_'+String(sec),v);}
 function openLinkModal(){document.getElementById('linkModal').classList.add('open');}
 function closeLinkModal(){
   document.getElementById('linkModal').classList.remove('open');
-  ['ml-emoji','ml-name','ml-url'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['ml-name','ml-url'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
 }
 document.getElementById('linkModal').addEventListener('click',function(e){if(e.target===this)closeLinkModal();});
 function saveModalLink(){
   const name=document.getElementById('ml-name').value.trim();
   const url=document.getElementById('ml-url').value.trim();
-  const emoji=document.getElementById('ml-emoji').value.trim()||'🔗';
   const sec=document.getElementById('ml-sec').value;
   if(!name||!url) return;
+  const fullUrl=url.startsWith('http')?url:'https://'+url;
   const links=getLinks(sec);
-  links.push({name,url:url.startsWith('http')?url:'https://'+url,emoji});
+  links.push({name,url:fullUrl});
   setLinks(sec,links); closeLinkModal(); renderLinksHub(); renderAllSectionLinks();
 }
 window.delLink=function(sec,i,e){
@@ -1439,7 +1440,9 @@ function renderLinksHub(){
       card.dataset.sec=sec; card.dataset.idx=i;
       card.style.setProperty('--lc',meta.color);
       if(sec==='anasayfa') card.style.border=`1px solid rgba(240,180,41,.25)`;
-      card.innerHTML=`<div class="lc-emoji">${l.emoji||'🔗'}</div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
+      const domain1=new URL(l.url).hostname;
+      const fav1=`https://www.google.com/s2/favicons?domain=${domain1}&sz=64`;
+      card.innerHTML=`<div class="lc-favicon"><img src="${fav1}" alt="" onerror="this.style.display='none'"><div class="lc-favicon-fallback">🔗</div></div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
       addLinkDragEvents(card, sec);
       grid.appendChild(card);
     });
@@ -1503,7 +1506,9 @@ function renderShortcuts(){
     btn.href=s.url; btn.target='_blank'; btn.rel='noopener';
     btn.title=s.name;
     btn.style.cssText='display:inline-flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text2);font-size:.75rem;padding:5px 9px;cursor:pointer;transition:all .15s;text-decoration:none;position:relative;';
-    btn.innerHTML=`<span>${s.icon||'🔗'}</span><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`;
+    let domain3=''; try{domain3=new URL(s.url).hostname;}catch(e){}
+    const fav3=domain3?`https://www.google.com/s2/favicons?domain=${domain3}&sz=32`:'';
+    btn.innerHTML=fav3?`<img src="${fav3}" style="width:16px;height:16px;border-radius:3px;object-fit:contain;" alt=""><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`:`<span>🔗</span><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`;
     btn.onmouseover=()=>{btn.style.borderColor='var(--accent)';btn.style.color='var(--text)';delBtn.style.opacity='1';};
     btn.onmouseout=()=>{btn.style.borderColor='var(--brd)';btn.style.color='var(--text2)';delBtn.style.opacity='0';};
     // Delete button
@@ -1526,12 +1531,12 @@ function closeShortcutModal(){
 }
 document.getElementById('shortcutModal').addEventListener('click',function(e){if(e.target===this)closeShortcutModal();});
 function saveShortcut(){
-  const icon=document.getElementById('sc-icon').value.trim()||'🔗';
   const name=document.getElementById('sc-name').value.trim();
   const url=document.getElementById('sc-url').value.trim();
   if(!name||!url) return;
   const sc=getShortcuts();
-  sc.push({icon,name,url:url.startsWith('http')?url:'https://'+url});
+  const fullUrl=url.startsWith('http')?url:'https://'+url;
+  sc.push({name,url:fullUrl});
   setShortcuts(sc); closeShortcutModal(); renderShortcuts();
 }
 document.getElementById('sc-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveShortcut();if(e.key==='Escape')closeShortcutModal();});
