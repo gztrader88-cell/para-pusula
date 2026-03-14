@@ -841,6 +841,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <input class="modal-inp" id="le-icon-url" placeholder="veya ikon URL'si (https://...)">
       <button onclick="resetLinkIcon()" style="background:none;border:1px solid var(--brd);border-radius:6px;color:var(--muted);font-size:.72rem;padding:5px 10px;cursor:pointer;margin-top:6px;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--brd)';this.style.color='var(--muted)'">Sıfırla (otomatik favicon)</button>
     </div>
+    <div class="modal-field">
+      <label class="modal-label">Maliyet (opsiyonel)</label>
+      <div style="display:flex;gap:8px;">
+        <input class="modal-inp" id="le-cost" placeholder="0" type="number" style="flex:1">
+        <select class="modal-select" id="le-cost-cur" style="flex:0 0 80px">
+          <option value="TL">₺ TL</option>
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+        </select>
+      </div>
+    </div>
     <div class="modal-btns">
       <button class="modal-save" onclick="saveLinkEdit()">Kaydet</button>
       <button class="modal-cancel" onclick="closeLinkEdit()">İptal</button>
@@ -1223,10 +1234,19 @@ function setFin(key,v){sv('fin9_'+key,v);}
 
 function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
+function getLinkCosts(key){
+  // Hangi sec ID'si bu key'e karşılık geliyor?
+  const keyToSec={'robot':'1','icerik':'2','acik':'2a','ucretli':'2b','app':'3','ads':'4','igads':'4a','appads':'4b','vps':'5','haberler':'haberler'};
+  const sec=keyToSec[key]; if(!sec) return [];
+  return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
+}
+
 function renderFinance(key){
   const wrap=document.getElementById('fin-'+key); if(!wrap) return;
   const data=getFin(key);
-  const totalExpTL = data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+  const linkCosts=getLinkCosts(key);
+  const allExpenses=[...data.expenses,...linkCosts];
+  const totalExpTL = allExpenses.reduce((s,i)=>s+itemToTL(i),0);
   const totalIncTL = data.incomes.reduce((s,i)=>s+itemToTL(i),0);
   const net = totalIncTL - totalExpTL;
 
@@ -1295,6 +1315,14 @@ function renderFinance(key){
     const div=document.createElement('div'); div.className='fin-item';
     const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
     div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('exp','${key}',${i})">×</button>`;
+    expWrap.appendChild(div);
+  });
+  // Link maliyetleri (otomatik)
+  linkCosts.forEach((item)=>{
+    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+    const div=document.createElement('div'); div.className='fin-item';
+    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
+    div.innerHTML=`<span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(tlVal)}</span>`;
     expWrap.appendChild(div);
   });
   // Income items
@@ -1388,7 +1416,7 @@ function renderMuhasebePage(){
   Object.entries(SEC_META).forEach(([sec,meta])=>{
     const key=keyMap[sec]; if(!key) return;
     const data=getFin(key);
-    const totalExpTL=data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+    const linkCosts2=getLinkCosts(key); const allExp=[...data.expenses,...linkCosts2]; const totalExpTL=allExp.reduce((s,i)=>s+itemToTL(i),0);
     const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
     if(totalExpTL===0&&totalIncTL===0) return;
     grandExpTL+=totalExpTL; grandIncTL+=totalIncTL;
@@ -1868,6 +1896,16 @@ window.openLinkEdit=function(sec,i,e){
   document.getElementById('le-icon-section').style.display='none';
   document.getElementById('le-icon-file').value='';
   document.getElementById('le-icon-url').value='';
+  // Maliyet
+  const cost1=document.getElementById('le-cost');
+  const costCur1=document.getElementById('le-cost-cur');
+  if(cost1) cost1.value=links[i].cost||'';
+  if(costCur1) costCur1.value=links[i].costCur||'TL';
+  // Maliyet
+  const cost2=document.getElementById('le-cost');
+  const costCur2=document.getElementById('le-cost-cur');
+  if(cost2) cost2.value=links[linkEditIdx]?links[linkEditIdx].cost||'':'';
+  if(costCur2) costCur2.value=links[linkEditIdx]?links[linkEditIdx].costCur||'TL':'TL';
   document.getElementById('linkEditModal').classList.add('open');
   document.getElementById('le-name').focus();
 };
@@ -1892,12 +1930,19 @@ window.openLinkEditWithIcon=function(sec,i,e){
     const fav=dom?`https://www.google.com/s2/favicons?domain=${dom}&sz=64`:'';
     preview.innerHTML=fav?`<img src="${fav}" style="width:36px;height:36px;border-radius:6px;object-fit:contain;">`:'📰';
   }
+  // Maliyet
+  const cost2=document.getElementById('le-cost');
+  const costCur2=document.getElementById('le-cost-cur');
+  if(cost2) cost2.value=links[linkEditIdx]?links[linkEditIdx].cost||'':'';
+  if(costCur2) costCur2.value=links[linkEditIdx]?links[linkEditIdx].costCur||'TL':'TL';
   document.getElementById('linkEditModal').classList.add('open');
   document.getElementById('le-name').focus();
 };
 function closeLinkEdit(){
   document.getElementById('linkEditModal').classList.remove('open');
   linkEditSec=null; linkEditIdx=-1;
+  const c=document.getElementById('le-cost'); if(c) c.value='';
+  const cc=document.getElementById('le-cost-cur'); if(cc) cc.value='TL';
 }
 function saveLinkEdit(){
   const name=document.getElementById('le-name').value.trim();
@@ -1907,6 +1952,15 @@ function saveLinkEdit(){
   if(!links[linkEditIdx]) return;
   links[linkEditIdx].name=name;
   links[linkEditIdx].url=url.startsWith('http')?url:'https://'+url;
+  // Maliyet
+  const costVal=parseFloat(document.getElementById('le-cost').value);
+  if(!isNaN(costVal)&&costVal>0){
+    links[linkEditIdx].cost=costVal;
+    links[linkEditIdx].costCur=document.getElementById('le-cost-cur').value;
+  } else {
+    delete links[linkEditIdx].cost;
+    delete links[linkEditIdx].costCur;
+  }
   // İkon güncelle (sadece ikon bölümü gösteriliyorsa)
   const iconSec=document.getElementById('le-icon-section');
   if(iconSec && iconSec.style.display!=='none'){
