@@ -1247,19 +1247,22 @@ function addTask(d){
 }
 function changeWeek(dir){if(dir===0)weekOffset=0;else weekOffset+=dir;sv('weekOffset9',weekOffset);buildWeek();}
 function buildWeek(){
-  const now=new Date(); const base=new Date(now); base.setDate(now.getDate()+weekOffset*7);
-  const td=base.getDay(); const mon=new Date(base); mon.setDate(base.getDate()+(td===0?-6:1-td));
-  const sun=new Date(mon); sun.setDate(mon.getDate()+6);
-  document.getElementById('weekLabel').textContent=`${mon.getDate()} ${MONTHS[mon.getMonth()]} — ${sun.getDate()} ${MONTHS[sun.getMonth()]} ${sun.getFullYear()}`;
+  const now=new Date();
+  // Dünden başla: bugün 2. sıraya gelsin
+  const startDate=new Date(now);
+  startDate.setDate(now.getDate()-1+weekOffset*7);
+  const endDate=new Date(startDate); endDate.setDate(startDate.getDate()+6);
+  document.getElementById('weekLabel').textContent=`${startDate.getDate()} ${MONTHS[startDate.getMonth()]} — ${endDate.getDate()} ${MONTHS[endDate.getMonth()]} ${endDate.getFullYear()}`;
   const grid=document.getElementById('weekGrid'); grid.innerHTML='';
-  [1,2,3,4,5,6,0].forEach(dow=>{
-    const dd=new Date(mon); dd.setDate(mon.getDate()+(dow===0?6:dow-1));
+  for(let offset=0; offset<7; offset++){
+    const dd=new Date(startDate); dd.setDate(startDate.getDate()+offset);
+    const dow=dd.getDay();
     const isT=weekOffset===0&&dd.toDateString()===now.toDateString();
     const col=document.createElement('div'); col.className='day-col'+(isT?' today':'');
     col.innerHTML=`<div class="day-hdr"><div class="day-nm">${DSHORT[dow]}</div><div class="day-num">${dd.getDate()}</div></div><div class="day-tasks" id="dt-${dow}"></div><div class="add-task-row" id="atr-${dow}" onclick="showAdd(${dow})">+ görev</div><div class="add-task-input" id="ati-${dow}"><input type="text" placeholder="Görev..."/><input type="time" id="at-${dow}" style="background:var(--surf2);border:1px solid var(--brd2);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:.72rem;padding:5px 6px;outline:none;flex:0 0 80px;"/><select id="ac-${dow}">${COPTS}</select><button class="ib" onclick="addTask(${dow})">✓</button><button class="cb" onclick="hideAdd(${dow})">✕</button></div>`;
     grid.appendChild(col); renderDay(dow);
     document.getElementById('ati-'+dow).querySelector('input').addEventListener('keydown',e=>{if(e.key==='Enter')addTask(dow);if(e.key==='Escape')hideAdd(dow);});
-  });
+  }
 }
 
 // CHECKLIST
