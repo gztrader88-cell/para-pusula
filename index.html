@@ -279,6 +279,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .kasa-empty{color:var(--muted);font-size:.78rem;font-family:'DM Mono',monospace;text-align:center;padding:20px 0;}
 .kasa-lock-out-btn{margin-top:20px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--muted);font-size:.72rem;padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .kasa-lock-out-btn:hover{border-color:var(--red);color:var(--red);}
+
+.link-card.dragging{opacity:.4;transform:scale(.97);}
+.link-card.drag-over{border-color:var(--accent)!important;transform:scale(1.03);}
+.links-grid{position:relative;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px;}
 </style>
@@ -287,7 +291,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <div class="topbar">
   <div class="logo" onclick="goHome()">Parada <span>Pusula</span></div>
-  <div style="display:flex;align-items:center;gap:14px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div id="topbarShortcuts" style="display:flex;align-items:center;gap:6px;"></div>
+    <button onclick="openShortcutModal()" title="Kısa yol ekle" style="background:none;border:1px dashed var(--brd2);border-radius:8px;color:var(--muted);font-size:.75rem;padding:5px 9px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)'">＋</button>
     <button onclick="openKasa()" title="Kasa" style="background:none;border:1px solid rgba(251,191,36,.25);border-radius:8px;color:var(--gold);font-size:.85rem;padding:5px 10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;" onmouseover="this.style.background='rgba(251,191,36,.1)'" onmouseout="this.style.background='none'">🔐 <span style="font-size:.72rem;font-weight:600;">Kasa</span></button>
     <div style="text-align:right;">
       <div class="clock" id="clock">--:--:--</div>
@@ -702,6 +708,30 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 </div><!-- /content -->
 
+
+
+<!-- SHORTCUT MODAL -->
+<div class="modal-overlay" id="shortcutModal">
+  <div class="modal" onclick="event.stopPropagation()" style="width:360px;">
+    <div class="modal-title">⚡ Kısa Yol Ekle</div>
+    <div class="modal-field">
+      <label class="modal-label">İkon (emoji)</label>
+      <input class="modal-inp" id="sc-icon" placeholder="😀" maxlength="4" style="width:80px;">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Ad</label>
+      <input class="modal-inp" id="sc-name" placeholder="WhatsApp">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">URL</label>
+      <input class="modal-inp" id="sc-url" placeholder="https://...">
+    </div>
+    <div class="modal-btns">
+      <button class="modal-save" onclick="saveShortcut()">Kaydet</button>
+      <button class="modal-cancel" onclick="closeShortcutModal()">İptal</button>
+    </div>
+  </div>
+</div>
 
 <!-- KASA OVERLAY -->
 <div class="kasa-overlay" id="kasaOverlay">
@@ -1405,9 +1435,12 @@ function renderLinksHub(){
     links.forEach((l,i)=>{
       const card=document.createElement('a'); card.className='link-card';
       card.href=l.url; card.target='_blank'; card.rel='noopener';
+      card.draggable=true;
+      card.dataset.sec=sec; card.dataset.idx=i;
       card.style.setProperty('--lc',meta.color);
       if(sec==='anasayfa') card.style.border=`1px solid rgba(240,180,41,.25)`;
       card.innerHTML=`<div class="lc-emoji">${l.emoji||'🔗'}</div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
+      addLinkDragEvents(card, sec);
       grid.appendChild(card);
     });
   });
@@ -1455,6 +1488,53 @@ async function loadRobotStats(){
 
 document.getElementById('ml-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveModalLink();if(e.key==='Escape')closeLinkModal();});
 
+
+
+// TOPBAR SHORTCUTS
+function getShortcuts(){return ld('shortcuts9',[]);}
+function setShortcuts(v){sv('shortcuts9',v);}
+
+function renderShortcuts(){
+  const wrap=document.getElementById('topbarShortcuts'); if(!wrap) return;
+  const shortcuts=getShortcuts();
+  wrap.innerHTML='';
+  shortcuts.forEach((s,i)=>{
+    const btn=document.createElement('a');
+    btn.href=s.url; btn.target='_blank'; btn.rel='noopener';
+    btn.title=s.name;
+    btn.style.cssText='display:inline-flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text2);font-size:.75rem;padding:5px 9px;cursor:pointer;transition:all .15s;text-decoration:none;position:relative;';
+    btn.innerHTML=`<span>${s.icon||'🔗'}</span><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`;
+    btn.onmouseover=()=>{btn.style.borderColor='var(--accent)';btn.style.color='var(--text)';delBtn.style.opacity='1';};
+    btn.onmouseout=()=>{btn.style.borderColor='var(--brd)';btn.style.color='var(--text2)';delBtn.style.opacity='0';};
+    // Delete button
+    const delBtn=document.createElement('button');
+    delBtn.innerHTML='×';
+    delBtn.style.cssText='position:absolute;top:-5px;right:-5px;width:14px;height:14px;border-radius:50%;background:var(--red);border:none;color:white;font-size:.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;';
+    delBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();const sc=getShortcuts();sc.splice(i,1);setShortcuts(sc);renderShortcuts();};
+    btn.appendChild(delBtn);
+    wrap.appendChild(btn);
+  });
+}
+
+function openShortcutModal(){
+  document.getElementById('shortcutModal').classList.add('open');
+  document.getElementById('sc-name').focus();
+}
+function closeShortcutModal(){
+  document.getElementById('shortcutModal').classList.remove('open');
+  ['sc-icon','sc-name','sc-url'].forEach(id=>document.getElementById(id).value='');
+}
+document.getElementById('shortcutModal').addEventListener('click',function(e){if(e.target===this)closeShortcutModal();});
+function saveShortcut(){
+  const icon=document.getElementById('sc-icon').value.trim()||'🔗';
+  const name=document.getElementById('sc-name').value.trim();
+  const url=document.getElementById('sc-url').value.trim();
+  if(!name||!url) return;
+  const sc=getShortcuts();
+  sc.push({icon,name,url:url.startsWith('http')?url:'https://'+url});
+  setShortcuts(sc); closeShortcutModal(); renderShortcuts();
+}
+document.getElementById('sc-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveShortcut();if(e.key==='Escape')closeShortcutModal();});
 
 // KASA
 const KASA_HASH = '9dc6abc967dad3e2d115d25bdcb5b998f06ebda87c5f784800698d7cc1b2273d';
@@ -1623,6 +1703,34 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') kasaClose();
 });
 
+
+// LINK DRAG & DROP
+let dragSec=null, dragIdx=-1;
+function addLinkDragEvents(card, sec){
+  card.addEventListener('dragstart',e=>{
+    dragSec=sec; dragIdx=parseInt(card.dataset.idx);
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+  });
+  card.addEventListener('dragend',()=>card.classList.remove('dragging'));
+  card.addEventListener('dragover',e=>{
+    e.preventDefault(); e.dataTransfer.dropEffect='move';
+    card.classList.add('drag-over');
+  });
+  card.addEventListener('dragleave',()=>card.classList.remove('drag-over'));
+  card.addEventListener('drop',e=>{
+    e.preventDefault(); card.classList.remove('drag-over');
+    const targetIdx=parseInt(card.dataset.idx);
+    if(dragSec!==sec||dragIdx===targetIdx||dragIdx<0) return;
+    const links=getLinks(sec);
+    const moved=links.splice(dragIdx,1)[0];
+    links.splice(targetIdx,0,moved);
+    setLinks(sec,links);
+    renderLinksHub(); renderAllSectionLinks();
+    dragIdx=-1; dragSec=null;
+  });
+}
+
 // INIT
 buildWeek();
 CL_KEYS.forEach(makeChecklist);
@@ -1632,6 +1740,7 @@ renderAllSectionLinks();
 renderStarred();
 loadRobotStats();
 loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); });
+renderShortcuts();
 </script>
 </body>
 </html>
