@@ -722,7 +722,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
         <span>👤 Kişisel Giderler</span>
       </div>
-      <div class="finance-section" id="fin-kisisel-display"></div>
+      <div id="fin-kisisel-wrap"></div>
     </div>
   </div>
 </div>
@@ -926,9 +926,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
 </div>
 
-<!-- KİŞİSEL GİDER - HER ZAMAN DOM'DA -->
-<div id="fin-kisisel" style="display:none;"></div>
-
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lb-close">×</button>
@@ -955,7 +952,7 @@ const SEC_META={
 };
 const NOTE_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
 const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler'];
-const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler','kisisel'];
+const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
 
 function ld(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch{return d;}}
 function sv(k,v){localStorage.setItem(k,JSON.stringify(v));}
@@ -1361,11 +1358,7 @@ function renderFinance(key){
       incWrap.appendChild(div);
     });
   }
-  // Kisisel için display div'ini de güncelle
-  if(key==='kisisel'){
-    const dispWrap=document.getElementById('fin-kisisel-display');
-    if(dispWrap && wrap) dispWrap.innerHTML=wrap.innerHTML;
-  }
+
 }
 
 window.showFinForm=function(type,key){document.getElementById('faf-'+type+'-'+key).classList.add('show');document.getElementById('fi-'+type+'-name-'+key).focus();};
@@ -1382,12 +1375,12 @@ window.saveFin=function(type,key){
   if(!name||isNaN(amount)) return;
   const data=getFin(key);
   if(type==='exp') data.expenses.push({name,amount,currency}); else data.incomes.push({name,amount,currency});
-  setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance(); if(typeof renderMuhasebePage==="function") renderMuhasebePage();
+  setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance(); renderMuhasebePage();
 };
 window.delFin=function(type,key,i){
   const data=getFin(key);
   if(type==='exp') data.expenses.splice(i,1); else data.incomes.splice(i,1);
-  setFin(key,data); renderFinance(key); renderHomeFinance(); if(typeof renderMuhasebePage==="function") renderMuhasebePage();
+  setFin(key,data); renderFinance(key); renderHomeFinance(); renderMuhasebePage();
 };
 
 function renderHomeFinance(){
@@ -1529,6 +1522,7 @@ function renderMuhasebePage(){
   }
 
   wrap.innerHTML=html;
+  renderKisisel();
 }
 
 // LINKS
@@ -2123,6 +2117,65 @@ function addLinkDragEvents(card, sec){
   });
 }
 
+
+// KİŞİSEL GİDERLER
+function renderKisisel(){
+  const wrap=document.getElementById('fin-kisisel-wrap'); if(!wrap) return;
+  const data=getFin('kisisel');
+  const exp=data.expenses;
+  const totalTL=exp.reduce((s,i)=>s+itemToTL(i),0);
+  let html='';
+  if(exp.length===0){
+    html='<div style="color:var(--muted);font-size:.78rem;font-family:'DM Mono',monospace;padding:8px 0;">Henüz gider yok.</div>';
+  } else {
+    exp.forEach((item,i)=>{
+      const cur=item.currency||'TL';
+      const tlVal=itemToTL(item);
+      const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
+      html+=`<div class="fin-item">${item.name}${origStr}<span class="fin-amount expense" style="margin-left:auto;">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delKisisel(${i})">×</button></div>`;
+    });
+    html+=`<div class="fin-total" style="margin-top:8px;"><span>Toplam</span><span class="fin-total-val" style="color:var(--red);">-${fmtTL(totalTL)}</span></div>`;
+  }
+  // Gider ekle formu
+  html+=`<button class="fin-add-btn" onclick="document.getElementById('kisisel-form').style.display='flex'">＋ Gider ekle</button>
+  <div id="kisisel-form" class="fin-add-form" style="display:none;">
+    <div class="fin-inp-row"><input class="fin-inp" id="ki-name" placeholder="Berber, Spor, Kira..."></div>
+    <div class="fin-inp-row">
+      <input class="fin-inp" id="ki-amount" placeholder="Tutar" type="number" style="flex:1">
+      <select class="fin-inp" id="ki-cur" style="flex:0 0 70px">
+        <option value="TL">₺ TL</option>
+        <option value="USD">$ USD</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+    </div>
+    <div class="fin-inp-row">
+      <button class="fin-save" onclick="saveKisisel()">Kaydet</button>
+      <button class="fin-cancel" onclick="document.getElementById('kisisel-form').style.display='none'">İptal</button>
+    </div>
+  </div>`;
+  wrap.innerHTML=html;
+}
+
+function saveKisisel(){
+  const name=document.getElementById('ki-name').value.trim();
+  const amount=parseFloat(document.getElementById('ki-amount').value);
+  const currency=document.getElementById('ki-cur').value;
+  if(!name||isNaN(amount)||amount<=0) return;
+  const data=getFin('kisisel');
+  data.expenses.push({name,amount,currency});
+  setFin('kisisel',data);
+  renderKisisel();
+  renderHomeFinance();
+}
+
+window.delKisisel=function(i){
+  const data=getFin('kisisel');
+  data.expenses.splice(i,1);
+  setFin('kisisel',data);
+  renderKisisel();
+  renderHomeFinance();
+};
+
 // INIT
 buildWeek();
 CL_KEYS.forEach(makeChecklist);
@@ -2130,7 +2183,7 @@ NOTE_KEYS.forEach(renderNoteImgs);
 renderAllSectionLinks();
 renderStarred();
 loadRobotStats();
-loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); });
+loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); renderKisisel(); });
 renderShortcuts();
 </script>
 </body>
