@@ -1498,12 +1498,12 @@ function saveModalLink(){
   const fullUrl=url.startsWith('http')?url:'https://'+url;
   const links=getLinks(sec);
   links.push({name,url:fullUrl});
-  setLinks(sec,links); closeLinkModal(); renderLinksHub(); renderAllSectionLinks();
+  setLinks(sec,links); closeLinkModal(); renderAllSectionLinks();
 }
 window.delLink=function(sec,i,e){
   if(e) e.stopPropagation();
   const links=getLinks(sec); links.splice(i,1); setLinks(sec,links);
-  renderLinksHub(); renderAllSectionLinks();
+  renderAllSectionLinks();
 };
 function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
@@ -1558,7 +1558,59 @@ function renderSectionLinks(sec){
   });
   el.appendChild(grid);
 }
-function renderAllSectionLinks(){['1','2','2a','2b','3','4','4a','4b','5','haberler'].forEach(renderSectionLinks);}
+function renderAllSectionLinks(){
+  ['1','2','2a','2b','3','4','4a','4b','5'].forEach(renderSectionLinks);
+  renderHaberlerGrid();
+}
+function renderHaberlerGrid(){
+  const wrap=document.getElementById('haberler-grid'); if(!wrap) return;
+  const links=getLinks('haberler');
+  wrap.innerHTML='';
+  if(links.length===0){
+    wrap.innerHTML='<div style="color:var(--muted);font-size:.82rem;font-family:\'DM Mono\',monospace;padding:20px 0;grid-column:1/-1;">Henüz haber sitesi eklenmedi. "+ Site Ekle" butonuna tıkla.</div>';
+    return;
+  }
+  links.forEach((l,i)=>{
+    const card=document.createElement('a');
+    card.href=l.url; card.target='_blank'; card.rel='noopener';
+    card.draggable=true;
+    card.dataset.sec='haberler'; card.dataset.idx=String(i);
+    card.setAttribute('data-tooltip',l.name);
+    card.style.cssText='background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:20px 14px;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;transition:all .2s;position:relative;overflow:visible;';
+    card.onmouseover=()=>{card.style.borderColor='#06b6d4';card.style.transform='translateY(-3px)';card.style.boxShadow='0 8px 24px rgba(0,0,0,.35)';delBtn.style.opacity='1';editBtn.style.opacity='1';};
+    card.onmouseout=()=>{card.style.borderColor='var(--brd)';card.style.transform='';card.style.boxShadow='';delBtn.style.opacity='0';editBtn.style.opacity='0';};
+    let dom=''; try{dom=new URL(l.url).hostname;}catch(e){}
+    const fav=l.customIcon||(dom?`https://www.google.com/s2/favicons?domain=${dom}&sz=128`:'');
+    // Favicon
+    const favWrap=document.createElement('div');
+    favWrap.style.cssText='width:52px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;';
+    favWrap.title='İkonu değiştir';
+    favWrap.onclick=(e)=>{e.preventDefault();e.stopPropagation();openIconPicker('haberler',i,e);};
+    const img=document.createElement('img');
+    img.src=fav; img.style.cssText='width:52px;height:52px;border-radius:12px;object-fit:contain;background:rgba(255,255,255,.08);padding:6px;';
+    img.onerror=()=>{img.style.display='none';fallback.style.display='flex';};
+    const fallback=document.createElement('div');
+    fallback.style.cssText='display:none;width:52px;height:52px;border-radius:12px;background:rgba(6,182,212,.15);align-items:center;justify-content:center;font-size:1.8rem;';
+    fallback.textContent='📰';
+    favWrap.appendChild(img); favWrap.appendChild(fallback);
+    // Name
+    const name=document.createElement('div');
+    name.style.cssText='font-family:\'Syne\',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);text-align:center;line-height:1.3;word-break:break-word;';
+    name.textContent=l.name;
+    // Buttons
+    const delBtn=document.createElement('button');
+    delBtn.innerHTML='×'; delBtn.title='Sil';
+    delBtn.style.cssText='position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--red);border:none;color:white;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;';
+    delBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();delLink('haberler',i,e);};
+    const editBtn=document.createElement('button');
+    editBtn.innerHTML='✎'; editBtn.title='Düzenle';
+    editBtn.style.cssText='position:absolute;top:-6px;left:-6px;width:18px;height:18px;border-radius:50%;background:var(--accent);border:none;color:#000;font-size:.6rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;';
+    editBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();openLinkEdit('haberler',i,e);};
+    card.appendChild(favWrap); card.appendChild(name); card.appendChild(delBtn); card.appendChild(editBtn);
+    addLinkDragEvents(card,'haberler');
+    wrap.appendChild(card);
+  });
+}
 
 // ROBOT STATS
 const ROBOT_API='https://authentic-passion-production-d90e.up.railway.app';
@@ -1839,7 +1891,7 @@ function saveLinkEdit(){
     // Reset favicon cache kalıbını temizle
     delete links[linkEditIdx].customIcon;
   }
-  setLinks(linkEditSec,links); closeLinkEdit(); renderLinksHub(); renderAllSectionLinks();
+  setLinks(linkEditSec,links); closeLinkEdit(); renderAllSectionLinks();
 }
 document.getElementById('linkEditModal').addEventListener('click',function(e){if(e.target===this)closeLinkEdit();});
 document.getElementById('le-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveLinkEdit();if(e.key==='Escape')closeLinkEdit();});
@@ -1890,12 +1942,12 @@ function saveIconPicker(){
     const reader=new FileReader();
     reader.onload=e=>{
       links[iconPickerIdx].customIcon=e.target.result;
-      setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+      setLinks(iconPickerSec,links); closeIconPicker(); renderAllSectionLinks();
     };
     reader.readAsDataURL(file);
   } else if(url){
     links[iconPickerIdx].customIcon=url;
-    setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+    setLinks(iconPickerSec,links); closeIconPicker(); renderAllSectionLinks();
   } else {
     closeIconPicker();
   }
@@ -1908,7 +1960,7 @@ function resetIcon(){
   }
   const links=getLinks(iconPickerSec);
   if(links[iconPickerIdx]) delete links[iconPickerIdx].customIcon;
-  setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+  setLinks(iconPickerSec,links); closeIconPicker(); renderAllSectionLinks();
 }
 document.getElementById('iconPickerModal').addEventListener('click',function(e){if(e.target===this)closeIconPicker();});
 
@@ -1934,7 +1986,7 @@ function addLinkDragEvents(card, sec){
     const moved=links.splice(dragIdx,1)[0];
     links.splice(targetIdx,0,moved);
     setLinks(sec,links);
-    renderLinksHub(); renderAllSectionLinks();
+    renderAllSectionLinks();
     dragIdx=-1; dragSec=null;
   });
 }
