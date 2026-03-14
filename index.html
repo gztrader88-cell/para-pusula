@@ -1252,11 +1252,48 @@ function renderFinance(key){
   const data=getFin(key);
   const linkCosts=getLinkCosts(key);
   const allExpenses=[...data.expenses,...linkCosts];
-  const totalExpTL = allExpenses.reduce((s,i)=>s+itemToTL(i),0);
-  const totalIncTL = data.incomes.reduce((s,i)=>s+itemToTL(i),0);
-  const net = totalIncTL - totalExpTL;
+  const totalExpTL=allExpenses.reduce((s,i)=>s+itemToTL(i),0);
+  const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
+  const net=totalIncTL-totalExpTL;
+  const onlyExpenses=(key==='haberler');
+  const kurInfo=`<span style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺</span>`;
 
-  const kurInfo = `<span style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺</span>`;
+  let incomeCol='';
+  if(!onlyExpenses){
+    incomeCol=`<div style="width:1px;background:var(--brd);margin:0 12px;"></div>
+      <div class="fin-col">
+        <div class="fin-title"><span style="color:var(--green)">📥</span> Gelirler</div>
+        <div id="fin-inc-${key}"></div>
+        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--green)">+${fmtTL(totalIncTL)}</span></div>
+        <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>
+        <div class="fin-add-form" id="faf-inc-${key}">
+          <div class="fin-inp-row"><input class="fin-inp" placeholder="İsim (Komisyon, Abonelik...)" id="fi-inc-name-${key}"></div>
+          <div class="fin-inp-row">
+            <input class="fin-inp" placeholder="Tutar" id="fi-inc-amt-${key}" type="number" style="flex:1">
+            <select class="fin-inp" id="fi-inc-cur-${key}" style="flex:0 0 70px">
+              <option value="TL">₺ TL</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+            </select>
+          </div>
+          <div class="fin-inp-row">
+            <button class="fin-save" onclick="saveFin('inc','${key}')">Kaydet</button>
+            <button class="fin-cancel" onclick="hideFinForm('inc','${key}')">İptal</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  let netRow='';
+  if(!onlyExpenses){
+    const netColor=net>=0?'var(--green)':'var(--red)';
+    const netBg=net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)';
+    const netBrd=net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)';
+    netRow=`<div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${netBg};border:1px solid ${netBrd};display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:.85rem;color:var(--text2);font-weight:600;">📊 Net</span>
+      <span style="font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:700;color:${netColor};">${net>=0?'+':''}${fmtTL(net)}</span>
+    </div>`;
+  }
 
   wrap.innerHTML=`
     <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">${kurInfo}</div>
@@ -1267,9 +1304,7 @@ function renderFinance(key){
         <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--red)">-${fmtTL(totalExpTL)}</span></div>
         <button class="fin-add-btn" onclick="showFinForm('exp','${key}')">＋ Gider ekle</button>
         <div class="fin-add-form" id="faf-exp-${key}">
-          <div class="fin-inp-row">
-            <input class="fin-inp" placeholder="İsim (TradingView, Adaptin...)" id="fi-exp-name-${key}">
-          </div>
+          <div class="fin-inp-row"><input class="fin-inp" placeholder="İsim (TradingView, Adaptin...)" id="fi-exp-name-${key}"></div>
           <div class="fin-inp-row">
             <input class="fin-inp" placeholder="Tutar" id="fi-exp-amt-${key}" type="number" style="flex:1">
             <select class="fin-inp" id="fi-exp-cur-${key}" style="flex:0 0 70px">
@@ -1284,62 +1319,37 @@ function renderFinance(key){
           </div>
         </div>
       </div>
-      ${onlyExpenses?'':(`<div style="width:1px;background:var(--brd);margin:0 12px;"></div>
-      <div class="fin-col">
-        <div class="fin-title"><span style="color:var(--green)">📥</span> Gelirler</div>
-        <div id="fin-inc-${key}"></div>
-        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--green)">+${fmtTL(totalIncTL)}</span></div>
-        <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>`)}
-        <div class="fin-add-form" id="faf-inc-${key}">
-          <div class="fin-inp-row">
-            <input class="fin-inp" placeholder="İsim (Komisyon, Abonelik...)" id="fi-inc-name-${key}">
-          </div>
-          <div class="fin-inp-row">
-            <input class="fin-inp" placeholder="Tutar" id="fi-inc-amt-${key}" type="number" style="flex:1">
-            <select class="fin-inp" id="fi-inc-cur-${key}" style="flex:0 0 70px">
-              <option value="TL">₺ TL</option>
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-            </select>
-          </div>
-          <div class="fin-inp-row">
-            <button class="fin-save" onclick="saveFin('inc','${key}')">Kaydet</button>
-            <button class="fin-cancel" onclick="hideFinForm('inc','${key}')">İptal</button>
-          </div>
-        </div>
-      </div>`)}
+      ${incomeCol}
     </div>
-    ${onlyExpenses?'':`<div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)'};border:1px solid ${net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)'};display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:.85rem;color:var(--text2);font-weight:600;">📊 Net</span>
-      <span style="font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${fmtTL(net)}</span>
-    </div>`}`;
+    ${netRow}`;
 
   // Expense items
   const expWrap=document.getElementById('fin-exp-'+key);
   data.expenses.forEach((item,i)=>{
     const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
     const div=document.createElement('div'); div.className='fin-item';
-    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
     div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('exp','${key}',${i})">×</button>`;
     expWrap.appendChild(div);
   });
-  // Link maliyetleri (otomatik)
   linkCosts.forEach((item)=>{
     const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
     const div=document.createElement('div'); div.className='fin-item';
-    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
     div.innerHTML=`<span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(tlVal)}</span>`;
     expWrap.appendChild(div);
   });
-  // Income items
-  const incWrap=document.getElementById('fin-inc-'+key);
-  data.incomes.forEach((item,i)=>{
-    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
-    const div=document.createElement('div'); div.className='fin-item';
-    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
-    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount income">+${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
-    incWrap.appendChild(div);
-  });
+
+  if(!onlyExpenses){
+    const incWrap=document.getElementById('fin-inc-'+key);
+    if(incWrap) data.incomes.forEach((item,i)=>{
+      const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+      const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
+      const div=document.createElement('div'); div.className='fin-item';
+      div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount income">+${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
+      incWrap.appendChild(div);
+    });
+  }
 }
 
 window.showFinForm=function(type,key){document.getElementById('faf-'+type+'-'+key).classList.add('show');document.getElementById('fi-'+type+'-name-'+key).focus();};
