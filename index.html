@@ -954,8 +954,59 @@ const NOTE_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads',
 const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler'];
 const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
 
-function ld(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch{return d;}}
-function sv(k,v){localStorage.setItem(k,JSON.stringify(v));}
+// DB API - localStorage + server sync
+const DB_CACHE = {};
+const DB_DIRTY = new Set();
+let DB_READY = false;
+
+async function dbLoad() {
+  try {
+    const r = await fetch('/api/data');
+    if(r.ok) {
+      const all = await r.json();
+      Object.assign(DB_CACHE, all);
+      // localStorage'a da yaz (offline fallback)
+      Object.entries(all).forEach(([k,v]) => {
+        try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
+      });
+    }
+  } catch(e) {
+    // Server'a ulaşamazsa localStorage'dan yükle
+    for(let i=0; i<localStorage.length; i++) {
+      const k = localStorage.key(i);
+      try { DB_CACHE[k] = JSON.parse(localStorage.getItem(k)); } catch(e) {}
+    }
+  }
+  DB_READY = true;
+}
+
+async function dbSave(k, v) {
+  DB_CACHE[k] = v;
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
+  try {
+    await fetch('/api/data/' + encodeURIComponent(k), {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({value: v})
+    });
+  } catch(e) { console.warn('DB save failed, using localStorage:', k); }
+}
+
+function ld(k, d) {
+  if(k in DB_CACHE) return DB_CACHE[k];
+  try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : d; } catch { return d; }
+}
+
+function sv(k, v) {
+  DB_CACHE[k] = v;
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
+  // Async server save
+  fetch('/api/data/' + encodeURIComponent(k), {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({value: v})
+  }).catch(e => console.warn('DB save failed:', k));
+}
 
 // CLOCK
 function tick(){
@@ -2201,14 +2252,17 @@ window.delKisisel=function(i){
 
 
 // INIT
-buildWeek();
+// Önce DB'den yükle, sonra render et
+dbLoad().then(() => {
+  buildWeek();
 CL_KEYS.forEach(makeChecklist);
 NOTE_KEYS.forEach(renderNoteImgs);
 renderAllSectionLinks();
 renderStarred();
 loadRobotStats();
-loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); renderKisisel(); });
-renderShortcuts();
+  loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); renderKisisel(); });
+  renderShortcuts();
+});
 </script>
 </body>
 </html>
