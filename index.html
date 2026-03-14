@@ -74,6 +74,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .stat-lbl-edit:hover{background:rgba(255,255,255,.05);}
 /* CHECKLIST */
 .cl-item{display:flex;align-items:center;gap:9px;font-size:.85rem;color:var(--text2);padding:9px 0;border-top:1px solid var(--brd);cursor:pointer;user-select:none;}
+.cl-drag-handle{color:var(--brd2);cursor:grab;font-size:1rem;padding:0 2px;flex-shrink:0;line-height:1;}
+.cl-drag-handle:hover{color:var(--muted);}
+.cl-drag-handle:active{cursor:grabbing;}
 .cl-item:hover{color:var(--text);}
 .cl-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--brd2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:transparent;flex-shrink:0;transition:all .15s;}
 .cl-item.done .cl-box{background:var(--green);border-color:var(--green);color:white;}
@@ -1206,7 +1209,7 @@ function renderDay(dow){
     if(d) c.style.opacity='0.55'; else c.style.opacity='1';
     const hasDetail = t.detail && t.detail.trim().length > 0;
     const detailDot = hasDetail ? '<span style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-left:4px;vertical-align:middle;flex-shrink:0;" title="Not var"></span>' : '';
-    const timeStr = t.time ? `<span style="font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;opacity:.8;margin-right:2px;">${t.time}</span>` : '';
+    const timeStr = t.time ? `<span style="font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;opacity:.8;margin-right:6px;">${t.time} —</span>` : '';
     c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel">${timeStr}${t.label}${detailDot}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
     const _wk=getWeekKey(), _dow=dow, _i=i, _day=DSHORT[dow];
     c.querySelector('.tlabel').addEventListener('click', function(e){
@@ -1282,7 +1285,30 @@ function makeChecklist(elId){
     its.forEach((it,i)=>{
       const starred=isClStarred(elId,i);
       const row=document.createElement('div'); row.className='cl-item'+(it.done?' done':'');
-      row.innerHTML=`<div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span><button class="cl-star${starred?' starred':''}" onclick="clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      row.draggable=true;
+      row.dataset.idx=String(i);
+      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div><div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span><button class="cl-star${starred?' starred':''}" onclick="clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      // Drag events
+      let clDragIdx=-1;
+      row.addEventListener('dragstart',e=>{clDragIdx=i;row.style.opacity='.4';e.dataTransfer.effectAllowed='move';});
+      row.addEventListener('dragend',()=>{row.style.opacity='1';clDragIdx=-1;});
+      row.addEventListener('dragover',e=>{e.preventDefault();row.style.borderTop='2px solid var(--accent)';});
+      row.addEventListener('dragleave',()=>{row.style.borderTop='';});
+      row.addEventListener('drop',e=>{
+        e.preventDefault(); row.style.borderTop='';
+        const fromIdx=parseInt(row.closest('.checklist').querySelector('[data-dragidx]')?.dataset.dragidx??clDragIdx);
+        // find dragging item
+        const allRows=[...row.closest('.checklist').querySelectorAll('.cl-item')];
+        const draggedRow=allRows.find(r=>r.style.opacity='.4'||parseFloat(r.style.opacity)<1);
+        if(!draggedRow) return;
+        const from=parseInt(draggedRow.dataset.idx);
+        const to=parseInt(row.dataset.idx);
+        if(from===to) return;
+        const its2=getIt();
+        const moved=its2.splice(from,1)[0];
+        its2.splice(to,0,moved);
+        setIt(its2); render(wrap);
+      });
       row.querySelector('.cl-txt').addEventListener('blur',function(){const its2=getIt();if(its2[i])its2[i].label=this.textContent.trim();setIt(its2);});
       row.addEventListener('click',e=>{if(e.target.classList.contains('cl-del')||e.target.classList.contains('cl-star')||e.target.getAttribute('contenteditable'))return;const its2=getIt();its2[i].done=!its2[i].done;setIt(its2);render(wrap);});
       wrap.appendChild(row);
