@@ -831,6 +831,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <label class="modal-label">URL</label>
       <input class="modal-inp" id="le-url" placeholder="https://...">
     </div>
+    <div class="modal-field" id="le-icon-section" style="display:none;">
+      <label class="modal-label">İkon (opsiyonel)</label>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <div id="le-icon-preview" style="width:40px;height:40px;border-radius:8px;background:var(--surf2);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;"></div>
+        <span style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;">Mevcut ikon</span>
+      </div>
+      <input type="file" id="le-icon-file" accept="image/png,image/jpeg,image/webp,image/gif" class="modal-inp" style="padding:8px;margin-bottom:6px;">
+      <input class="modal-inp" id="le-icon-url" placeholder="veya ikon URL'si (https://...)">
+      <button onclick="resetLinkIcon()" style="background:none;border:1px solid var(--brd);border-radius:6px;color:var(--muted);font-size:.72rem;padding:5px 10px;cursor:pointer;margin-top:6px;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--brd)';this.style.color='var(--muted)'">Sıfırla (otomatik favicon)</button>
+    </div>
     <div class="modal-btns">
       <button class="modal-save" onclick="saveLinkEdit()">Kaydet</button>
       <button class="modal-cancel" onclick="closeLinkEdit()">İptal</button>
@@ -1566,8 +1576,7 @@ function renderHaberlerGrid(){
     // Favicon
     const favWrap=document.createElement('div');
     favWrap.style.cssText='width:52px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;';
-    favWrap.title='İkonu değiştir';
-    favWrap.onclick=(e)=>{e.preventDefault();e.stopPropagation();openIconPicker('haberler',i,e);};
+    favWrap.title='';
     const img=document.createElement('img');
     img.src=fav; img.style.cssText='width:52px;height:52px;border-radius:12px;object-fit:contain;background:rgba(255,255,255,.08);padding:6px;';
     img.onerror=()=>{img.style.display='none';fallback.style.display='flex';};
@@ -1587,7 +1596,7 @@ function renderHaberlerGrid(){
     const editBtn=document.createElement('button');
     editBtn.innerHTML='✎'; editBtn.title='Düzenle';
     editBtn.style.cssText='position:absolute;top:-6px;left:-6px;width:18px;height:18px;border-radius:50%;background:var(--accent);border:none;color:#000;font-size:.6rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;';
-    editBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();openLinkEdit('haberler',i,e);};
+    editBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();openLinkEditWithIcon('haberler',i,e);};
     card.appendChild(favWrap); card.appendChild(name); card.appendChild(delBtn); card.appendChild(editBtn);
     addLinkDragEvents(card,'haberler');
     wrap.appendChild(card);
@@ -1855,6 +1864,34 @@ window.openLinkEdit=function(sec,i,e){
   linkEditSec=sec; linkEditIdx=i;
   document.getElementById('le-name').value=links[i].name||'';
   document.getElementById('le-url').value=links[i].url||'';
+  // İkon bölümünü gizle
+  document.getElementById('le-icon-section').style.display='none';
+  document.getElementById('le-icon-file').value='';
+  document.getElementById('le-icon-url').value='';
+  document.getElementById('linkEditModal').classList.add('open');
+  document.getElementById('le-name').focus();
+};
+
+window.openLinkEditWithIcon=function(sec,i,e){
+  e.preventDefault(); e.stopPropagation();
+  const links=getLinks(sec); if(!links[i]) return;
+  linkEditSec=sec; linkEditIdx=i;
+  document.getElementById('le-name').value=links[i].name||'';
+  document.getElementById('le-url').value=links[i].url||'';
+  // İkon bölümünü göster
+  const iconSec=document.getElementById('le-icon-section');
+  iconSec.style.display='block';
+  document.getElementById('le-icon-file').value='';
+  document.getElementById('le-icon-url').value='';
+  // Mevcut ikonu önizle
+  const preview=document.getElementById('le-icon-preview');
+  if(links[i].customIcon){
+    preview.innerHTML=`<img src="${links[i].customIcon}" style="width:36px;height:36px;border-radius:6px;object-fit:contain;">`;
+  } else {
+    let dom=''; try{dom=new URL(links[i].url).hostname;}catch(ex){}
+    const fav=dom?`https://www.google.com/s2/favicons?domain=${dom}&sz=64`:'';
+    preview.innerHTML=fav?`<img src="${fav}" style="width:36px;height:36px;border-radius:6px;object-fit:contain;">`:'📰';
+  }
   document.getElementById('linkEditModal').classList.add('open');
   document.getElementById('le-name').focus();
 };
@@ -1867,13 +1904,37 @@ function saveLinkEdit(){
   const url=document.getElementById('le-url').value.trim();
   if(!name||!url) return;
   const links=getLinks(linkEditSec);
-  if(links[linkEditIdx]){
-    links[linkEditIdx].name=name;
-    links[linkEditIdx].url=url.startsWith('http')?url:'https://'+url;
-    // Reset favicon cache kalıbını temizle
-    delete links[linkEditIdx].customIcon;
+  if(!links[linkEditIdx]) return;
+  links[linkEditIdx].name=name;
+  links[linkEditIdx].url=url.startsWith('http')?url:'https://'+url;
+  // İkon güncelle (sadece ikon bölümü gösteriliyorsa)
+  const iconSec=document.getElementById('le-icon-section');
+  if(iconSec && iconSec.style.display!=='none'){
+    const file=document.getElementById('le-icon-file').files[0];
+    const iconUrl=document.getElementById('le-icon-url').value.trim();
+    if(file){
+      const reader=new FileReader();
+      reader.onload=ev=>{links[linkEditIdx].customIcon=ev.target.result;setLinks(linkEditSec,links);closeLinkEdit();renderAllSectionLinks();};
+      reader.readAsDataURL(file); return;
+    } else if(iconUrl){
+      links[linkEditIdx].customIcon=iconUrl;
+    }
+    // Sıfırlanmadıysa mevcut customIcon kalır
   }
   setLinks(linkEditSec,links); closeLinkEdit(); renderAllSectionLinks();
+}
+
+function resetLinkIcon(){
+  const links=getLinks(linkEditSec);
+  if(links[linkEditIdx]) delete links[linkEditIdx].customIcon;
+  const preview=document.getElementById('le-icon-preview');
+  if(preview){
+    let dom=''; try{dom=new URL(links[linkEditIdx].url).hostname;}catch(ex){}
+    const fav=dom?`https://www.google.com/s2/favicons?domain=${dom}&sz=64`:'';
+    preview.innerHTML=fav?`<img src="${fav}" style="width:36px;height:36px;border-radius:6px;object-fit:contain;">`:'🔗';
+  }
+  document.getElementById('le-icon-file').value='';
+  document.getElementById('le-icon-url').value='';
 }
 document.getElementById('linkEditModal').addEventListener('click',function(e){if(e.target===this)closeLinkEdit();});
 document.getElementById('le-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveLinkEdit();if(e.key==='Escape')closeLinkEdit();});
