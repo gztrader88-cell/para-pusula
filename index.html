@@ -717,6 +717,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <!-- MUHASEBE SAYFASI -->
 <div class="section" id="sec-muhasebe">
   <div id="muhasebePageContent"></div>
+  <div style="margin-top:24px;max-width:600px;">
+    <div class="card" id="kisisel-fin-card">
+      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
+        <span>👤 Kişisel Giderler</span>
+      </div>
+      <div class="finance-section" id="fin-kisisel"></div>
+    </div>
+  </div>
 </div>
 
 <!-- HABERLER -->
@@ -944,7 +952,7 @@ const SEC_META={
 };
 const NOTE_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
 const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler'];
-const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
+const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler','kisisel'];
 
 function ld(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch{return d;}}
 function sv(k,v){localStorage.setItem(k,JSON.stringify(v));}
@@ -1242,7 +1250,7 @@ function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
 function getLinkCosts(key){
   // Hangi sec ID'si bu key'e karşılık geliyor?
-  const keyToSec={'robot':'1','icerik':'2','acik':'2a','ucretli':'2b','app':'3','ads':'4','igads':'4a','appads':'4b','vps':'5','haberler':'haberler'};
+  const keyToSec={'robot':'1','icerik':'2','acik':'2a','ucretli':'2b','app':'3','ads':'4','igads':'4a','appads':'4b','vps':'5','haberler':'haberler','kisisel':null};
   const sec=keyToSec[key]; if(!sec) return [];
   return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
 }
@@ -1255,7 +1263,7 @@ function renderFinance(key){
   const totalExpTL=allExpenses.reduce((s,i)=>s+itemToTL(i),0);
   const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
   const net=totalIncTL-totalExpTL;
-  const onlyExpenses=(key==='haberler');
+  const onlyExpenses=(key==='haberler'||key==='kisisel');
   const kurInfo=`<span style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺</span>`;
 
   let incomeCol='';
@@ -1376,7 +1384,7 @@ window.delFin=function(type,key,i){
 
 function renderHomeFinance(){
   const summary=document.getElementById('homeFinanceSummary'); if(!summary) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler'};
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler','kisisel':'kisisel'};
   let grandExpTL=0, grandIncTL=0;
   Object.entries(keyMap).forEach(([sec,key])=>{
     const data=getFin(key);
@@ -1418,7 +1426,7 @@ function renderHomeFinance(){
 
 function renderMuhasebePage(){
   const wrap=document.getElementById('muhasebePageContent'); if(!wrap) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler'};
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler','kisisel':'kisisel'};
   let grandExpTL=0, grandIncTL=0;
   let html=`
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--brd);">
