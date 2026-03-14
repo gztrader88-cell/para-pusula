@@ -1174,15 +1174,7 @@ function getWeekNum(d){
   const ys=new Date(Date.UTC(d2.getUTCFullYear(),0,1));
   return Math.ceil((((d2-ys)/86400000)+1)/7);
 }
-const DEF_WEEK={
-  1:[{label:'Herkese açık IG video (17:30)',color:COLORS['içerik'],id:'m1'},{label:'Robot izle / müşteri paneli',color:COLORS.robot,id:'m2'}],
-  2:[{label:'Herkese açık IG video (17:30)',color:COLORS['içerik'],id:'t1'},{label:'Şirket analizi içerik',color:COLORS.subs,id:'t2'},{label:'Robot geliştirme',color:COLORS.robot,id:'t3'}],
-  3:[{label:'Herkese açık IG video (17:30)',color:COLORS['içerik'],id:'w1'},{label:'Ads Manager kontrol',color:COLORS.reklam,id:'w2'}],
-  4:[{label:'Herkese açık IG video (17:30)',color:COLORS['içerik'],id:'h1'},{label:'Robot geliştirme (ODAK)',color:COLORS.robot,id:'h2'}],
-  5:[{label:'Haftalık değerlendirme',color:COLORS.genel,id:'f1'},{label:'Gelecek hafta planla',color:COLORS.genel,id:'f2'}],
-  6:[{label:'Robot geliştirme (uzun seans)',color:COLORS.robot,id:'s1'}],
-  0:[{label:'Herkese açık IG video',color:COLORS['içerik'],id:'p1'},{label:'Ads performans gözden geçir',color:COLORS.reklam,id:'p2'}],
-};
+const DEF_WEEK={1:[],2:[],3:[],4:[],5:[],6:[],0:[]};
 function getWT(){return ld('wt9_'+getWeekKey(),DEF_WEEK);}
 function setWT(wt){sv('wt9_'+getWeekKey(),wt);}
 function renderDay(dow){
