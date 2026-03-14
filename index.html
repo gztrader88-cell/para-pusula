@@ -341,10 +341,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div id="linksHubContent"></div>
   </div>
 
-  <!-- MUHASEBE ÖZETİ -->
+  <!-- MUHASEBE ÖZETİ - Tek tıklanabilir kart -->
   <div class="home-finance">
-    <div class="hf-title">💰 Muhasebe Özeti</div>
-    <div class="hf-grid" id="homeFinanceGrid"></div>
+    <div class="hf-title">💰 Muhasebe</div>
+    <div id="homeFinanceSummary" onclick="openSec('muhasebe')" style="cursor:pointer;"></div>
   </div>
 </div>
 
@@ -642,6 +642,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
     <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-5"></div></div></div>
   </div>
+</div>
+
+<!-- MUHASEBE SAYFASI -->
+<div class="section" id="sec-muhasebe">
+  <div id="muhasebePageContent"></div>
 </div>
 
 </div><!-- /content -->
@@ -1105,45 +1110,141 @@ window.delFin=function(type,key,i){
 };
 
 function renderHomeFinance(){
-  const grid=document.getElementById('homeFinanceGrid'); if(!grid) return;
-  grid.innerHTML='';
-  let hasAny=false;
-  let grandExpTL=0, grandIncTL=0;
+  const summary=document.getElementById('homeFinanceSummary'); if(!summary) return;
   const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
+  let grandExpTL=0, grandIncTL=0;
+  Object.entries(keyMap).forEach(([sec,key])=>{
+    const data=getFin(key);
+    grandExpTL+=data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+    grandIncTL+=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
+  });
+  const grandNet=grandIncTL-grandExpTL;
+  const hasAny=grandExpTL>0||grandIncTL>0;
+
+  summary.innerHTML=hasAny ? `
+    <div style="background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(240,180,41,.04));border:1.5px solid rgba(240,180,41,.35);border-radius:14px;padding:20px 24px;transition:all .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);">⚡ Genel Toplam</div>
+        <div style="font-size:.65rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺ · Detay için tıkla →</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📤 Gider</div>
+          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:var(--red);">-${fmtTL(grandExpTL)}</div>
+        </div>
+        <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📥 Gelir</div>
+          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:var(--green);">+${fmtTL(grandIncTL)}</div>
+        </div>
+        <div style="background:${grandNet>=0?'rgba(16,185,129,.1)':'rgba(239,68,68,.1)'};border:1px solid ${grandNet>=0?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)'};border-radius:10px;padding:14px;text-align:center;">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📊 Net</div>
+          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:${grandNet>=0?'var(--green)':'var(--red)'};">${grandNet>=0?'+':''}${fmtTL(grandNet)}</div>
+        </div>
+      </div>
+    </div>` :
+    `<div style="background:var(--surf);border:1.5px dashed var(--brd2);border-radius:14px;padding:20px 24px;text-align:center;color:var(--muted);font-size:.82rem;font-family:'DM Mono',monospace;">
+      Henüz muhasebe kaydı yok.<br>Kategorilere gidip gider/gelir ekle.
+    </div>`;
+
+  // Muhasebe detay sayfasını da güncelle
+  renderMuhasebePage();
+}
+
+function renderMuhasebePage(){
+  const wrap=document.getElementById('muhasebePageContent'); if(!wrap) return;
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
+  let grandExpTL=0, grandIncTL=0;
+  let html=`
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--brd);">
+      <div style="font-size:1.8rem;">💰</div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--text);">Muhasebe</div>
+        <div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:4px;">$1 = ${USD_KUR.toFixed(2)} ₺ (anlık kur)</div>
+      </div>
+    </div>`;
+
+  // Her kategori
   Object.entries(SEC_META).forEach(([sec,meta])=>{
     const key=keyMap[sec]; if(!key) return;
     const data=getFin(key);
     const totalExpTL=data.expenses.reduce((s,i)=>s+itemToTL(i),0);
     const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
     if(totalExpTL===0&&totalIncTL===0) return;
-    hasAny=true;
     grandExpTL+=totalExpTL; grandIncTL+=totalIncTL;
     const net=totalIncTL-totalExpTL;
-    const card=document.createElement('div'); card.className='hf-card';
-    card.innerHTML=`
-      <div class="hf-cat"><div class="hf-dot" style="background:${meta.color}"></div>${meta.icon} ${meta.label}</div>
-      <div class="hf-row"><span>Gider</span><span class="hf-val neg">-${fmtTL(totalExpTL)}</span></div>
-      <div class="hf-row"><span>Gelir</span><span class="hf-val pos">+${fmtTL(totalIncTL)}</span></div>
-      <hr class="hf-sep">
-      <div class="hf-row"><span style="font-weight:700">Net</span><span class="hf-val net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${fmtTL(net)}</span></div>`;
-    grid.appendChild(card);
+
+    html+=`<div style="background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:20px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--brd);">
+        <div style="width:10px;height:10px;border-radius:50%;background:${meta.color};flex-shrink:0;"></div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);">${meta.icon} ${meta.label}</div>
+        <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:.9rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${fmtTL(net)}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;">📤 Giderler</div>`;
+
+    if(data.expenses.length===0){
+      html+=`<div style="color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace;">—</div>`;
+    } else {
+      data.expenses.forEach(item=>{
+        const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+        const origStr=cur!=='TL'?` <span style="color:var(--muted);font-size:.65rem;">(${fmtAmt(item.amount,cur)})</span>`:'';
+        html+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--brd);font-size:.8rem;">
+          <span style="color:var(--text2);">${item.name}${origStr}</span>
+          <span style="font-family:'DM Mono',monospace;color:var(--red);font-weight:600;">-${fmtTL(tlVal)}</span>
+        </div>`;
+      });
+      html+=`<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:4px;border-top:2px solid var(--brd2);font-size:.78rem;font-weight:700;color:var(--text);">
+        <span>Toplam</span><span style="font-family:'DM Mono',monospace;color:var(--red);">-${fmtTL(totalExpTL)}</span>
+      </div>`;
+    }
+
+    html+=`</div><div>
+          <div style="font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;">📥 Gelirler</div>`;
+
+    if(data.incomes.length===0){
+      html+=`<div style="color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace;">—</div>`;
+    } else {
+      data.incomes.forEach(item=>{
+        const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+        const origStr=cur!=='TL'?` <span style="color:var(--muted);font-size:.65rem;">(${fmtAmt(item.amount,cur)})</span>`:'';
+        html+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--brd);font-size:.8rem;">
+          <span style="color:var(--text2);">${item.name}${origStr}</span>
+          <span style="font-family:'DM Mono',monospace;color:var(--green);font-weight:600;">+${fmtTL(tlVal)}</span>
+        </div>`;
+      });
+      html+=`<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:4px;border-top:2px solid var(--brd2);font-size:.78rem;font-weight:700;color:var(--text);">
+        <span>Toplam</span><span style="font-family:'DM Mono',monospace;color:var(--green);">+${fmtTL(totalIncTL)}</span>
+      </div>`;
+    }
+    html+=`</div></div></div>`;
   });
-  if(hasAny){
-    // Grand total card
-    const grandNet=grandIncTL-grandExpTL;
-    const total=document.createElement('div');
-    total.className='hf-card';
-    total.style.cssText='border-color:rgba(240,180,41,.3);background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(240,180,41,.03));';
-    total.innerHTML=`
-      <div class="hf-cat"><div class="hf-dot" style="background:var(--accent)"></div>⚡ Genel Toplam</div>
-      <div style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;">$1 = ${USD_KUR.toFixed(2)} ₺ (anlık kur)</div>
-      <div class="hf-row"><span>Toplam Gider</span><span class="hf-val neg">-${fmtTL(grandExpTL)}</span></div>
-      <div class="hf-row"><span>Toplam Gelir</span><span class="hf-val pos">+${fmtTL(grandIncTL)}</span></div>
-      <hr class="hf-sep">
-      <div class="hf-row"><span style="font-weight:700;font-size:.9rem;">Net</span><span class="hf-val net ${grandNet>=0?'pos':'neg'}" style="font-size:1rem;">${grandNet>=0?'+':''}${fmtTL(grandNet)}</span></div>`;
-    grid.appendChild(total);
+
+  // Genel toplam
+  const grandNet=grandIncTL-grandExpTL;
+  html+=`<div style="background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(240,180,41,.04));border:2px solid rgba(240,180,41,.35);border-radius:14px;padding:22px;margin-top:8px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--accent);margin-bottom:16px;">⚡ Genel Toplam</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:16px;text-align:center;">
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Toplam Gider</div>
+        <div style="font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">-${fmtTL(grandExpTL)}</div>
+      </div>
+      <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:16px;text-align:center;">
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Toplam Gelir</div>
+        <div style="font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--green);">+${fmtTL(grandIncTL)}</div>
+      </div>
+      <div style="background:${grandNet>=0?'rgba(16,185,129,.1)':'rgba(239,68,68,.1)'};border:1px solid ${grandNet>=0?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)'};border-radius:10px;padding:16px;text-align:center;">
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Net</div>
+        <div style="font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:700;color:${grandNet>=0?'var(--green)':'var(--red)'};">${grandNet>=0?'+':''}${fmtTL(grandNet)}</div>
+      </div>
+    </div>
+  </div>`;
+
+  if(grandExpTL===0&&grandIncTL===0){
+    html=`<div style="color:var(--muted);font-size:.82rem;font-family:'DM Mono',monospace;padding:40px 0;text-align:center;">Henüz muhasebe kaydı yok.<br><br>Kategorilere gidip gider / gelir ekle.</div>`;
   }
-  if(!hasAny) grid.innerHTML='<div style="color:var(--muted);font-size:.78rem;font-family:\'DM Mono\',monospace;">Henüz muhasebe kaydı yok. Kategorilere gidip gider/gelir ekle.</div>';
+
+  wrap.innerHTML=html;
 }
 
 // LINKS
