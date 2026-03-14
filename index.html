@@ -231,6 +231,54 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .hf-val.net.pos{color:var(--green);}
 .hf-val.net.neg{color:var(--red);}
 .hf-sep{border:none;border-top:1px solid var(--brd);margin:8px 0;}
+
+/* KASA */
+.kasa-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:800;align-items:center;justify-content:center;}
+.kasa-overlay.open{display:flex;}
+.kasa-box{background:#1e2433;border:1px solid rgba(251,191,36,.3);border-radius:20px;width:420px;max-width:95vw;overflow:hidden;}
+.kasa-lock{display:flex;flex-direction:column;align-items:center;padding:40px 32px;}
+.kasa-lock-icon{font-size:3rem;margin-bottom:16px;}
+.kasa-lock-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text);margin-bottom:6px;}
+.kasa-lock-sub{font-size:.78rem;color:var(--muted);margin-bottom:24px;}
+.kasa-pin-row{display:flex;gap:10px;margin-bottom:16px;}
+.kasa-pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--brd2);transition:all .15s;}
+.kasa-pin-dot.filled{background:var(--gold);border-color:var(--gold);}
+.kasa-pin-dot.error{background:var(--red);border-color:var(--red);}
+.kasa-numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:220px;}
+.kasa-key{background:var(--surf2);border:1px solid var(--brd2);border-radius:12px;padding:16px;font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);cursor:pointer;transition:all .15s;text-align:center;}
+.kasa-key:hover{background:var(--brd2);border-color:var(--gold);color:var(--gold);}
+.kasa-key.del{font-size:.85rem;color:var(--muted);}
+.kasa-error-msg{color:var(--red);font-size:.75rem;margin-top:12px;font-family:'DM Mono',monospace;height:18px;}
+.kasa-content{display:flex;flex-direction:column;height:100%;}
+.kasa-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--brd);background:rgba(251,191,36,.06);}
+.kasa-header-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--gold);}
+.kasa-close-btn{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:2px 6px;border-radius:6px;transition:all .15s;}
+.kasa-close-btn:hover{color:var(--text);background:var(--surf2);}
+.kasa-body{padding:20px 24px;max-height:75vh;overflow-y:auto;}
+.kasa-add-area{margin-bottom:20px;}
+.kasa-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surf2);border:1px solid var(--brd);border-radius:10px;margin-bottom:8px;}
+.kasa-item-icon{font-size:1.2rem;flex-shrink:0;}
+.kasa-item-info{flex:1;min-width:0;}
+.kasa-item-label{font-size:.82rem;font-weight:600;color:var(--text);}
+.kasa-item-user{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px;}
+.kasa-item-pass{font-size:.72rem;font-family:'DM Mono',monospace;color:var(--gold);margin-top:1px;cursor:pointer;user-select:all;}
+.kasa-item-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;padding:3px;opacity:.4;transition:opacity .15s;}
+.kasa-item:hover .kasa-item-del{opacity:.8;}
+.kasa-copy-btn{background:none;border:1px solid var(--brd2);border-radius:5px;color:var(--muted);font-size:.6rem;padding:2px 6px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.kasa-copy-btn:hover{border-color:var(--gold);color:var(--gold);}
+.kasa-add-btn-main{width:100%;background:rgba(251,191,36,.1);border:1px dashed rgba(251,191,36,.3);border-radius:10px;color:var(--gold);font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;padding:12px;cursor:pointer;transition:all .15s;margin-bottom:16px;}
+.kasa-add-btn-main:hover{background:rgba(251,191,36,.18);}
+.kasa-add-form-wrap{display:none;background:var(--surf2);border:1px solid var(--brd2);border-radius:12px;padding:16px;margin-bottom:16px;}
+.kasa-add-form-wrap.show{display:block;}
+.kasa-inp{width:100%;background:var(--surf);border:1px solid var(--brd2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;padding:9px 12px;outline:none;margin-bottom:8px;transition:border-color .15s;}
+.kasa-inp:focus{border-color:rgba(251,191,36,.5);}
+.kasa-inp::placeholder{color:var(--muted);}
+.kasa-form-btns{display:flex;gap:8px;margin-top:4px;}
+.kasa-save{flex:1;background:var(--gold);border:none;border-radius:8px;color:#000;font-weight:700;font-size:.8rem;padding:9px;cursor:pointer;}
+.kasa-cancel{background:none;border:1px solid var(--brd);border-radius:8px;color:var(--muted);font-size:.8rem;padding:9px 12px;cursor:pointer;}
+.kasa-empty{color:var(--muted);font-size:.78rem;font-family:'DM Mono',monospace;text-align:center;padding:20px 0;}
+.kasa-lock-out-btn{margin-top:20px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--muted);font-size:.72rem;padding:6px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.kasa-lock-out-btn:hover{border-color:var(--red);color:var(--red);}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:4px;}
 </style>
@@ -299,6 +347,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
           <div class="bn-icon">🖥️</div>
           <div class="bn-title">Sanal Sunucu</div>
           <div class="bn-sub">VPS · Visu Studio</div>
+        </div>
+      </div>
+      <div class="hub-branch">
+        <div class="branch-vline"></div>
+        <div class="branch-node" onclick="openKasa()" style="border-color:rgba(251,191,36,.3);">
+          <div class="bn-icon">🔐</div>
+          <div class="bn-title" style="color:var(--gold);">Kasa</div>
+          <div class="bn-sub">Şifreli bölüm</div>
         </div>
       </div>
     </div>
@@ -651,6 +707,68 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 </div><!-- /content -->
 
+
+<!-- KASA OVERLAY -->
+<div class="kasa-overlay" id="kasaOverlay">
+  <!-- LOCK SCREEN -->
+  <div class="kasa-box" id="kasaLockBox">
+    <div class="kasa-lock">
+      <div class="kasa-lock-icon">🔐</div>
+      <div class="kasa-lock-title">Kasa</div>
+      <div class="kasa-lock-sub">Devam etmek için PIN girin</div>
+      <div class="kasa-pin-row" id="kasaPinDots">
+        <div class="kasa-pin-dot" id="kpd0"></div>
+        <div class="kasa-pin-dot" id="kpd1"></div>
+        <div class="kasa-pin-dot" id="kpd2"></div>
+        <div class="kasa-pin-dot" id="kpd3"></div>
+      </div>
+      <div class="kasa-numpad">
+        <button class="kasa-key" onclick="kasaKey('1')">1</button>
+        <button class="kasa-key" onclick="kasaKey('2')">2</button>
+        <button class="kasa-key" onclick="kasaKey('3')">3</button>
+        <button class="kasa-key" onclick="kasaKey('4')">4</button>
+        <button class="kasa-key" onclick="kasaKey('5')">5</button>
+        <button class="kasa-key" onclick="kasaKey('6')">6</button>
+        <button class="kasa-key" onclick="kasaKey('7')">7</button>
+        <button class="kasa-key" onclick="kasaKey('8')">8</button>
+        <button class="kasa-key" onclick="kasaKey('9')">9</button>
+        <button class="kasa-key del" onclick="kasaKey('C')">Temizle</button>
+        <button class="kasa-key" onclick="kasaKey('0')">0</button>
+        <button class="kasa-key del" onclick="kasaKey('⌫')">⌫</button>
+      </div>
+      <div class="kasa-error-msg" id="kasaErrMsg"></div>
+    </div>
+  </div>
+  <!-- CONTENT SCREEN -->
+  <div class="kasa-box" id="kasaContentBox" style="display:none;width:600px;">
+    <div class="kasa-content">
+      <div class="kasa-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span>🔓</span>
+          <span class="kasa-header-title">Kasa</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button class="kasa-lock-out-btn" onclick="kasaLockOut()">🔒 Kilitle</button>
+          <button class="kasa-close-btn" onclick="kasaClose()">×</button>
+        </div>
+      </div>
+      <div class="kasa-body">
+        <button class="kasa-add-btn-main" onclick="toggleKasaForm()">＋ Yeni kayıt ekle</button>
+        <div class="kasa-add-form-wrap" id="kasaAddForm">
+          <input class="kasa-inp" id="ki-icon" placeholder="🔑 İkon (emoji)" maxlength="4">
+          <input class="kasa-inp" id="ki-label" placeholder="Açıklama (Instagram şifre, Gmail...)">
+          <input class="kasa-inp" id="ki-user" placeholder="Mail / Kullanıcı adı">
+          <input class="kasa-inp" id="ki-pass" placeholder="Şifre" type="password">
+          <div class="kasa-form-btns">
+            <button class="kasa-save" onclick="kasaSaveEntry()">Kaydet</button>
+            <button class="kasa-cancel" onclick="toggleKasaForm()">İptal</button>
+          </div>
+        </div>
+        <div id="kasaList"></div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- LINK MODAL -->
 <div class="modal-overlay" id="linkModal">
   <div class="modal" onclick="event.stopPropagation()">
@@ -1341,6 +1459,137 @@ async function loadRobotStats(){
 }
 
 document.getElementById('ml-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveModalLink();if(e.key==='Escape')closeLinkModal();});
+
+
+// KASA
+const KASA_HASH = '9dc6abc967dad3e2d115d25bdcb5b998f06ebda87c5f784800698d7cc1b2273d';
+let kasaPin = '';
+let kasaUnlocked = false;
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function openKasa(){
+  document.getElementById('kasaOverlay').classList.add('open');
+  if(kasaUnlocked){ showKasaContent(); } else { showKasaLock(); }
+}
+function kasaClose(){
+  document.getElementById('kasaOverlay').classList.remove('open');
+}
+function kasaLockOut(){
+  kasaUnlocked=false; kasaPin=''; kasaClose();
+}
+function showKasaLock(){
+  document.getElementById('kasaLockBox').style.display='';
+  document.getElementById('kasaContentBox').style.display='none';
+  kasaPin=''; updatePinDots();
+}
+function showKasaContent(){
+  document.getElementById('kasaLockBox').style.display='none';
+  document.getElementById('kasaContentBox').style.display='';
+  renderKasaList();
+}
+function updatePinDots(){
+  for(let i=0;i<4;i++){
+    const dot=document.getElementById('kpd'+i);
+    dot.classList.toggle('filled', i<kasaPin.length);
+    dot.classList.remove('error');
+  }
+}
+function kasaKey(k){
+  const err=document.getElementById('kasaErrMsg'); err.textContent='';
+  if(k==='C'){kasaPin='';updatePinDots();return;}
+  if(k==='⌫'){kasaPin=kasaPin.slice(0,-1);updatePinDots();return;}
+  if(kasaPin.length>=4) return;
+  kasaPin+=k; updatePinDots();
+  if(kasaPin.length===4){
+    sha256(kasaPin).then(hash=>{
+      if(hash===KASA_HASH){
+        kasaUnlocked=true; showKasaContent();
+      } else {
+        for(let i=0;i<4;i++) document.getElementById('kpd'+i).classList.add('error');
+        err.textContent='Yanlış PIN';
+        setTimeout(()=>{kasaPin='';updatePinDots();err.textContent='';},1000);
+      }
+    });
+  }
+}
+
+function getKasaEntries(){return ld('kasa9_entries',[]);}
+function setKasaEntries(v){sv('kasa9_entries',v);}
+
+function toggleKasaForm(){
+  const f=document.getElementById('kasaAddForm');
+  f.classList.toggle('show');
+  if(f.classList.contains('show')) document.getElementById('ki-label').focus();
+  else { ['ki-icon','ki-label','ki-user','ki-pass'].forEach(id=>document.getElementById(id).value=''); }
+}
+
+function kasaSaveEntry(){
+  const icon=document.getElementById('ki-icon').value.trim()||'🔑';
+  const label=document.getElementById('ki-label').value.trim();
+  const user=document.getElementById('ki-user').value.trim();
+  const pass=document.getElementById('ki-pass').value;
+  if(!label||!pass) return;
+  const entries=getKasaEntries();
+  entries.push({icon,label,user,pass});
+  setKasaEntries(entries);
+  toggleKasaForm();
+  renderKasaList();
+}
+
+function renderKasaList(){
+  const wrap=document.getElementById('kasaList'); if(!wrap) return;
+  const entries=getKasaEntries();
+  wrap.innerHTML='';
+  if(entries.length===0){
+    wrap.innerHTML='<div class="kasa-empty">Henüz kayıt yok.<br>Yukarıdan yeni kayıt ekle.</div>';
+    return;
+  }
+  entries.forEach((e,i)=>{
+    const div=document.createElement('div'); div.className='kasa-item';
+    div.innerHTML=`
+      <div class="kasa-item-icon">${e.icon||'🔑'}</div>
+      <div class="kasa-item-info">
+        <div class="kasa-item-label">${e.label}</div>
+        ${e.user?`<div class="kasa-item-user">${e.user}</div>`:''}
+        <div class="kasa-item-pass" title="Tıkla & kopyala" onclick="copyKasa('${e.pass.replace(/'/g,"\'")}',this)">••••••••</div>
+      </div>
+      <button class="kasa-copy-btn" onclick="copyKasa('${e.pass.replace(/'/g,"\'")}',null)">Kopyala</button>
+      <button class="kasa-item-del" onclick="kasaDelEntry(${i})" title="Sil">🗑</button>`;
+    // Toggle show/hide on password click
+    div.querySelector('.kasa-item-pass').addEventListener('click', function(){
+      if(this.textContent==='••••••••') this.textContent=e.pass;
+      else this.textContent='••••••••';
+    });
+    wrap.appendChild(div);
+  });
+}
+
+function copyKasa(pass, el){
+  navigator.clipboard.writeText(pass).then(()=>{
+    if(el){ const old=el.textContent; el.textContent='Kopyalandı!'; setTimeout(()=>el.textContent=old,1200); }
+  });
+}
+
+window.kasaDelEntry=function(i){
+  if(!confirm('Bu kaydı silmek istediğinden emin misin?')) return;
+  const entries=getKasaEntries(); entries.splice(i,1); setKasaEntries(entries); renderKasaList();
+};
+
+// Close on overlay click
+document.getElementById('kasaOverlay').addEventListener('click',function(e){if(e.target===this)kasaClose();});
+
+// Keyboard support for PIN
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('kasaOverlay').classList.contains('open')) return;
+  if(kasaUnlocked) return;
+  if(e.key>='0'&&e.key<='9') kasaKey(e.key);
+  if(e.key==='Backspace') kasaKey('⌫');
+  if(e.key==='Escape') kasaClose();
+});
 
 // INIT
 buildWeek();
