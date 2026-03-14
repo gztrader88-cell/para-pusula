@@ -967,28 +967,64 @@ window.clStarClick=function(elId,i,e){
 
 window.clDel=function(e,id,i){e.stopPropagation();const its=ld('cl9_'+id,[]);its.splice(i,1);sv('cl9_'+id,its);const el=document.getElementById(id);if(el){el.innerHTML='';makeChecklist(id);}};
 
+// KUR
+let USD_KUR = ld('usd_kur_cache', 44.22);
+let kurYuklendi = false;
+async function loadKur(){
+  try {
+    const res = await fetch('https://authentic-passion-production-d90e.up.railway.app/api/kur');
+    const data = await res.json();
+    if(data.kur) { USD_KUR = parseFloat(data.kur); sv('usd_kur_cache', USD_KUR); kurYuklendi = true; }
+  } catch(e) { console.warn('Kur yüklenemedi, önbellek kullanılıyor'); }
+}
+function toTL(amount, currency){
+  const amt = parseFloat(amount) || 0;
+  if(currency === 'USD') return amt * USD_KUR;
+  if(currency === 'EUR') return amt * USD_KUR * 1.08; // yaklaşık EUR/USD
+  return amt; // TL
+}
+function fmtAmt(amount, currency){
+  const sym = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : '₺';
+  return `${sym}${parseFloat(amount).toLocaleString('tr-TR', {minimumFractionDigits:0, maximumFractionDigits:2})}`;
+}
+function fmtTL(tlAmount){
+  return `${Math.round(tlAmount).toLocaleString('tr-TR')} ₺`;
+}
+
 // FINANCE
 function getFin(key){return ld('fin9_'+key,{expenses:[],incomes:[]});}
 function setFin(key,v){sv('fin9_'+key,v);}
 
+function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
+
 function renderFinance(key){
   const wrap=document.getElementById('fin-'+key); if(!wrap) return;
   const data=getFin(key);
-  const totalExp=data.expenses.reduce((s,i)=>s+parseFloat(i.amount||0),0);
-  const totalInc=data.incomes.reduce((s,i)=>s+parseFloat(i.amount||0),0);
-  const net=totalInc-totalExp;
+  const totalExpTL = data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+  const totalIncTL = data.incomes.reduce((s,i)=>s+itemToTL(i),0);
+  const net = totalIncTL - totalExpTL;
+
+  const kurInfo = `<span style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺</span>`;
 
   wrap.innerHTML=`
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">${kurInfo}</div>
     <div class="fin-row">
       <div class="fin-col">
         <div class="fin-title"><span style="color:var(--red)">📤</span> Giderler</div>
         <div id="fin-exp-${key}"></div>
-        <div class="fin-total"><span>Toplam</span><span class="fin-total-val" style="color:var(--red)">-${totalExp.toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:0})} ₺</span></div>
+        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--red)">-${fmtTL(totalExpTL)}</span></div>
         <button class="fin-add-btn" onclick="showFinForm('exp','${key}')">＋ Gider ekle</button>
         <div class="fin-add-form" id="faf-exp-${key}">
           <div class="fin-inp-row">
             <input class="fin-inp" placeholder="İsim (TradingView, Adaptin...)" id="fi-exp-name-${key}">
-            <input class="fin-inp" placeholder="Tutar" id="fi-exp-amt-${key}" style="flex:0 0 100px" type="number">
+          </div>
+          <div class="fin-inp-row">
+            <input class="fin-inp" placeholder="Tutar" id="fi-exp-amt-${key}" type="number" style="flex:1">
+            <select class="fin-inp" id="fi-exp-cur-${key}" style="flex:0 0 70px">
+              <option value="TL">₺ TL</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+            </select>
           </div>
           <div class="fin-inp-row">
             <button class="fin-save" onclick="saveFin('exp','${key}')">Kaydet</button>
@@ -1000,12 +1036,19 @@ function renderFinance(key){
       <div class="fin-col">
         <div class="fin-title"><span style="color:var(--green)">📥</span> Gelirler</div>
         <div id="fin-inc-${key}"></div>
-        <div class="fin-total"><span>Toplam</span><span class="fin-total-val" style="color:var(--green)">+${totalInc.toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:0})} ₺</span></div>
+        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--green)">+${fmtTL(totalIncTL)}</span></div>
         <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>
         <div class="fin-add-form" id="faf-inc-${key}">
           <div class="fin-inp-row">
             <input class="fin-inp" placeholder="İsim (Komisyon, Abonelik...)" id="fi-inc-name-${key}">
-            <input class="fin-inp" placeholder="Tutar" id="fi-inc-amt-${key}" style="flex:0 0 100px" type="number">
+          </div>
+          <div class="fin-inp-row">
+            <input class="fin-inp" placeholder="Tutar" id="fi-inc-amt-${key}" type="number" style="flex:1">
+            <select class="fin-inp" id="fi-inc-cur-${key}" style="flex:0 0 70px">
+              <option value="TL">₺ TL</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+            </select>
           </div>
           <div class="fin-inp-row">
             <button class="fin-save" onclick="saveFin('inc','${key}')">Kaydet</button>
@@ -1014,35 +1057,45 @@ function renderFinance(key){
         </div>
       </div>
     </div>
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:.82rem;color:var(--text2);font-weight:600;">Net</span>
-      <span style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${net.toLocaleString('tr-TR',{minimumFractionDigits:0,maximumFractionDigits:0})} ₺</span>
+    <div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)'};border:1px solid ${net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)'};display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:.85rem;color:var(--text2);font-weight:600;">📊 Net</span>
+      <span style="font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${fmtTL(net)}</span>
     </div>`;
 
-  // Render expense items
+  // Expense items
   const expWrap=document.getElementById('fin-exp-'+key);
   data.expenses.forEach((item,i)=>{
+    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
     const div=document.createElement('div'); div.className='fin-item';
-    div.innerHTML=`<span class="fin-name">${item.name}</span><span class="fin-amount expense">-${parseFloat(item.amount).toLocaleString('tr-TR')} ₺</span><button class="fin-del" onclick="delFin('exp','${key}',${i})">×</button>`;
+    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
+    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('exp','${key}',${i})">×</button>`;
     expWrap.appendChild(div);
   });
-  // Render income items
+  // Income items
   const incWrap=document.getElementById('fin-inc-'+key);
   data.incomes.forEach((item,i)=>{
+    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
     const div=document.createElement('div'); div.className='fin-item';
-    div.innerHTML=`<span class="fin-name">${item.name}</span><span class="fin-amount income">+${parseFloat(item.amount).toLocaleString('tr-TR')} ₺</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
+    const origStr = cur!=='TL' ? ` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>` : '';
+    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount income">+${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
     incWrap.appendChild(div);
   });
 }
 
 window.showFinForm=function(type,key){document.getElementById('faf-'+type+'-'+key).classList.add('show');document.getElementById('fi-'+type+'-name-'+key).focus();};
-window.hideFinForm=function(type,key){document.getElementById('faf-'+type+'-'+key).classList.remove('show');document.getElementById('fi-'+type+'-name-'+key).value='';document.getElementById('fi-'+type+'-amt-'+key).value='';};
+window.hideFinForm=function(type,key){
+  document.getElementById('faf-'+type+'-'+key).classList.remove('show');
+  document.getElementById('fi-'+type+'-name-'+key).value='';
+  document.getElementById('fi-'+type+'-amt-'+key).value='';
+  document.getElementById('fi-'+type+'-cur-'+key).value='TL';
+};
 window.saveFin=function(type,key){
   const name=document.getElementById('fi-'+type+'-name-'+key).value.trim();
   const amount=parseFloat(document.getElementById('fi-'+type+'-amt-'+key).value);
+  const currency=document.getElementById('fi-'+type+'-cur-'+key).value;
   if(!name||isNaN(amount)) return;
   const data=getFin(key);
-  if(type==='exp') data.expenses.push({name,amount}); else data.incomes.push({name,amount});
+  if(type==='exp') data.expenses.push({name,amount,currency}); else data.incomes.push({name,amount,currency});
   setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance();
 };
 window.delFin=function(type,key,i){
@@ -1055,24 +1108,41 @@ function renderHomeFinance(){
   const grid=document.getElementById('homeFinanceGrid'); if(!grid) return;
   grid.innerHTML='';
   let hasAny=false;
+  let grandExpTL=0, grandIncTL=0;
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
   Object.entries(SEC_META).forEach(([sec,meta])=>{
-    const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
     const key=keyMap[sec]; if(!key) return;
     const data=getFin(key);
-    const totalExp=data.expenses.reduce((s,i)=>s+parseFloat(i.amount||0),0);
-    const totalInc=data.incomes.reduce((s,i)=>s+parseFloat(i.amount||0),0);
-    if(totalExp===0&&totalInc===0) return;
+    const totalExpTL=data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+    const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
+    if(totalExpTL===0&&totalIncTL===0) return;
     hasAny=true;
-    const net=totalInc-totalExp;
+    grandExpTL+=totalExpTL; grandIncTL+=totalIncTL;
+    const net=totalIncTL-totalExpTL;
     const card=document.createElement('div'); card.className='hf-card';
     card.innerHTML=`
       <div class="hf-cat"><div class="hf-dot" style="background:${meta.color}"></div>${meta.icon} ${meta.label}</div>
-      <div class="hf-row"><span>Gider</span><span class="hf-val neg">-${totalExp.toLocaleString('tr-TR')} ₺</span></div>
-      <div class="hf-row"><span>Gelir</span><span class="hf-val pos">+${totalInc.toLocaleString('tr-TR')} ₺</span></div>
+      <div class="hf-row"><span>Gider</span><span class="hf-val neg">-${fmtTL(totalExpTL)}</span></div>
+      <div class="hf-row"><span>Gelir</span><span class="hf-val pos">+${fmtTL(totalIncTL)}</span></div>
       <hr class="hf-sep">
-      <div class="hf-row"><span style="font-weight:700">Net</span><span class="hf-val net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${net.toLocaleString('tr-TR')} ₺</span></div>`;
+      <div class="hf-row"><span style="font-weight:700">Net</span><span class="hf-val net ${net>=0?'pos':'neg'}">${net>=0?'+':''}${fmtTL(net)}</span></div>`;
     grid.appendChild(card);
   });
+  if(hasAny){
+    // Grand total card
+    const grandNet=grandIncTL-grandExpTL;
+    const total=document.createElement('div');
+    total.className='hf-card';
+    total.style.cssText='border-color:rgba(240,180,41,.3);background:linear-gradient(135deg,rgba(240,180,41,.08),rgba(240,180,41,.03));';
+    total.innerHTML=`
+      <div class="hf-cat"><div class="hf-dot" style="background:var(--accent)"></div>⚡ Genel Toplam</div>
+      <div style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;">$1 = ${USD_KUR.toFixed(2)} ₺ (anlık kur)</div>
+      <div class="hf-row"><span>Toplam Gider</span><span class="hf-val neg">-${fmtTL(grandExpTL)}</span></div>
+      <div class="hf-row"><span>Toplam Gelir</span><span class="hf-val pos">+${fmtTL(grandIncTL)}</span></div>
+      <hr class="hf-sep">
+      <div class="hf-row"><span style="font-weight:700;font-size:.9rem;">Net</span><span class="hf-val net ${grandNet>=0?'pos':'neg'}" style="font-size:1rem;">${grandNet>=0?'+':''}${fmtTL(grandNet)}</span></div>`;
+    grid.appendChild(total);
+  }
   if(!hasAny) grid.innerHTML='<div style="color:var(--muted);font-size:.78rem;font-family:\'DM Mono\',monospace;">Henüz muhasebe kaydı yok. Kategorilere gidip gider/gelir ekle.</div>';
 }
 
@@ -1167,12 +1237,11 @@ document.getElementById('ml-url').addEventListener('keydown',e=>{if(e.key==='Ent
 buildWeek();
 CL_KEYS.forEach(makeChecklist);
 NOTE_KEYS.forEach(renderNoteImgs);
-FIN_KEYS.forEach(renderFinance);
 renderLinksHub();
 renderAllSectionLinks();
 renderStarred();
-renderHomeFinance();
 loadRobotStats();
+loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); });
 </script>
 </body>
 </html>
