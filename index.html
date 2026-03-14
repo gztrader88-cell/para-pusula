@@ -86,7 +86,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .cl-star:hover{opacity:.8;}
 .cl-star.starred{opacity:1;filter:drop-shadow(0 0 4px rgba(251,191,36,.6));}
 .cl-del{display:none;background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;padding:0 3px;flex-shrink:0;}
-.cl-item:hover .cl-del{display:block;}
+.cl-img-btn{display:none;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.72rem;padding:0 3px;flex-shrink:0;}
+.cl-item:hover .cl-del,.cl-item:hover .cl-img-btn{display:block;}
 .cl-add-btn{font-size:.75rem;color:var(--text2);background:none;border:1px dashed var(--brd2);border-radius:6px;padding:7px 12px;cursor:pointer;margin-top:8px;width:100%;font-family:'DM Sans',sans-serif;transition:all .15s;text-align:left;}
 .cl-add-btn:hover{border-color:var(--accent);color:var(--accent);}
 .cl-add-row{display:none;gap:6px;margin-top:7px;}
@@ -982,7 +983,7 @@ const SEC_META={
   '4b':{label:'Aplikasyon Reklamları',color:'#38bdf8',icon:'📲'},
   '5':{label:'Sanal Sunucu',color:'#3b82f6',icon:'🖥️'},
 };
-const NOTE_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
+const NOTE_KEYS=[];
 const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler'];
 const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler'];
 
@@ -1169,7 +1170,15 @@ function renderStarred(){
   }
   starred.forEach((s,i)=>{
     const div=document.createElement('div'); div.className='starred-item';
-    div.innerHTML=`<div class="si-star">⭐</div><div class="si-body"><div class="si-source">${s.source}</div><div class="si-text">${s.text}</div></div><button class="si-del" onclick="removeStarred(${i})">×</button>`;
+    // Checklist item ise resmini bul
+    let imgHtml='';
+    if(s.type==='cl' && s.key && s.idx!==undefined){
+      const its=ld('cl9_'+s.key,[]);
+      if(its[s.idx]&&its[s.idx].img){
+        imgHtml=`<img src="${its[s.idx].img}" style="width:44px;height:44px;border-radius:6px;object-fit:cover;cursor:pointer;flex-shrink:0;" onclick="openLightbox('${its[s.idx].img.replace(/'/g,"\\'")}')">`;
+      }
+    }
+    div.innerHTML=`<div class="si-star">⭐</div>${imgHtml}<div class="si-body"><div class="si-source">${s.source}</div><div class="si-text">${s.text}</div></div><button class="si-del" onclick="removeStarred(${i})">×</button>`;
     wrap.appendChild(div);
   });
   // Update note star button states
@@ -1290,7 +1299,8 @@ function makeChecklist(elId){
       const row=document.createElement('div'); row.className='cl-item'+(it.done?' done':'');
       row.draggable=true;
       row.dataset.idx=String(i);
-      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div><div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span><button class="cl-star${starred?' starred':''}" onclick="clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      const imgThumb = it.img ? `<img src="${it.img}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;cursor:pointer;flex-shrink:0;" onclick="openLightbox('${it.img.replace(/'/g,"\\'")}')" title="Görseli büyüt">` : '';
+      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div><div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span>${imgThumb}<button class="cl-img-btn" onclick="clImgClick('${elId}',${i},event)" title="Görsel ekle">🖼</button><button class="cl-star${starred?' starred':''}" onclick="clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
       // Drag events
       let clDragIdx=-1;
       row.addEventListener('dragstart',e=>{clDragIdx=i;row.style.opacity='.4';e.dataTransfer.effectAllowed='move';});
@@ -2250,6 +2260,35 @@ function addLinkDragEvents(card, sec){
 }
 
 
+
+
+// CHECKLIST IMAGE
+window.clImgClick=function(elId,i,e){
+  e.stopPropagation();
+  const inp=document.getElementById('cl-img-inp');
+  inp.dataset.elid=elId; inp.dataset.idx=i;
+  inp.click();
+};
+
+(function(){
+  const inp=document.createElement('input');
+  inp.type='file'; inp.id='cl-img-inp'; inp.accept='image/*';
+  inp.style.display='none';
+  inp.addEventListener('change',function(){
+    if(!this.files||!this.files[0]) return;
+    const elId=this.dataset.elid; const idx=parseInt(this.dataset.idx);
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const its=ld('cl9_'+elId,[]);
+      if(its[idx]){its[idx].img=ev.target.result;sv('cl9_'+elId,its);}
+      const el=document.getElementById(elId);
+      if(el){el.innerHTML='';makeChecklist(elId);}
+    };
+    reader.readAsDataURL(this.files[0]);
+    this.value='';
+  });
+  document.body.appendChild(inp);
+})();
 
 // GOREV DETAY
 let tdmWk=null, tdmDow=null, tdmIdx=null;
