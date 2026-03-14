@@ -208,7 +208,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ls-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);}
 .ls-count{font-size:.68rem;color:var(--muted);font-family:'DM Mono',monospace;}
 .links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;}
-.link-card{background:var(--surf);border:1px solid var(--brd);border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;text-decoration:none;display:flex;align-items:center;gap:10px;}
+.link-card{background:var(--surf);border:1px solid var(--brd);border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;text-decoration:none;display:flex;align-items:center;gap:10px;overflow:visible;}
 .link-card:hover{border-color:var(--lc,var(--brd2));transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.3);}
 .lc-emoji{font-size:1.2rem;}
 .lc-favicon{width:32px;height:32px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;}
@@ -218,8 +218,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .lc-favicon-overlay{position:absolute;inset:0;border-radius:7px;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;font-size:.6rem;color:white;}
 .lc-favicon:hover .lc-favicon-overlay{display:flex;}
 .lc-info{flex:1;min-width:0;}
-.lc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .lc-url{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* Tooltip */
+.link-card[title]:hover::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:rgba(10,12,20,.95);color:var(--text);font-size:.72rem;font-family:'DM Sans',sans-serif;padding:5px 10px;border-radius:7px;white-space:nowrap;z-index:999;pointer-events:none;border:1px solid var(--brd2);}
 .lc-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px 4px;flex-shrink:0;}
 .lc-edit-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px 4px;flex-shrink:0;}
 .link-card:hover .lc-del,.link-card:hover .lc-edit-btn{opacity:.7;}
@@ -1489,6 +1491,7 @@ function renderLinksHub(){
       if(sec==='anasayfa') card.style.border=`1px solid rgba(240,180,41,.25)`;
       let domain1=''; try{domain1=new URL(l.url).hostname;}catch(e){}
       const fav1=l.customIcon||(domain1?`https://www.google.com/s2/favicons?domain=${domain1}&sz=64`:'');
+      card.setAttribute('data-tooltip', l.name);
       card.innerHTML=`<div class="lc-favicon" onclick="openIconPicker('${sec}',${i},event)" title="İkonu değiştir"><img src="${fav1}" alt="" onerror="this.style.display='none'"><div class="lc-favicon-fallback">🔗</div><div class="lc-favicon-overlay">✎</div></div><div class="lc-info"><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div></div><button class="lc-edit-btn" onclick="openLinkEdit('${sec}',${i},event)" title="Düzenle">✎</button><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
       addLinkDragEvents(card, sec);
       grid.appendChild(card);
@@ -1554,10 +1557,17 @@ function renderShortcuts(){
     btn.title=s.name;
     btn.style.cssText='display:inline-flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text2);font-size:.75rem;padding:5px 9px;cursor:pointer;transition:all .15s;text-decoration:none;position:relative;';
     let domain3=''; try{domain3=new URL(s.url).hostname;}catch(e){}
-    const fav3=domain3?`https://www.google.com/s2/favicons?domain=${domain3}&sz=32`:'';
+    const fav3=s.customIcon||(domain3?`https://www.google.com/s2/favicons?domain=${domain3}&sz=32`:'');
     btn.innerHTML=fav3?`<img src="${fav3}" style="width:16px;height:16px;border-radius:3px;object-fit:contain;" alt=""><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`:`<span>🔗</span><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`;
-    btn.onmouseover=()=>{btn.style.borderColor='var(--accent)';btn.style.color='var(--text)';delBtn.style.opacity='1';};
-    btn.onmouseout=()=>{btn.style.borderColor='var(--brd)';btn.style.color='var(--text2)';delBtn.style.opacity='0';};
+    // Ikon değiştir butonu
+    const editIconBtn=document.createElement('button');
+    editIconBtn.innerHTML='✎';
+    editIconBtn.title='İkonu değiştir';
+    editIconBtn.style.cssText='position:absolute;top:-5px;left:-5px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:none;color:#000;font-size:.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;font-weight:700;';
+    editIconBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();openScIconPicker(i);};
+    btn.appendChild(editIconBtn);
+    btn.onmouseover=()=>{btn.style.borderColor='var(--accent)';btn.style.color='var(--text)';delBtn.style.opacity='1';editIconBtn.style.opacity='1';};
+    btn.onmouseout=()=>{btn.style.borderColor='var(--brd)';btn.style.color='var(--text2)';delBtn.style.opacity='0';editIconBtn.style.opacity='0';};
     // Delete button
     const delBtn=document.createElement('button');
     delBtn.innerHTML='×';
@@ -1802,10 +1812,33 @@ window.openIconPicker=function(sec,i,e){
 function closeIconPicker(){
   document.getElementById('iconPickerModal').classList.remove('open');
   iconPickerSec=null; iconPickerIdx=-1;
+  scIconPickerIdx=-1;
 }
+
+// Shortcut icon picker
+let scIconPickerIdx=-1;
+window.openScIconPicker=function(i){
+  scIconPickerIdx=i;
+  iconPickerSec='__shortcut__';
+  document.getElementById('ip-file').value='';
+  document.getElementById('ip-url').value='';
+  document.getElementById('iconPickerModal').classList.add('open');
+};
 function saveIconPicker(){
   const file=document.getElementById('ip-file').files[0];
   const url=document.getElementById('ip-url').value.trim();
+  if(iconPickerSec==='__shortcut__'){
+    const sc=getShortcuts();
+    if(!sc[scIconPickerIdx]) return closeIconPicker();
+    if(file){
+      const reader=new FileReader();
+      reader.onload=e=>{sc[scIconPickerIdx].customIcon=e.target.result;setShortcuts(sc);closeIconPicker();renderShortcuts();};
+      reader.readAsDataURL(file);
+    } else if(url){
+      sc[scIconPickerIdx].customIcon=url;setShortcuts(sc);closeIconPicker();renderShortcuts();
+    } else closeIconPicker();
+    return;
+  }
   const links=getLinks(iconPickerSec);
   if(!links[iconPickerIdx]) return;
   if(file){
@@ -1823,6 +1856,11 @@ function saveIconPicker(){
   }
 }
 function resetIcon(){
+  if(iconPickerSec==='__shortcut__'){
+    const sc=getShortcuts();
+    if(sc[scIconPickerIdx]) delete sc[scIconPickerIdx].customIcon;
+    setShortcuts(sc);closeIconPicker();renderShortcuts();return;
+  }
   const links=getLinks(iconPickerSec);
   if(links[iconPickerIdx]) delete links[iconPickerIdx].customIcon;
   setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
