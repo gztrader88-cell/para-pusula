@@ -207,20 +207,25 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .ls-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .ls-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);}
 .ls-count{font-size:.68rem;color:var(--muted);font-family:'DM Mono',monospace;}
-.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.link-card{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;position:relative;text-decoration:none;display:block;}
-.link-card:hover{border-color:var(--lc,var(--brd2));transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3);}
-.lc-emoji{font-size:1.6rem;margin-bottom:8px;}
-.lc-favicon{width:40px;height:40px;margin-bottom:10px;position:relative;display:flex;align-items:center;justify-content:center;}
-.lc-favicon img{width:40px;height:40px;border-radius:10px;object-fit:contain;background:rgba(255,255,255,.08);padding:4px;}
-.lc-favicon-fallback{font-size:1.6rem;display:none;}
-.lc-favicon img:not([src])+.lc-favicon-fallback,.lc-favicon img[src=""]+.lc-favicon-fallback{display:block;}
-.lc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);line-height:1.3;word-break:break-word;}
-.lc-url{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.lc-del{position:absolute;top:8px;right:8px;background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px;}
-.link-card:hover .lc-del{opacity:.7;}
-.lc-del:hover{opacity:1!important;}
-.section-links-wrap .links-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;}
+.link-card{background:var(--surf);border:1px solid var(--brd);border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;text-decoration:none;display:flex;align-items:center;gap:10px;}
+.link-card:hover{border-color:var(--lc,var(--brd2));transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.3);}
+.lc-emoji{font-size:1.2rem;}
+.lc-favicon{width:32px;height:32px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.lc-favicon img{width:32px;height:32px;border-radius:7px;object-fit:contain;background:rgba(255,255,255,.08);padding:3px;}
+.lc-favicon-fallback{font-size:1.3rem;display:none;}
+.lc-favicon img[style*="display: none"]+.lc-favicon-fallback{display:block;}
+.lc-favicon-overlay{position:absolute;inset:0;border-radius:7px;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;font-size:.6rem;color:white;}
+.lc-favicon:hover .lc-favicon-overlay{display:flex;}
+.lc-info{flex:1;min-width:0;}
+.lc-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--text);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lc-url{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lc-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px 4px;flex-shrink:0;}
+.lc-edit-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:3px 4px;flex-shrink:0;}
+.link-card:hover .lc-del,.link-card:hover .lc-edit-btn{opacity:.7;}
+.lc-del:hover{opacity:1!important;color:var(--red);}
+.lc-edit-btn:hover{opacity:1!important;color:var(--accent);}
+.section-links-wrap .links-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
 /* HOME FINANCE SUMMARY */
 .home-finance{margin-top:28px;}
 .hf-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:16px;}
@@ -795,6 +800,48 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
   </div>
 </div>
+
+<!-- LINK EDIT MODAL -->
+<div class="modal-overlay" id="linkEditModal">
+  <div class="modal" onclick="event.stopPropagation()" style="width:380px;">
+    <div class="modal-title">✎ Link Düzenle</div>
+    <div class="modal-field">
+      <label class="modal-label">Ad</label>
+      <input class="modal-inp" id="le-name" placeholder="WhatsApp">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">URL</label>
+      <input class="modal-inp" id="le-url" placeholder="https://...">
+    </div>
+    <div class="modal-btns">
+      <button class="modal-save" onclick="saveLinkEdit()">Kaydet</button>
+      <button class="modal-cancel" onclick="closeLinkEdit()">İptal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ICON PICKER MODAL -->
+<div class="modal-overlay" id="iconPickerModal">
+  <div class="modal" onclick="event.stopPropagation()" style="width:360px;">
+    <div class="modal-title">🖼 İkon Değiştir</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:12px;">32×32 veya 64×64 PNG/JPG yükle. Boş bırakırsan otomatik favicon kullanılır.</div>
+    <div class="modal-field">
+      <label class="modal-label">Resim Yükle</label>
+      <input type="file" id="ip-file" accept="image/png,image/jpeg,image/webp,image/gif" class="modal-inp" style="padding:8px;">
+    </div>
+    <div style="text-align:center;margin:10px 0;color:var(--muted);font-size:.75rem;">— veya —</div>
+    <div class="modal-field">
+      <label class="modal-label">Resim URL'si</label>
+      <input class="modal-inp" id="ip-url" placeholder="https://...icon.png">
+    </div>
+    <div class="modal-btns">
+      <button class="modal-save" onclick="saveIconPicker()">Kaydet</button>
+      <button style="background:none;border:1px solid var(--brd);border-radius:8px;color:var(--muted);font-size:.86rem;padding:11px 10px;cursor:pointer;" onclick="resetIcon()">Sıfırla (favicon)</button>
+      <button class="modal-cancel" onclick="closeIconPicker()">İptal</button>
+    </div>
+  </div>
+</div>
+
 <!-- LINK MODAL -->
 <div class="modal-overlay" id="linkModal">
   <div class="modal" onclick="event.stopPropagation()">
@@ -1440,9 +1487,9 @@ function renderLinksHub(){
       card.dataset.sec=sec; card.dataset.idx=i;
       card.style.setProperty('--lc',meta.color);
       if(sec==='anasayfa') card.style.border=`1px solid rgba(240,180,41,.25)`;
-      const domain1=new URL(l.url).hostname;
-      const fav1=`https://www.google.com/s2/favicons?domain=${domain1}&sz=64`;
-      card.innerHTML=`<div class="lc-favicon"><img src="${fav1}" alt="" onerror="this.style.display='none'"><div class="lc-favicon-fallback">🔗</div></div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
+      let domain1=''; try{domain1=new URL(l.url).hostname;}catch(e){}
+      const fav1=l.customIcon||(domain1?`https://www.google.com/s2/favicons?domain=${domain1}&sz=64`:'');
+      card.innerHTML=`<div class="lc-favicon" onclick="openIconPicker('${sec}',${i},event)" title="İkonu değiştir"><img src="${fav1}" alt="" onerror="this.style.display='none'"><div class="lc-favicon-fallback">🔗</div><div class="lc-favicon-overlay">✎</div></div><div class="lc-info"><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div></div><button class="lc-edit-btn" onclick="openLinkEdit('${sec}',${i},event)" title="Düzenle">✎</button><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
       addLinkDragEvents(card, sec);
       grid.appendChild(card);
     });
@@ -1708,6 +1755,79 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape') kasaClose();
 });
 
+
+
+// LINK EDIT
+let linkEditSec=null, linkEditIdx=-1;
+
+window.openLinkEdit=function(sec,i,e){
+  e.preventDefault(); e.stopPropagation();
+  const links=getLinks(sec); if(!links[i]) return;
+  linkEditSec=sec; linkEditIdx=i;
+  document.getElementById('le-name').value=links[i].name||'';
+  document.getElementById('le-url').value=links[i].url||'';
+  document.getElementById('linkEditModal').classList.add('open');
+  document.getElementById('le-name').focus();
+};
+function closeLinkEdit(){
+  document.getElementById('linkEditModal').classList.remove('open');
+  linkEditSec=null; linkEditIdx=-1;
+}
+function saveLinkEdit(){
+  const name=document.getElementById('le-name').value.trim();
+  const url=document.getElementById('le-url').value.trim();
+  if(!name||!url) return;
+  const links=getLinks(linkEditSec);
+  if(links[linkEditIdx]){
+    links[linkEditIdx].name=name;
+    links[linkEditIdx].url=url.startsWith('http')?url:'https://'+url;
+    // Reset favicon cache kalıbını temizle
+    delete links[linkEditIdx].customIcon;
+  }
+  setLinks(linkEditSec,links); closeLinkEdit(); renderLinksHub(); renderAllSectionLinks();
+}
+document.getElementById('linkEditModal').addEventListener('click',function(e){if(e.target===this)closeLinkEdit();});
+document.getElementById('le-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveLinkEdit();if(e.key==='Escape')closeLinkEdit();});
+
+// ICON PICKER
+let iconPickerSec=null, iconPickerIdx=-1;
+
+window.openIconPicker=function(sec,i,e){
+  e.preventDefault(); e.stopPropagation();
+  iconPickerSec=sec; iconPickerIdx=i;
+  document.getElementById('ip-file').value='';
+  document.getElementById('ip-url').value='';
+  document.getElementById('iconPickerModal').classList.add('open');
+};
+function closeIconPicker(){
+  document.getElementById('iconPickerModal').classList.remove('open');
+  iconPickerSec=null; iconPickerIdx=-1;
+}
+function saveIconPicker(){
+  const file=document.getElementById('ip-file').files[0];
+  const url=document.getElementById('ip-url').value.trim();
+  const links=getLinks(iconPickerSec);
+  if(!links[iconPickerIdx]) return;
+  if(file){
+    const reader=new FileReader();
+    reader.onload=e=>{
+      links[iconPickerIdx].customIcon=e.target.result;
+      setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+    };
+    reader.readAsDataURL(file);
+  } else if(url){
+    links[iconPickerIdx].customIcon=url;
+    setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+  } else {
+    closeIconPicker();
+  }
+}
+function resetIcon(){
+  const links=getLinks(iconPickerSec);
+  if(links[iconPickerIdx]) delete links[iconPickerIdx].customIcon;
+  setLinks(iconPickerSec,links); closeIconPicker(); renderLinksHub(); renderAllSectionLinks();
+}
+document.getElementById('iconPickerModal').addEventListener('click',function(e){if(e.target===this)closeIconPicker();});
 
 // LINK DRAG & DROP
 let dragSec=null, dragIdx=-1;
