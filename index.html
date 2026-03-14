@@ -926,7 +926,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <div class="modal-overlay" id="taskDetailModal">
   <div class="modal" onclick="event.stopPropagation()" style="width:480px;">
     <div class="modal-title" id="tdm-dayname" style="font-size:.8rem;color:var(--muted);font-weight:400;margin-bottom:4px;"></div>
-    <input class="modal-inp" id="tdm-title" placeholder="Görev başlığı" style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:14px;">
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;">
+      <input class="modal-inp" id="tdm-title" placeholder="Görev başlığı" style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;flex:1;">
+      <input type="time" id="tdm-time" class="modal-inp" style="flex:0 0 100px;font-family:'DM Mono',monospace;" title="Saat (opsiyonel)">
+    </div>
     <div class="modal-field">
       <label class="modal-label">Detay / Not (opsiyonel)</label>
       <textarea class="modal-inp" id="tdm-detail" placeholder="Bu görevle ilgili notlar, detaylar..." style="height:140px;resize:vertical;line-height:1.6;font-family:'DM Mono',monospace;font-size:.82rem;"></textarea>
@@ -1186,7 +1189,8 @@ function renderDay(dow){
     c.className='task-chip'+(d?' done':'');
     const hasDetail = t.detail && t.detail.trim().length > 0;
     const detailDot = hasDetail ? '<span style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-left:4px;vertical-align:middle;flex-shrink:0;" title="Not var"></span>' : '';
-    c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel">${t.label}${detailDot}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
+    const timeStr = t.time ? `<span style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);margin-right:3px;">${t.time}</span>` : '';
+    c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel">${timeStr}${t.label}${detailDot}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
     const _wk=getWeekKey(), _dow=dow, _i=i, _day=DSHORT[dow];
     c.querySelector('.tlabel').addEventListener('click', function(e){
       if(e.target.closest('.tacts')) return;
@@ -1198,8 +1202,29 @@ function renderDay(dow){
 function tDone(wk,dow,i,id,e){e.stopPropagation();const dn=ld('dn9_'+wk+'_'+dow,[]);const x=dn.indexOf(id);if(x>-1)dn.splice(x,1);else dn.push(id);sv('dn9_'+wk+'_'+dow,dn);buildWeek();}
 function tDel(wk,dow,i,e){e.stopPropagation();const wt=getWT();wt[dow].splice(i,1);setWT(wt);buildWeek();}
 function showAdd(d){document.getElementById('atr-'+d).style.display='none';const r=document.getElementById('ati-'+d);r.style.display='flex';r.querySelector('input').focus();}
-function hideAdd(d){document.getElementById('atr-'+d).style.display='flex';const r=document.getElementById('ati-'+d);r.style.display='none';r.querySelector('input').value='';}
-function addTask(d){const inp=document.getElementById('ati-'+d).querySelector('input');const label=inp.value.trim();if(!label)return;const color=document.getElementById('ac-'+d).value;const wt=getWT();if(!wt[d])wt[d]=[];wt[d].push({label,color,id:'t'+d+Date.now()});setWT(wt);hideAdd(d);buildWeek();}
+function hideAdd(d){
+  document.getElementById('atr-'+d).style.display='flex';
+  const r=document.getElementById('ati-'+d);
+  r.style.display='none';
+  r.querySelectorAll('input').forEach(i=>i.value='');
+}
+function addTask(d){
+  const inp=document.getElementById('ati-'+d).querySelector('input[type=text]');
+  const label=inp.value.trim();if(!label)return;
+  const color=document.getElementById('ac-'+d).value;
+  const timeEl=document.getElementById('at-'+d);
+  const time=timeEl?timeEl.value:'';
+  const wt=getWT();if(!wt[d])wt[d]=[];
+  wt[d].push({label,color,id:'t'+d+Date.now(),time});
+  // Saate göre sırala
+  wt[d].sort((a,b)=>{
+    if(!a.time&&!b.time) return 0;
+    if(!a.time) return 1;
+    if(!b.time) return -1;
+    return a.time.localeCompare(b.time);
+  });
+  setWT(wt);hideAdd(d);buildWeek();
+}
 function changeWeek(dir){if(dir===0)weekOffset=0;else weekOffset+=dir;sv('weekOffset9',weekOffset);buildWeek();}
 function buildWeek(){
   const now=new Date(); const base=new Date(now); base.setDate(now.getDate()+weekOffset*7);
@@ -1211,7 +1236,7 @@ function buildWeek(){
     const dd=new Date(mon); dd.setDate(mon.getDate()+(dow===0?6:dow-1));
     const isT=weekOffset===0&&dd.toDateString()===now.toDateString();
     const col=document.createElement('div'); col.className='day-col'+(isT?' today':'');
-    col.innerHTML=`<div class="day-hdr"><div class="day-nm">${DSHORT[dow]}</div><div class="day-num">${dd.getDate()}</div></div><div class="day-tasks" id="dt-${dow}"></div><div class="add-task-row" id="atr-${dow}" onclick="showAdd(${dow})">+ görev</div><div class="add-task-input" id="ati-${dow}"><input type="text" placeholder="Görev..."/><select id="ac-${dow}">${COPTS}</select><button class="ib" onclick="addTask(${dow})">✓</button><button class="cb" onclick="hideAdd(${dow})">✕</button></div>`;
+    col.innerHTML=`<div class="day-hdr"><div class="day-nm">${DSHORT[dow]}</div><div class="day-num">${dd.getDate()}</div></div><div class="day-tasks" id="dt-${dow}"></div><div class="add-task-row" id="atr-${dow}" onclick="showAdd(${dow})">+ görev</div><div class="add-task-input" id="ati-${dow}"><input type="text" placeholder="Görev..."/><input type="time" id="at-${dow}" style="background:var(--surf2);border:1px solid var(--brd2);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:.72rem;padding:5px 6px;outline:none;flex:0 0 80px;"/><select id="ac-${dow}">${COPTS}</select><button class="ib" onclick="addTask(${dow})">✓</button><button class="cb" onclick="hideAdd(${dow})">✕</button></div>`;
     grid.appendChild(col); renderDay(dow);
     document.getElementById('ati-'+dow).querySelector('input').addEventListener('keydown',e=>{if(e.key==='Enter')addTask(dow);if(e.key==='Escape')hideAdd(dow);});
   });
@@ -2190,6 +2215,7 @@ function openTaskDetail(wk, dow, idx, dayName) {
   if(!task) return;
   document.getElementById('tdm-dayname').textContent = dayName;
   document.getElementById('tdm-title').value = task.label || '';
+  document.getElementById('tdm-time').value = task.time || '';
   document.getElementById('tdm-detail').value = task.detail || '';
   document.getElementById('taskDetailModal').classList.add('open');
   setTimeout(()=>document.getElementById('tdm-title').focus(), 100);
@@ -2207,8 +2233,17 @@ function saveTaskDetail(){
   if(!title) return;
   const wt = getWT();
   if(wt[tdmDow] && wt[tdmDow][tdmIdx]) {
+    const newTime = document.getElementById('tdm-time').value;
     wt[tdmDow][tdmIdx].label = title;
     wt[tdmDow][tdmIdx].detail = detail;
+    wt[tdmDow][tdmIdx].time = newTime;
+    // Saate gore sirala
+    wt[tdmDow].sort((a,b)=>{
+      if(!a.time&&!b.time) return 0;
+      if(!a.time) return 1;
+      if(!b.time) return -1;
+      return a.time.localeCompare(b.time);
+    });
     setWT(wt);
   }
   closeTaskDetail();
