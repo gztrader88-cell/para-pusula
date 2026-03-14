@@ -722,7 +722,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
         <span>👤 Kişisel Giderler</span>
       </div>
-      <div class="finance-section" id="fin-kisisel"></div>
+      <div class="finance-section" id="fin-kisisel-display"></div>
     </div>
   </div>
 </div>
@@ -925,6 +925,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
   </div>
 </div>
+
+<!-- KİŞİSEL GİDER - HER ZAMAN DOM'DA -->
+<div id="fin-kisisel" style="display:none;"></div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1357,6 +1360,11 @@ function renderFinance(key){
       div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount income">+${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
       incWrap.appendChild(div);
     });
+  }
+  // Kisisel için display div'ini de güncelle
+  if(key==='kisisel'){
+    const dispWrap=document.getElementById('fin-kisisel-display');
+    if(dispWrap && wrap) dispWrap.innerHTML=wrap.innerHTML;
   }
 }
 
