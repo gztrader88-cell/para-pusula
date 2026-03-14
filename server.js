@@ -1,32 +1,41 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { Pool } = require('pg');
 
 const PORT = process.env.PORT || 8080;
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const DATABASE_URL = process.env.DATABASE_URL;
 
-// Tabloyu oluştur
+let pool = null;
+
+if (DATABASE_URL) {
+  const { Pool } = require('pg');
+  pool = new Pool({ connectionString: DATABASE_URL });
+}
+
 async function initDB() {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS dashboard_data (
-      key TEXT PRIMARY KEY,
-      value TEXT NOT NULL,
-      updated_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `);
-  console.log('DB ready');
+  if (!pool) { console.log('No DB, using localStorage only'); return; }
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS dashboard_data (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL,
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    console.log('DB ready');
+  } catch(e) {
+    console.error('DB init error:', e.message);
+    pool = null;
+  }
 }
 
 function parseBody(req) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
-      try { resolve(JSON.parse(body)); }
-      catch(e) { resolve({}); }
+      try { resolve(JSON.parse(body)); } catch(e) { resolve({}); }
     });
-    req.on('error', reject);
   });
 }
 
@@ -42,24 +51,20 @@ http.createServer(async (req, res) => {
 
   const url = req.url.split('?')[0];
 
-  // GET /api/data/:key
   if (req.method === 'GET' && url.startsWith('/api/data/')) {
     const key = decodeURIComponent(url.slice(10));
+    if (!pool) { res.writeHead(404); res.end('null'); return; }
     try {
       const r = await pool.query('SELECT value FROM dashboard_data WHERE key=$1', [key]);
-      if (r.rows.length > 0) {
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end(r.rows[0].value);
-      } else {
-        res.writeHead(404); res.end('null');
-      }
-    } catch(e) { res.writeHead(500); res.end(e.message); }
+      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.end(r.rows.length > 0 ? r.rows[0].value : 'null');
+    } catch(e) { res.writeHead(500); res.end('null'); }
     return;
   }
 
-  // POST /api/data/:key
   if (req.method === 'POST' && url.startsWith('/api/data/')) {
     const key = decodeURIComponent(url.slice(10));
+    if (!pool) { res.writeHead(200); res.end('{"ok":true}'); return; }
     try {
       const body = await parseBody(req);
       const value = JSON.stringify(body.value);
@@ -69,23 +74,22 @@ http.createServer(async (req, res) => {
       `, [key, value]);
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end('{"ok":true}');
-    } catch(e) { res.writeHead(500); res.end(e.message); }
+    } catch(e) { res.writeHead(500); res.end('{"ok":false}'); }
     return;
   }
 
-  // GET /api/data - tüm keyleri getir (migration için)
   if (req.method === 'GET' && url === '/api/data') {
+    if (!pool) { res.writeHead(200); res.end('{}'); return; }
     try {
       const r = await pool.query('SELECT key, value FROM dashboard_data');
       const obj = {};
-      r.rows.forEach(row => obj[row.key] = JSON.parse(row.value));
+      r.rows.forEach(row => { try { obj[row.key] = JSON.parse(row.value); } catch(e) {} });
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(obj));
-    } catch(e) { res.writeHead(500); res.end(e.message); }
+    } catch(e) { res.writeHead(200); res.end('{}'); }
     return;
   }
 
-  // HTML dosyası
   const filePath = path.join(__dirname, 'index.html');
   fs.readFile(filePath, (err, data) => {
     if (err) { res.writeHead(404); res.end('Not found'); return; }
@@ -94,6 +98,6 @@ http.createServer(async (req, res) => {
   });
 
 }).listen(PORT, async () => {
-  await initDB();
   console.log(`Server running on port ${PORT}`);
+  await initDB();
 });
