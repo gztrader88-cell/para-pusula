@@ -287,9 +287,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <div class="topbar">
   <div class="logo" onclick="goHome()">Parada <span>Pusula</span></div>
-  <div>
-    <div class="clock" id="clock">--:--:--</div>
-    <div class="datedisp" id="datedisp">--</div>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <button onclick="openKasa()" title="Kasa" style="background:none;border:1px solid rgba(251,191,36,.25);border-radius:8px;color:var(--gold);font-size:.85rem;padding:5px 10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;" onmouseover="this.style.background='rgba(251,191,36,.1)'" onmouseout="this.style.background='none'">🔐 <span style="font-size:.72rem;font-weight:600;">Kasa</span></button>
+    <div style="text-align:right;">
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="datedisp" id="datedisp">--</div>
+    </div>
   </div>
 </div>
 
@@ -347,14 +350,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
           <div class="bn-icon">🖥️</div>
           <div class="bn-title">Sanal Sunucu</div>
           <div class="bn-sub">VPS · Visu Studio</div>
-        </div>
-      </div>
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openKasa()" style="border-color:rgba(251,191,36,.3);">
-          <div class="bn-icon">🔐</div>
-          <div class="bn-title" style="color:var(--gold);">Kasa</div>
-          <div class="bn-sub">Şifreli bölüm</div>
         </div>
       </div>
     </div>
