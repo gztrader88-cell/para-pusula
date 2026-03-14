@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Pusula — İş Merkezi</title>
+<title>Parada Pusula — İş Merkezi</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0c11;--surf:#13151c;--surf2:#1c1f2b;--brd:#2a2d3e;--brd2:#3a3f58;
-  --text:#f0f2ff;--text2:#c8cce8;--muted:#8890b0;
+  --bg:#111318;--surf:#181b22;--surf2:#1e2028;--brd:#25283a;--brd2:#353850;
+  --text:#eceef8;--text2:#bbbfd8;--muted:#7880a0;
   --accent:#f0b429;--green:#10b981;--red:#ef4444;--gold:#fbbf24;
   --c1:#8b5cf6;--c2:#ec4899;--c2a:#f472b6;--c2b:#a78bfa;
   --c3:#14b8a6;--c4:#f97316;--c4a:#fb923c;--c4b:#38bdf8;--c5:#3b82f6;
@@ -238,7 +238,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <body>
 
 <div class="topbar">
-  <div class="logo" onclick="goHome()">Para <span>Pusula</span></div>
+  <div class="logo" onclick="goHome()">Parada <span>Pusula</span></div>
   <div>
     <div class="clock" id="clock">--:--:--</div>
     <div class="datedisp" id="datedisp">--</div>
@@ -247,8 +247,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 
 <div class="hub-wrap">
   <div style="display:flex;flex-direction:column;align-items:center;">
-    <div class="hub-center">
-      <div class="hub-center-title">⚡ Para Pusula</div>
+    <div class="hub-center" onclick="goHome()" style="cursor:pointer;" title="Ana sayfaya dön">
+      <div class="hub-center-title">⚡ Parada Pusula</div>
       <div class="hub-center-sub">İş Operasyonları Merkezi</div>
     </div>
     <div class="hub-vline"></div>
@@ -663,6 +663,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="modal-field">
       <label class="modal-label">Bölüm</label>
       <select class="modal-select" id="ml-sec">
+        <option value="anasayfa">🏠 Ana Sayfa</option>
         <option value="1">🤖 Robot EA</option>
         <option value="2">📸 İçerik (Genel)</option>
         <option value="2a">🌍 Herkese Açık</option>
@@ -694,6 +695,7 @@ const DSHORT=['Paz','Pzt','Sal','Çrş','Prş','Cum','Cmt'];
 const COLORS={robot:'#8b5cf6',içerik:'#ec4899',app:'#14b8a6',reklam:'#f97316',vps:'#3b82f6',subs:'#10b981',genel:'#8890b0'};
 const COPTS=Object.entries(COLORS).map(([k,v])=>`<option value="${v}">${k}</option>`).join('');
 const SEC_META={
+  'anasayfa':{label:'Ana Sayfa',color:'#f0b429',icon:'🏠'},
   '1':{label:'Robot EA',color:'#8b5cf6',icon:'🤖'},
   '2':{label:'İçerik (Genel)',color:'#ec4899',icon:'📸'},
   '2a':{label:'Herkese Açık',color:'#f472b6',icon:'🌍'},
@@ -1274,23 +1276,29 @@ window.delLink=function(sec,i,e){
 function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
   wrap.innerHTML='';
-  const secOrder=['1','2','2a','2b','3','4','4a','4b','5'];
+  // Ana sayfa linkleri önce gelsin
+  const secOrder=['anasayfa','1','2','2a','2b','3','4','4a','4b','5'];
+  let hasAny=false;
   secOrder.forEach(sec=>{
     const links=getLinks(sec); if(links.length===0) return;
-    const meta=SEC_META[sec];
+    const meta=SEC_META[sec]; if(!meta) return;
+    hasAny=true;
     const section=document.createElement('div'); section.className='links-section';
-    section.innerHTML=`<div class="ls-title"><div class="ls-dot" style="background:${meta.color}"></div><div class="ls-name">${meta.icon} ${meta.label}</div><div class="ls-count">${links.length} link</div></div><div class="links-grid" id="lhg-${sec}"></div>`;
+    // Ana sayfa linkleri daha belirgin göster
+    const titleExtra = sec==='anasayfa' ? ' <span style="font-size:.6rem;background:rgba(240,180,41,.15);color:var(--accent);padding:2px 6px;border-radius:4px;font-family:DM Mono,monospace;">sabitlenmiş</span>' : '';
+    section.innerHTML=`<div class="ls-title"><div class="ls-dot" style="background:${meta.color}"></div><div class="ls-name">${meta.icon} ${meta.label}${titleExtra}</div><div class="ls-count">${links.length} link</div></div><div class="links-grid" id="lhg-${sec}"></div>`;
     wrap.appendChild(section);
     const grid=document.getElementById('lhg-'+sec);
     links.forEach((l,i)=>{
       const card=document.createElement('a'); card.className='link-card';
       card.href=l.url; card.target='_blank'; card.rel='noopener';
       card.style.setProperty('--lc',meta.color);
+      if(sec==='anasayfa') card.style.border=`1px solid rgba(240,180,41,.25)`;
       card.innerHTML=`<div class="lc-emoji">${l.emoji||'🔗'}</div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
       grid.appendChild(card);
     });
   });
-  if(wrap.innerHTML==='') wrap.innerHTML='<div style="color:var(--muted);font-size:.82rem;padding:20px 0;font-family:\'DM Mono\',monospace;">Henüz link eklenmedi. "+ Link Ekle" butonuna tıkla.</div>';
+  if(!hasAny) wrap.innerHTML='<div style="color:var(--muted);font-size:.82rem;padding:20px 0;font-family:\'DM Mono\',monospace;">Henüz link eklenmedi. "+ Link Ekle" butonuna tıkla.</div>';
 }
 function renderSectionLinks(sec){
   const el=document.getElementById('sl-'+sec); if(!el) return;
