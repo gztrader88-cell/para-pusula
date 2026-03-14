@@ -1029,7 +1029,7 @@ window.delNoteImg=function(key,i,e){e.stopPropagation();const imgs=getNoteImgs(k
 function openLightbox(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
 
-// STARRED / ÖNCELİKLİLER
+// STARRED / ONCELIKLILER
 function getStarred(){return ld('starred9',[]);}
 function setStarred(v){sv('starred9',v);}
 
@@ -1249,7 +1249,7 @@ function setFin(key,v){sv('fin9_'+key,v);}
 function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
 function getLinkCosts(key){
-  // Hangi sec ID'si bu key'e karşılık geliyor?
+  // Hangi sec ID'si bu key'e karsilik geliyor?
   const keyToSec={'robot':'1','icerik':'2','acik':'2a','ucretli':'2b','app':'3','ads':'4','igads':'4a','appads':'4b','vps':'5','haberler':'haberler','kisisel':null};
   const sec=keyToSec[key]; if(!sec) return [];
   return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
@@ -1421,7 +1421,7 @@ function renderHomeFinance(){
       Henüz muhasebe kaydı yok.<br>Kategorilere gidip gider/gelir ekle.
     </div>`;
 
-  // Muhasebe detay sayfasını da güncelle
+  // Muhasebe detay sayfasini da guncelle
   renderMuhasebePage();
 }
 
@@ -1557,7 +1557,7 @@ window.delLink=function(sec,i,e){
 function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
   wrap.innerHTML='';
-  // Ana sayfa linkleri önce gelsin
+  // Ana sayfa linkleri once gelsin
   const secOrder=['1','2','2a','2b','3','4','4a','4b','5','haberler'];
   let hasAny=false;
   secOrder.forEach(sec=>{
@@ -1565,7 +1565,7 @@ function renderLinksHub(){
     const meta=SEC_META[sec]; if(!meta) return;
     hasAny=true;
     const section=document.createElement('div'); section.className='links-section';
-    // Ana sayfa linkleri daha belirgin göster
+    // Ana sayfa linkleri daha belirgin goster
     const titleExtra = sec==='anasayfa' ? ' <span style="font-size:.6rem;background:rgba(240,180,41,.15);color:var(--accent);padding:2px 6px;border-radius:4px;font-family:DM Mono,monospace;">sabitlenmiş</span>' : '';
     section.innerHTML=`<div class="ls-title"><div class="ls-dot" style="background:${meta.color}"></div><div class="ls-name">${meta.icon} ${meta.label}${titleExtra}</div><div class="ls-count">${links.length} link</div></div><div class="links-grid" id="lhg-${sec}"></div>`;
     wrap.appendChild(section);
@@ -1704,7 +1704,7 @@ function renderShortcuts(){
     let domain3=''; try{domain3=new URL(s.url).hostname;}catch(e){}
     const fav3=s.customIcon||(domain3?`https://www.google.com/s2/favicons?domain=${domain3}&sz=32`:'');
     btn.innerHTML=fav3?`<img src="${fav3}" style="width:16px;height:16px;border-radius:3px;object-fit:contain;" alt=""><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`:`<span>🔗</span><span style="font-weight:600;font-size:.72rem;">${s.name}</span>`;
-    // Ikon değiştir butonu
+    // Ikon degistir butonu
     const editIconBtn=document.createElement('button');
     editIconBtn.innerHTML='✎';
     editIconBtn.title='İkonu değiştir';
@@ -1875,10 +1875,10 @@ window.kasaStartEdit=function(i){
   document.getElementById('ki-user').value=e.user||'';
   document.getElementById('ki-pass').value=e.pass||'';
   document.getElementById('ki-pass').type='text';
-  // Formu göster
+  // Formu goster
   const form=document.getElementById('kasaAddForm');
   form.classList.add('show');
-  // Başlığı değiştir
+  // Basligi degistir
   const saveBtn=form.querySelector('.kasa-save');
   saveBtn.textContent='Güncelle';
   document.getElementById('ki-label').focus();
@@ -1921,7 +1921,7 @@ window.openLinkEdit=function(sec,i,e){
   linkEditSec=sec; linkEditIdx=i;
   document.getElementById('le-name').value=links[i].name||'';
   document.getElementById('le-url').value=links[i].url||'';
-  // İkon bölümünü gizle
+  // Ikon bolumunu gizle
   document.getElementById('le-icon-section').style.display='none';
   document.getElementById('le-icon-file').value='';
   document.getElementById('le-icon-url').value='';
@@ -1945,12 +1945,12 @@ window.openLinkEditWithIcon=function(sec,i,e){
   linkEditSec=sec; linkEditIdx=i;
   document.getElementById('le-name').value=links[i].name||'';
   document.getElementById('le-url').value=links[i].url||'';
-  // İkon bölümünü göster
+  // Ikon bolumunu goster
   const iconSec=document.getElementById('le-icon-section');
   iconSec.style.display='block';
   document.getElementById('le-icon-file').value='';
   document.getElementById('le-icon-url').value='';
-  // Mevcut ikonu önizle
+  // Mevcut ikonu onizle
   const preview=document.getElementById('le-icon-preview');
   if(links[i].customIcon){
     preview.innerHTML=`<img src="${links[i].customIcon}" style="width:36px;height:36px;border-radius:6px;object-fit:contain;">`;
@@ -1990,7 +1990,7 @@ function saveLinkEdit(){
     delete links[linkEditIdx].cost;
     delete links[linkEditIdx].costCur;
   }
-  // İkon güncelle (sadece ikon bölümü gösteriliyorsa)
+  // Ikon guncelle (sadece ikon bolumu gosteriliyorsa)
   const iconSec=document.getElementById('le-icon-section');
   if(iconSec && iconSec.style.display!=='none'){
     const file=document.getElementById('le-icon-file').files[0];
@@ -2002,7 +2002,7 @@ function saveLinkEdit(){
     } else if(iconUrl){
       links[linkEditIdx].customIcon=iconUrl;
     }
-    // Sıfırlanmadıysa mevcut customIcon kalır
+    // Sifirlanmadiysa mevcut customIcon kalir
   }
   setLinks(linkEditSec,links); closeLinkEdit(); renderAllSectionLinks();
 }
@@ -2118,42 +2118,65 @@ function addLinkDragEvents(card, sec){
 }
 
 
-// KİŞİSEL GİDERLER
+// KISISEL GIDERLER
 function renderKisisel(){
   const wrap=document.getElementById('fin-kisisel-wrap'); if(!wrap) return;
   const data=getFin('kisisel');
   const exp=data.expenses;
   const totalTL=exp.reduce((s,i)=>s+itemToTL(i),0);
-  let html='';
-  if(exp.length===0){
-    html='<div style="color:var(--muted);font-size:.78rem;font-family:'DM Mono',monospace;padding:8px 0;">Henüz gider yok.</div>';
+  wrap.innerHTML='';
+  
+  // Items
+  exp.forEach((item,i)=>{
+    const cur=item.currency||'TL';
+    const tlVal=itemToTL(item);
+    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
+    const div=document.createElement('div');
+    div.className='fin-item';
+    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense" style="margin-left:auto;">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delKisisel(${i})">x</button>`;
+    wrap.appendChild(div);
+  });
+
+  // Toplam
+  if(exp.length>0){
+    const tot=document.createElement('div');
+    tot.className='fin-total';
+    tot.style.marginTop='8px';
+    tot.innerHTML=`<span>Toplam</span><span class="fin-total-val" style="color:var(--red);">-${fmtTL(totalTL)}</span>`;
+    wrap.appendChild(tot);
   } else {
-    exp.forEach((item,i)=>{
-      const cur=item.currency||'TL';
-      const tlVal=itemToTL(item);
-      const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-      html+=`<div class="fin-item">${item.name}${origStr}<span class="fin-amount expense" style="margin-left:auto;">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delKisisel(${i})">×</button></div>`;
-    });
-    html+=`<div class="fin-total" style="margin-top:8px;"><span>Toplam</span><span class="fin-total-val" style="color:var(--red);">-${fmtTL(totalTL)}</span></div>`;
+    const empty=document.createElement('div');
+    empty.style.cssText='color:var(--muted);font-size:.78rem;padding:8px 0;';
+    empty.textContent='Henüz gider yok.';
+    wrap.appendChild(empty);
   }
-  // Gider ekle formu
-  html+=`<button class="fin-add-btn" onclick="document.getElementById('kisisel-form').style.display='flex'">＋ Gider ekle</button>
-  <div id="kisisel-form" class="fin-add-form" style="display:none;">
+
+  // Gider ekle butonu
+  const addBtn=document.createElement('button');
+  addBtn.className='fin-add-btn';
+  addBtn.textContent='+ Gider ekle';
+  addBtn.onclick=()=>{formDiv.style.display='flex'; addBtn.style.display='none';};
+  wrap.appendChild(addBtn);
+
+  // Form
+  const formDiv=document.createElement('div');
+  formDiv.className='fin-add-form';
+  formDiv.style.display='none';
+  formDiv.innerHTML=`
     <div class="fin-inp-row"><input class="fin-inp" id="ki-name" placeholder="Berber, Spor, Kira..."></div>
     <div class="fin-inp-row">
       <input class="fin-inp" id="ki-amount" placeholder="Tutar" type="number" style="flex:1">
       <select class="fin-inp" id="ki-cur" style="flex:0 0 70px">
-        <option value="TL">₺ TL</option>
-        <option value="USD">$ USD</option>
-        <option value="EUR">€ EUR</option>
+        <option value="TL">TL</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
       </select>
     </div>
     <div class="fin-inp-row">
       <button class="fin-save" onclick="saveKisisel()">Kaydet</button>
-      <button class="fin-cancel" onclick="document.getElementById('kisisel-form').style.display='none'">İptal</button>
-    </div>
-  </div>`;
-  wrap.innerHTML=html;
+      <button class="fin-cancel" onclick="document.getElementById('fin-kisisel-wrap').querySelectorAll('.fin-add-form')[0].style.display='none'">Iptal</button>
+    </div>`;
+  wrap.appendChild(formDiv);
 }
 
 function saveKisisel(){
@@ -2175,6 +2198,7 @@ window.delKisisel=function(i){
   renderKisisel();
   renderHomeFinance();
 };
+
 
 // INIT
 buildWeek();
