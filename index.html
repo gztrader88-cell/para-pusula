@@ -956,7 +956,6 @@ function openSec(i){
   const el=document.getElementById('sec-'+sid);
   if(el) el.classList.add('open');
   activeSec=sid; sv('activeSec9',sid);
-  document.querySelector('.content').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function goHome(){openSec('0');}
 openSec(activeSec);
