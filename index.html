@@ -409,14 +409,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="starred-section" id="starredList"></div>
   </div>
 
-  <!-- LİNKLER -->
-  <div class="links-hub">
-    <div class="lhub-header">
-      <div class="lhub-title">🔗 Linklerim</div>
-      <button class="add-link-hub-btn" onclick="openLinkModal()">＋ Link Ekle</button>
-    </div>
-    <div id="linksHubContent"></div>
-  </div>
+
 
   <!-- MUHASEBE ÖZETİ - Tek tıklanabilir kart -->
   <div class="home-finance">
@@ -527,7 +520,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-acik"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-2a"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('2a')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-2a"></div></div></div>
   </div>
 </div>
 
@@ -558,7 +551,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-ucretli"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-2b"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('2b')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-2b"></div></div></div>
   </div>
 </div>
 
@@ -593,7 +586,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-app"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-3"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('3')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-3"></div></div></div>
   </div>
 </div>
 
@@ -624,7 +617,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-ads"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-4"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4"></div></div></div>
   </div>
 </div>
 
@@ -655,7 +648,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-igads"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-4a"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4a')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4a"></div></div></div>
   </div>
 </div>
 
@@ -686,7 +679,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-appads"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-4b"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4b')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4b"></div></div></div>
   </div>
 </div>
 
@@ -717,7 +710,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="finance-section" id="fin-vps"></div>
       </div>
     </div>
-    <div><div class="card"><div class="card-title">🔗 Linkler</div><div class="section-links-wrap" id="sl-5"></div></div></div>
+    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('5')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-5"></div></div></div>
   </div>
 </div>
 
@@ -753,7 +746,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       </div>
     </div>
     <div>
-      <div class="card"><div class="card-title">🔗 Haber Linkleri</div><div class="section-links-wrap" id="sl-haberler"></div></div>
+      <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Haber Linkleri<button onclick="openLinkModalFor('haberler')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-haberler"></div></div>
     </div>
   </div>
 </div>
@@ -897,8 +890,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div class="modal-field">
       <label class="modal-label">Bölüm</label>
       <select class="modal-select" id="ml-sec">
-        <option value="anasayfa">🏠 Ana Sayfa</option>
-        <option value="1">🤖 Robot EA</option>
+<option value="1">🤖 Robot EA</option>
         <option value="2">📸 İçerik (Genel)</option>
         <option value="2a">🌍 Herkese Açık</option>
         <option value="2b">💎 Ücretli</option>
@@ -930,8 +922,7 @@ const DSHORT=['Paz','Pzt','Sal','Çrş','Prş','Cum','Cmt'];
 const COLORS={robot:'#8b5cf6',içerik:'#ec4899',app:'#14b8a6',reklam:'#f97316',vps:'#3b82f6',subs:'#10b981',genel:'#8890b0'};
 const COPTS=Object.entries(COLORS).map(([k,v])=>`<option value="${v}">${k}</option>`).join('');
 const SEC_META={
-  'anasayfa':{label:'Ana Sayfa',color:'#f0b429',icon:'🏠'},
-  'haberler':{label:'Haberler',color:'#06b6d4',icon:'📰'},
+'haberler':{label:'Haberler',color:'#06b6d4',icon:'📰'},
   '1':{label:'Robot EA',color:'#8b5cf6',icon:'🤖'},
   '2':{label:'İçerik (Genel)',color:'#ec4899',icon:'📸'},
   '2a':{label:'Herkese Açık',color:'#f472b6',icon:'🌍'},
@@ -1490,6 +1481,11 @@ function renderMuhasebePage(){
 function getLinks(sec){return ld('lnk9_'+String(sec),[]);}
 function setLinks(sec,v){sv('lnk9_'+String(sec),v);}
 function openLinkModal(){document.getElementById('linkModal').classList.add('open');}
+function openLinkModalFor(sec){
+  document.getElementById('linkModal').classList.add('open');
+  const sel=document.getElementById('ml-sec');
+  if(sel) sel.value=sec;
+}
 function closeLinkModal(){
   document.getElementById('linkModal').classList.remove('open');
   ['ml-name','ml-url'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
@@ -1514,7 +1510,7 @@ function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
   wrap.innerHTML='';
   // Ana sayfa linkleri önce gelsin
-  const secOrder=['anasayfa','1','2','2a','2b','3','4','4a','4b','5','haberler'];
+  const secOrder=['1','2','2a','2b','3','4','4a','4b','5','haberler'];
   let hasAny=false;
   secOrder.forEach(sec=>{
     const links=getLinks(sec); if(links.length===0) return;
@@ -1948,7 +1944,6 @@ function addLinkDragEvents(card, sec){
 buildWeek();
 CL_KEYS.forEach(makeChecklist);
 NOTE_KEYS.forEach(renderNoteImgs);
-renderLinksHub();
 renderAllSectionLinks();
 renderStarred();
 loadRobotStats();
