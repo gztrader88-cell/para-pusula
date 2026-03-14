@@ -23,7 +23,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .datedisp{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);margin-top:2px;text-align:right;}
 /* HUB */
 .hub-wrap{padding:36px 36px 12px;max-width:1400px;margin:0 auto;}
-.hub-center{background:linear-gradient(135deg,rgba(240,180,41,.15),rgba(240,180,41,.05));border:2px solid rgba(240,180,41,.4);border-radius:16px;padding:18px 40px;text-align:center;width:fit-content;margin:0 auto;}
+.hub-center{background:linear-gradient(135deg,rgba(240,180,41,.15),rgba(240,180,41,.05));border:2px solid rgba(240,180,41,.4);border-radius:16px;padding:14px 40px;text-align:center;width:fit-content;margin:0 auto;}
 .hub-center-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--accent);}
 .hub-center-sub{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:3px;}
 .hub-vline{width:2px;height:28px;background:linear-gradient(to bottom,rgba(240,180,41,.4),rgba(240,180,41,.15));margin:0 auto;}
@@ -31,16 +31,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .hub-branches::before{content:'';position:absolute;top:0;left:10%;width:80%;height:2px;background:linear-gradient(to right,transparent 0%,var(--brd2) 15%,var(--brd2) 85%,transparent 100%);}
 .hub-branch{display:flex;flex-direction:column;align-items:center;flex:1;padding:0 8px;}
 .branch-vline{width:2px;height:24px;background:var(--brd2);}
-.branch-node{border:1.5px solid var(--brd2);border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surf);width:100%;user-select:none;}
+.branch-node{border:1.5px solid var(--brd2);border-radius:14px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surf);width:100%;user-select:none;}
 .branch-node:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
 .bn-icon{font-size:1.5rem;margin-bottom:5px;}
-.bn-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);}
+.bn-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);}
 .bn-sub{font-size:.64rem;color:var(--muted);margin-top:3px;font-family:'DM Mono',monospace;line-height:1.4;}
 .sub-nodes{display:flex;gap:6px;margin-top:8px;width:100%;}
 .sub-node{flex:1;border:1px solid var(--brd);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;background:var(--surf2);transition:all .2s;}
 .sub-node:hover{transform:translateY(-2px);}
 .sn-icon{font-size:1rem;}
-.sn-lbl{font-size:.62rem;color:var(--text2);display:block;margin-top:2px;font-family:'DM Sans',sans-serif;font-weight:600;}
+.sn-lbl{font-size:.72rem;color:var(--text2);display:block;margin-top:2px;font-family:'DM Sans',sans-serif;font-weight:600;}
 /* CONTENT */
 .content{max-width:1400px;margin:0 auto;padding:0 36px 80px;}
 .section{display:none;padding:28px 0 8px;animation:fadeIn .2s ease;}
@@ -318,7 +318,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div style="display:flex;align-items:center;gap:0;justify-content:center;">
       <div class="hub-center" onclick="goHome()" style="cursor:pointer;" title="Ana sayfaya dön">
         <div class="hub-center-title">⚡ Parada Pusula</div>
-        <div class="hub-center-sub">İş Operasyonları Merkezi</div>
+        
       </div>
       <div style="display:flex;align-items:center;">
         <div style="width:32px;height:2px;background:rgba(6,182,212,.4);"></div>
@@ -335,7 +335,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="branch-node" onclick="openSec(1)">
           <div class="bn-icon">🤖</div>
           <div class="bn-title">Robot EA</div>
-          <div class="bn-sub">73 müşteri · 34.1M TL</div>
         </div>
       </div>
       <div class="hub-branch">
@@ -343,7 +342,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="branch-node" onclick="openSec(2)">
           <div class="bn-icon">📸</div>
           <div class="bn-title">İçerik</div>
-          <div class="bn-sub">Instagram · YouTube</div>
         </div>
         <div class="sub-nodes">
           <div class="sub-node" onclick="openSec('2a')"><div class="sn-icon">🌍</div><span class="sn-lbl">Herkese Açık</span></div>
@@ -355,7 +353,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="branch-node" onclick="openSec(3)">
           <div class="bn-icon">📱</div>
           <div class="bn-title">Aplikasyon</div>
-          <div class="bn-sub">Güç dengesi · Sinyal</div>
         </div>
       </div>
       <div class="hub-branch">
@@ -363,7 +360,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="branch-node" onclick="openSec(4)">
           <div class="bn-icon">📢</div>
           <div class="bn-title">Reklam</div>
-          <div class="bn-sub">Ads Manager</div>
         </div>
         <div class="sub-nodes">
           <div class="sub-node" onclick="openSec('4a')"><div class="sn-icon">📷</div><span class="sn-lbl">Instagram</span></div>
@@ -375,7 +371,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="branch-node" onclick="openSec(5)">
           <div class="bn-icon">🖥️</div>
           <div class="bn-title">Sanal Sunucu</div>
-          <div class="bn-sub">VPS · Visu Studio</div>
         </div>
       </div>
     </div>
