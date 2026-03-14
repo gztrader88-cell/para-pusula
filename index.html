@@ -1218,8 +1218,8 @@ function makeChecklist(elId){
       const row=document.createElement('div'); row.className='cl-item'+(it.done?' done':'');
       row.draggable=true;
       row.dataset.idx=String(i);
-      const imgThumb = it.img ? `<img src="${it.img}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;cursor:pointer;flex-shrink:0;" onclick="openLightbox('${it.img.replace(/'/g,"\\'")}')" title="Görseli büyüt">` : '';
-      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div><div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span>${imgThumb}<button class="cl-img-btn" onclick="clImgClick('${elId}',${i},event)" title="Görsel ekle">🖼</button><button class="cl-star${starred?' starred':''}" onclick="clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      const imgThumb = it.img ? `<span style="position:relative;display:inline-flex;flex-shrink:0;" onclick="event.stopPropagation()"><img src="${it.img}" style="width:28px;height:28px;border-radius:4px;object-fit:cover;cursor:pointer;" onclick="openLightbox('${it.img.replace(/'/g,"\\'")}')" title="Görseli büyüt"><button onclick="clDelImg('${elId}',${i},event)" style="position:absolute;top:-5px;right:-5px;width:14px;height:14px;border-radius:50%;background:var(--red);border:none;color:white;font-size:.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;" title="Resmi kaldır">×</button></span>` : '';
+      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div><div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span>${imgThumb}<button class="cl-img-btn" onclick="event.stopPropagation();clImgClick('${elId}',${i},event)" title="Görsel ekle">🖼</button><button class="cl-star${starred?' starred':''}" onclick="event.stopPropagation();clStarClick('${elId}',${i},event)" title="Öne çıkar">⭐</button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
       // Drag events
       let clDragIdx=-1;
       row.addEventListener('dragstart',e=>{clDragIdx=i;row.style.opacity='.4';e.dataTransfer.effectAllowed='move';});
@@ -2182,6 +2182,14 @@ function addLinkDragEvents(card, sec){
 
 
 // CHECKLIST IMAGE
+window.clDelImg=function(elId,i,e){
+  e.stopPropagation();
+  const its=ld('cl9_'+elId,[]);
+  if(its[i]){ delete its[i].img; sv('cl9_'+elId,its); }
+  const el=document.getElementById(elId);
+  if(el){el.innerHTML='';makeChecklist(elId);}
+};
+
 window.clImgClick=function(elId,i,e){
   e.stopPropagation();
   const inp=document.getElementById('cl-img-inp');
