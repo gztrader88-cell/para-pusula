@@ -997,14 +997,15 @@ async function loadRobotStats() {
     const svb=document.getElementById('sv-bugun');
     if(svb){svb.textContent=(bugunOrt>=0?'+':'')+bugunOrt.toFixed(3)+'%';svb.className='stat-val '+(bugunOrt>=0?'sv-pos':'sv-neg');}
 
-    // 3. Hedefe Uzaklık ort.
-    const uzaklikOrt = aktif.reduce((s,m)=>{
+    // 3. Herkesin hakedişe ulaşması için gereken artış (max)
+    const uzakliklar = aktif.map(m=>{
       const h=parseFloat(m.hakedis_miktari||m.baslangic_parasi||1);
       const v=parseFloat(m.varlik||0);
-      return s+((v/h)-1)*100;
-    },0)/aktif.length;
+      return v < h ? (h-v)/v*100 : 0;
+    });
+    const maxUzaklik = Math.max(...uzakliklar);
     const svh=document.getElementById('sv-hedef');
-    if(svh){svh.textContent=(uzaklikOrt>=0?'+':'')+uzaklikOrt.toFixed(2)+'%';svh.className='stat-val '+(uzaklikOrt>=0?'sv-pos':'sv-neg');}
+    if(svh){svh.textContent='+'+maxUzaklik.toFixed(1)+'%';svh.className='stat-val sv-neg';}
 
     // 4. Hazır Komisyon
     const komisyon = aktif.reduce((s,m)=>{
