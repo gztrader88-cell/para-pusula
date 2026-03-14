@@ -132,8 +132,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .task-chip{display:flex;align-items:flex-start;gap:6px;padding:7px;border-radius:7px;background:var(--surf2);font-size:.76rem;line-height:1.4;border:1px solid transparent;color:var(--text2);}
 .task-chip:hover{border-color:var(--brd2);}
 .tdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.tlabel{flex:1;cursor:text;word-break:break-word;min-width:0;color:var(--text2);}
-.tlabel:focus{outline:none;}
+.tlabel{flex:1;cursor:pointer;word-break:break-word;min-width:0;color:var(--text2);}
+
 .tacts{display:none;flex-direction:column;gap:2px;flex-shrink:0;}
 .task-chip:hover .tacts{display:flex;}
 .tbtn{background:none;border:none;cursor:pointer;font-size:.7rem;color:var(--muted);padding:2px 3px;border-radius:3px;}
@@ -921,6 +921,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
 </div>
 
+
+<!-- GÖREV DETAY MODAL -->
+<div class="modal-overlay" id="taskDetailModal">
+  <div class="modal" onclick="event.stopPropagation()" style="width:480px;">
+    <div class="modal-title" id="tdm-dayname" style="font-size:.8rem;color:var(--muted);font-weight:400;margin-bottom:4px;"></div>
+    <input class="modal-inp" id="tdm-title" placeholder="Görev başlığı" style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:14px;">
+    <div class="modal-field">
+      <label class="modal-label">Detay / Not (opsiyonel)</label>
+      <textarea class="modal-inp" id="tdm-detail" placeholder="Bu görevle ilgili notlar, detaylar..." style="height:140px;resize:vertical;line-height:1.6;font-family:'DM Mono',monospace;font-size:.82rem;"></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-save" onclick="saveTaskDetail()">Kaydet</button>
+      <button class="modal-cancel" onclick="closeTaskDetail()">İptal</button>
+    </div>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lb-close">×</button>
@@ -1175,8 +1192,14 @@ function renderDay(dow){
   tasks.forEach((t,i)=>{
     const d=done.includes(t.id); const c=document.createElement('div');
     c.className='task-chip'+(d?' done':'');
-    c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel" contenteditable="true" spellcheck="false">${t.label}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
-    c.querySelector('.tlabel').addEventListener('blur',function(){const wt=getWT();if(wt[dow]&&wt[dow][i]){wt[dow][i].label=this.textContent.trim();setWT(wt);}});
+    const hasDetail = t.detail && t.detail.trim().length > 0;
+    const detailDot = hasDetail ? '<span style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-left:4px;vertical-align:middle;flex-shrink:0;" title="Not var"></span>' : '';
+    c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel">${t.label}${detailDot}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
+    const _wk=getWeekKey(), _dow=dow, _i=i, _day=DSHORT[dow];
+    c.querySelector('.tlabel').addEventListener('click', function(e){
+      if(e.target.closest('.tacts')) return;
+      openTaskDetail(_wk, _dow, _i, _day);
+    });
     ct.appendChild(c);
   });
 }
@@ -2163,6 +2186,45 @@ function addLinkDragEvents(card, sec){
   });
 }
 
+
+
+// GOREV DETAY
+let tdmWk=null, tdmDow=null, tdmIdx=null;
+
+function openTaskDetail(wk, dow, idx, dayName) {
+  tdmWk=wk; tdmDow=dow; tdmIdx=idx;
+  const wt = ld('wt9_'+wk, DEF_WEEK);
+  const task = wt[dow] && wt[dow][idx];
+  if(!task) return;
+  document.getElementById('tdm-dayname').textContent = dayName;
+  document.getElementById('tdm-title').value = task.label || '';
+  document.getElementById('tdm-detail').value = task.detail || '';
+  document.getElementById('taskDetailModal').classList.add('open');
+  setTimeout(()=>document.getElementById('tdm-title').focus(), 100);
+}
+
+function closeTaskDetail(){
+  document.getElementById('taskDetailModal').classList.remove('open');
+  tdmWk=null; tdmDow=null; tdmIdx=null;
+}
+
+function saveTaskDetail(){
+  if(tdmWk===null) return;
+  const title = document.getElementById('tdm-title').value.trim();
+  const detail = document.getElementById('tdm-detail').value.trim();
+  if(!title) return;
+  const wt = getWT();
+  if(wt[tdmDow] && wt[tdmDow][tdmIdx]) {
+    wt[tdmDow][tdmIdx].label = title;
+    wt[tdmDow][tdmIdx].detail = detail;
+    setWT(wt);
+  }
+  closeTaskDetail();
+  buildWeek();
+}
+
+document.getElementById('taskDetailModal').addEventListener('click', function(e){ if(e.target===this) closeTaskDetail(); });
+document.getElementById('tdm-title').addEventListener('keydown', e=>{ if(e.key==='Escape') closeTaskDetail(); });
 
 // KISISEL GIDERLER
 function renderKisisel(){
