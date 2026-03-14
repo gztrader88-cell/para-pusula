@@ -1551,8 +1551,14 @@ function renderSectionLinks(sec){
   links.forEach((l,i)=>{
     const card=document.createElement('a'); card.className='link-card';
     card.href=l.url; card.target='_blank'; card.rel='noopener';
+    card.draggable=true;
+    card.dataset.sec=sec; card.dataset.idx=String(i);
+    card.setAttribute('data-tooltip',l.name);
     if(meta) card.style.setProperty('--lc',meta.color);
-    card.innerHTML=`<div class="lc-emoji">${l.emoji||'🔗'}</div><div class="lc-name">${l.name}</div><div class="lc-url">${l.url.replace('https://','')}</div><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
+    let dom=''; try{dom=new URL(l.url).hostname;}catch(e){}
+    const fav=l.customIcon||(dom?`https://www.google.com/s2/favicons?domain=${dom}&sz=64`:'');
+    card.innerHTML=`<div class="lc-favicon" onclick="openIconPicker('${sec}',${i},event)" title="İkonu değiştir"><img src="${fav}" alt="" onerror="this.style.display='none'"><div class="lc-favicon-fallback">🔗</div><div class="lc-favicon-overlay">✎</div></div><div class="lc-info"><div class="lc-name">${l.name}</div></div><button class="lc-edit-btn" onclick="openLinkEdit('${sec}',${i},event)" title="Düzenle">✎</button><button class="lc-del" onclick="delLink('${sec}',${i},event)">×</button>`;
+    addLinkDragEvents(card,sec);
     grid.appendChild(card);
   });
   el.appendChild(grid);
