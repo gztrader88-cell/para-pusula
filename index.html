@@ -1284,12 +1284,12 @@ function renderFinance(key){
           </div>
         </div>
       </div>
-      <div style="width:1px;background:var(--brd);margin:0 12px;"></div>
+      ${onlyExpenses?'':(`<div style="width:1px;background:var(--brd);margin:0 12px;"></div>
       <div class="fin-col">
         <div class="fin-title"><span style="color:var(--green)">📥</span> Gelirler</div>
         <div id="fin-inc-${key}"></div>
         <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--green)">+${fmtTL(totalIncTL)}</span></div>
-        <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>
+        <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>`)}
         <div class="fin-add-form" id="faf-inc-${key}">
           <div class="fin-inp-row">
             <input class="fin-inp" placeholder="İsim (Komisyon, Abonelik...)" id="fi-inc-name-${key}">
@@ -1307,12 +1307,12 @@ function renderFinance(key){
             <button class="fin-cancel" onclick="hideFinForm('inc','${key}')">İptal</button>
           </div>
         </div>
-      </div>
+      </div>`)}
     </div>
-    <div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)'};border:1px solid ${net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)'};display:flex;justify-content:space-between;align-items:center;">
+    ${onlyExpenses?'':`<div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)'};border:1px solid ${net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)'};display:flex;justify-content:space-between;align-items:center;">
       <span style="font-size:.85rem;color:var(--text2);font-weight:600;">📊 Net</span>
       <span style="font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${fmtTL(net)}</span>
-    </div>`;
+    </div>`}`;
 
   // Expense items
   const expWrap=document.getElementById('fin-exp-'+key);
@@ -1366,11 +1366,12 @@ window.delFin=function(type,key,i){
 
 function renderHomeFinance(){
   const summary=document.getElementById('homeFinanceSummary'); if(!summary) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler'};
   let grandExpTL=0, grandIncTL=0;
   Object.entries(keyMap).forEach(([sec,key])=>{
     const data=getFin(key);
-    grandExpTL+=data.expenses.reduce((s,i)=>s+itemToTL(i),0);
+    const lkc=getLinkCosts(key);
+    grandExpTL+=[...data.expenses,...lkc].reduce((s,i)=>s+itemToTL(i),0);
     grandIncTL+=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
   });
   const grandNet=grandIncTL-grandExpTL;
@@ -1407,7 +1408,7 @@ function renderHomeFinance(){
 
 function renderMuhasebePage(){
   const wrap=document.getElementById('muhasebePageContent'); if(!wrap) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps'};
+  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler'};
   let grandExpTL=0, grandIncTL=0;
   let html=`
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--brd);">
@@ -1438,14 +1439,16 @@ function renderMuhasebePage(){
         <div>
           <div style="font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;">📤 Giderler</div>`;
 
-    if(data.expenses.length===0){
+    const lkc4=getLinkCosts(key); const allExpMuh=[...data.expenses,...lkc4];
+    if(allExpMuh.length===0){
       html+=`<div style="color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace;">—</div>`;
     } else {
-      data.expenses.forEach(item=>{
+      allExpMuh.forEach(item=>{
         const cur=item.currency||'TL'; const tlVal=itemToTL(item);
         const origStr=cur!=='TL'?` <span style="color:var(--muted);font-size:.65rem;">(${fmtAmt(item.amount,cur)})</span>`:'';
+        const linkBadge=item.fromLink?` <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span>`:'';
         html+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--brd);font-size:.8rem;">
-          <span style="color:var(--text2);">${item.name}${origStr}</span>
+          <span style="color:var(--text2);">${item.name}${origStr}${linkBadge}</span>
           <span style="font-family:'DM Mono',monospace;color:var(--red);font-weight:600;">-${fmtTL(tlVal)}</span>
         </div>`;
       });
