@@ -1374,12 +1374,12 @@ window.saveFin=function(type,key){
   if(!name||isNaN(amount)) return;
   const data=getFin(key);
   if(type==='exp') data.expenses.push({name,amount,currency}); else data.incomes.push({name,amount,currency});
-  setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance();
+  setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance(); if(typeof renderMuhasebePage==="function") renderMuhasebePage();
 };
 window.delFin=function(type,key,i){
   const data=getFin(key);
   if(type==='exp') data.expenses.splice(i,1); else data.incomes.splice(i,1);
-  setFin(key,data); renderFinance(key); renderHomeFinance();
+  setFin(key,data); renderFinance(key); renderHomeFinance(); if(typeof renderMuhasebePage==="function") renderMuhasebePage();
 };
 
 function renderHomeFinance(){
