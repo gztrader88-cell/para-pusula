@@ -1518,8 +1518,15 @@ function setKasaEntries(v){sv('kasa9_entries',v);}
 function toggleKasaForm(){
   const f=document.getElementById('kasaAddForm');
   f.classList.toggle('show');
-  if(f.classList.contains('show')) document.getElementById('ki-label').focus();
-  else { ['ki-icon','ki-label','ki-user','ki-pass'].forEach(id=>document.getElementById(id).value=''); }
+  if(f.classList.contains('show')){
+    document.getElementById('ki-label').focus();
+  } else {
+    ['ki-icon','ki-label','ki-user','ki-pass'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('ki-pass').type='password';
+    kasaEditIdx=-1;
+    const saveBtn=f.querySelector('.kasa-save');
+    if(saveBtn) saveBtn.textContent='Kaydet';
+  }
 }
 
 function kasaSaveEntry(){
@@ -1529,11 +1536,18 @@ function kasaSaveEntry(){
   const pass=document.getElementById('ki-pass').value;
   if(!label||!pass) return;
   const entries=getKasaEntries();
-  entries.push({icon,label,user,pass});
+  if(kasaEditIdx>=0 && entries[kasaEditIdx]){
+    entries[kasaEditIdx]={icon,label,user,pass};
+    kasaEditIdx=-1;
+  } else {
+    entries.push({icon,label,user,pass});
+  }
   setKasaEntries(entries);
   toggleKasaForm();
   renderKasaList();
 }
+
+let kasaEditIdx = -1;
 
 function renderKasaList(){
   const wrap=document.getElementById('kasaList'); if(!wrap) return;
@@ -1550,22 +1564,45 @@ function renderKasaList(){
       <div class="kasa-item-info">
         <div class="kasa-item-label">${e.label}</div>
         ${e.user?`<div class="kasa-item-user">${e.user}</div>`:''}
-        <div class="kasa-item-pass" title="Tıkla & kopyala" onclick="copyKasa('${e.pass.replace(/'/g,"\'")}',this)">••••••••</div>
+        <div class="kasa-item-pass">••••••••</div>
       </div>
-      <button class="kasa-copy-btn" onclick="copyKasa('${e.pass.replace(/'/g,"\'")}',null)">Kopyala</button>
+      <button class="kasa-copy-btn" onclick="copyKasa(${i})">Kopyala</button>
+      <button class="kasa-item-edit" onclick="kasaStartEdit(${i})" title="Düzenle" style="background:none;border:1px solid var(--brd2);border-radius:5px;color:var(--muted);font-size:.65rem;padding:2px 7px;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)'">Düzenle</button>
       <button class="kasa-item-del" onclick="kasaDelEntry(${i})" title="Sil">🗑</button>`;
-    // Toggle show/hide on password click
     div.querySelector('.kasa-item-pass').addEventListener('click', function(){
-      if(this.textContent==='••••••••') this.textContent=e.pass;
+      const entries2=getKasaEntries();
+      if(this.textContent==='••••••••') this.textContent=entries2[i]?entries2[i].pass:'';
       else this.textContent='••••••••';
     });
     wrap.appendChild(div);
   });
 }
 
-function copyKasa(pass, el){
-  navigator.clipboard.writeText(pass).then(()=>{
-    if(el){ const old=el.textContent; el.textContent='Kopyalandı!'; setTimeout(()=>el.textContent=old,1200); }
+window.kasaStartEdit=function(i){
+  const entries=getKasaEntries();
+  const e=entries[i]; if(!e) return;
+  kasaEditIdx=i;
+  // Doldur formu
+  document.getElementById('ki-icon').value=e.icon||'';
+  document.getElementById('ki-label').value=e.label||'';
+  document.getElementById('ki-user').value=e.user||'';
+  document.getElementById('ki-pass').value=e.pass||'';
+  document.getElementById('ki-pass').type='text';
+  // Formu göster
+  const form=document.getElementById('kasaAddForm');
+  form.classList.add('show');
+  // Başlığı değiştir
+  const saveBtn=form.querySelector('.kasa-save');
+  saveBtn.textContent='Güncelle';
+  document.getElementById('ki-label').focus();
+  form.scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+
+function copyKasa(i){
+  const entries=getKasaEntries();
+  if(!entries[i]) return;
+  navigator.clipboard.writeText(entries[i].pass).then(()=>{
+    // Show feedback on copy button
   });
 }
 
