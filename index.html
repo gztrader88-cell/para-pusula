@@ -135,10 +135,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .day-col.today .day-nm{color:var(--accent);}
 .day-num{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:2px;}
 .day-tasks{padding:8px;display:flex;flex-direction:column;gap:4px;}
-.task-chip{display:flex;align-items:flex-start;gap:6px;padding:7px;border-radius:7px;background:var(--surf2);font-size:.76rem;line-height:1.4;border:1px solid transparent;color:var(--text2);}
-.task-chip:hover{border-color:var(--brd2);}
-.tdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.tlabel{flex:1;cursor:pointer;word-break:break-word;min-width:0;color:var(--text2);}
+.task-chip{display:flex;align-items:center;gap:7px;padding:8px 9px;border-radius:8px;font-size:.82rem;line-height:1.4;border:1px solid transparent;color:var(--text);transition:all .15s;}
+.task-chip:hover{filter:brightness(1.1);}
+.tdot{display:none;}
+.tlabel{flex:1;cursor:pointer;word-break:break-word;min-width:0;font-weight:600;}
 
 .tacts{display:none;flex-direction:column;gap:2px;flex-shrink:0;}
 .task-chip:hover .tacts{display:flex;}
@@ -1201,9 +1201,12 @@ function renderDay(dow){
   tasks.forEach((t,i)=>{
     const d=done.includes(t.id); const c=document.createElement('div');
     c.className='task-chip'+(d?' done':'');
+    c.style.background=t.color+(d?'15':'22');
+    c.style.borderColor=t.color+(d?'33':'55');
+    if(d) c.style.opacity='0.55'; else c.style.opacity='1';
     const hasDetail = t.detail && t.detail.trim().length > 0;
     const detailDot = hasDetail ? '<span style="width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;margin-left:4px;vertical-align:middle;flex-shrink:0;" title="Not var"></span>' : '';
-    const timeStr = t.time ? `<span style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);margin-right:3px;">${t.time}</span>` : '';
+    const timeStr = t.time ? `<span style="font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;opacity:.8;margin-right:2px;">${t.time}</span>` : '';
     c.innerHTML=`<div class="tdot" style="background:${t.color}"></div><div class="tlabel">${timeStr}${t.label}${detailDot}</div><div class="tacts"><button class="tbtn chk${d?' done':''}" onclick="tDone('${getWeekKey()}',${dow},${i},'${t.id}',event)">✓</button><button class="tbtn del" onclick="tDel('${getWeekKey()}',${dow},${i},event)">×</button></div>`;
     const _wk=getWeekKey(), _dow=dow, _i=i, _day=DSHORT[dow];
     c.querySelector('.tlabel').addEventListener('click', function(e){
