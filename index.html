@@ -356,11 +356,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       </div>
       <div class="hub-branch">
         <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(2)">
+        <div class="branch-node" onclick="openSec(2);toggleSubMenu('sub-icerik')">
           <div class="bn-icon">📸</div>
           <div class="bn-title">İçerik</div>
         </div>
-        <div class="sub-nodes">
+        <div class="sub-nodes" id="sub-icerik" style="display:none;">
           <div class="sub-nodes-vline"></div>
           <div class="sub-nodes-hline"></div>
           <div class="sub-nodes-row" style="margin-top:10px;">
@@ -2371,6 +2371,14 @@ window.delKisisel=function(i){
   renderHomeFinance();
 };
 
+
+
+// SUB MENU TOGGLE
+function toggleSubMenu(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.style.display = el.style.display==='none' ? 'flex' : 'none';
+}
 
 // INIT
 // Önce DB'den yükle, sonra render et
