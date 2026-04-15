@@ -11,7 +11,7 @@
   --text:#f0f3ff;--text2:#c5cae8;--muted:#8892b8;
   --accent:#f0b429;--green:#10b981;--red:#ef4444;--gold:#fbbf24;
   --c1:#8b5cf6;--c2:#ec4899;--c2a:#f472b6;--c2b:#a78bfa;
-  --c3:#14b8a6;--c4:#f97316;--c4a:#fb923c;--c4b:#38bdf8;--c5:#3b82f6;--c6:#22c55e;
+  --c3:#14b8a6;--c4:#f97316;--c4a:#fb923c;--c4b:#38bdf8;--c5:#3b82f6;--c6:#22c55e;--c7:#0d9488;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
@@ -391,6 +391,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
           <div class="bn-title" style="color:#22c55e;">Pine Connector</div>
         </div>
       </div>
+      <div class="hub-branch">
+        <div class="branch-vline"></div>
+        <div class="branch-node" onclick="openSec(7)" style="border-color:rgba(13,148,136,.3);">
+          <div class="bn-icon">🎾</div>
+          <div class="bn-title" style="color:#0d9488;">Kort Rezervasyonu</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -683,6 +690,30 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
 </div>
 
+<!-- 7: KORT REZERVASYONU -->
+<div class="section" id="sec-7">
+  <div class="sec-header">
+    <div class="sec-color-bar" style="background:var(--c7)"></div>
+    <div class="sec-icon">🎾</div>
+    <div><div class="sec-title">Kort Rezervasyonu</div><div class="sec-sub">Kort yönetimi · Rezervasyon sistemi</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-kort">📋 Yapılacaklar</span></div>
+        <div id="cl-kort"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Muhasebe</div>
+        <div class="finance-section" id="fin-kort"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('7')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-7"></div></div>
+    </div>
+  </div>
+</div>
+
 <!-- HABERLER -->
 <div class="section" id="sec-haberler">
   <div class="sec-header">
@@ -874,6 +905,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <option value="5">🖥️ Sanal Sunucu</option>
         <option value="haberler">📰 Haberler</option>
         <option value="6">🔗 Pine Connector</option>
+        <option value="7">🎾 Kort Rezervasyonu</option>
       </select>
     </div>
     <div class="modal-btns">
@@ -928,8 +960,8 @@ const SEC_META={
   '5':{label:'Sanal Sunucu',color:'#3b82f6',icon:'🖥️'},
 };
 const NOTE_KEYS=[];
-const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler','cl-pine'];
-const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler','pine'];
+const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler','cl-pine','cl-kort'];
+const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler','pine','kort'];
 
 // DB API - localStorage + server sync
 const DB_CACHE = {};
@@ -1013,7 +1045,7 @@ openSec(activeSec);
 });
 
 // CARD TITLE EDITABLE
-['robot','content','acik','ucretli','app','robotig','ads','igads','appads','vps','haberler','pine'].forEach(k=>{
+['robot','content','acik','ucretli','app','robotig','ads','igads','appads','vps','haberler','pine','kort'].forEach(k=>{
   const el=document.getElementById('clt-'+k); if(!el) return;
   const s=localStorage.getItem('clt9_'+k); if(s) el.textContent=s;
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
@@ -1644,7 +1676,7 @@ function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
   wrap.innerHTML='';
   // Ana sayfa linkleri once gelsin
-  const secOrder=['1','2','2a','2b','3','4','4a','4b','5','haberler','pine'];
+  const secOrder=['1','2','2a','2b','3','4','4a','4b','5','haberler','pine','kort'];
   let hasAny=false;
   secOrder.forEach(sec=>{
     const links=getLinks(sec); if(links.length===0) return;
