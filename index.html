@@ -84,6 +84,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .cl-item.done .cl-box{background:var(--green);border-color:var(--green);color:white;}
 .cl-item.done .cl-txt{text-decoration:line-through;opacity:.4;}
 .cl-txt{flex:1;}
+.cl-due{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--surf2);color:var(--text2);border:1px solid var(--brd2);display:inline-flex;align-items:center;gap:4px;flex-shrink:0;cursor:pointer;white-space:nowrap;}
+.cl-due.soon{color:#b45309;border-color:rgba(217,149,0,.5);background:rgba(217,149,0,.1);}
+.cl-due.over{color:var(--red);border-color:rgba(244,33,46,.4);background:rgba(244,33,46,.08);}
+.cl-due-x{display:none;background:none;border:none;color:inherit;cursor:pointer;font-size:.72rem;padding:0;line-height:1;}
+.cl-due:hover .cl-due-x{display:inline;}
 .cl-star{background:none;border:none;cursor:pointer;font-size:.82rem;padding:1px 3px;opacity:.35;transition:opacity .15s;flex-shrink:0;line-height:1;}
 .cl-star:hover{opacity:.8;}
 .cl-star.starred{opacity:1;filter:drop-shadow(0 0 4px rgba(29,155,240,.7));}
@@ -372,9 +377,27 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
     <!-- ÇATI 2: YULA WORKS -->
     <div class="hub-group" style="flex:6;">
-      <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
-        <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
-        <div class="hub-center-sub">ortak şirket</div>
+      <div style="display:flex;align-items:center;gap:0;justify-content:center;">
+        <!-- SOL: Giderler -->
+        <div style="display:flex;align-items:center;">
+          <div onclick="openSec('giderler')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
+            <div style="font-size:1.1rem;">💸</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Giderler</div>
+          </div>
+          <div style="width:28px;height:2px;background:var(--brd2);"></div>
+        </div>
+        <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
+          <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
+          <div class="hub-center-sub">ortak şirket</div>
+        </div>
+        <!-- SAĞ: Kişisel -->
+        <div style="display:flex;align-items:center;">
+          <div style="width:28px;height:2px;background:var(--brd2);"></div>
+          <div onclick="openSec('kisisel')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
+            <div style="font-size:1.1rem;">👤</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Kişisel</div>
+          </div>
+        </div>
       </div>
       <div class="hub-vline" style="background:linear-gradient(to bottom,rgba(217,149,0,.45),rgba(217,149,0,.15));"></div>
       <div class="hub-branches">
@@ -425,18 +448,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
   <div class="week-grid" id="weekGrid"></div>
 
+  <!-- YAKLAŞAN TARİHLER -->
+  <div id="upcomingWrap" style="margin-bottom:28px;display:none;">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:14px;">⏰ Yaklaşan Tarihler</div>
+    <div id="upcomingList"></div>
+  </div>
+
   <!-- YILDIZLI ÖNCELIKLILER -->
   <div style="margin-bottom:28px;">
     <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:14px;"><svg viewBox="0 0 24 24" fill="#1d9bf0" width="20" height="20" style="vertical-align:-3px;margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>Öncelikliler</div>
     <div class="starred-section" id="starredList"></div>
-  </div>
-
-
-
-  <!-- MUHASEBE ÖZETİ - Tek tıklanabilir kart -->
-  <div class="home-finance">
-    <div class="hf-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-    <div id="homeFinanceSummary" onclick="openSec('muhasebe')" style="cursor:pointer;"></div>
   </div>
 </div>
 
@@ -464,10 +485,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-robot">📋 Yapılacaklar</span></div>
         <div id="cl-robot"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-robot"></div>
-      </div>
     </div>
     <div>
       <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('1')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-1"></div></div>
@@ -492,10 +509,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-robotig">🤖 Robot Instagram Sayfası</span></div>
         <div id="cl-robotig"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-app"></div>
-      </div>
     </div>
     <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('3')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-3"></div></div></div>
   </div>
@@ -513,10 +526,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="card">
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-ads">📋 Yapılacaklar</span></div>
         <div id="cl-ads"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-ads"></div>
       </div>
     </div>
     <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4"></div></div></div>
@@ -536,10 +545,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-igads">📋 Yapılacaklar</span></div>
         <div id="cl-igads"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-igads"></div>
-      </div>
     </div>
     <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4a')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4a"></div></div></div>
   </div>
@@ -558,10 +563,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-appads">📋 Yapılacaklar</span></div>
         <div id="cl-appads"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-appads"></div>
-      </div>
     </div>
     <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('4b')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-4b"></div></div></div>
   </div>
@@ -579,10 +580,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="card">
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-yula">📋 Yapılacaklar</span></div>
         <div id="cl-yula"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-yula"></div>
       </div>
     </div>
     <div>
@@ -604,24 +601,57 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-vps">📋 Yapılacaklar</span></div>
         <div id="cl-vps"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-vps"></div>
-      </div>
     </div>
     <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('5')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-5"></div></div></div>
   </div>
 </div>
 
-<!-- MUHASEBE SAYFASI -->
-<div class="section" id="sec-muhasebe">
-  <div id="muhasebePageContent"></div>
-  <div style="margin-top:24px;max-width:600px;">
-    <div class="card" id="kisisel-fin-card">
-      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">
-        <span>👤 Kişisel Giderler</span>
+<!-- GİDERLER SAYFASI -->
+<div class="section" id="sec-giderler">
+  <div class="sec-header">
+    <div class="sec-color-bar" style="background:var(--red)"></div>
+    <div class="sec-icon">💸</div>
+    <div><div class="sec-title">Giderler</div><div class="sec-sub">Tüm abonelikler ve masraflar · tek yerde</div></div>
+  </div>
+  <div style="max-width:760px;">
+    <div class="card" style="margin-bottom:18px;">
+      <div class="card-title">＋ Gider Ekle</div>
+      <div class="fin-inp-row" style="margin-bottom:8px;">
+        <select class="fin-inp" id="gd-cat" style="flex:1"></select>
       </div>
-      <div id="fin-kisisel-wrap"></div>
+      <div class="fin-inp-row" style="margin-bottom:8px;">
+        <input class="fin-inp" id="gd-name" placeholder="İsim (TradingView, MTV, Reklam bütçesi...)" style="flex:2">
+        <input class="fin-inp" id="gd-amt" placeholder="Tutar" type="number" style="flex:1">
+        <select class="fin-inp" id="gd-cur" style="flex:0 0 80px">
+          <option value="TL">₺ TL</option>
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+        </select>
+      </div>
+      <div class="fin-inp-row">
+        <button class="fin-save" onclick="saveGider()">Kaydet</button>
+      </div>
+    </div>
+    <div id="giderlerPageContent"></div>
+  </div>
+</div>
+
+<!-- KİŞİSEL SAYFASI -->
+<div class="section" id="sec-kisisel">
+  <div class="sec-header">
+    <div class="sec-color-bar" style="background:#8890b0"></div>
+    <div class="sec-icon">👤</div>
+    <div><div class="sec-title">Kişisel</div><div class="sec-sub">İşlerden bağımsız · ehliyet, MTV, doğum günleri, biletler...</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-kisisel">📋 Yapılacaklar</span></div>
+        <div id="cl-kisisel"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('kisisel')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-kisisel"></div></div>
     </div>
   </div>
 </div>
@@ -638,10 +668,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <div class="card">
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-pine">📋 Yapılacaklar</span></div>
         <div id="cl-pine"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-pine"></div>
       </div>
     </div>
     <div>
@@ -663,10 +689,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-kort">📋 Yapılacaklar</span></div>
         <div id="cl-kort"></div>
       </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-kort"></div>
-      </div>
     </div>
     <div>
       <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('7')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-7"></div></div>
@@ -686,12 +708,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <button onclick="openLinkModalFor('haberler')" style="background:rgba(6,182,212,.1);border:1.5px solid rgba(6,182,212,.35);border-radius:10px;color:#06b6d4;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;padding:9px 18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;" onmouseover="this.style.background='rgba(6,182,212,.2)'" onmouseout="this.style.background='rgba(6,182,212,.1)'">＋ Site Ekle</button>
   </div>
   <div id="haberler-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;padding-top:8px;margin-bottom:28px;"></div>
-  <div style="max-width:600px;">
-    <div class="card">
-      <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-      <div class="finance-section" id="fin-haberler"></div>
-    </div>
-  </div>
 </div>
 
 </div><!-- /content -->
@@ -864,6 +880,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <option value="5">🖥️ Sanal Sunucu</option>
         <option value="6">🔗 Transistrade</option>
         <option value="7">🎾 Kort Rezervasyonu</option>
+        <option value="kisisel">👤 Kişisel</option>
       </select>
     </div>
     <div class="modal-btns">
@@ -916,9 +933,10 @@ const SEC_META={
   '5':{label:'Sanal Sunucu',color:'#3b82f6',icon:'🖥️'},
   '6':{label:'Transistrade',color:'#5ba35f',icon:'🔗'},
   '7':{label:'Kort Rezervasyonu',color:'#6d76c7',icon:'🎾'},
+  'kisisel':{label:'Kişisel',color:'#8890b0',icon:'👤'},
 };
 const NOTE_KEYS=[];
-const CL_KEYS=['cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort'];
+const CL_KEYS=['cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort','cl-kisisel'];
 const FIN_KEYS=['robot','app','ads','igads','appads','yula','vps','haberler','pine','kort'];
 
 // DB API - localStorage + server sync
@@ -1004,7 +1022,7 @@ openSec(activeSec);
 });
 
 // CARD TITLE EDITABLE
-['robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort'].forEach(k=>{
+['robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','kisisel'].forEach(k=>{
   const el=document.getElementById('clt-'+k); if(!el) return;
   const s=localStorage.getItem('clt9_'+k); if(s) el.textContent=s;
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
@@ -1088,9 +1106,9 @@ function isClStarred(clId,i){
 function getSourceLabel(key){
   const map={
     'robot':'Robot EA','app':'Aplikasyon','ads':'Reklam','igads':'IG Reklam','appads':'App Reklam',
-    'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler',
+    'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler','kisisel':'Kişisel',
     'cl-robot':'Robot EA','cl-app':'Aplikasyon','cl-robotig':'Robot IG','cl-ads':'Reklam','cl-igads':'IG Reklam','cl-appads':'App Reklam',
-    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler'
+    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler','cl-kisisel':'Kişisel'
   };
   return map[key]||key;
 }
@@ -1233,7 +1251,8 @@ function makeChecklist(elId){
       row.draggable=true;
       row.dataset.idx=String(i);
       const imgThumb = it.img ? `<span style="position:relative;display:inline-flex;flex-shrink:0;margin-right:4px;" onclick="event.stopPropagation()"><img src="${it.img}" style="width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer;border:1px solid var(--brd2);" onclick="openLightbox('${it.img.replace(/'/g,"\\'")}')" title="Görseli büyüt"><button onclick="clDelImg('${elId}',${i},event)" style="position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;background:var(--red);border:none;color:white;font-size:.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;" title="Resmi kaldır">×</button></span>` : '';
-      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div>${imgThumb}<div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span><button class="cl-img-btn" onclick="event.stopPropagation();clImgClick('${elId}',${i},event)" title="Görsel ekle">🖼</button><button class="cl-star${starred?' starred':''}" onclick="event.stopPropagation();clStarClick('${elId}',${i},event)" title="Öne çıkar"><svg viewBox="0 0 24 24" fill="#1d9bf0" width="13" height="13" style="vertical-align:-2px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg></button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
+      const dueHtml=it.due?`<span class="cl-due ${dueClass(it.due)}" onclick="event.stopPropagation();clDateClick('${elId}',${i})" title="Tarihi değiştir">🗓 ${fmtDue(it.due)}<button class="cl-due-x" onclick="event.stopPropagation();clDueClear('${elId}',${i})" title="Tarihi kaldır">×</button></span>`:`<button class="cl-img-btn" onclick="event.stopPropagation();clDateClick('${elId}',${i})" title="Son tarih ekle">🗓</button>`;
+      row.innerHTML=`<div class="cl-drag-handle" title="Sürükle">⠿</div>${imgThumb}<div class="cl-box">${it.done?'✓':''}</div><span class="cl-txt" contenteditable="true" spellcheck="false">${it.label}</span>${dueHtml}<button class="cl-img-btn" onclick="event.stopPropagation();clImgClick('${elId}',${i},event)" title="Görsel ekle">🖼</button><button class="cl-star${starred?' starred':''}" onclick="event.stopPropagation();clStarClick('${elId}',${i},event)" title="Öne çıkar"><svg viewBox="0 0 24 24" fill="#1d9bf0" width="13" height="13" style="vertical-align:-2px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg></button><button class="cl-del" onclick="clDel(event,'${elId}',${i})">×</button>`;
       // Drag events
       let clDragIdx=-1;
       row.addEventListener('dragstart',e=>{clDragIdx=i;row.style.opacity='.4';e.dataTransfer.effectAllowed='move';});
@@ -1263,11 +1282,12 @@ function makeChecklist(elId){
     ab.onclick=()=>{ab.style.display='none';ar.style.display='flex';ar.querySelector('input').focus();};
     wrap.appendChild(ab);
     const ar=document.createElement('div');ar.className='cl-add-row';
-    ar.innerHTML=`<input type="text" placeholder="Yeni adım..."><button class="sv">✓</button><button class="cx">✕</button>`;
-    ar.querySelector('.sv').onclick=()=>{const v=ar.querySelector('input').value.trim();if(v){const its2=getIt();its2.push({label:v,done:false});setIt(its2);}render(wrap);};
+    ar.innerHTML=`<input type="text" placeholder="Yeni adım..."><input type="date" title="Son tarih (opsiyonel)" style="background:var(--surf2);border:1px solid var(--brd2);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:.72rem;padding:5px 6px;outline:none;flex:0 0 130px;"><button class="sv">✓</button><button class="cx">✕</button>`;
+    ar.querySelector('.sv').onclick=()=>{const v=ar.querySelector('input[type=text]').value.trim();if(v){const its2=getIt();const due=ar.querySelector('input[type=date]').value;const item={label:v,done:false};if(due)item.due=due;its2.push(item);setIt(its2);}render(wrap);};
     ar.querySelector('.cx').onclick=()=>render(wrap);
     ar.querySelector('input').addEventListener('keydown',e=>{if(e.key==='Enter')ar.querySelector('.sv').click();if(e.key==='Escape')render(wrap);});
     wrap.appendChild(ar);
+    renderUpcoming();
   }
   const el=document.getElementById(elId);
   if(el){const wrap=document.createElement('div');wrap.className='checklist';render(wrap);el.appendChild(wrap);}
@@ -1325,280 +1345,87 @@ function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
 function getLinkCosts(key){
   // Hangi sec ID'si bu key'e karsilik geliyor?
-  const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','haberler':'haberler','kisisel':null};
+  const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','haberler':'haberler','kisisel':'kisisel','icerik':'2','acik':'2a','ucretli':'2b'};
   const sec=keyToSec[key]; if(!sec) return [];
   return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
 }
 
-function renderFinance(key){
-  const wrap=document.getElementById('fin-'+key); if(!wrap) return;
-  const data=getFin(key);
-  const linkCosts=getLinkCosts(key);
-  const allExpenses=[...data.expenses,...linkCosts];
-  const totalExpTL=allExpenses.reduce((s,i)=>s+itemToTL(i),0);
-  const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
-  const net=totalIncTL-totalExpTL;
-  const onlyExpenses=(key==='haberler'||key==='kisisel');
-  const kurInfo=`<span style="font-size:.6rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺</span>`;
-
-  let incomeCol='';
-  if(!onlyExpenses){
-    incomeCol=`<div style="width:1px;background:var(--brd);margin:0 12px;"></div>
-      <div class="fin-col">
-        <div class="fin-title"><span style="color:var(--green)">📥</span> Gelirler</div>
-        <div id="fin-inc-${key}"></div>
-        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--green)">+${fmtTL(totalIncTL)}</span></div>
-        <button class="fin-add-btn" onclick="showFinForm('inc','${key}')">＋ Gelir ekle</button>
-        <div class="fin-add-form" id="faf-inc-${key}">
-          <div class="fin-inp-row"><input class="fin-inp" placeholder="İsim (Komisyon, Abonelik...)" id="fi-inc-name-${key}"></div>
-          <div class="fin-inp-row">
-            <input class="fin-inp" placeholder="Tutar" id="fi-inc-amt-${key}" type="number" style="flex:1">
-            <select class="fin-inp" id="fi-inc-cur-${key}" style="flex:0 0 70px">
-              <option value="TL">₺ TL</option>
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-            </select>
-          </div>
-          <div class="fin-inp-row">
-            <button class="fin-save" onclick="saveFin('inc','${key}')">Kaydet</button>
-            <button class="fin-cancel" onclick="hideFinForm('inc','${key}')">İptal</button>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  let netRow='';
-  if(!onlyExpenses){
-    const netColor=net>=0?'var(--green)':'var(--red)';
-    const netBg=net>=0?'rgba(16,185,129,.08)':'rgba(239,68,68,.08)';
-    const netBrd=net>=0?'rgba(16,185,129,.2)':'rgba(239,68,68,.2)';
-    netRow=`<div style="margin-top:14px;padding:12px 14px;border-radius:10px;background:${netBg};border:1px solid ${netBrd};display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:.85rem;color:var(--text2);font-weight:600;">📊 Net</span>
-      <span style="font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:700;color:${netColor};">${net>=0?'+':''}${fmtTL(net)}</span>
-    </div>`;
-  }
-
-  wrap.innerHTML=`
-    <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">${kurInfo}</div>
-    <div class="fin-row">
-      <div class="fin-col">
-        <div class="fin-title"><span style="color:var(--red)">📤</span> Giderler</div>
-        <div id="fin-exp-${key}"></div>
-        <div class="fin-total"><span>Toplam (TL)</span><span class="fin-total-val" style="color:var(--red)">-${fmtTL(totalExpTL)}</span></div>
-        <button class="fin-add-btn" onclick="showFinForm('exp','${key}')">＋ Gider ekle</button>
-        <div class="fin-add-form" id="faf-exp-${key}">
-          <div class="fin-inp-row"><input class="fin-inp" placeholder="İsim (TradingView, Adaptin...)" id="fi-exp-name-${key}"></div>
-          <div class="fin-inp-row">
-            <input class="fin-inp" placeholder="Tutar" id="fi-exp-amt-${key}" type="number" style="flex:1">
-            <select class="fin-inp" id="fi-exp-cur-${key}" style="flex:0 0 70px">
-              <option value="TL">₺ TL</option>
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-            </select>
-          </div>
-          <div class="fin-inp-row">
-            <button class="fin-save" onclick="saveFin('exp','${key}')">Kaydet</button>
-            <button class="fin-cancel" onclick="hideFinForm('exp','${key}')">İptal</button>
-          </div>
-        </div>
-      </div>
-      ${incomeCol}
-    </div>
-    ${netRow}`;
-
-  // Expense items
-  const expWrap=document.getElementById('fin-exp-'+key);
-  data.expenses.forEach((item,i)=>{
-    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
-    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-    const div=document.createElement('div'); div.className='fin-item';
-    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('exp','${key}',${i})">×</button>`;
-    expWrap.appendChild(div);
-  });
-  linkCosts.forEach((item)=>{
-    const cur=item.currency||'TL'; const tlVal=itemToTL(item);
-    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-    const div=document.createElement('div'); div.className='fin-item';
-    div.innerHTML=`<span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(tlVal)}</span>`;
-    expWrap.appendChild(div);
-  });
-
-  if(!onlyExpenses){
-    const incWrap=document.getElementById('fin-inc-'+key);
-    if(incWrap) data.incomes.forEach((item,i)=>{
-      const cur=item.currency||'TL'; const tlVal=itemToTL(item);
+// GİDERLER SAYFASI (tek yerde tüm giderler; gelir yok)
+const GIDER_CATS=[
+  {key:'robot',label:'Robot EA',icon:'🤖',color:'#8b5cf6'},
+  {key:'app',label:'Aplikasyon',icon:'📱',color:'#14b8a6'},
+  {key:'ads',label:'Reklam',icon:'📢',color:'#f97316'},
+  {key:'igads',label:'Instagram Reklamları',icon:'📷',color:'#fb923c'},
+  {key:'appads',label:'Aplikasyon Reklamları',icon:'📲',color:'#38bdf8'},
+  {key:'yula',label:'Yula Works',icon:'🏢',color:'#d99500'},
+  {key:'vps',label:'Sanal Sunucu',icon:'🖥️',color:'#3b82f6'},
+  {key:'pine',label:'Transistrade',icon:'🔗',color:'#5ba35f'},
+  {key:'kort',label:'Kort Rezervasyonu',icon:'🎾',color:'#6d76c7'},
+  {key:'haberler',label:'Haberler',icon:'📰',color:'#06b6d4'},
+  {key:'kisisel',label:'Kişisel',icon:'👤',color:'#8890b0'},
+  {key:'icerik',label:'İçerik (eski)',icon:'📸',color:'#ec4899',legacy:true},
+  {key:'acik',label:'İçerik – Herkese Açık (eski)',icon:'🌍',color:'#f472b6',legacy:true},
+  {key:'ucretli',label:'İçerik – Ücretli (eski)',icon:'💎',color:'#a78bfa',legacy:true},
+];
+function initGiderCats(){
+  const sel=document.getElementById('gd-cat'); if(!sel) return;
+  sel.innerHTML=GIDER_CATS.filter(c=>!c.legacy).map(c=>`<option value="${c.key}">${c.icon} ${c.label}</option>`).join('');
+}
+function renderGiderler(){
+  const wrap=document.getElementById('giderlerPageContent'); if(!wrap) return;
+  let total=0, html='';
+  GIDER_CATS.forEach(c=>{
+    const data=getFin(c.key);
+    const manual=data.expenses;
+    const linkCosts=getLinkCosts(c.key);
+    if(manual.length===0&&linkCosts.length===0) return;
+    const catTotal=[...manual,...linkCosts].reduce((s,r)=>s+itemToTL(r),0);
+    total+=catTotal;
+    let rows='';
+    manual.forEach((item,i)=>{
+      const cur=item.currency||'TL';
       const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-      const div=document.createElement('div'); div.className='fin-item';
-      div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount income">+${fmtTL(tlVal)}</span><button class="fin-del" onclick="delFin('inc','${key}',${i})">×</button>`;
-      incWrap.appendChild(div);
+      rows+=`<div class="fin-item"><span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense">-${fmtTL(itemToTL(item))}</span><button class="fin-del" onclick="delGider('${c.key}',${i})">×</button></div>`;
     });
-  }
-
-}
-
-window.showFinForm=function(type,key){document.getElementById('faf-'+type+'-'+key).classList.add('show');document.getElementById('fi-'+type+'-name-'+key).focus();};
-window.hideFinForm=function(type,key){
-  document.getElementById('faf-'+type+'-'+key).classList.remove('show');
-  document.getElementById('fi-'+type+'-name-'+key).value='';
-  document.getElementById('fi-'+type+'-amt-'+key).value='';
-  document.getElementById('fi-'+type+'-cur-'+key).value='TL';
-};
-window.saveFin=function(type,key){
-  const name=document.getElementById('fi-'+type+'-name-'+key).value.trim();
-  const amount=parseFloat(document.getElementById('fi-'+type+'-amt-'+key).value);
-  const currency=document.getElementById('fi-'+type+'-cur-'+key).value;
-  if(!name||isNaN(amount)) return;
-  const data=getFin(key);
-  if(type==='exp') data.expenses.push({name,amount,currency}); else data.incomes.push({name,amount,currency});
-  setFin(key,data); hideFinForm(type,key); renderFinance(key); renderHomeFinance(); renderMuhasebePage();
-};
-window.delFin=function(type,key,i){
-  const data=getFin(key);
-  if(type==='exp') data.expenses.splice(i,1); else data.incomes.splice(i,1);
-  setFin(key,data); renderFinance(key); renderHomeFinance(); renderMuhasebePage();
-};
-
-function renderHomeFinance(){
-  const summary=document.getElementById('homeFinanceSummary'); if(!summary) return;
-  const keyMap={'1':'robot','3':'app','4':'ads','4a':'igads','4b':'appads','yula':'yula','5':'vps','6':'pine','7':'kort','haberler':'haberler','kisisel':'kisisel'};
-  let grandExpTL=0, grandIncTL=0;
-  Object.entries(keyMap).forEach(([sec,key])=>{
-    const data=getFin(key);
-    const lkc=getLinkCosts(key);
-    grandExpTL+=[...data.expenses,...lkc].reduce((s,i)=>s+itemToTL(i),0);
-    grandIncTL+=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
+    linkCosts.forEach(item=>{
+      const cur=item.currency||'TL';
+      const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
+      rows+=`<div class="fin-item"><span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(itemToTL(item))}</span></div>`;
+    });
+    html+=`<div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:${c.color};flex-shrink:0;"></div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);">${c.icon} ${c.label}</div>
+        <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:.9rem;font-weight:700;color:var(--red);">-${fmtTL(catTotal)}</div>
+      </div>${rows}</div>`;
   });
-  const grandNet=grandIncTL-grandExpTL;
-  const hasAny=grandExpTL>0||grandIncTL>0;
-
-  summary.innerHTML=hasAny ? `
-    <div style="background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(240,180,41,.04));border:1.5px solid rgba(217,149,0,.35);border-radius:14px;padding:20px 24px;transition:all .2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(30,40,70,.14)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);">⚡ Genel Toplam</div>
-        <div style="font-size:.65rem;color:var(--muted);font-family:'DM Mono',monospace;">$1 = ${USD_KUR.toFixed(2)} ₺ · Detay için tıkla →</div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-        <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📤 Gider</div>
-          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:var(--red);">-${fmtTL(grandExpTL)}</div>
-        </div>
-        <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📥 Gelir</div>
-          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:var(--green);">+${fmtTL(grandIncTL)}</div>
-        </div>
-        <div style="background:${grandNet>=0?'rgba(16,185,129,.1)':'rgba(239,68,68,.1)'};border:1px solid ${grandNet>=0?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)'};border-radius:10px;padding:14px;text-align:center;">
-          <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px;">📊 Net</div>
-          <div style="font-family:'DM Mono',monospace;font-size:1rem;font-weight:700;color:${grandNet>=0?'var(--green)':'var(--red)'};">${grandNet>=0?'+':''}${fmtTL(grandNet)}</div>
-        </div>
-      </div>
-    </div>` :
-    `<div style="background:var(--surf);border:1.5px dashed var(--brd2);border-radius:14px;padding:20px 24px;text-align:center;color:var(--muted);font-size:.82rem;font-family:'DM Mono',monospace;">
-      Henüz muhasebe kaydı yok.<br>Kategorilere gidip gider/gelir ekle.
-    </div>`;
-
-  // Muhasebe detay sayfasini da guncelle
-  renderMuhasebePage();
-}
-
-function renderMuhasebePage(){
-  const wrap=document.getElementById('muhasebePageContent'); if(!wrap) return;
-  const keyMap={'1':'robot','3':'app','4':'ads','4a':'igads','4b':'appads','yula':'yula','5':'vps','6':'pine','7':'kort','haberler':'haberler','kisisel':'kisisel'};
-  let grandExpTL=0, grandIncTL=0;
-  let html=`
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--brd);">
-      <div style="font-size:1.8rem;line-height:1;"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div>
-      <div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--text);">Muhasebe</div>
-        <div style="font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:4px;">$1 = ${USD_KUR.toFixed(2)} ₺ (anlık kur)</div>
-      </div>
-    </div>`;
-
-  // Her kategori
-  Object.entries(SEC_META).forEach(([sec,meta])=>{
-    const key=keyMap[sec]; if(!key) return;
-    const data=getFin(key);
-    const linkCosts2=getLinkCosts(key); const allExp=[...data.expenses,...linkCosts2]; const totalExpTL=allExp.reduce((s,i)=>s+itemToTL(i),0);
-    const totalIncTL=data.incomes.reduce((s,i)=>s+itemToTL(i),0);
-    if(totalExpTL===0&&totalIncTL===0) return;
-    grandExpTL+=totalExpTL; grandIncTL+=totalIncTL;
-    const net=totalIncTL-totalExpTL;
-
-    html+=`<div style="background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:20px;margin-bottom:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--brd);">
-        <div style="width:10px;height:10px;border-radius:50%;background:${meta.color};flex-shrink:0;"></div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);">${meta.icon} ${meta.label}</div>
-        <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:.9rem;font-weight:700;color:${net>=0?'var(--green)':'var(--red)'};">${net>=0?'+':''}${fmtTL(net)}</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div>
-          <div style="font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;">📤 Giderler</div>`;
-
-    const lkc4=getLinkCosts(key); const allExpMuh=[...data.expenses,...lkc4];
-    if(allExpMuh.length===0){
-      html+=`<div style="color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace;">—</div>`;
-    } else {
-      allExpMuh.forEach(item=>{
-        const cur=item.currency||'TL'; const tlVal=itemToTL(item);
-        const origStr=cur!=='TL'?` <span style="color:var(--muted);font-size:.65rem;">(${fmtAmt(item.amount,cur)})</span>`:'';
-        const linkBadge=item.fromLink?` <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span>`:'';
-        html+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--brd);font-size:.8rem;">
-          <span style="color:var(--text2);">${item.name}${origStr}${linkBadge}</span>
-          <span style="font-family:'DM Mono',monospace;color:var(--red);font-weight:600;">-${fmtTL(tlVal)}</span>
-        </div>`;
-      });
-      html+=`<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:4px;border-top:2px solid var(--brd2);font-size:.78rem;font-weight:700;color:var(--text);">
-        <span>Toplam</span><span style="font-family:'DM Mono',monospace;color:var(--red);">-${fmtTL(totalExpTL)}</span>
-      </div>`;
-    }
-
-    html+=`</div><div>
-          <div style="font-size:.75rem;color:var(--muted);font-weight:600;margin-bottom:8px;">📥 Gelirler</div>`;
-
-    if(data.incomes.length===0){
-      html+=`<div style="color:var(--muted);font-size:.75rem;font-family:'DM Mono',monospace;">—</div>`;
-    } else {
-      data.incomes.forEach(item=>{
-        const cur=item.currency||'TL'; const tlVal=itemToTL(item);
-        const origStr=cur!=='TL'?` <span style="color:var(--muted);font-size:.65rem;">(${fmtAmt(item.amount,cur)})</span>`:'';
-        html+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--brd);font-size:.8rem;">
-          <span style="color:var(--text2);">${item.name}${origStr}</span>
-          <span style="font-family:'DM Mono',monospace;color:var(--green);font-weight:600;">+${fmtTL(tlVal)}</span>
-        </div>`;
-      });
-      html+=`<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:4px;border-top:2px solid var(--brd2);font-size:.78rem;font-weight:700;color:var(--text);">
-        <span>Toplam</span><span style="font-family:'DM Mono',monospace;color:var(--green);">+${fmtTL(totalIncTL)}</span>
-      </div>`;
-    }
-    html+=`</div></div></div>`;
-  });
-
-  // Genel toplam
-  const grandNet=grandIncTL-grandExpTL;
-  html+=`<div style="background:linear-gradient(135deg,rgba(240,180,41,.1),rgba(240,180,41,.04));border:2px solid rgba(240,180,41,.35);border-radius:14px;padding:22px;margin-top:8px;">
-    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--accent);margin-bottom:16px;">⚡ Genel Toplam</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-      <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:16px;text-align:center;">
-        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Toplam Gider</div>
-        <div style="font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">-${fmtTL(grandExpTL)}</div>
-      </div>
-      <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:16px;text-align:center;">
-        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Toplam Gelir</div>
-        <div style="font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--green);">+${fmtTL(grandIncTL)}</div>
-      </div>
-      <div style="background:${grandNet>=0?'rgba(16,185,129,.1)':'rgba(239,68,68,.1)'};border:1px solid ${grandNet>=0?'rgba(16,185,129,.3)':'rgba(239,68,68,.3)'};border-radius:10px;padding:16px;text-align:center;">
-        <div style="font-size:.72rem;color:var(--muted);margin-bottom:8px;">Net</div>
-        <div style="font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:700;color:${grandNet>=0?'var(--green)':'var(--red)'};">${grandNet>=0?'+':''}${fmtTL(grandNet)}</div>
-      </div>
+  const head=`<div style="background:linear-gradient(135deg,rgba(244,33,46,.08),rgba(244,33,46,.03));border:1.5px solid rgba(244,33,46,.3);border-radius:14px;padding:18px 22px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);">📤 Toplam Gider</div>
+    <div style="text-align:right;">
+      <div style="font-family:'DM Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--red);">-${fmtTL(total)}</div>
+      <div style="font-size:.62rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px;">$1 = ${USD_KUR.toFixed(2)} ₺</div>
     </div>
   </div>`;
-
-  if(grandExpTL===0&&grandIncTL===0){
-    html=`<div style="color:var(--muted);font-size:.82rem;font-family:'DM Mono',monospace;padding:40px 0;text-align:center;">Henüz muhasebe kaydı yok.<br><br>Kategorilere gidip gider / gelir ekle.</div>`;
-  }
-
-  wrap.innerHTML=html;
-  renderKisisel();
+  wrap.innerHTML = total>0 ? head+html : '<div style="color:var(--muted);font-size:.82rem;font-family:\'DM Mono\',monospace;padding:30px 0;text-align:center;">Henüz gider kaydı yok. Yukarıdan ekle.</div>';
 }
+window.saveGider=function(){
+  const key=document.getElementById('gd-cat').value;
+  const name=document.getElementById('gd-name').value.trim();
+  const amount=parseFloat(document.getElementById('gd-amt').value);
+  const currency=document.getElementById('gd-cur').value;
+  if(!name||isNaN(amount)||amount<=0) return;
+  const data=getFin(key);
+  data.expenses.push({name,amount,currency});
+  setFin(key,data);
+  document.getElementById('gd-name').value=''; document.getElementById('gd-amt').value='';
+  renderGiderler();
+};
+window.delGider=function(key,i){
+  const data=getFin(key);
+  data.expenses.splice(i,1);
+  setFin(key,data);
+  renderGiderler();
+};
 
 // LINKS
 function getLinks(sec){return ld('lnk9_'+String(sec),[]);}
@@ -1683,7 +1510,7 @@ function renderSectionLinks(sec){
   el.appendChild(grid);
 }
 function renderAllSectionLinks(){
-  ['1','3','4','4a','4b','yula','5','6','7'].forEach(renderSectionLinks);
+  ['1','3','4','4a','4b','yula','5','6','7','kisisel'].forEach(renderSectionLinks);
   renderHaberlerGrid();
 }
 function renderHaberlerGrid(){
@@ -2231,6 +2058,52 @@ window.clImgClick=function(elId,i,e){
   document.body.appendChild(inp);
 })();
 
+// CHECKLIST TARİH (son tarih)
+function fmtDue(d){const dt=new Date(d+'T00:00:00');return dt.getDate()+' '+MONTHS[dt.getMonth()].slice(0,3);}
+function dueClass(d){const t=new Date();t.setHours(0,0,0,0);const dt=new Date(d+'T00:00:00');const diff=Math.round((dt-t)/86400000);if(diff<0)return 'over';if(diff<=3)return 'soon';return '';}
+window.clDateClick=function(elId,i){
+  const inp=document.getElementById('cl-date-inp');
+  inp.dataset.elid=elId; inp.dataset.idx=i;
+  const its=ld('cl9_'+elId,DEF_CL[elId]||[]);
+  inp.value=(its[i]&&its[i].due)||'';
+  try{ if(inp.showPicker) inp.showPicker(); else inp.click(); }catch(e){ inp.click(); }
+};
+window.clDueClear=function(elId,i){
+  const its=ld('cl9_'+elId,DEF_CL[elId]||[]);
+  if(its[i]){ delete its[i].due; sv('cl9_'+elId,its); }
+  const el=document.getElementById(elId);
+  if(el){el.innerHTML='';makeChecklist(elId);}
+};
+(function(){
+  const inp=document.createElement('input');
+  inp.type='date'; inp.id='cl-date-inp';
+  inp.style.cssText='position:fixed;left:-200px;top:0;width:1px;height:1px;opacity:0;';
+  inp.addEventListener('change',function(){
+    if(!this.value) return;
+    const elId=this.dataset.elid; const idx=parseInt(this.dataset.idx);
+    const its=ld('cl9_'+elId,DEF_CL[elId]||[]);
+    if(its[idx]){ its[idx].due=this.value; sv('cl9_'+elId,its); }
+    const el=document.getElementById(elId);
+    if(el){el.innerHTML='';makeChecklist(elId);}
+  });
+  document.body.appendChild(inp);
+})();
+
+// YAKLAŞAN TARİHLER (ana sayfa)
+const CL_TO_SEC={'cl-robot':'1','cl-app':'3','cl-robotig':'3','cl-ads':'4','cl-igads':'4a','cl-appads':'4b','cl-yula':'yula','cl-vps':'5','cl-pine':'6','cl-kort':'7','cl-haberler':'haberler','cl-kisisel':'kisisel'};
+function renderUpcoming(){
+  const wrap=document.getElementById('upcomingWrap'); const list=document.getElementById('upcomingList');
+  if(!wrap||!list) return;
+  const items=[];
+  CL_KEYS.forEach(k=>{
+    (ld('cl9_'+k,DEF_CL[k]||[])).forEach(it=>{ if(it.due&&!it.done) items.push({due:it.due,label:it.label,src:getSourceLabel(k),sec:CL_TO_SEC[k]||'0'}); });
+  });
+  items.sort((a,b)=>a.due.localeCompare(b.due));
+  if(items.length===0){ wrap.style.display='none'; return; }
+  wrap.style.display='';
+  list.innerHTML=items.map(it=>`<div class="starred-item" style="cursor:pointer;" onclick="openSec('${it.sec}')"><span class="cl-due ${dueClass(it.due)}">🗓 ${fmtDue(it.due)}</span><div class="si-body"><div class="si-source">${it.src}</div><div class="si-text">${it.label}</div></div></div>`).join('');
+}
+
 // GOREV DETAY
 let tdmWk=null, tdmDow=null, tdmIdx=null;
 
@@ -2279,106 +2152,18 @@ function saveTaskDetail(){
 document.getElementById('taskDetailModal').addEventListener('click', function(e){ if(e.target===this) closeTaskDetail(); });
 document.getElementById('tdm-title').addEventListener('keydown', e=>{ if(e.key==='Escape') closeTaskDetail(); });
 
-// KISISEL GIDERLER
-function renderKisisel(){
-  const wrap=document.getElementById('fin-kisisel-wrap'); if(!wrap) return;
-  const data=getFin('kisisel');
-  const exp=data.expenses;
-  const totalTL=exp.reduce((s,i)=>s+itemToTL(i),0);
-  wrap.innerHTML='';
-  
-  // Items
-  exp.forEach((item,i)=>{
-    const cur=item.currency||'TL';
-    const tlVal=itemToTL(item);
-    const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-    const div=document.createElement('div');
-    div.className='fin-item';
-    div.innerHTML=`<span class="fin-name">${item.name}${origStr}</span><span class="fin-amount expense" style="margin-left:auto;">-${fmtTL(tlVal)}</span><button class="fin-del" onclick="delKisisel(${i})">x</button>`;
-    wrap.appendChild(div);
-  });
-
-  // Toplam
-  if(exp.length>0){
-    const tot=document.createElement('div');
-    tot.className='fin-total';
-    tot.style.marginTop='8px';
-    tot.innerHTML=`<span>Toplam</span><span class="fin-total-val" style="color:var(--red);">-${fmtTL(totalTL)}</span>`;
-    wrap.appendChild(tot);
-  } else {
-    const empty=document.createElement('div');
-    empty.style.cssText='color:var(--muted);font-size:.78rem;padding:8px 0;';
-    empty.textContent='Henüz gider yok.';
-    wrap.appendChild(empty);
-  }
-
-  // Gider ekle butonu
-  const addBtn=document.createElement('button');
-  addBtn.className='fin-add-btn';
-  addBtn.textContent='+ Gider ekle';
-  addBtn.onclick=()=>{formDiv.style.display='flex'; addBtn.style.display='none';};
-  wrap.appendChild(addBtn);
-
-  // Form
-  const formDiv=document.createElement('div');
-  formDiv.className='fin-add-form';
-  formDiv.style.display='none';
-  formDiv.innerHTML=`
-    <div class="fin-inp-row"><input class="fin-inp" id="ki-name" placeholder="Berber, Spor, Kira..."></div>
-    <div class="fin-inp-row">
-      <input class="fin-inp" id="ki-amount" placeholder="Tutar" type="number" style="flex:1">
-      <select class="fin-inp" id="ki-cur" style="flex:0 0 70px">
-        <option value="TL">TL</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-      </select>
-    </div>
-    <div class="fin-inp-row">
-      <button class="fin-save" onclick="saveKisisel()">Kaydet</button>
-      <button class="fin-cancel" onclick="document.getElementById('fin-kisisel-wrap').querySelectorAll('.fin-add-form')[0].style.display='none'">Iptal</button>
-    </div>`;
-  wrap.appendChild(formDiv);
-}
-
-function saveKisisel(){
-  const name=document.getElementById('ki-name').value.trim();
-  const amount=parseFloat(document.getElementById('ki-amount').value);
-  const currency=document.getElementById('ki-cur').value;
-  if(!name||isNaN(amount)||amount<=0) return;
-  const data=getFin('kisisel');
-  data.expenses.push({name,amount,currency});
-  setFin('kisisel',data);
-  renderKisisel();
-  renderHomeFinance();
-}
-
-window.delKisisel=function(i){
-  const data=getFin('kisisel');
-  data.expenses.splice(i,1);
-  setFin('kisisel',data);
-  renderKisisel();
-  renderHomeFinance();
-};
-
-
-
-// SUB MENU TOGGLE
-function toggleSubMenu(id){
-  const el=document.getElementById(id);
-  if(!el) return;
-  el.style.display = el.style.display==='none' ? 'flex' : 'none';
-}
-
 // INIT
 // Önce DB'den yükle, sonra render et
 dbLoad().then(() => {
   buildWeek();
-CL_KEYS.forEach(makeChecklist);
-NOTE_KEYS.forEach(renderNoteImgs);
-renderAllSectionLinks();
-renderStarred();
-loadRobotStats();
-  loadKur().then(()=>{ FIN_KEYS.forEach(renderFinance); renderHomeFinance(); renderKisisel(); });
+  CL_KEYS.forEach(makeChecklist);
+  NOTE_KEYS.forEach(renderNoteImgs);
+  renderAllSectionLinks();
+  renderStarred();
+  renderUpcoming();
+  loadRobotStats();
+  initGiderCats();
+  loadKur().then(renderGiderler);
   renderShortcuts();
 });
 </script>
