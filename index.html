@@ -89,7 +89,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .cl-due.over{color:var(--red);border-color:rgba(244,33,46,.4);background:rgba(244,33,46,.08);}
 .cl-due-x{display:none;background:none;border:none;color:inherit;cursor:pointer;font-size:.72rem;padding:0;line-height:1;}
 .cl-due:hover .cl-due-x{display:inline;}
-.cl-star{background:none;border:none;cursor:pointer;font-size:.82rem;padding:1px 3px;opacity:.35;transition:opacity .15s;flex-shrink:0;line-height:1;}
+.cl-star{display:none;background:none;border:none;cursor:pointer;font-size:.82rem;padding:1px 3px;opacity:.35;transition:opacity .15s;flex-shrink:0;line-height:1;}
 .cl-star:hover{opacity:.8;}
 .cl-star.starred{opacity:1;filter:drop-shadow(0 0 4px rgba(29,155,240,.7));}
 .cl-del{display:none;background:none;border:none;color:var(--red);cursor:pointer;font-size:.75rem;padding:0 3px;flex-shrink:0;}
@@ -429,10 +429,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div id="upcomingList"></div>
   </div>
 
-  <!-- YILDIZLI ÖNCELIKLILER -->
-  <div style="margin-bottom:28px;">
-    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:14px;"><svg viewBox="0 0 24 24" fill="#1d9bf0" width="20" height="20" style="vertical-align:-3px;margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>Öncelikliler</div>
-    <div class="starred-section" id="starredList"></div>
+  <!-- PARADA PUSULA YAPILACAKLAR -->
+  <div class="card" style="max-width:760px;">
+    <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-pp">📋 Yapılacaklar</span></div>
+    <div id="cl-pp"></div>
   </div>
 </div>
 
@@ -911,7 +911,7 @@ const SEC_META={
   'kisisel':{label:'Kişisel',color:'#8890b0',icon:'👤'},
 };
 const NOTE_KEYS=[];
-const CL_KEYS=['cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort','cl-kisisel'];
+const CL_KEYS=['cl-pp','cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort','cl-kisisel'];
 const FIN_KEYS=['robot','app','ads','igads','appads','yula','vps','haberler','pine','kort'];
 
 // DB API - localStorage + server sync
@@ -990,7 +990,7 @@ function goHome(){openSec('0');}
 openSec(activeSec);
 
 // CARD TITLE EDITABLE
-['robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','kisisel'].forEach(k=>{
+['pp','robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','kisisel'].forEach(k=>{
   const el=document.getElementById('clt-'+k); if(!el) return;
   const s=localStorage.getItem('clt9_'+k); if(s) el.textContent=s;
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
@@ -1076,7 +1076,7 @@ function getSourceLabel(key){
     'robot':'Robot EA','app':'Aplikasyon','ads':'Reklam','igads':'IG Reklam','appads':'App Reklam',
     'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler','kisisel':'Kişisel',
     'cl-robot':'Robot EA','cl-app':'Aplikasyon','cl-robotig':'Robot IG','cl-ads':'Reklam','cl-igads':'IG Reklam','cl-appads':'App Reklam',
-    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler','cl-kisisel':'Kişisel'
+    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler','cl-kisisel':'Kişisel','cl-pp':'Parada Pusula'
   };
   return map[key]||key;
 }
@@ -2058,7 +2058,7 @@ window.clDueClear=function(elId,i){
 })();
 
 // YAKLAŞAN TARİHLER (ana sayfa)
-const CL_TO_SEC={'cl-robot':'1','cl-app':'3','cl-robotig':'3','cl-ads':'4','cl-igads':'4a','cl-appads':'4b','cl-yula':'yula','cl-vps':'5','cl-pine':'6','cl-kort':'7','cl-haberler':'haberler','cl-kisisel':'kisisel'};
+const CL_TO_SEC={'cl-pp':'0','cl-robot':'1','cl-app':'3','cl-robotig':'3','cl-ads':'4','cl-igads':'4a','cl-appads':'4b','cl-yula':'yula','cl-vps':'5','cl-pine':'6','cl-kort':'7','cl-haberler':'haberler','cl-kisisel':'kisisel'};
 function renderUpcoming(){
   const wrap=document.getElementById('upcomingWrap'); const list=document.getElementById('upcomingList');
   if(!wrap||!list) return;
