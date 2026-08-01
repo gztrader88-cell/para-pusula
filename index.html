@@ -183,8 +183,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .fin-amount{font-family:'DM Mono',monospace;font-size:.82rem;font-weight:500;}
 .fin-amount.income{color:var(--green);}
 .fin-amount.expense{color:var(--red);}
-.fin-del{display:none;background:none;border:none;color:var(--red);cursor:pointer;font-size:.7rem;padding:0 2px;}
-.fin-item:hover .fin-del{display:block;}
+.fin-del{display:block;background:none;border:none;color:var(--red);cursor:pointer;font-size:.85rem;padding:0 4px;opacity:.45;transition:opacity .15s;}
+.fin-item:hover .fin-del{opacity:1;}
 .fin-total{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;margin-top:6px;border-top:2px solid var(--brd2);font-size:.82rem;font-weight:600;color:var(--text);}
 .fin-total-val{font-family:'DM Mono',monospace;font-size:.92rem;font-weight:700;}
 .fin-add-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;border:1px dashed var(--brd2);background:none;color:var(--muted);font-size:.73rem;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;transition:all .15s;margin-top:8px;}
@@ -447,15 +447,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
   <div class="two-col">
     <div>
-      <div class="stat-row" id="robotStats">
-        <div class="stat-box"><div class="stat-val sv-acc" id="sv-varlik">⟳</div><div class="stat-lbl-edit" contenteditable="true" spellcheck="false" id="sl-varlik">Toplam Varlık</div></div>
-        <div class="stat-box"><div class="stat-val" id="sv-bugun">⟳</div><div class="stat-lbl-edit" contenteditable="true" spellcheck="false" id="sl-bugun">Bugün Ort. Kar</div></div>
-        <div class="stat-box"><div class="stat-val" id="sv-hedef">⟳</div><div class="stat-lbl-edit" contenteditable="true" spellcheck="false" id="sl-hedef">Hedefe Uzaklık</div></div>
-        <div class="stat-box"><div class="stat-val" id="sv-komisyon">⟳</div><div class="stat-lbl-edit" contenteditable="true" spellcheck="false" id="sl-komisyon">Hazır Komisyon</div></div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-        <button onclick="loadRobotStats()" style="background:none;border:1px solid var(--brd2);border-radius:6px;color:var(--muted);font-size:.68rem;padding:4px 10px;cursor:pointer;font-family:'DM Mono',monospace;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--brd2)'">↻ Yenile</button>
-      </div>
       <div class="card">
         <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-robot">📋 Yapılacaklar</span></div>
         <div id="cl-robot"></div>
@@ -996,13 +987,6 @@ openSec(activeSec);
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
 });
 
-// STAT LABELS
-['varlik','bugun','hedef','komisyon'].forEach(k=>{
-  const el=document.getElementById('sl-'+k); if(!el) return;
-  const s=localStorage.getItem('stlbl_'+k); if(s) el.textContent=s;
-  el.addEventListener('input',()=>sv('stlbl_'+k,el.textContent));
-});
-
 // NOTES
 ['note-robot','note-icerik','note-acik','note-ucretli','note-app','note-ads','note-igads','note-appads','note-vps','note-haberler'].forEach(id=>{
   const el=document.getElementById(id); if(!el) return;
@@ -1315,7 +1299,7 @@ function getLinkCosts(key){
   // Hangi sec ID'si bu key'e karsilik geliyor?
   const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','haberler':'haberler','kisisel':'kisisel','icerik':'2','acik':'2a','ucretli':'2b'};
   const sec=keyToSec[key]; if(!sec) return [];
-  return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
+  return getLinks(sec).map((l,li)=>l.cost&&l.cost>0?{name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true,sec,li}:null).filter(Boolean);
 }
 
 // GİDERLER SAYFASI (tek yerde tüm giderler; gelir yok)
@@ -1358,7 +1342,7 @@ function renderGiderler(){
     linkCosts.forEach(item=>{
       const cur=item.currency||'TL';
       const origStr=cur!=='TL'?` <span style="font-size:.65rem;color:var(--muted)">(${fmtAmt(item.amount,cur)})</span>`:'';
-      rows+=`<div class="fin-item"><span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(itemToTL(item))}</span></div>`;
+      rows+=`<div class="fin-item"><span class="fin-name">${item.name}${origStr} <span style="font-size:.6rem;color:#06b6d4;font-family:'DM Mono',monospace;">link</span></span><span class="fin-amount expense">-${fmtTL(itemToTL(item))}</span><button class="fin-del" onclick="delGiderLink('${item.sec}',${item.li})" title="Gideri kaldır (link kalır)">×</button></div>`;
     });
     html+=`<div class="card" style="margin-bottom:14px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
@@ -1392,6 +1376,11 @@ window.delGider=function(key,i){
   const data=getFin(key);
   data.expenses.splice(i,1);
   setFin(key,data);
+  renderGiderler();
+};
+window.delGiderLink=function(sec,li){
+  const links=getLinks(sec);
+  if(links[li]){ delete links[li].cost; delete links[li].costCur; setLinks(sec,links); }
   renderGiderler();
 };
 
@@ -1528,30 +1517,6 @@ function renderHaberlerGrid(){
     addLinkDragEvents(card,'haberler');
     wrap.appendChild(card);
   });
-}
-
-// ROBOT STATS
-const ROBOT_API='https://authentic-passion-production-d90e.up.railway.app';
-async function loadRobotStats(){
-  ['sv-varlik','sv-bugun','sv-hedef','sv-komisyon'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='⟳';});
-  try{
-    const res=await fetch(ROBOT_API+'/api/kayitli');
-    const data=await res.json();
-    const aktif=data.filter(m=>m.aktif);
-    const toplamVarlik=aktif.reduce((s,m)=>s+parseFloat(m.varlik||0),0);
-    const svv=document.getElementById('sv-varlik');
-    if(svv){svv.textContent=(toplamVarlik/1_000_000).toFixed(2)+' M₺';svv.className='stat-val sv-acc';}
-    const bugunOrt=aktif.reduce((s,m)=>s+parseFloat(m.bugun_yuzde||0),0)/aktif.length;
-    const svb=document.getElementById('sv-bugun');
-    if(svb){svb.textContent=(bugunOrt>=0?'+':'')+bugunOrt.toFixed(3)+'%';svb.className='stat-val '+(bugunOrt>=0?'sv-pos':'sv-neg');}
-    const uzakliklar=aktif.map(m=>{const h=parseFloat(m.hakedis_miktari||m.baslangic_parasi||1);const v=parseFloat(m.varlik||0);return v<h?(h-v)/v*100:0;});
-    const maxUzaklik=Math.max(...uzakliklar);
-    const svh=document.getElementById('sv-hedef');
-    if(svh){svh.textContent='+'+maxUzaklik.toFixed(1)+'%';svh.className='stat-val sv-neg';}
-    const komisyon=aktif.reduce((s,m)=>{const h=parseFloat(m.hakedis_miktari||m.baslangic_parasi||0);const v=parseFloat(m.varlik||0);const oran=parseFloat(m.komisyon_orani||0)/100;const kar=v-h;return s+(kar>0?kar*oran:0);},0);
-    const svk=document.getElementById('sv-komisyon');
-    if(svk){svk.textContent=(komisyon/1000).toFixed(1)+' K₺';svk.className='stat-val sv-pos';}
-  }catch(e){['sv-varlik','sv-bugun','sv-hedef','sv-komisyon'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='Hata';el.className='stat-val sv-neg';}});}
 }
 
 document.getElementById('ml-url').addEventListener('keydown',e=>{if(e.key==='Enter')saveModalLink();if(e.key==='Escape')closeLinkModal();});
@@ -2129,7 +2094,6 @@ dbLoad().then(() => {
   renderAllSectionLinks();
   renderStarred();
   renderUpcoming();
-  loadRobotStats();
   initGiderCats();
   loadKur().then(renderGiderler);
   renderShortcuts();
