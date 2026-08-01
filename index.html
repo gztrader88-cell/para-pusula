@@ -130,10 +130,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .wnav:hover{border-color:var(--brd2);color:var(--text);}
 .wnav.today{border-color:rgba(29,155,240,.5);color:var(--accent);}
 .week-label{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--text2);flex:1;}
-.focus-banner{background:linear-gradient(135deg,rgba(29,155,240,.12),rgba(29,155,240,.04));border:1px solid rgba(29,155,240,.3);border-radius:12px;padding:16px 20px;margin-bottom:22px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 3px 10px rgba(30,40,70,.05);}
-.fb-icon{font-size:1.6rem;flex-shrink:0;}
-.fb-title{font-weight:600;color:var(--accent);font-size:.92rem;margin-bottom:4px;}
-.fb-text{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.6;}
 [contenteditable]{outline:none;}
 [contenteditable]:hover{background:rgba(0,0,0,.03);border-radius:3px;}
 [contenteditable]:focus{background:rgba(0,0,0,.05);border-radius:3px;}
@@ -318,7 +314,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 <body>
 
 <div class="topbar">
-  <div class="logo" onclick="goHome()">Parada <span>Pusula</span></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="logo" onclick="goHome()">Parada <span>Pusula</span></div>
+    <button onclick="openSec('giderler')" title="Tüm giderler" style="display:inline-flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text2);font-size:.75rem;font-weight:600;padding:5px 10px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--brd)';this.style.color='var(--text2)'">💸 Giderler</button>
+    <button onclick="openSec('kisisel')" title="Kişisel işler" style="display:inline-flex;align-items:center;gap:5px;background:var(--surf2);border:1px solid var(--brd);border-radius:8px;color:var(--text2);font-size:.75rem;font-weight:600;padding:5px 10px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--brd)';this.style.color='var(--text2)'">👤 Kişisel</button>
+  </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <div id="topbarShortcuts" style="display:flex;align-items:center;gap:6px;"></div>
     <button onclick="openShortcutModal()" title="Kısa yol ekle" style="background:none;border:1px dashed var(--brd2);border-radius:8px;color:var(--muted);font-size:.75rem;padding:5px 9px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)'">＋</button>
@@ -377,27 +377,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     </div>
     <!-- ÇATI 2: YULA WORKS -->
     <div class="hub-group" style="flex:6;">
-      <div style="display:flex;align-items:center;gap:0;justify-content:center;">
-        <!-- SOL: Giderler -->
-        <div style="display:flex;align-items:center;">
-          <div onclick="openSec('giderler')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
-            <div style="font-size:1.1rem;">💸</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Giderler</div>
-          </div>
-          <div style="width:28px;height:2px;background:var(--brd2);"></div>
-        </div>
-        <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
-          <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
-          <div class="hub-center-sub">ortak şirket</div>
-        </div>
-        <!-- SAĞ: Kişisel -->
-        <div style="display:flex;align-items:center;">
-          <div style="width:28px;height:2px;background:var(--brd2);"></div>
-          <div onclick="openSec('kisisel')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
-            <div style="font-size:1.1rem;">👤</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Kişisel</div>
-          </div>
-        </div>
+      <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
+        <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
+        <div class="hub-center-sub">ortak şirket</div>
       </div>
       <div class="hub-vline" style="background:linear-gradient(to bottom,rgba(217,149,0,.45),rgba(217,149,0,.15));"></div>
       <div class="hub-branches">
@@ -437,13 +419,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <button class="wnav" onclick="changeWeek(-1)">← Önceki</button>
       <button class="wnav today" onclick="changeWeek(0)">Bugün</button>
       <button class="wnav" onclick="changeWeek(1)">Sonraki →</button>
-    </div>
-  </div>
-  <div class="focus-banner">
-    <div class="fb-icon">🎯</div>
-    <div>
-      <div class="fb-title" contenteditable="true" spellcheck="false" id="focusTitle">Bu Haftanın Odak Noktası</div>
-      <div class="fb-text" contenteditable="true" spellcheck="false" id="focusText">Odak noktanı buraya yaz...</div>
     </div>
   </div>
   <div class="week-grid" id="weekGrid"></div>
@@ -1013,13 +988,6 @@ function openSec(i){
 }
 function goHome(){openSec('0');}
 openSec(activeSec);
-
-// FOCUS
-['focusTitle','focusText'].forEach(id=>{
-  const el=document.getElementById(id); if(!el) return;
-  const s=localStorage.getItem('fx_'+id); if(s) el.textContent=s;
-  el.addEventListener('input',()=>localStorage.setItem('fx_'+id,el.textContent));
-});
 
 // CARD TITLE EDITABLE
 ['robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','kisisel'].forEach(k=>{
