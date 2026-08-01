@@ -376,7 +376,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       </div>
     </div>
     <!-- ÇATI 2: YULA WORKS -->
-    <div class="hub-group" style="flex:6;">
+    <div class="hub-group" style="flex:8;">
       <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
         <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
         <div class="hub-center-sub">ortak şirket</div>
@@ -402,6 +402,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
           <div class="branch-node" onclick="openSec(7)" style="border-color:rgba(109,118,199,.4);background:rgba(109,118,199,.07);">
             <div class="bn-icon">🎾</div>
             <div class="bn-title" style="color:var(--c7);">Kort Rezervasyonu</div>
+          </div>
+        </div>
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec('global')" style="border-color:rgba(236,72,153,.4);background:rgba(236,72,153,.07);">
+            <div class="bn-icon">🌍</div>
+            <div class="bn-title" style="color:#ec4899;">Global App</div>
           </div>
         </div>
       </div>
@@ -599,6 +606,26 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       </div>
     </div>
     <div id="giderlerPageContent"></div>
+  </div>
+</div>
+
+<!-- GLOBAL APP SAYFASI -->
+<div class="section" id="sec-global">
+  <div class="sec-header">
+    <div class="sec-color-bar" style="background:#ec4899"></div>
+    <div class="sec-icon">🌍</div>
+    <div><div class="sec-title">Global App</div><div class="sec-sub">Parada Pusula'nın yurt dışı (İngilizce) sürümü · isim seçilecek · Yula Works</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-global">📋 Yapılacaklar</span></div>
+        <div id="cl-global"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('global')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-global"></div></div>
+    </div>
   </div>
 </div>
 
@@ -846,6 +873,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
         <option value="5">🖥️ Sanal Sunucu</option>
         <option value="6">🔗 Transistrade</option>
         <option value="7">🎾 Kort Rezervasyonu</option>
+        <option value="global">🌍 Global App</option>
         <option value="kisisel">👤 Kişisel</option>
       </select>
     </div>
@@ -899,10 +927,11 @@ const SEC_META={
   '5':{label:'Sanal Sunucu',color:'#3b82f6',icon:'🖥️'},
   '6':{label:'Transistrade',color:'#5ba35f',icon:'🔗'},
   '7':{label:'Kort Rezervasyonu',color:'#6d76c7',icon:'🎾'},
+  'global':{label:'Global App',color:'#ec4899',icon:'🌍'},
   'kisisel':{label:'Kişisel',color:'#8890b0',icon:'👤'},
 };
 const NOTE_KEYS=[];
-const CL_KEYS=['cl-pp','cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort','cl-kisisel'];
+const CL_KEYS=['cl-pp','cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort','cl-global','cl-kisisel'];
 const FIN_KEYS=['robot','app','ads','igads','appads','yula','vps','haberler','pine','kort'];
 
 // DB API - localStorage + server sync
@@ -981,7 +1010,7 @@ function goHome(){openSec('0');}
 openSec(activeSec);
 
 // CARD TITLE EDITABLE
-['pp','robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','kisisel'].forEach(k=>{
+['pp','robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort','global','kisisel'].forEach(k=>{
   const el=document.getElementById('clt-'+k); if(!el) return;
   const s=localStorage.getItem('clt9_'+k); if(s) el.textContent=s;
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
@@ -1058,9 +1087,9 @@ function isClStarred(clId,i){
 function getSourceLabel(key){
   const map={
     'robot':'Robot EA','app':'Aplikasyon','ads':'Reklam','igads':'IG Reklam','appads':'App Reklam',
-    'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler','kisisel':'Kişisel',
+    'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler','kisisel':'Kişisel','global':'Global App',
     'cl-robot':'Robot EA','cl-app':'Aplikasyon','cl-robotig':'Robot IG','cl-ads':'Reklam','cl-igads':'IG Reklam','cl-appads':'App Reklam',
-    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler','cl-kisisel':'Kişisel','cl-pp':'Parada Pusula'
+    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler','cl-kisisel':'Kişisel','cl-pp':'Parada Pusula','cl-global':'Global App'
   };
   return map[key]||key;
 }
@@ -1297,7 +1326,7 @@ function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
 function getLinkCosts(key){
   // Hangi sec ID'si bu key'e karsilik geliyor?
-  const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','haberler':'haberler','kisisel':'kisisel','icerik':'2','acik':'2a','ucretli':'2b'};
+  const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','global':'global','haberler':'haberler','kisisel':'kisisel','icerik':'2','acik':'2a','ucretli':'2b'};
   const sec=keyToSec[key]; if(!sec) return [];
   return getLinks(sec).map((l,li)=>l.cost&&l.cost>0?{name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true,sec,li}:null).filter(Boolean);
 }
@@ -1313,6 +1342,7 @@ const GIDER_CATS=[
   {key:'vps',label:'Sanal Sunucu',icon:'🖥️',color:'#3b82f6'},
   {key:'pine',label:'Transistrade',icon:'🔗',color:'#5ba35f'},
   {key:'kort',label:'Kort Rezervasyonu',icon:'🎾',color:'#6d76c7'},
+  {key:'global',label:'Global App',icon:'🌍',color:'#ec4899'},
   {key:'haberler',label:'Haberler',icon:'📰',color:'#06b6d4'},
   {key:'kisisel',label:'Kişisel',icon:'👤',color:'#8890b0'},
   {key:'icerik',label:'İçerik (eski)',icon:'📸',color:'#ec4899',legacy:true},
@@ -1467,7 +1497,7 @@ function renderSectionLinks(sec){
   el.appendChild(grid);
 }
 function renderAllSectionLinks(){
-  ['1','3','4','4a','4b','yula','5','6','7','kisisel'].forEach(renderSectionLinks);
+  ['1','3','4','4a','4b','yula','5','6','7','global','kisisel'].forEach(renderSectionLinks);
   renderHaberlerGrid();
 }
 function renderHaberlerGrid(){
@@ -2023,7 +2053,7 @@ window.clDueClear=function(elId,i){
 })();
 
 // YAKLAŞAN TARİHLER (ana sayfa)
-const CL_TO_SEC={'cl-pp':'0','cl-robot':'1','cl-app':'3','cl-robotig':'3','cl-ads':'4','cl-igads':'4a','cl-appads':'4b','cl-yula':'yula','cl-vps':'5','cl-pine':'6','cl-kort':'7','cl-haberler':'haberler','cl-kisisel':'kisisel'};
+const CL_TO_SEC={'cl-pp':'0','cl-robot':'1','cl-app':'3','cl-robotig':'3','cl-ads':'4','cl-igads':'4a','cl-appads':'4b','cl-yula':'yula','cl-vps':'5','cl-pine':'6','cl-kort':'7','cl-global':'global','cl-haberler':'haberler','cl-kisisel':'kisisel'};
 function renderUpcoming(){
   const wrap=document.getElementById('upcomingWrap'); const list=document.getElementById('upcomingList');
   if(!wrap||!list) return;
