@@ -27,6 +27,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .hub-center-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--accent);}
 .hub-center-sub{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;margin-top:3px;}
 .hub-vline{width:2px;height:28px;background:linear-gradient(to bottom,rgba(29,155,240,.45),rgba(29,155,240,.15));margin:0 auto;}
+.hub-row{display:flex;gap:36px;align-items:flex-start;justify-content:center;max-width:1200px;margin:0 auto;}
+.hub-group{display:flex;flex-direction:column;align-items:center;min-width:0;}
+.hub-center-yula{background:linear-gradient(135deg,rgba(217,149,0,.15),rgba(217,149,0,.05));border:2px solid rgba(217,149,0,.45);}
+@media(max-width:900px){.hub-row{flex-direction:column;gap:24px;align-items:stretch;}}
 .hub-branches{display:flex;align-items:flex-start;justify-content:center;width:100%;position:relative;}
 .hub-branches::before{content:'';position:absolute;top:0;left:10%;width:80%;height:2px;background:linear-gradient(to right,transparent 0%,var(--brd2) 15%,var(--brd2) 85%,transparent 100%);}
 .hub-branch{display:flex;flex-direction:column;align-items:center;flex:1;padding:0 8px;}
@@ -73,7 +77,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .stat-lbl-edit{font-size:.7rem;color:var(--text2);margin-top:5px;outline:none;border-radius:3px;padding:1px 3px;display:inline-block;}
 .stat-lbl-edit:hover{background:rgba(0,0,0,.05);}
 /* CHECKLIST */
-.cl-item{display:flex;align-items:center;gap:9px;font-size:.85rem;color:var(--text2);padding:9px 0;border-top:1px solid var(--brd);cursor:pointer;user-select:none;}
+.cl-item{display:flex;align-items:center;gap:9px;font-size:.95rem;font-weight:600;color:var(--text);padding:10px 0;border-top:1px solid var(--brd);cursor:pointer;user-select:none;}
 
 .cl-item:hover{color:var(--text);}
 .cl-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--brd2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:transparent;flex-shrink:0;transition:all .15s;}
@@ -95,7 +99,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .cl-add-row .cx{background:none;border:1px solid var(--brd);border-radius:6px;color:var(--muted);font-size:.72rem;padding:7px 8px;cursor:pointer;}
 /* NOTES */
 .notes-wrap{position:relative;}
-.notes-area{width:100%;background:var(--surf2);border:1px solid var(--brd);border-radius:10px;color:var(--text);font-family:'DM Mono',monospace;font-size:.82rem;padding:12px 14px;resize:none;height:130px;outline:none;line-height:1.7;transition:border-color .15s;}
+.notes-area{width:100%;background:var(--surf2);border:1px solid var(--brd);border-radius:10px;color:var(--text);font-family:'DM Mono',monospace;font-size:.95rem;font-weight:500;padding:12px 14px;resize:none;height:130px;outline:none;line-height:1.7;transition:border-color .15s;}
 .notes-area:focus{border-color:var(--brd2);}
 .notes-area::placeholder{color:var(--muted);}
 .note-star-btn{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;font-size:1rem;opacity:.35;transition:opacity .15s;line-height:1;}
@@ -124,7 +128,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .focus-banner{background:linear-gradient(135deg,rgba(29,155,240,.12),rgba(29,155,240,.04));border:1px solid rgba(29,155,240,.3);border-radius:12px;padding:16px 20px;margin-bottom:22px;display:flex;gap:16px;align-items:flex-start;box-shadow:0 3px 10px rgba(30,40,70,.05);}
 .fb-icon{font-size:1.6rem;flex-shrink:0;}
 .fb-title{font-weight:600;color:var(--accent);font-size:.92rem;margin-bottom:4px;}
-.fb-text{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.fb-text{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.6;}
 [contenteditable]{outline:none;}
 [contenteditable]:hover{background:rgba(0,0,0,.03);border-radius:3px;}
 [contenteditable]:focus{background:rgba(0,0,0,.05);border-radius:3px;}
@@ -137,10 +141,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .day-col.today .day-nm{color:var(--accent);}
 .day-num{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:2px;}
 .day-tasks{padding:8px;display:flex;flex-direction:column;gap:4px;}
-.task-chip{display:flex;align-items:center;gap:7px;padding:8px 9px;border-radius:8px;font-size:.82rem;line-height:1.4;border:1px solid transparent;color:var(--text);transition:all .15s;}
+.task-chip{display:flex;align-items:center;gap:7px;padding:8px 9px;border-radius:8px;font-size:.92rem;line-height:1.4;border:1px solid transparent;color:var(--text);transition:all .15s;}
 .task-chip:hover{filter:brightness(1.1);}
 .tdot{display:none;}
-.tlabel{flex:1;cursor:pointer;word-break:break-word;min-width:0;font-weight:600;}
+.tlabel{flex:1;cursor:pointer;word-break:break-word;min-width:0;font-weight:700;}
 
 .tacts{display:none;flex-direction:column;gap:2px;flex-shrink:0;}
 .task-chip:hover .tacts{display:flex;}
@@ -164,7 +168,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 .si-star{font-size:1rem;flex-shrink:0;margin-top:1px;}
 .si-body{flex:1;min-width:0;}
 .si-source{font-size:.62rem;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:3px;}
-.si-text{font-size:.82rem;color:var(--text2);line-height:1.5;word-break:break-word;}
+.si-text{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.5;word-break:break-word;}
 .si-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;padding:2px 4px;flex-shrink:0;}
 .si-del:hover{color:var(--red);}
 /* FINANCE */
@@ -322,80 +326,78 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 </div>
 
 <div class="hub-wrap">
-  <div style="display:flex;flex-direction:column;align-items:center;">
-    <div style="display:flex;align-items:center;gap:0;justify-content:center;">
-      <!-- SOL: Reklam -->
-      <div style="display:flex;align-items:center;">
-        <div onclick="openSec(4)" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
-          <div style="font-size:1.1rem;">📢</div>
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Reklam</div>
+  <div class="hub-row">
+    <!-- ÇATI 1: PARADA PUSULA -->
+    <div class="hub-group" style="flex:5;">
+      <div style="display:flex;align-items:center;gap:0;justify-content:center;">
+        <!-- SOL: Reklam -->
+        <div style="display:flex;align-items:center;">
+          <div onclick="openSec(4)" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
+            <div style="font-size:1.1rem;">📢</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Reklam</div>
+          </div>
+          <div style="width:28px;height:2px;background:var(--brd2);"></div>
         </div>
-        <div style="width:32px;height:2px;background:var(--brd2);"></div>
-      </div>
-      <!-- ORTA: Parada Pusula -->
-      <div class="hub-center" onclick="goHome()" style="cursor:pointer;" title="Ana sayfaya dön">
-        <div class="hub-center-title">⚡ Parada Pusula</div>
-      </div>
-      <!-- SAĞ: Haberler -->
-      <div style="display:flex;align-items:center;">
-        <div style="width:32px;height:2px;background:var(--brd2);"></div>
-        <div onclick="openSec('haberler')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
-          <div style="font-size:1.1rem;">📰</div>
-          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Haberler</div>
+        <!-- ORTA: Parada Pusula -->
+        <div class="hub-center" onclick="goHome()" style="cursor:pointer;" title="Ana sayfaya dön">
+          <div class="hub-center-title">⚡ Parada Pusula</div>
+          <div class="hub-center-sub">benim tarafım</div>
         </div>
-      </div>
-    </div>
-    <div class="hub-vline"></div>
-    <div class="hub-branches">
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(1)" style="border-color:rgba(144,97,194,.4);background:rgba(144,97,194,.07);">
-          <div class="bn-icon">🤖</div>
-          <div class="bn-title" style="color:var(--c1);">Robot EA</div>
-        </div>
-      </div>
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(2);toggleSubMenu('sub-icerik')" style="border-color:rgba(196,87,127,.4);background:rgba(196,87,127,.07);">
-          <div class="bn-icon">📸</div>
-          <div class="bn-title" style="color:var(--c2);">İçerik</div>
-        </div>
-        <div class="sub-nodes" id="sub-icerik" style="display:none;">
-          <div class="sub-nodes-vline"></div>
-          <div class="sub-nodes-hline"></div>
-          <div class="sub-nodes-row" style="margin-top:10px;">
-            <div class="sub-node" onclick="openSec('2a')"><div class="sn-icon">🌍</div><span class="sn-lbl">Herkese Açık</span></div>
-            <div class="sub-node" onclick="openSec('2b')"><div class="sn-icon">💎</div><span class="sn-lbl">Ücretli</span></div>
+        <!-- SAĞ: Haberler -->
+        <div style="display:flex;align-items:center;">
+          <div style="width:28px;height:2px;background:var(--brd2);"></div>
+          <div onclick="openSec('haberler')" style="cursor:pointer;background:var(--surf);border:1.5px solid var(--brd2);border-radius:10px;padding:8px 14px;text-align:center;transition:all .2s;user-select:none;" onmouseover="this.style.background='var(--surf2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--surf)';this.style.transform=''">
+            <div style="font-size:1.1rem;">📰</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;color:var(--text);margin-top:3px;">Haberler</div>
           </div>
         </div>
       </div>
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(3)" style="border-color:rgba(47,158,146,.4);background:rgba(47,158,146,.07);">
-          <div class="bn-icon">📱</div>
-          <div class="bn-title" style="color:var(--c3);">Aplikasyon</div>
+      <div class="hub-vline"></div>
+      <div class="hub-branches">
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec(1)" style="border-color:rgba(144,97,194,.4);background:rgba(144,97,194,.07);">
+            <div class="bn-icon">🤖</div>
+            <div class="bn-title" style="color:var(--c1);">Robot EA</div>
+          </div>
+        </div>
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec(3)" style="border-color:rgba(47,158,146,.4);background:rgba(47,158,146,.07);">
+            <div class="bn-icon">📱</div>
+            <div class="bn-title" style="color:var(--c3);">Aplikasyon</div>
+          </div>
         </div>
       </div>
-
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(5)" style="border-color:rgba(207,134,54,.4);background:rgba(207,134,54,.07);">
-          <div class="bn-icon">🖥️</div>
-          <div class="bn-title" style="color:var(--c5);">Sanal Sunucu</div>
-        </div>
+    </div>
+    <!-- ÇATI 2: YULA WORKS -->
+    <div class="hub-group" style="flex:6;">
+      <div class="hub-center hub-center-yula" onclick="openSec('yula')" style="cursor:pointer;" title="Yula Works genel sayfası">
+        <div class="hub-center-title" style="color:var(--gold);">🏢 Yula Works</div>
+        <div class="hub-center-sub">ortak şirket</div>
       </div>
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(6)" style="border-color:rgba(91,163,95,.4);background:rgba(91,163,95,.07);">
-          <div class="bn-icon">🔗</div>
-          <div class="bn-title" style="color:var(--c6);">Pine Connector</div>
+      <div class="hub-vline" style="background:linear-gradient(to bottom,rgba(217,149,0,.45),rgba(217,149,0,.15));"></div>
+      <div class="hub-branches">
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec(5)" style="border-color:rgba(207,134,54,.4);background:rgba(207,134,54,.07);">
+            <div class="bn-icon">🖥️</div>
+            <div class="bn-title" style="color:var(--c5);">Sanal Sunucu</div>
+          </div>
         </div>
-      </div>
-      <div class="hub-branch">
-        <div class="branch-vline"></div>
-        <div class="branch-node" onclick="openSec(7)" style="border-color:rgba(109,118,199,.4);background:rgba(109,118,199,.07);">
-          <div class="bn-icon">🎾</div>
-          <div class="bn-title" style="color:var(--c7);">Kort Rezervasyonu</div>
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec(6)" style="border-color:rgba(91,163,95,.4);background:rgba(91,163,95,.07);">
+            <div class="bn-icon">🔗</div>
+            <div class="bn-title" style="color:var(--c6);">Transistrade</div>
+          </div>
+        </div>
+        <div class="hub-branch">
+          <div class="branch-vline"></div>
+          <div class="branch-node" onclick="openSec(7)" style="border-color:rgba(109,118,199,.4);background:rgba(109,118,199,.07);">
+            <div class="bn-icon">🎾</div>
+            <div class="bn-title" style="color:var(--c7);">Kort Rezervasyonu</div>
+          </div>
         </div>
       </div>
     </div>
@@ -470,72 +472,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
     <div>
       <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('1')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-1"></div></div>
     </div>
-  </div>
-</div>
-
-<!-- 2: İÇERİK -->
-<div class="section" id="sec-2">
-  <div class="sec-header">
-    <div class="sec-color-bar" style="background:var(--c2)"></div>
-    <div class="sec-icon">📸</div>
-    <div><div class="sec-title">İçerik & Aboneler</div><div class="sec-sub">Herkese açık video · Ücretli aboneler · 3 platform</div></div>
-  </div>
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-content">📋 Yapılacaklar</span></div>
-        <div id="cl-content"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-icerik"></div>
-      </div>
-    </div>
-    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('2')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-2"></div></div></div>
-  </div>
-</div>
-
-<!-- 2a: HERKESE AÇIK -->
-<div class="section" id="sec-2a">
-  <div class="sec-header">
-    <div class="sec-color-bar" style="background:var(--c2a)"></div>
-    <div class="sec-icon">🌍</div>
-    <div><div class="sec-title">Herkese Açık İçerik</div><div class="sec-sub">Pazartesi · Salı · Çarşamba · Perşembe · Pazar · 17:30</div></div>
-  </div>
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-acik">📋 Yapılacaklar</span></div>
-        <div id="cl-acik"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-acik"></div>
-      </div>
-    </div>
-    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('2a')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-2a"></div></div></div>
-  </div>
-</div>
-
-<!-- 2b: ÜCRETLİ -->
-<div class="section" id="sec-2b">
-  <div class="sec-header">
-    <div class="sec-color-bar" style="background:var(--c2b)"></div>
-    <div class="sec-icon">💎</div>
-    <div><div class="sec-title">Ücretli Aboneler</div><div class="sec-sub">Instagram Üyelik · YouTube Kanal Üyeliği · Aplikasyon</div></div>
-  </div>
-  <div class="two-col">
-    <div>
-      <div class="card">
-        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-ucretli">📋 Yapılacaklar</span></div>
-        <div id="cl-ucretli"></div>
-      </div>
-      <div class="card">
-        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
-        <div class="finance-section" id="fin-ucretli"></div>
-      </div>
-    </div>
-    <div><div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('2b')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-2b"></div></div></div>
   </div>
 </div>
 
@@ -631,12 +567,36 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   </div>
 </div>
 
+<!-- YULA: YULA WORKS GENEL -->
+<div class="section" id="sec-yula">
+  <div class="sec-header">
+    <div class="sec-color-bar" style="background:var(--gold)"></div>
+    <div class="sec-icon">🏢</div>
+    <div><div class="sec-title">Yula Works</div><div class="sec-sub">Ortak şirket · Sanal Sunucu · Transistrade · Kort Rezervasyonu · Global App</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-editable" contenteditable="true" spellcheck="false" id="clt-yula">📋 Yapılacaklar</span></div>
+        <div id="cl-yula"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="#1d9bf0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="vertical-align:-4px;margin-right:3px"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>Muhasebe</div>
+        <div class="finance-section" id="fin-yula"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title" style="display:flex;align-items:center;justify-content:space-between;">🔗 Linkler<button onclick="openLinkModalFor('yula')" style="background:none;border:1px dashed var(--brd2);border-radius:6px;color:var(--muted);font-size:.72rem;padding:3px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--brd2)';this.style.color='var(--muted)';">＋</button></div><div class="section-links-wrap" id="sl-yula"></div></div>
+    </div>
+  </div>
+</div>
+
 <!-- 5: SANAL SUNUCU -->
 <div class="section" id="sec-5">
   <div class="sec-header">
     <div class="sec-color-bar" style="background:var(--c5)"></div>
     <div class="sec-icon">🖥️</div>
-    <div><div class="sec-title">Sanal Sunucu</div><div class="sec-sub">Visu Studio ortaklığı · VPS satışı</div></div>
+    <div><div class="sec-title">Sanal Sunucu</div><div class="sec-sub">VPS satışı · Yula Works</div></div>
   </div>
   <div class="two-col">
     <div>
@@ -671,7 +631,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   <div class="sec-header">
     <div class="sec-color-bar" style="background:var(--c6)"></div>
     <div class="sec-icon">🔗</div>
-    <div><div class="sec-title">Pine Connector</div><div class="sec-sub">Pine Script → MetaTrader emir iletimi · Web sitesi</div></div>
+    <div><div class="sec-title">Transistrade</div><div class="sec-sub">TradingView → MT5 emir köprüsü · Yula Works</div></div>
   </div>
   <div class="two-col">
     <div>
@@ -695,7 +655,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
   <div class="sec-header">
     <div class="sec-color-bar" style="background:var(--c7)"></div>
     <div class="sec-icon">🎾</div>
-    <div><div class="sec-title">Kort Rezervasyonu</div><div class="sec-sub">Kort yönetimi · Rezervasyon sistemi</div></div>
+    <div><div class="sec-title">Kort Rezervasyonu</div><div class="sec-sub">Belediye tenis rezervasyon sistemi · Yula Works</div></div>
   </div>
   <div class="two-col">
     <div>
@@ -895,16 +855,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
       <label class="modal-label">Bölüm</label>
       <select class="modal-select" id="ml-sec">
 <option value="1">🤖 Robot EA</option>
-        <option value="2">📸 İçerik (Genel)</option>
-        <option value="2a">🌍 Herkese Açık</option>
-        <option value="2b">💎 Ücretli</option>
         <option value="3">📱 Aplikasyon</option>
         <option value="4">📢 Reklam (Genel)</option>
         <option value="4a">📷 Reklam – Instagram</option>
         <option value="4b">📲 Reklam – Aplikasyon</option>
-        <option value="5">🖥️ Sanal Sunucu</option>
         <option value="haberler">📰 Haberler</option>
-        <option value="6">🔗 Pine Connector</option>
+        <option value="yula">🏢 Yula Works (Genel)</option>
+        <option value="5">🖥️ Sanal Sunucu</option>
+        <option value="6">🔗 Transistrade</option>
         <option value="7">🎾 Kort Rezervasyonu</option>
       </select>
     </div>
@@ -945,23 +903,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min
 const DAYS=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const MONTHS=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const DSHORT=['Paz','Pzt','Sal','Çrş','Prş','Cum','Cmt'];
-const COLORS={robot:'#8b5cf6',içerik:'#ec4899',app:'#14b8a6',reklam:'#f97316',vps:'#3b82f6',subs:'#10b981',genel:'#8890b0'};
+const COLORS={robot:'#8b5cf6',app:'#14b8a6',reklam:'#f97316',yula:'#d99500',sunucu:'#3b82f6',transistrade:'#5ba35f',kort:'#6d76c7',genel:'#8890b0'};
 const COPTS=Object.entries(COLORS).map(([k,v])=>`<option value="${v}">${k}</option>`).join('');
 const SEC_META={
 'haberler':{label:'Haberler',color:'#06b6d4',icon:'📰'},
   '1':{label:'Robot EA',color:'#8b5cf6',icon:'🤖'},
-  '2':{label:'İçerik (Genel)',color:'#ec4899',icon:'📸'},
-  '2a':{label:'Herkese Açık',color:'#f472b6',icon:'🌍'},
-  '2b':{label:'Ücretli Aboneler',color:'#a78bfa',icon:'💎'},
   '3':{label:'Aplikasyon',color:'#14b8a6',icon:'📱'},
   '4':{label:'Reklam (Genel)',color:'#f97316',icon:'📢'},
   '4a':{label:'Instagram Reklamları',color:'#fb923c',icon:'📷'},
   '4b':{label:'Aplikasyon Reklamları',color:'#38bdf8',icon:'📲'},
+  'yula':{label:'Yula Works (Genel)',color:'#d99500',icon:'🏢'},
   '5':{label:'Sanal Sunucu',color:'#3b82f6',icon:'🖥️'},
+  '6':{label:'Transistrade',color:'#5ba35f',icon:'🔗'},
+  '7':{label:'Kort Rezervasyonu',color:'#6d76c7',icon:'🎾'},
 };
 const NOTE_KEYS=[];
-const CL_KEYS=['cl-robot','cl-content','cl-acik','cl-ucretli','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-vps','cl-haberler','cl-pine','cl-kort'];
-const FIN_KEYS=['robot','icerik','acik','ucretli','app','ads','igads','appads','vps','haberler','pine','kort'];
+const CL_KEYS=['cl-robot','cl-app','cl-robotig','cl-ads','cl-igads','cl-appads','cl-yula','cl-vps','cl-haberler','cl-pine','cl-kort'];
+const FIN_KEYS=['robot','app','ads','igads','appads','yula','vps','haberler','pine','kort'];
 
 // DB API - localStorage + server sync
 const DB_CACHE = {};
@@ -1028,10 +986,11 @@ tick(); setInterval(tick,1000);
 // NAV
 let activeSec=ld('activeSec9','0');
 function openSec(i){
-  const sid=String(i);
+  let sid=String(i);
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'));
-  const el=document.getElementById('sec-'+sid);
-  if(el) el.classList.add('open');
+  let el=document.getElementById('sec-'+sid);
+  if(!el){ sid='0'; el=document.getElementById('sec-0'); }
+  el.classList.add('open');
   activeSec=sid; sv('activeSec9',sid);
 }
 function goHome(){openSec('0');}
@@ -1045,7 +1004,7 @@ openSec(activeSec);
 });
 
 // CARD TITLE EDITABLE
-['robot','content','acik','ucretli','app','robotig','ads','igads','appads','vps','haberler','pine','kort'].forEach(k=>{
+['robot','app','robotig','ads','igads','appads','yula','vps','haberler','pine','kort'].forEach(k=>{
   const el=document.getElementById('clt-'+k); if(!el) return;
   const s=localStorage.getItem('clt9_'+k); if(s) el.textContent=s;
   el.addEventListener('input',()=>sv('clt9_'+k,el.textContent));
@@ -1128,10 +1087,10 @@ function isClStarred(clId,i){
 
 function getSourceLabel(key){
   const map={
-    'robot':'Robot EA','icerik':'İçerik','acik':'Herkese Açık','ucretli':'Ücretli',
-    'app':'Aplikasyon','ads':'Reklam','igads':'IG Reklam','appads':'App Reklam','vps':'Sanal Sunucu',
-    'cl-robot':'Robot EA','cl-content':'İçerik','cl-acik':'Herkese Açık','cl-ucretli':'Ücretli',
-    'cl-app':'Aplikasyon','cl-robotig':'Robot IG','cl-ads':'Reklam','cl-igads':'IG Reklam','cl-appads':'App Reklam','cl-vps':'Sanal Sunucu'
+    'robot':'Robot EA','app':'Aplikasyon','ads':'Reklam','igads':'IG Reklam','appads':'App Reklam',
+    'yula':'Yula Works','vps':'Sanal Sunucu','pine':'Transistrade','kort':'Kort Rezervasyonu','haberler':'Haberler',
+    'cl-robot':'Robot EA','cl-app':'Aplikasyon','cl-robotig':'Robot IG','cl-ads':'Reklam','cl-igads':'IG Reklam','cl-appads':'App Reklam',
+    'cl-yula':'Yula Works','cl-vps':'Sanal Sunucu','cl-pine':'Transistrade','cl-kort':'Kort Rezervasyonu','cl-haberler':'Haberler'
   };
   return map[key]||key;
 }
@@ -1253,9 +1212,7 @@ function buildWeek(){
 // CHECKLIST
 const DEF_CL={
   'cl-robot':[{label:'Müşteri panelini kontrol et',done:false},{label:'Kopuk hesap var mı?',done:false},{label:'Algoritma geliştirme çalış',done:false}],
-  'cl-content':[{label:'Bu haftanın içerik planı hazır mı?',done:false},{label:'3 platforma yüklemeler tamam mı?',done:false}],
-  'cl-acik':[{label:'Bugün video çekildi mi?',done:false},{label:'IG\'a yüklendi mi?',done:false},{label:'YouTube\'a yüklendi mi?',done:false}],
-  'cl-ucretli':[{label:'Bu haftanın şirket analizi planlandı mı?',done:false},{label:'Bekleyen bilanço var mı?',done:false}],
+  'cl-yula':[{label:'Belediye tenis rezervasyon sistemi',done:false},{label:'Sanal sunucu satışı kurulumu',done:false},{label:'Global finans uygulaması (İngilizce) — isim seçilecek',done:false}],
   'cl-app':[{label:'Tanıtım planı hazır mı?',done:false},{label:'Özellik görselleri hazırlandı mı?',done:false}],
   'cl-robotig':[{label:'Sayfa oluşturuldu mu?',done:false},{label:'Performans grafiği görseli hazır mı?',done:false},{label:'İlk 3 içerik planlandı mı?',done:false}],
   'cl-ads':[{label:'Haftalık reklam performansı kontrol edildi mi?',done:false},{label:'Bütçe optimizasyonu yapıldı mı?',done:false}],
@@ -1368,7 +1325,7 @@ function itemToTL(item){ return toTL(item.amount, item.currency||'TL'); }
 
 function getLinkCosts(key){
   // Hangi sec ID'si bu key'e karsilik geliyor?
-  const keyToSec={'robot':'1','icerik':'2','acik':'2a','ucretli':'2b','app':'3','ads':'4','igads':'4a','appads':'4b','vps':'5','haberler':'haberler','kisisel':null};
+  const keyToSec={'robot':'1','app':'3','ads':'4','igads':'4a','appads':'4b','yula':'yula','vps':'5','pine':'6','kort':'7','haberler':'haberler','kisisel':null};
   const sec=keyToSec[key]; if(!sec) return [];
   return getLinks(sec).filter(l=>l.cost&&l.cost>0).map(l=>({name:l.name,amount:l.cost,currency:l.costCur||'TL',fromLink:true}));
 }
@@ -1503,7 +1460,7 @@ window.delFin=function(type,key,i){
 
 function renderHomeFinance(){
   const summary=document.getElementById('homeFinanceSummary'); if(!summary) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler','6':'pine','kisisel':'kisisel'};
+  const keyMap={'1':'robot','3':'app','4':'ads','4a':'igads','4b':'appads','yula':'yula','5':'vps','6':'pine','7':'kort','haberler':'haberler','kisisel':'kisisel'};
   let grandExpTL=0, grandIncTL=0;
   Object.entries(keyMap).forEach(([sec,key])=>{
     const data=getFin(key);
@@ -1545,7 +1502,7 @@ function renderHomeFinance(){
 
 function renderMuhasebePage(){
   const wrap=document.getElementById('muhasebePageContent'); if(!wrap) return;
-  const keyMap={'1':'robot','2':'icerik','2a':'acik','2b':'ucretli','3':'app','4':'ads','4a':'igads','4b':'appads','5':'vps','haberler':'haberler','6':'pine','kisisel':'kisisel'};
+  const keyMap={'1':'robot','3':'app','4':'ads','4a':'igads','4b':'appads','yula':'yula','5':'vps','6':'pine','7':'kort','haberler':'haberler','kisisel':'kisisel'};
   let grandExpTL=0, grandIncTL=0;
   let html=`
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--brd);">
@@ -1676,7 +1633,7 @@ function renderLinksHub(){
   const wrap=document.getElementById('linksHubContent'); if(!wrap) return;
   wrap.innerHTML='';
   // Ana sayfa linkleri once gelsin
-  const secOrder=['1','2','2a','2b','3','4','4a','4b','5','haberler','pine','kort'];
+  const secOrder=['1','3','4','4a','4b','yula','5','6','7','haberler'];
   let hasAny=false;
   secOrder.forEach(sec=>{
     const links=getLinks(sec); if(links.length===0) return;
@@ -1726,7 +1683,7 @@ function renderSectionLinks(sec){
   el.appendChild(grid);
 }
 function renderAllSectionLinks(){
-  ['1','2','2a','2b','3','4','4a','4b','5'].forEach(renderSectionLinks);
+  ['1','3','4','4a','4b','yula','5','6','7'].forEach(renderSectionLinks);
   renderHaberlerGrid();
 }
 function renderHaberlerGrid(){
