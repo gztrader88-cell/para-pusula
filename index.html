@@ -2115,6 +2115,23 @@ function saveTaskDetail(){
 document.getElementById('taskDetailModal').addEventListener('click', function(e){ if(e.target===this) closeTaskDetail(); });
 document.getElementById('tdm-title').addEventListener('keydown', e=>{ if(e.key==='Escape') closeTaskDetail(); });
 
+// Tek seferlik: Play Console + App Store Connect kısayollarını Müşteri Paneli'nin sağına ekle
+function seedAppLinks(){
+  if(ld('seed_appstore_links_v1', false)) return;
+  const sc = getShortcuts();
+  const additions = [
+    {name:'Play Console', url:'https://play.google.com/console/u/1/developers/6949314040463831894/app/4972544023279828550/app-dashboard'},
+    {name:'App Store Connect', url:'https://appstoreconnect.apple.com/apps/6753679696/analytics'}
+  ].filter(a => !sc.some(s => (s.url||'') === a.url));
+  if(additions.length){
+    const idx = sc.findIndex(s => /müşteri paneli/i.test(s.name||''));
+    if(idx >= 0) sc.splice(idx+1, 0, ...additions);
+    else sc.push(...additions);
+    setShortcuts(sc);
+  }
+  sv('seed_appstore_links_v1', true);
+}
+
 // INIT
 // Önce DB'den yükle, sonra render et
 dbLoad().then(() => {
@@ -2126,6 +2143,7 @@ dbLoad().then(() => {
   renderUpcoming();
   initGiderCats();
   loadKur().then(renderGiderler);
+  seedAppLinks();
   renderShortcuts();
 });
 </script>
