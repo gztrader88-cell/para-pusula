@@ -2146,6 +2146,20 @@ function seedFbAds(){
   sv('seed_fb_ads_v1', true);
 }
 
+// Tek seferlik: PP Admin panelini Ads Manager'ın sağına ekle
+function seedPpAdmin(){
+  if(ld('seed_ppadmin_v1', false)) return;
+  const url='https://pp-admin-web--paradapusula-inf.europe-west4.hosted.app/';
+  const sc = getShortcuts();
+  if(!sc.some(s => (s.url||'') === url)){
+    const entry = {name:'PP Admin', url};
+    const idx = sc.findIndex(s => /ads manager/i.test(s.name||''));
+    if(idx >= 0) sc.splice(idx+1, 0, entry); else sc.push(entry);
+    setShortcuts(sc);
+  }
+  sv('seed_ppadmin_v1', true);
+}
+
 // INIT
 // Önce DB'den yükle, sonra render et
 dbLoad().then(() => {
@@ -2159,6 +2173,7 @@ dbLoad().then(() => {
   loadKur().then(renderGiderler);
   seedAppLinks();
   seedFbAds();
+  seedPpAdmin();
   renderShortcuts();
 });
 </script>
