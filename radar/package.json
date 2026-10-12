@@ -1,0 +1,13 @@
+{
+  "name": "pusula-radar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Parada Pusula Yapay Zekâ Radarı: haftalık şifreli abone sayfası, 15 dk gecikmeli fiyatlar",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

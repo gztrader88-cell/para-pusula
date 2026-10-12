@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Yapay Zekâ Radarı · Giriş</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root { --bg: #0d1017; --surface: #161b24; --surface-2: #1d2430; --fg: #f1f3f7; --muted: #8e97a8; --line: #27303e; --a1: #3dd6ff; --a2: #a78bfa; --a3: #ff5c8a; --down: #f0505a; --display: "Sora", system-ui, sans-serif; --body: "Manrope", system-ui, sans-serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.5; display: grid; place-items: center; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+body::before { content: ""; position: fixed; inset: -40% -20% auto -20%; height: 70%; background: radial-gradient(60% 60% at 50% 40%, rgba(167,139,250,.18), transparent 70%); pointer-events: none; }
+.kutu { position: relative; width: 100%; max-width: 420px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px 26px; }
+.marka { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1.1; margin: 8px 0 10px; letter-spacing: -.02em; }
+h1 span { background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+p { margin: 0 0 16px; color: var(--muted); font-size: .95rem; }
+label { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+input { width: 100%; font: 600 1.15rem var(--body); letter-spacing: .04em; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); outline: none; }
+input:focus { border-color: var(--a1); box-shadow: 0 0 0 3px rgba(61,214,255,.18); }
+button { width: 100%; margin-top: 12px; padding: 14px; border-radius: 12px; border: 0; font: 800 1rem var(--display); color: #0d1017; background: linear-gradient(90deg, var(--a1), var(--a2)); cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.hata { margin-top: 12px; color: var(--down); font-size: .9rem; font-weight: 600; min-height: 1.4em; }
+.not { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--muted); }
+.not b { color: var(--fg); }
+</style>
+</head>
+<body>
+<main class="kutu">
+  <div class="marka">Parada Pusula · Abonelere özel</div>
+  <h1>Yapay Zekâ <span>Radarı</span></h1>
+  <p>Yapay zekâ devriminin her katından seçilmiş hisseler, sade anlatım ve güncel fiyatlarla.</p>
+  <form id="form" autocomplete="off">
+    <label for="sifre">Bu haftanın şifresi</label>
+    <input id="sifre" name="sifre" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="örnek: pusula42" required>
+    <button id="btn" type="submit">Radara gir</button>
+    <div class="hata" id="hata" aria-live="polite"></div>
+  </form>
+  <div class="not">Şifre her <b>pazartesi</b> değişir ve yalnızca abonelere, Instagram abone hikâyesinde paylaşılır. Giriş yaptığınız telefonda hafta boyunca açık kalır.</div>
+</main>
+<script>
+var form = document.getElementById("form"), btn = document.getElementById("btn"), hata = document.getElementById("hata");
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); hata.textContent = ""; btn.disabled = true;
+  fetch("/giris", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sifre: document.getElementById("sifre").value }) })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (s) { if (s.ok) { location.replace("/"); } else { hata.textContent = s.j.hata || "Giriş yapılamadı."; btn.disabled = false; } })
+    .catch(function () { hata.textContent = "Bağlantı kurulamadı, tekrar deneyin."; btn.disabled = false; });
+});
+</script>
+</body>
+</html>

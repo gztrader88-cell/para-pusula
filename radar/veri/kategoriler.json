@@ -1,0 +1,9 @@
+{
+  "fiziksel": { "ad": "Fiziksel yapay zekâ", "renk": "var(--c-fiziksel)", "aciklama": "Yapay zekânın ekrandan çıkıp robotlara, makinelere ve ameliyathanelere girdiği kat. Buradaki şirketler robotun hissetmesini, görmesini ve sahada düşünmesini sağlayan parçaları yapıyor." },
+  "altyapi": { "ad": "Veri merkezi altyapısı", "renk": "var(--c-altyapi)", "aciklama": "Yapay zekâ çiplerinin çalışması için gereken bellek, bağlantı ve güç parçaları. Nvidia bir çip sattığında bu şirketlerin ürünleri de o rafa giriyor." },
+  "bulut": { "ad": "Yapay zekâ bulutu", "renk": "var(--c-bulut)", "aciklama": "Çipleri satın alıp elektriğe bağlayan ve o gücü saat başı kiralayan şirketler. İkisi eski bitcoin madencisi, çünkü ellerinde en kıt şey var: enerji ve hazır tesis." },
+  "enerji": { "ad": "Enerji ve şebeke", "renk": "var(--c-enerji)", "aciklama": "Veri merkezleri şebekeden küçük şehirler kadar elektrik çekiyor. Elektriği depolayan ve dengeleyen şirketler bu açlığın arka planında çalışıyor." },
+  "uzay": { "ad": "Uzay ve iletişim", "renk": "var(--c-uzay)", "aciklama": "Yapay zekânın veriye ve bağlantıya her yerde ihtiyacı var. Bu şirketler o bağlantıyı yörüngeden sağlamaya çalışıyor." },
+  "yazilim": { "ad": "Yazılım ve veri", "renk": "var(--c-yazilim)", "aciklama": "Yapay zekâ ajanlarının şirketlerin içinde iş yapmaya başladığı kat. Biri iş akışını yönetiyor, diğeri ajanların dokunduğu veriyi koruyor." },
+  "saglik": { "ad": "Sağlık", "renk": "var(--c-saglik)", "aciklama": "Yapay zekânın doktorun masasına ve hastanın telefonuna girdiği kat. İkisi de veriyi kişiselleştirilmiş tedaviye çevirmeye çalışıyor." }
+}
