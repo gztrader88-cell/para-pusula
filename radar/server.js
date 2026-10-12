@@ -68,17 +68,22 @@ async function tekFiyat(kod, yahoo) {
   const j = await r.json();
   const s = j.chart && j.chart.result && j.chart.result[0];
   if (!s) throw new Error("boş sonuç");
+  // TradingView ile aynı yöntem: dönem getirisi, dönemin ilk işlem gününün AÇILIŞ fiyatından ölçülür.
+  // "1 ay" = son barın tarihinden bir takvim ayı geriye gidilen ilk işlem gününün açılışı; "yılbaşından" = yılın ilk işlem gününün açılışı.
   const ts = s.timestamp || [];
-  const ham = (s.indicators.quote[0].close || []);
-  const seri = []; for (let i = 0; i < ham.length; i++) if (ham[i] != null) seri.push({ t: ts[i], c: ham[i] });
+  const q = s.indicators.quote[0];
+  const kapanis = q.close || [], acilis = q.open || [];
+  const seri = [];
+  for (let i = 0; i < kapanis.length; i++) if (kapanis[i] != null) seri.push({ d: new Date(ts[i] * 1000).toISOString().slice(0, 10), c: kapanis[i], o: acilis[i] != null ? acilis[i] : kapanis[i] });
   if (seri.length < 2) throw new Error("yetersiz veri");
-  const son = s.meta.regularMarketPrice || seri[seri.length - 1].c;
+  const sonBar = seri[seri.length - 1];
+  const son = s.meta.regularMarketPrice || sonBar.c;
   const onceki = seri[seri.length - 2].c;
-  const ayOnce = seri[Math.max(0, seri.length - 22)].c;
-  const yil = istanbulSimdi().getUTCFullYear();
-  const yilIlk = seri.find((x) => new Date(x.t * 1000).getUTCFullYear() === yil);
-  const ytdTaban = yilIlk ? (seri[Math.max(0, seri.indexOf(yilIlk) - 1)].c) : seri[0].c;
-  return { fiyat: +son.toFixed(2), gun: +((son / onceki - 1) * 100).toFixed(2), ay: +((son / ayOnce - 1) * 100).toFixed(1), ytd: +((son / ytdTaban - 1) * 100).toFixed(1) };
+  const sonTarih = new Date(sonBar.d + "T00:00:00Z");
+  const hedef = new Date(Date.UTC(sonTarih.getUTCFullYear(), sonTarih.getUTCMonth() - 1, sonTarih.getUTCDate())).toISOString().slice(0, 10);
+  const ayBar = seri.find((x) => x.d >= hedef) || seri[0];
+  const yilBar = seri.find((x) => x.d.slice(0, 4) === sonBar.d.slice(0, 4)) || seri[0];
+  return { fiyat: +son.toFixed(2), gun: +((son / onceki - 1) * 100).toFixed(2), ay: +((son / ayBar.o - 1) * 100).toFixed(1), ytd: +((son / yilBar.o - 1) * 100).toFixed(1) };
 }
 async function fiyatCek() {
   const sonuc = await Promise.allSettled(HISSELER.map((h) => tekFiyat(h.kod, h.yahoo)));
