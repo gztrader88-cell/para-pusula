@@ -117,6 +117,21 @@ function govdeOku(req) {
 function ipAl(req) { return (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket.remoteAddress || "?"; }
 function kacir(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
+// ---- İstatistik (bellekte; sunucu yeniden başlayınca sıfırlanır, saat başı özet günlüğe yazılır) ----
+const istat = { baslangic: Date.now(), gunler: {} };
+function bugunKey() { return istanbulSimdi().toISOString().slice(0, 10); }
+function gunKaydi() {
+  const k = bugunKey();
+  if (!istat.gunler[k]) istat.gunler[k] = { girisOk: 0, girisHata: 0, goruntuleme: 0, tekil: new Set() };
+  const anahtarlar = Object.keys(istat.gunler).sort();
+  while (anahtarlar.length > 45) delete istat.gunler[anahtarlar.shift()];
+  return istat.gunler[k];
+}
+function ziyaretciKimlik(req) { return crypto.createHmac("sha256", GIZLI).update(ipAl(req) + "|" + (req.headers["user-agent"] || "")).digest("hex").slice(0, 16); }
+function sayGiris(req, ok) { const g = gunKaydi(); if (ok) g.girisOk++; else g.girisHata++; console.log(new Date().toISOString(), ok ? "GIRIS ok" : "GIRIS hatali", "z=" + ziyaretciKimlik(req)); }
+function sayGoruntuleme(req) { const g = gunKaydi(); g.goruntuleme++; g.tekil.add(ziyaretciKimlik(req)); }
+setInterval(() => { const g = gunKaydi(); console.log(new Date().toISOString(), "OZET", bugunKey(), "tekil=" + g.tekil.size, "goruntuleme=" + g.goruntuleme, "girisOk=" + g.girisOk, "girisHata=" + g.girisHata); }, 60 * 60 * 1000);
+
 // ---- Sunucu ----
 http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://x");
@@ -125,7 +140,7 @@ http.createServer(async (req, res) => {
   if (yol === "/saglik") return gonder(res, 200, "text/plain", "ok");
 
   if (yol === "/" || yol === "/index.html") {
-    if (girisliMi(req)) return gonder(res, 200, "text/html; charset=utf-8", SAYFA.radar);
+    if (girisliMi(req)) { sayGoruntuleme(req); return gonder(res, 200, "text/html; charset=utf-8", SAYFA.radar); }
     return gonder(res, 200, "text/html; charset=utf-8", SAYFA.giris);
   }
 
@@ -136,6 +151,7 @@ http.createServer(async (req, res) => {
     const hb = haftaBasi();
     const dogru = haftaSifresi(hb);
     const ok = dogru && normalize(govde.sifre) === normalize(dogru);
+    sayGiris(req, !!ok);
     if (!ok) return gonder(res, 401, "application/json", JSON.stringify({ hata: "Şifre yanlış. Bu haftanın şifresini abone hikâyesinden kontrol edin." }));
     deneme.delete(ip);
     return gonder(res, 200, "application/json", JSON.stringify({ ok: true }), { "Set-Cookie": cerezYaz(req, hb) });
@@ -158,7 +174,11 @@ http.createServer(async (req, res) => {
       "<h2>Radar yönetim</h2><p>Bu hafta: <b>" + hb + "</b>" + (process.env.SIFRE ? " (SIFRE ortam değişkeni listeyi eziyor)" : "") + "</p>" +
       "<table>" + satir + "</table>" +
       "<p>Fiyat yenileme: " + (fiyat.zaman ? new Date(fiyat.zaman + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul)" : "henüz yok") + " · " + Object.keys(fiyat.veri).length + "/" + HISSELER.length + " hisse</p>" +
-      (fiyat.hata ? "<p style='color:#b00'>Hatalar: " + kacir(fiyat.hata) + "</p>" : "");
+      (fiyat.hata ? "<p style='color:#b00'>Hatalar: " + kacir(fiyat.hata) + "</p>" : "") +
+      "<h3>Ziyaret</h3><p style='color:#666;font-size:14px'>Tekil ziyaretçi = aynı gün içinde radarı açan farklı cihaz sayısı. Sayaç " + new Date(istat.baslangic + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul) itibarıyla tutuluyor; sunucu yeniden başlarsa sıfırlanır, saat başı özet Railway günlüğüne yazılır.</p>" +
+      "<table><tr><th>Gün</th><th>Tekil ziyaretçi</th><th>Sayfa açılışı</th><th>Başarılı giriş</th><th>Yanlış şifre</th></tr>" +
+      Object.keys(istat.gunler).sort().reverse().map((k) => { const g = istat.gunler[k]; return "<tr><td>" + k + "</td><td><b>" + g.tekil.size + "</b></td><td>" + g.goruntuleme + "</td><td>" + g.girisOk + "</td><td>" + g.girisHata + "</td></tr>"; }).join("") +
+      "</table>";
     return gonder(res, 200, "text/html; charset=utf-8", html);
   }
 
