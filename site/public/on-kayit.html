@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ön Kayıt | Gürbüz Güler</title>
+<meta name="description" content="Teknik Analiz Eğitimi ön kayıt formu. Kayıt açılınca ilk sen haberdar ol.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="stil.css?v=4">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Gürbüz Güler ana sayfa"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0f2a5f"/><polyline points="7,27 14,20 19,24 26,13 33,16" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="33" cy="16" r="3.5" fill="#e8a317"/></svg><span>Gürbüz Güler</span></a>
+    <nav class="nav" aria-label="Site menüsü">
+      <a href="index.html#egitim">Eğitim</a><a href="index.html#icerik">İçerik</a><a href="hakkimda.html">Hakkımda</a><a href="index.html#sss">Sorular</a><a href="iletisim.html">İletişim</a>
+      <a class="btn primary" href="on-kayit.html">Eğitime Katıl</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="band">
+  <div class="wrap">
+    <div class="grid c2" style="align-items:start; gap:40px">
+      <div class="hero-text">
+        <span class="eyebrow">Ön kayıt</span>
+        <h1>Eğitime katıl</h1>
+        <p class="lead">Teknik Analiz Eğitimi'nin kayıtları çok yakında açılıyor. Formu doldur; kayıt açıldığında sana ilk haberi verelim ve açılış fiyatından yararlan.</p>
+        <div class="price-card">
+          <div><div class="price-old">7.900 TL</div><div class="price-now">5.900 TL</div><div class="price-note">Açılış fiyatı · KDV dahil · 365 gün erişim</div></div>
+          <ul class="checks" style="grid-template-columns:1fr">
+            <li>4 bölüm, 30'dan fazla kayıtlı ders</li>
+            <li>İndirilebilir ders notları</li>
+            <li>Havale/EFT veya kredi kartı</li>
+            <li>İlk 7 gün koşulsuz iade (yüzde 20'den az izleme şartıyla)</li>
+          </ul>
+        </div>
+      </div>
+      <form class="form" id="onkayit-form" novalidate>
+        <div class="field"><label for="ad">Ad soyad</label><input id="ad" name="ad" required autocomplete="name"></div>
+        <div class="field"><label for="eposta">E-posta</label><input id="eposta" name="eposta" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="telefon">Telefon (isteğe bağlı, WhatsApp ile bilgilendirme için)</label><input id="telefon" name="telefon" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="seviye">Borsa deneyimin</label>
+          <select id="seviye" name="seviye"><option>Yeni başlıyorum</option><option>1 yıldan az</option><option>1–3 yıl</option><option>3 yıldan fazla</option></select></div>
+        <label class="consent"><input type="checkbox" id="kvkk" required> <span><a href="gizlilik.html">Aydınlatma metnini</a> okudum; kayıt açıldığında bilgilendirilmek için verilerimin işlenmesini kabul ediyorum.</span></label>
+        <input type="text" name="site" id="site" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button class="btn primary" type="submit" id="gonder">Ön kayıt ol</button>
+        <p id="sonuc" hidden></p>
+        <p class="price-note">Ön kayıt ücretsizdir ve bağlayıcı değildir. Ödeme, kayıt açıldığında güvenli ödeme sayfasında alınır.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><a class="logo" href="index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#ffffff"/><polyline points="7,27 14,20 19,24 26,13 33,16" fill="none" stroke="#0f2a5f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="33" cy="16" r="3.5" fill="#e8a317"/></svg><span>Gürbüz Güler</span></a><p class="foot-legal" style="margin-top:12px">Kayıtlı video teknik analiz eğitimi. Yatırım tavsiyesi değildir.</p></div>
+      <div><h4>Site</h4><ul><li><a href="index.html#egitim">Eğitim</a></li><li><a href="index.html#icerik">İçerik</a></li><li><a href="hakkimda.html">Hakkımda</a></li><li><a href="iletisim.html">İletişim</a></li></ul></div>
+      <div><h4>Yasal</h4><ul><li><a href="gizlilik.html">Gizlilik ve KVKK</a></li><li><a href="sozlesme.html">Kullanım Koşulları ve Mesafeli Satış</a></li><li><a href="sozlesme.html#iade">İade Koşulları</a></li></ul></div>
+      <div><h4>Güvenli ödeme</h4><div class="pay-logos" aria-label="Ödeme yöntemleri"><span class="iyz">iyzico ile Öde</span><span class="visa">VISA</span><span class="mc">master<i>card</i></span><span class="ssl">SSL</span></div></div>
+    </div>
+    <p class="foot-legal">Satıcı: Gürbüz Güler (şahıs işletmesi) · Vergi No: 4170604309, Ziyapaşa V.D. · Yurt Mah. 71513 Sk. Ben Su Apt. No:2 İç Kapı 06, Çukurova / Adana · gztrader88@gmail.com · +90 507 114 83 56</p>
+    <div class="foot-bottom"><span>© 2026 Gürbüz Güler. Tüm hakları saklıdır.</span><span>gurbuzguler.com</span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('onkayit-form');
+  var sonuc = document.getElementById('sonuc');
+  var btn = document.getElementById('gonder');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    btn.disabled = true;
+    var veri = { tur: 'onkayit', ad: form.ad.value.trim(), eposta: form.eposta.value.trim(), telefon: form.telefon.value.trim(), seviye: form.seviye.value, site: form.site.value };
+    fetch('/api/mesaj', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(veri) })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('sunucu')); })
+      .then(function () { sonuc.className = 'ok'; sonuc.textContent = 'Ön kaydın alındı. Kayıt açıldığında e-postayla haber vereceğiz.'; sonuc.hidden = false; form.reset(); })
+      .catch(function () { sonuc.className = 'err'; sonuc.textContent = 'Kayıt gönderilemedi. Lütfen gztrader88@gmail.com adresine "ön kayıt" yazın.'; sonuc.hidden = false; })
+      .finally(function () { btn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
