@@ -106,6 +106,67 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .gez button { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); font-weight: 700; cursor: pointer; }
 .gez button:hover { border-color: var(--k); }
 .uyari { margin-top: 24px; font-size: .8rem; color: var(--muted); max-width: 70ch; }
+
+/* Kadro: sağ üstteki top simgesi tam ekran bir saha açar; hisseler kenarda bekler, sürükleyerek ya da dokunarak mevkiye/yedeğe konur */
+.ust { position: relative; }
+.ust > div:first-child { padding-right: 56px; }
+.top-btn { position: absolute; top: 0; right: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); display: grid; place-items: center; cursor: pointer; padding: 0; transition: border-color .15s, color .15s; }
+.top-btn:hover { border-color: var(--up); color: var(--up); }
+.top-btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.top-btn svg { width: 24px; height: 24px; }
+.kadro { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: flex; flex-direction: column; user-select: none; -webkit-user-select: none; }
+.kadro-bas { width: 100%; max-width: 1100px; margin: 0 auto; padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; flex: 0 0 auto; }
+.kadro-bas h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+.kadro-bas h2 svg { width: 22px; height: 22px; color: var(--up); }
+.kadro-arac { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.dizilis { display: flex; gap: 6px; flex-wrap: wrap; }
+.dizilis button, .bosalt { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 8px; padding: 5px 10px; font-size: .82rem; font-weight: 700; cursor: pointer; font-variant-numeric: tabular-nums; }
+.dizilis button[aria-pressed="true"] { color: #0d1017; background: var(--fg); border-color: var(--fg); }
+.bosalt:hover { color: var(--down); border-color: var(--down); }
+.kadro-durum { flex-basis: 100%; margin: 0; font-size: .82rem; color: var(--muted); min-height: 1.5em; }
+.kadro-durum b { color: var(--fg); }
+.kadro-durum .up { color: var(--up); } .kadro-durum .down { color: var(--down); }
+.kadro-govde { flex: 1; min-height: 0; width: 100%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(360px, 1fr) auto auto; gap: 10px; padding: 6px 16px calc(12px + env(safe-area-inset-bottom, 0px)); overflow-y: auto; }
+.saha-kutu { min-height: 0; display: flex; justify-content: center; }
+.saha { position: relative; height: 100%; aspect-ratio: 7 / 10; max-width: 100%; border-radius: 14px; overflow: hidden; border: 2px solid rgba(255,255,255,.2); background: repeating-linear-gradient(180deg, #13402d 0 10%, #0f3626 10% 20%); }
+.cizgi { position: absolute; border: 2px solid rgba(255,255,255,.22); pointer-events: none; }
+.c-orta { left: 0; right: 0; top: 50%; border-width: 2px 0 0; }
+.c-yuvarlak { left: 50%; top: 50%; width: 26%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); }
+.c-ceza-ust, .c-ceza-alt { left: 20%; right: 20%; height: 15%; }
+.c-kale-ust, .c-kale-alt { left: 36%; right: 36%; height: 6%; }
+.c-ceza-ust, .c-kale-ust { top: -2px; } .c-ceza-alt, .c-kale-alt { bottom: -2px; }
+.mevkiler { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-around; padding: 2% 1%; }
+.hat { display: flex; justify-content: space-evenly; align-items: flex-start; }
+.oy { display: flex; flex-direction: column; align-items: center; gap: 3px; width: 62px; padding: 0; background: none; border: 0; color: var(--fg); cursor: grab; touch-action: none; -webkit-touch-callout: none; font-family: inherit; }
+.oy .top { width: 50px; height: 50px; border-radius: 50%; background: var(--k, var(--muted)); color: #0d1017; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .76rem; letter-spacing: .01em; border: 2px solid rgba(255,255,255,.9); box-shadow: 0 4px 12px rgba(0,0,0,.35); transition: transform .12s; }
+.oy .etk { font-size: .68rem; font-weight: 700; line-height: 1.4; padding: 0 6px; border-radius: 999px; background: rgba(13,16,23,.78); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.oy .etk.up { color: var(--up); } .oy .etk.down { color: var(--down); }
+.oy.bos { cursor: pointer; }
+.oy.bos .top { background: rgba(255,255,255,.06); border: 2px dashed rgba(255,255,255,.4); color: rgba(255,255,255,.7); font-size: 1.3rem; font-weight: 600; box-shadow: none; }
+.oy.bos .etk { color: rgba(255,255,255,.8); letter-spacing: .06em; }
+.oy.secili .top { outline: 3px solid #fff; outline-offset: 3px; transform: scale(1.06); }
+.oy.hedef .top { outline: 3px solid var(--up); outline-offset: 3px; transform: scale(1.1); }
+.oy.kaynak { opacity: .3; }
+.oy:focus-visible { outline: none; } .oy:focus-visible .top { outline: 2px solid #fff; outline-offset: 3px; }
+.bolge { border: 1px dashed var(--line); border-radius: 14px; padding: 8px 10px 10px; background: var(--surface); min-width: 0; transition: border-color .12s, background .12s; }
+.bolge.hedef { border-color: var(--up); background: var(--surface-2); }
+.bolge-bas { display: flex; justify-content: space-between; gap: 8px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 800; margin-bottom: 6px; }
+.bolge .oy { width: 56px; flex: 0 0 auto; }
+.bolge .oy .top { width: 42px; height: 42px; font-size: .66rem; border-width: 0; box-shadow: none; }
+.bolge-ic { display: flex; gap: 6px; min-height: 64px; align-items: flex-start; }
+.yedek .bolge-ic { flex-wrap: wrap; }
+.kenar .bolge-ic { overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; }
+.kenar .oy { touch-action: pan-x; }
+.bos-yazi { font-size: .82rem; color: var(--muted); align-self: center; padding: 0 4px; }
+.hayalet { position: fixed; z-index: 40; pointer-events: none; transform: translate(-50%, -50%) scale(1.12); }
+.hayalet .top { width: 50px; height: 50px; border-radius: 50%; background: var(--k); color: #0d1017; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: .76rem; border: 2px solid #fff; box-shadow: 0 10px 28px rgba(0,0,0,.55); }
+@media (min-width: 860px) {
+  .kadro-govde { grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: minmax(420px, 1fr) auto; grid-template-areas: "kenar saha" "kenar yedek"; }
+  .saha-kutu { grid-area: saha; } .yedek { grid-area: yedek; }
+  .kenar { grid-area: kenar; display: flex; flex-direction: column; min-height: 0; }
+  .kenar .bolge-ic { display: grid; grid-template-columns: repeat(4, 1fr); align-content: start; overflow-x: hidden; overflow-y: auto; row-gap: 10px; }
+  .kenar .oy { touch-action: pan-y; width: auto; }
+}
 </style>
 </head>
 <body>
@@ -119,6 +180,7 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
       <div class="tarih" id="tarih">Fiyatlar yükleniyor…</div>
       <a class="cikis" href="/cikis">Çıkış</a>
     </div>
+    <button class="top-btn" id="kadroAc" aria-label="Kadronu kur" title="Kadronu kur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg></button>
   </header>
 
   <div class="serit">
@@ -144,6 +206,36 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
   <div class="tutamac"></div>
   <div class="panel-bas" id="panelBas"></div>
   <div class="panel-govde" id="panelGovde"></div>
+</div>
+
+<div class="kadro" id="kadro" hidden role="dialog" aria-modal="true" aria-labelledby="kadroBaslik">
+  <div class="kadro-bas">
+    <h2 id="kadroBaslik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg>Radar Kadrosu</h2>
+    <button class="kapat" id="kadroKapat" aria-label="Kadroyu kapat">✕</button>
+    <div class="kadro-arac">
+      <div class="dizilis" id="dizilis" role="group" aria-label="Diziliş"></div>
+      <button class="bosalt" id="bosalt">Boşalt</button>
+    </div>
+    <p class="kadro-durum" id="kadroDurum" aria-live="polite"></p>
+  </div>
+  <div class="kadro-govde">
+    <div class="saha-kutu">
+      <div class="saha">
+        <i class="cizgi c-orta"></i><i class="cizgi c-yuvarlak"></i>
+        <i class="cizgi c-ceza-ust"></i><i class="cizgi c-kale-ust"></i>
+        <i class="cizgi c-ceza-alt"></i><i class="cizgi c-kale-alt"></i>
+        <div class="mevkiler" id="mevkiler"></div>
+      </div>
+    </div>
+    <section class="bolge yedek" data-yer="yedek" aria-label="Yedek kulübesi">
+      <div class="bolge-bas"><span>Yedek kulübesi</span><span id="yedekSay"></span></div>
+      <div class="bolge-ic" id="yedekIc"></div>
+    </section>
+    <section class="bolge kenar" data-yer="kenar" aria-label="Kenardaki hisseler">
+      <div class="bolge-bas"><span>Kenar · bütün hisseler</span><span id="kenarSay"></span></div>
+      <div class="bolge-ic" id="kenarIc"></div>
+    </section>
+  </div>
 </div>
 
 <script>
@@ -267,6 +359,250 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowLeft") ac((durum.acik - 1 + durum.liste.length) % durum.liste.length);
 });
 
+// ---- Kadro ----
+// Kadro bu cihazda saklanır (localStorage). Mevki kimlikleri türüne göre sıralı: kl, d0..d4, o0..o5, f0..f2.
+var DIZILISLER = {
+  "4-4-2": [["d", 4], ["o", 4], ["f", 2]],
+  "4-3-3": [["d", 4], ["o", 3], ["f", 3]],
+  "3-5-2": [["d", 3], ["o", 5], ["f", 2]],
+  "4-2-3-1": [["d", 4], ["o", 2], ["o", 3], ["f", 1]]
+};
+var MEVKI_KISA = { k: "KL", d: "DF", o: "OS", f: "FV" };
+var MEVKI_AD = { k: "Kaleci", d: "Defans", o: "Orta saha", f: "Forvet" };
+var KADRO_ANAHTAR = "radarKadro_v1";
+var kd = { dizilis: "4-4-2", yerler: {}, yedek: [], secili: null };
+var hm = {};
+var kadroEl = document.getElementById("kadro");
+
+function kdKaydet() {
+  try { localStorage.setItem(KADRO_ANAHTAR, JSON.stringify({ dizilis: kd.dizilis, yerler: kd.yerler, yedek: kd.yedek })); } catch (e) {}
+}
+function kdYukle() {
+  try {
+    var v = JSON.parse(localStorage.getItem(KADRO_ANAHTAR) || "null");
+    if (!v) return;
+    if (DIZILISLER[v.dizilis]) kd.dizilis = v.dizilis;
+    if (v.yerler && typeof v.yerler === "object") kd.yerler = v.yerler;
+    if (Array.isArray(v.yedek)) kd.yedek = v.yedek;
+  } catch (e) {}
+}
+kdYukle();
+
+function hatlar() {
+  var sayac = { d: 0, o: 0, f: 0 }, liste = [];
+  DIZILISLER[kd.dizilis].forEach(function (s) {
+    var ids = []; for (var i = 0; i < s[1]; i++) ids.push(s[0] + sayac[s[0]]++);
+    liste.push(ids);
+  });
+  liste.reverse(); liste.push(["kl"]);
+  return liste;
+}
+function konum(kod) {
+  for (var id in kd.yerler) if (kd.yerler[id] === kod) return id;
+  return kd.yedek.indexOf(kod) >= 0 ? "yedek" : "kenar";
+}
+// Radardan çıkarılmış hisseleri, dizilişte olmayan mevkileri ve tekrarları ayıklar
+function kdTemizle() {
+  var gecerli = {}; hatlar().forEach(function (ids) { ids.forEach(function (id) { gecerli[id] = true; }); });
+  var gorulen = {};
+  Object.keys(kd.yerler).forEach(function (id) {
+    var kod = kd.yerler[id];
+    if (!gecerli[id] || !hm[kod] || gorulen[kod]) delete kd.yerler[id]; else gorulen[kod] = true;
+  });
+  kd.yedek = kd.yedek.filter(function (kod) { if (!hm[kod] || gorulen[kod]) return false; gorulen[kod] = true; return true; });
+}
+
+function oyHtml(kod, yer) {
+  var h = kod && hm[kod];
+  if (!h) return '<button class="oy bos" data-yer="' + yer + '" aria-label="Boş mevki: ' + MEVKI_AD[yer[0]] + '"><span class="top">+</span><span class="etk">' + MEVKI_KISA[yer[0]] + '</span></button>';
+  var gunVar = typeof h.gun === "number";
+  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + KATEGORILER[h.kat].renk + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
+    '<span class="top">' + h.kod + '</span><span class="etk ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></button>';
+}
+
+function dizilisKur() {
+  var el = document.getElementById("dizilis");
+  el.innerHTML = Object.keys(DIZILISLER).map(function (ad) { return '<button data-dz="' + ad + '" aria-pressed="' + (ad === kd.dizilis) + '">' + ad + '</button>'; }).join("");
+  el.querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () { dizilisDegis(b.dataset.dz); }); });
+}
+// Yeni dizilişte yeri kalmayan oyuncu önce aynı mevkideki boş yere, o da yoksa yedeğe geçer
+function dizilisDegis(ad) {
+  if (ad === kd.dizilis) return;
+  kd.dizilis = ad;
+  var n = { d: 0, o: 0, f: 0 };
+  DIZILISLER[ad].forEach(function (s) { n[s[0]] += s[1]; });
+  ["d", "o", "f"].forEach(function (t) {
+    var bos = [];
+    for (var i = 0; i < n[t]; i++) if (!kd.yerler[t + i]) bos.push(t + i);
+    for (var j = n[t]; j < 8; j++) {
+      var kod = kd.yerler[t + j]; if (!kod) continue;
+      delete kd.yerler[t + j];
+      if (bos.length) kd.yerler[bos.shift()] = kod; else kd.yedek.push(kod);
+    }
+  });
+  kd.secili = null;
+  document.querySelectorAll("#dizilis button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.dz === ad ? "true" : "false"); });
+  kdKaydet(); kadroCiz();
+}
+
+function kadroCiz() {
+  if (kadroEl.hidden) return;
+  hm = {}; HISSELER.forEach(function (h) { hm[h.kod] = h; });
+  kdTemizle();
+  if (kd.secili && !hm[kd.secili]) kd.secili = null;
+
+  document.getElementById("mevkiler").innerHTML = hatlar().map(function (ids) {
+    return '<div class="hat">' + ids.map(function (id) { return oyHtml(kd.yerler[id], id); }).join("") + '</div>';
+  }).join("");
+
+  document.getElementById("yedekIc").innerHTML = kd.yedek.length
+    ? kd.yedek.map(function (kod) { return oyHtml(kod, "yedek"); }).join("")
+    : '<span class="bos-yazi">Yedeğe almak istediğin hisseyi buraya bırak.</span>';
+  document.getElementById("yedekSay").textContent = kd.yedek.length ? kd.yedek.length + " oyuncu" : "";
+
+  var katSira = Object.keys(KATEGORILER);
+  var disarda = HISSELER.filter(function (h) { return konum(h.kod) === "kenar"; })
+    .sort(function (a, b) { return katSira.indexOf(a.kat) - katSira.indexOf(b.kat) || b.deger - a.deger; });
+  document.getElementById("kenarIc").innerHTML = disarda.length
+    ? disarda.map(function (h) { return oyHtml(h.kod, "kenar"); }).join("")
+    : '<span class="bos-yazi">Bütün hisseler kadroda.</span>';
+  document.getElementById("kenarSay").textContent = disarda.length + " hisse";
+
+  var durumEl = document.getElementById("kadroDurum");
+  var ilk11 = Object.keys(kd.yerler).map(function (id) { return hm[kd.yerler[id]]; });
+  if (kd.secili) {
+    durumEl.innerHTML = "<b>" + kd.secili + "</b> seçildi. Şimdi bir mevkiye, yedek kulübesine ya da kenara dokun.";
+  } else if (!ilk11.length && !kd.yedek.length) {
+    durumEl.textContent = "Kenardaki hisseyi sahaya sürükle ya da önce hisseye, sonra mevkiye dokun.";
+  } else {
+    var gunler = ilk11.filter(function (h) { return typeof h.gun === "number"; }).map(function (h) { return h.gun; });
+    var ort = gunler.length ? gunler.reduce(function (a, b) { return a + b; }, 0) / gunler.length : null;
+    durumEl.innerHTML = "İlk 11'de <b>" + ilk11.length + "/11</b> hisse" +
+      (ort != null ? ' · bugün ortalama <span class="' + sinif(ort) + '"><b>' + yuzde(ort) + "</b></span>" : "");
+  }
+}
+
+// kod: taşınan hisse; hedef: mevki kimliği, "yedek" ya da "kenar"; ustKod: bırakılan yerdeki oyuncu
+function tasi(kod, hedef, ustKod) {
+  var kaynak = konum(kod);
+  if (hedef === kaynak && hedef !== "yedek") { kd.secili = null; kadroCiz(); return; }
+  var yedekSira = kd.yedek.indexOf(kod);
+  if (kaynak === "yedek") kd.yedek.splice(yedekSira, 1);
+  else if (kaynak !== "kenar") delete kd.yerler[kaynak];
+
+  if (hedef === "yedek") {
+    var j = ustKod && ustKod !== kod ? kd.yedek.indexOf(ustKod) : -1;
+    if (j >= 0 && kaynak !== "kenar" && kaynak !== "yedek") { kd.yedek.splice(j, 1, kod); kd.yerler[kaynak] = ustKod; } // oyuncu değişikliği
+    else if (j >= 0) kd.yedek.splice(j, 0, kod);
+    else kd.yedek.push(kod);
+  } else if (hedef !== "kenar") {
+    var eski = kd.yerler[hedef];
+    kd.yerler[hedef] = kod;
+    if (eski && eski !== kod) {
+      if (kaynak === "yedek") kd.yedek.splice(yedekSira, 0, eski);
+      else if (kaynak !== "kenar") kd.yerler[kaynak] = eski;
+    }
+  }
+  kd.secili = null;
+  kdKaydet(); kadroCiz();
+}
+
+// Dokunarak oynatma: önce hisse seçilir, sonra gideceği yere dokunulur
+function dokun(kod, yer) {
+  var s = kd.secili;
+  if (!s) { if (kod) { kd.secili = kod; kadroCiz(); } return; }
+  if (kod === s) { kd.secili = null; kadroCiz(); return; }
+  if (yer === "kenar") {
+    if (kod && konum(s) === "kenar") { kd.secili = kod; kadroCiz(); } else tasi(s, "kenar");
+    return;
+  }
+  tasi(s, yer, yer === "yedek" ? kod : null);
+}
+
+// Sürükle-bırak: fare ve dokunmatik için tek yol (Pointer Events)
+var surukle = null, hayalet = null, isaretli = null;
+function yerBul(el) { var z = el && el.closest && el.closest("[data-yer]"); return z && kadroEl.contains(z) ? z : null; }
+function isaretle(el) {
+  var t = el ? (el.classList.contains("oy") ? el : el.closest(".bolge")) : null;
+  if (t === isaretli) return;
+  if (isaretli) isaretli.classList.remove("hedef");
+  isaretli = t; if (t) t.classList.add("hedef");
+}
+function surukleBitir() {
+  if (hayalet) { hayalet.remove(); hayalet = null; }
+  if (surukle && surukle.oy) surukle.oy.classList.remove("kaynak");
+  isaretle(null);
+  surukle = null;
+}
+kadroEl.addEventListener("pointerdown", function (e) {
+  if (e.pointerType === "mouse" && e.button !== 0) return;
+  var z = yerBul(e.target); if (!z) return;
+  var oy = e.target.closest(".oy");
+  surukle = { id: e.pointerId, x: e.clientX, y: e.clientY, oy: oy, kod: oy ? oy.dataset.kod || null : null, yer: z.dataset.yer, aktif: false };
+});
+window.addEventListener("pointermove", function (e) {
+  if (!surukle || e.pointerId !== surukle.id) return;
+  if (!surukle.aktif) {
+    if (!surukle.kod || Math.hypot(e.clientX - surukle.x, e.clientY - surukle.y) < 7) return;
+    surukle.aktif = true;
+    hayalet = document.createElement("div");
+    hayalet.className = "hayalet";
+    hayalet.style.setProperty("--k", KATEGORILER[hm[surukle.kod].kat].renk);
+    hayalet.innerHTML = '<span class="top">' + surukle.kod + "</span>";
+    document.body.appendChild(hayalet);
+    surukle.oy.classList.add("kaynak");
+  }
+  e.preventDefault();
+  hayalet.style.left = e.clientX + "px"; hayalet.style.top = e.clientY + "px";
+  isaretle(yerBul(document.elementFromPoint(e.clientX, e.clientY)));
+}, { passive: false });
+window.addEventListener("pointerup", function (e) {
+  if (!surukle || e.pointerId !== surukle.id) return;
+  var s = surukle;
+  if (s.aktif) {
+    var z = yerBul(document.elementFromPoint(e.clientX, e.clientY));
+    surukleBitir();
+    if (z) { var ust = z.closest(".oy"); tasi(s.kod, z.dataset.yer, ust ? ust.dataset.kod || null : null); }
+  } else {
+    surukleBitir();
+    dokun(s.kod, s.yer);
+  }
+});
+window.addEventListener("pointercancel", surukleBitir);
+kadroEl.addEventListener("contextmenu", function (e) { if (e.target.closest(".oy")) e.preventDefault(); });
+// Klavyeyle (Enter/Boşluk) seçme ve yerleştirme
+kadroEl.addEventListener("click", function (e) {
+  if (e.detail !== 0) return;
+  var oy = e.target.closest(".oy"); if (oy) dokun(oy.dataset.kod || null, oy.dataset.yer);
+});
+
+function kadroAc() {
+  kadroEl.hidden = false;
+  document.body.style.overflow = "hidden";
+  kadroCiz();
+  try { history.replaceState(null, "", "#kadro"); } catch (e) {}
+}
+function kadroKapat() {
+  surukleBitir();
+  kd.secili = null;
+  kadroEl.hidden = true;
+  document.body.style.overflow = "";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+}
+dizilisKur();
+document.getElementById("kadroAc").addEventListener("click", kadroAc);
+document.getElementById("kadroKapat").addEventListener("click", kadroKapat);
+document.getElementById("bosalt").addEventListener("click", function () {
+  if (!Object.keys(kd.yerler).length && !kd.yedek.length) return;
+  if (!confirm("Kadrodaki bütün hisseler kenara dönsün mü?")) return;
+  kd.yerler = {}; kd.yedek = []; kd.secili = null;
+  kdKaydet(); kadroCiz();
+});
+document.addEventListener("keydown", function (e) {
+  if (kadroEl.hidden || e.key !== "Escape") return;
+  if (kd.secili) { kd.secili = null; kadroCiz(); } else kadroKapat();
+});
+
 function veriYukle(ilk) {
   return fetch("/api/veri", { cache: "no-store" }).then(function (r) {
     if (r.status === 401) { location.replace("/"); return null; }
@@ -280,6 +616,8 @@ function veriYukle(ilk) {
     var acikKod = durum.acik >= 0 && durum.liste[durum.acik] ? durum.liste[durum.acik].kod : null;
     ciz();
     if (acikKod) { var i = durum.liste.findIndex(function (h) { return h.kod === acikKod; }); if (i >= 0) ac(i); }
+    if (!(surukle && surukle.aktif)) kadroCiz();
+    if (ilk && location.hash === "#kadro") { kadroAc(); return; }
     if (ilk) {
       var kod = (location.hash || "").replace("#", "").toUpperCase();
       var j = durum.liste.findIndex(function (h) { return h.kod === kod; });
