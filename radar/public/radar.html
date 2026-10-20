@@ -495,7 +495,7 @@ function oyHtml(kod, yer) {
   var h = kod && hm[kod];
   if (!h) return '<button class="oy bos" data-yer="' + yer + '" aria-label="Boş mevki: ' + MEVKI_AD[yer[0]] + '"><span class="top">+</span><span class="etk">' + MEVKI_KISA[yer[0]] + '</span></button>';
   var gunVar = typeof h.gun === "number";
-  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + renk(h) + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
+  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + renk(h) + '" title="' + h.kod + " · " + h.ad + (h.rol ? " · " + h.rol : "") + '" aria-label="' + h.kod + '">' +
     '<span class="top">' + h.kod + '</span><span class="etk ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></button>';
 }
 
@@ -551,7 +551,7 @@ function kadroCiz() {
   var durumEl = document.getElementById("kadroDurum");
   var ilk11 = Object.keys(kd.yerler).map(function (id) { return hm[kd.yerler[id]]; });
   if (kd.secili) {
-    durumEl.innerHTML = "<b>" + kd.secili + "</b> seçildi. Şimdi bir mevkiye, yedek kulübesine ya da kenara dokun.";
+    var sh = hm[kd.secili]; durumEl.innerHTML = "<b>" + kd.secili + "</b>" + (sh && sh.ad && !sh.ozel ? " · " + sh.ad : "") + (sh && sh.rol ? " · <i>" + sh.rol + "</i>" : "") + " · bir mevkiye, yedek kulübesine ya da kenara dokun.";
   } else if (!ilk11.length && !kd.yedek.length) {
     durumEl.textContent = "Kenardaki hisseyi sahaya sürükle ya da önce hisseye, sonra mevkiye dokun.";
   } else {
