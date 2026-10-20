@@ -216,10 +216,16 @@
   {
     "kod": "ORGE",
     "yahoo": "ORGE.IS",
-    "ad": "Orge Enerji Elektrik",
-    "kat": "sanayi",
+    "ad": "Orge Enerji Elektrik Taahhüt",
+    "kat": "insaat",
     "deger": 8.3,
-    "rol": "Elektrik taahhüt, ROIC %42, net nakit",
-    "grup": "bist100disi"
+    "rol": "Veri merkezini kuran borçsuz elektrikçi",
+    "grup": "bist100disi",
+    "olg": 3,
+    "ne": "Büyük inşaat projelerinin elektrik işini yapan taahhüt şirketi. Metro hatlarının, havalimanlarının, hastane, otel ve AVM'lerin güç dağıtımını, trafo merkezlerini, aydınlatma ve otomasyonunu kurar. İstanbul metrosunda raylı sistem elektrifikasyonunun lideri; 17 büyük şantiyesi var. 2026'da veri merkezi ve rüzgâr santrali elektrik işlerine girdi.",
+    "tema": "Listemde veri merkezi inşaatını bu hisseyle temsil ediyorum. Turkcell ile Google Cloud'un Ankara'da kurduğu 3 milyar dolarlık hiper ölçekli veri merkezi kampüsünün ilk etap elektrik işini Orge aldı (4,95 milyon euro, 10 ay). Türkiye 2030'a kadar veri merkezi kapasitesini 1 gigavata çıkarmayı hedefliyor; Rönesans-Digital Realty 4,1 milyar dolarlık kampüs, Türksat ve Trendyol projeleri sırada. Veri merkezinin maliyetinin yaklaşık yarısı elektrik ve mekanik altyapıdır; ilk etabı yapan yüklenici sonraki ihalelerde öne geçer.",
+    "yatirim": "2026 ilk yarıda satış %26, FAVÖK %39, net kâr %93 arttı; FAVÖK marjı %50 üstü. Borcu yok: 100 milyon finansal borca karşılık 475 milyon nakit, 375 milyon net nakit. Bekleyen iş yükü 5,6 milyar TL, yıllık cironun 1,4 katı. F/K 9, FD/FAVÖK 3,2; sektör medyanının yarısı. ROE %20, ROIC %42. Şirket eylülden beri hemen her gün kendi hissesini geri alıyor; fonlar düşüşte pozisyon artırdı. Beta 0,5, endeksin yarısı kadar oynak.",
+    "risk": "Veri merkezi işi bugün cironun %5-7'si; ekmeği hâlâ metro ve büyük bina projeleri, İBB bütçesine bağlı. Alacak devir hızı düşüyor, hakediş tahsilatı gecikebilir. Nakit ve alacak ağırlıklı bilanço enflasyon muhasebesinde her çeyrek parasal kayıp yazıyor. Çeyrekler dalgalı; 2025 son çeyrekte marj %30'a inmişti. Günlük hacim 70 milyon TL, dar. 2017'den beri temettü yok. Finlandiyalı Evli fonu (%8,75) satarsa baskı olur.",
+    "neden": "Yapay zekâ temasını yazılımdan değil elektrik ve veri merkezi zincirinden oynamak istiyorum; Orge bu zincirde veri merkezini kuran halka. Uzun vadede Türkiye'de veri merkezi inşaatı arttıkça iş bitirme belgesi ve ilk etap deneyimi olan borçsuz bir elektrikçi avantajlı olur. Bugün veri merkezi hissesi değil, ucuz ve nakitli bir taahhütçü; temayı pahalıya almamış oluyorum. Fon tasfiyesiyle bağı yok, soruşturma listelerinde yok, düşüşte endeksten ayrıştı. Aydem elektriği üretiyor, Yeo depoluyor, Orge binayı kabloluyor; aynı zincir ama ayrı halkalar, hepsini elektrik altyapısı tezi için tutuyorum ve bu temayı portföyün dörtte biriyle sınırlıyorum."
   }
 ]
