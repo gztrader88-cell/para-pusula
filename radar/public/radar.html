@@ -294,7 +294,7 @@ function aktifHisseler() { return durum.pazar === "bist" ? BIST.hisseler.filter(
 function pb() { return durum.pazar === "bist" ? "₺" : "$"; }
 var PAZAR_METIN = {
   ai: { baslik: 'Yapay Zekâ <span>Radarı</span>', alt: "Yapay zekâ devriminin katlarına göre seçilmiş hisseler. Karta dokun, şirketin ne yaptığını ve hikâyedeki yerini iki dakikada öğren.", tema: "Yapay zekâ devrimindeki yeri" },
-  bist: { baslik: 'Borsa İstanbul <span>Radarı</span>', alt: "Toparlanma için seçtiğimiz Türk hisseleri. Karta dokun, şirketin ne yaptığını, artısını, riskini ve neden seçtiğimizi oku.", tema: "Hikâyedeki yeri" }
+  bist: { baslik: 'Borsa İstanbul <span>Radarı</span>', alt: "Toparlanma için seçtiğim Türk hisseleri. Karta dokun, şirketin ne yaptığını, artısını, riskini ve neden seçtiğimi oku.", tema: "Hikâyedeki yeri" }
 };
 function pazarUygula() {
   document.getElementById("baslik").innerHTML = PAZAR_METIN[durum.pazar].baslik;
@@ -401,7 +401,7 @@ function ac(i) {
     '</div>' +
     (h.olg ? '<div class="olgunluk"><span>Olgunluk</span><div class="cubuk">' + olg + '</div><span>' + OLGUNLUK[h.olg] + '</span></div>' : "") +
     bolum("ne", "Ne iş yapar", h.ne) + bolum("ai", PAZAR_METIN[durum.pazar].tema, h.ai || h.tema) + bolum("yatirim", "Yatırımcı gözüyle artısı", h.yatirim) + bolum("risk", "Riski", h.risk) +
-    (h.neden ? bolum("neden", "Neden seçtik", h.neden) : "") +
+    (h.neden ? bolum("neden", "Neden seçtim", h.neden) : "") +
     '<div class="gez"><button id="onceki">‹ Önceki</button><button id="sonraki">Sonraki ›</button></div>';
   document.getElementById("perde").hidden = false;
   panel.hidden = false;
