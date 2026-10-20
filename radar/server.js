@@ -17,6 +17,10 @@ const oku = (p) => JSON.parse(fs.readFileSync(path.join(KOK, p), "utf8"));
 const SIFRELER = oku("sifreler.json");
 const HISSELER = oku("veri/hisseler.json");
 const KATEGORILER = oku("veri/kategoriler.json");
+// Borsa İstanbul kadrosu: ikinci top simgesiyle açılan saha için Türk hisseleri (Yahoo'da KOD.IS)
+const BIST_HISSELER = oku("veri/bist_hisseler.json");
+const BIST_KATEGORILER = oku("veri/bist_kategoriler.json");
+const TUM_HISSELER = HISSELER.concat(BIST_HISSELER);
 const SAYFA = { radar: fs.readFileSync(path.join(KOK, "public", "radar.html"), "utf8"), giris: fs.readFileSync(path.join(KOK, "public", "giris.html"), "utf8") };
 
 // ---- Hafta ve şifre ----
@@ -86,14 +90,14 @@ async function tekFiyat(kod, yahoo) {
   return { fiyat: +son.toFixed(2), gun: +((son / onceki - 1) * 100).toFixed(2), ay: +((son / ayBar.o - 1) * 100).toFixed(1), ytd: +((son / yilBar.o - 1) * 100).toFixed(1) };
 }
 async function fiyatCek() {
-  const sonuc = await Promise.allSettled(HISSELER.map((h) => tekFiyat(h.kod, h.yahoo)));
+  const sonuc = await Promise.allSettled(TUM_HISSELER.map((h) => tekFiyat(h.kod, h.yahoo)));
   const hatalar = [];
   sonuc.forEach((s, i) => {
-    const kod = HISSELER[i].kod;
+    const kod = TUM_HISSELER[i].kod;
     if (s.status === "fulfilled") fiyat.veri[kod] = s.value; else hatalar.push(kod + ": " + s.reason.message);
   });
   fiyat.zaman = Date.now(); fiyat.hata = hatalar.length ? hatalar.join(" | ") : null; fiyat.surum++;
-  console.log(new Date().toISOString(), "fiyatlar yenilendi", Object.keys(fiyat.veri).length + "/" + HISSELER.length, fiyat.hata || "");
+  console.log(new Date().toISOString(), "fiyatlar yenilendi", Object.keys(fiyat.veri).length + "/" + TUM_HISSELER.length, fiyat.hata || "");
 }
 fiyatCek().catch((e) => console.error("fiyat hatası", e.message));
 setInterval(() => fiyatCek().catch((e) => console.error("fiyat hatası", e.message)), YENILEME_DK * 60 * 1000);
@@ -162,7 +166,8 @@ http.createServer(async (req, res) => {
   if (yol === "/api/veri") {
     if (!girisliMi(req)) return gonder(res, 401, "application/json", JSON.stringify({ hata: "giriş gerekli" }));
     const hisseler = HISSELER.map((h) => Object.assign({}, h, fiyat.veri[h.kod] || {}));
-    return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: fiyat.zaman, gecikmeDk: 15, yenilemeDk: YENILEME_DK, hafta: haftaBasi(), kategoriler: KATEGORILER, hisseler }));
+    const bist = { kategoriler: BIST_KATEGORILER, hisseler: BIST_HISSELER.map((h) => Object.assign({}, h, fiyat.veri[h.kod] || {})) };
+    return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: fiyat.zaman, gecikmeDk: 15, yenilemeDk: YENILEME_DK, hafta: haftaBasi(), kategoriler: KATEGORILER, hisseler, bist }));
   }
 
   if (yol === "/yonetim") {
@@ -173,7 +178,7 @@ http.createServer(async (req, res) => {
     const html = "<!doctype html><meta charset=utf-8><title>Radar yönetim</title><style>body{font:16px system-ui;padding:24px;max-width:640px}td{padding:6px 12px;border-bottom:1px solid #ddd}</style>" +
       "<h2>Radar yönetim</h2><p>Bu hafta: <b>" + hb + "</b>" + (process.env.SIFRE ? " (SIFRE ortam değişkeni listeyi eziyor)" : "") + "</p>" +
       "<table>" + satir + "</table>" +
-      "<p>Fiyat yenileme: " + (fiyat.zaman ? new Date(fiyat.zaman + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul)" : "henüz yok") + " · " + Object.keys(fiyat.veri).length + "/" + HISSELER.length + " hisse</p>" +
+      "<p>Fiyat yenileme: " + (fiyat.zaman ? new Date(fiyat.zaman + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul)" : "henüz yok") + " · " + Object.keys(fiyat.veri).length + "/" + TUM_HISSELER.length + " hisse (" + HISSELER.length + " ABD + " + BIST_HISSELER.length + " BIST)</p>" +
       (fiyat.hata ? "<p style='color:#b00'>Hatalar: " + kacir(fiyat.hata) + "</p>" : "") +
       "<h3>Ziyaret</h3><p style='color:#666;font-size:14px'>Tekil ziyaretçi = aynı gün içinde radarı açan farklı cihaz sayısı. Sayaç " + new Date(istat.baslangic + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul) itibarıyla tutuluyor; sunucu yeniden başlarsa sıfırlanır, saat başı özet Railway günlüğüne yazılır.</p>" +
       "<table><tr><th>Gün</th><th>Tekil ziyaretçi</th><th>Sayfa açılışı</th><th>Başarılı giriş</th><th>Yanlış şifre</th></tr>" +

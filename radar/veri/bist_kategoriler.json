@@ -1,0 +1,10 @@
+{
+  "banka": { "ad": "Banka", "renk": "#3dd6ff", "aciklama": "Faiz indirim döngüsünün ilk adresi; düşüşte en dirençli sektör." },
+  "havacilik": { "ad": "Havacılık", "renk": "#5b8cff", "aciklama": "Petrol gevşerse ilk kazanan; doluluk ve yolcu artıyor." },
+  "enerji": { "ad": "Enerji", "renk": "#b6f04a", "aciklama": "Rafineri marjı ve düzenlenmiş gelir; 3. çeyrek kâr sıçraması bekleniyor." },
+  "tuketim": { "ad": "Tüketim", "renk": "#ff8a3d", "aciklama": "Market ve içecek; ekonomi yavaşlasa da satış sürüyor." },
+  "savunma": { "ad": "Savunma", "renk": "#a78bfa", "aciklama": "Büyüme şampiyonu; toparlanma gününde endeksi taşıdı." },
+  "holding": { "ad": "Holding", "renk": "#ff5c8a", "aciklama": "Defter değerinin çok altında; iştirakler tek sepette." },
+  "telekom": { "ad": "Telekom", "renk": "#2dd4a8", "aciklama": "Nakit üreten, borcu düşük, ucuz çarpanlı savunma hissesi." },
+  "saglik": { "ad": "Sağlık", "renk": "#f5d04c", "aciklama": "Ekonomiden bağımsız talep; marjlar iyileşiyor." }
+}

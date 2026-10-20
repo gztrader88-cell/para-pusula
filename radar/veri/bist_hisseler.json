@@ -1,0 +1,16 @@
+[
+  { "kod": "GARAN", "yahoo": "GARAN.IS", "ad": "Garanti BBVA", "kat": "banka", "deger": 556, "rol": "Faiz indiriminde ilk kazanan banka" },
+  { "kod": "AKBNK", "yahoo": "AKBNK.IS", "ad": "Akbank", "kat": "banka", "deger": 349, "rol": "En çok model portföyde olan hisse" },
+  { "kod": "YKBNK", "yahoo": "YKBNK.IS", "ad": "Yapı Kredi", "kat": "banka", "deger": 305, "rol": "Bankaların teknik olarak en güçlüsü" },
+  { "kod": "THYAO", "yahoo": "THYAO.IS", "ad": "Türk Hava Yolları", "kat": "havacilik", "deger": 367, "rol": "BIST 30'un en ucuzu, doluluk rekorda" },
+  { "kod": "TAVHL", "yahoo": "TAVHL.IS", "ad": "TAV Havalimanları", "kat": "havacilik", "deger": 100, "rol": "Euro gelir, Avrupa'nın en yoğun havalimanı" },
+  { "kod": "TUPRS", "yahoo": "TUPRS.IS", "ad": "Tüpraş", "kat": "enerji", "deger": 687, "rol": "Motorin marjı rekorda, net nakit" },
+  { "kod": "ENJSA", "yahoo": "ENJSA.IS", "ad": "Enerjisa", "kat": "enerji", "deger": 132, "rol": "Faiz düşünce en çok rahatlayan borçlu şirket" },
+  { "kod": "BIMAS", "yahoo": "BIMAS.IS", "ad": "BİM", "kat": "tuketim", "deger": 445, "rol": "Savunma hissesi, fonların yeni gözdesi" },
+  { "kod": "CCOLA", "yahoo": "CCOLA.IS", "ad": "Coca-Cola İçecek", "kat": "tuketim", "deger": 210, "rol": "Yabancı dönüşünün barometresi" },
+  { "kod": "ASELS", "yahoo": "ASELS.IS", "ad": "Aselsan", "kat": "savunma", "deger": 1470, "rol": "Tepki gününün lideri, büyüme şampiyonu" },
+  { "kod": "KCHOL", "yahoo": "KCHOL.IS", "ad": "Koç Holding", "kat": "holding", "deger": 514, "rol": "Defterin %35 altında, 3Ç kâr sıçraması" },
+  { "kod": "SAHOL", "yahoo": "SAHOL.IS", "ad": "Sabancı Holding", "kat": "holding", "deger": 180, "rol": "Defterin %57 altında, aile alımı" },
+  { "kod": "TCELL", "yahoo": "TCELL.IS", "ad": "Turkcell", "kat": "telekom", "deger": 212, "rol": "BIST'in en ucuz büyük nakit üreticisi" },
+  { "kod": "MPARK", "yahoo": "MPARK.IS", "ad": "MLP Sağlık", "kat": "saglik", "deger": 77, "rol": "Ekonomiden bağımsız talep, nakit üretiyor" }
+]

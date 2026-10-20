@@ -109,11 +109,16 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 
 /* Kadro: sağ üstteki top simgesi tam ekran bir saha açar; hisseler kenarda bekler, sürükleyerek ya da dokunarak mevkiye/yedeğe konur */
 .ust { position: relative; }
-.ust > div:first-child { padding-right: 56px; }
+.ust > div:first-child { padding-right: 108px; }
 .top-btn { position: absolute; top: 0; right: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); display: grid; place-items: center; cursor: pointer; padding: 0; transition: border-color .15s, color .15s; }
 .top-btn:hover { border-color: var(--up); color: var(--up); }
 .top-btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 .top-btn svg { width: 24px; height: 24px; }
+/* İkinci top: Borsa İstanbul kadrosu; sağ üstte ABD topunun solunda, köşesinde ₺ rozeti */
+.top-btn.tr { right: 52px; }
+.top-btn.tr:hover { border-color: #ff5c6c; color: #ff5c6c; }
+.top-btn .rozet { position: absolute; right: -3px; bottom: -3px; width: 19px; height: 19px; border-radius: 50%; background: #e0203c; color: #fff; font-family: var(--display); font-weight: 800; font-size: .7rem; line-height: 19px; text-align: center; border: 2px solid var(--bg); }
+.kadro.bist .kadro-bas h2 svg { color: #ff5c6c; }
 .kadro { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: flex; flex-direction: column; user-select: none; -webkit-user-select: none; }
 .kadro-bas { width: 100%; max-width: 1100px; margin: 0 auto; padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; flex: 0 0 auto; }
 .kadro-bas h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
@@ -180,7 +185,8 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
       <div class="tarih" id="tarih">Fiyatlar yükleniyor…</div>
       <a class="cikis" href="/cikis">Çıkış</a>
     </div>
-    <button class="top-btn" id="kadroAc" aria-label="Kadronu kur" title="Kadronu kur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg></button>
+    <button class="top-btn tr" id="kadroAcTr" aria-label="Borsa İstanbul kadronu kur" title="Borsa İstanbul kadrosu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg><span class="rozet">₺</span></button>
+    <button class="top-btn" id="kadroAc" aria-label="Kadronu kur" title="Yapay zekâ kadrosu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg></button>
   </header>
 
   <div class="serit">
@@ -210,7 +216,7 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 
 <div class="kadro" id="kadro" hidden role="dialog" aria-modal="true" aria-labelledby="kadroBaslik">
   <div class="kadro-bas">
-    <h2 id="kadroBaslik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg>Radar Kadrosu</h2>
+    <h2 id="kadroBaslik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.25"/><path d="M12 7.6l3.9 2.8-1.5 4.6H9.6l-1.5-4.6z" fill="currentColor"/><path d="M12 7.6V2.8M15.9 10.4l4.5-1.6M14.4 15l2.8 3.9M9.6 15l-2.8 3.9M8.1 10.4L3.6 8.8"/></svg><span id="kadroAd">Radar Kadrosu</span></h2>
     <button class="kapat" id="kadroKapat" aria-label="Kadroyu kapat">✕</button>
     <div class="kadro-arac">
       <div class="dizilis" id="dizilis" role="group" aria-label="Diziliş"></div>
@@ -232,14 +238,14 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
       <div class="bolge-ic" id="yedekIc"></div>
     </section>
     <section class="bolge kenar" data-yer="kenar" aria-label="Kenardaki hisseler">
-      <div class="bolge-bas"><span>Kenar · bütün hisseler</span><span id="kenarSay"></span></div>
+      <div class="bolge-bas"><span id="kenarAd">Kenar · bütün hisseler</span><span id="kenarSay"></span></div>
       <div class="bolge-ic" id="kenarIc"></div>
     </section>
   </div>
 </div>
 
 <script>
-var KATEGORILER = {}, HISSELER = [];
+var KATEGORILER = {}, HISSELER = [], BIST = { kategoriler: {}, hisseler: [] };
 var OLGUNLUK = { 1: "Hikâye aşaması", 2: "Büyüme aşaması", 3: "Yerleşik şirket" };
 var IKON = {
   ne: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
@@ -360,7 +366,15 @@ document.addEventListener("keydown", function (e) {
 });
 
 // ---- Kadro ----
-// Kadro bu cihazda saklanır (localStorage). Mevki kimlikleri türüne göre sıralı: kl, d0..d4, o0..o5, f0..f2.
+// İki takım var: "ai" (ABD radar hisseleri, sağ üstteki top) ve "bist" (Türk hisseleri, ₺ rozetli top). Her takımın kadrosu
+// bu cihazda ayrı saklanır (localStorage). Mevki kimlikleri türüne göre sıralı: kl, d0..d4, o0..o5, f0..f2.
+var TAKIMLAR = {
+  ai: { ad: "Radar Kadrosu", anahtar: "radarKadro_v1", hash: "#kadro", kenar: "Kenar · bütün hisseler", hisseler: function () { return HISSELER; }, kategoriler: function () { return KATEGORILER; } },
+  bist: { ad: "Borsa İstanbul Kadrosu", anahtar: "radarKadroTR_v1", hash: "#kadro-tr", kenar: "Kenar · Türk hisseleri", hisseler: function () { return BIST.hisseler; }, kategoriler: function () { return BIST.kategoriler; } }
+};
+var takim = "ai";
+function tkKat() { return TAKIMLAR[takim].kategoriler(); }
+function tkHisseler() { return TAKIMLAR[takim].hisseler(); }
 var DIZILISLER = {
   "4-4-2": [["d", 4], ["o", 4], ["f", 2]],
   "4-3-3": [["d", 4], ["o", 3], ["f", 3]],
@@ -369,24 +383,25 @@ var DIZILISLER = {
 };
 var MEVKI_KISA = { k: "KL", d: "DF", o: "OS", f: "FV" };
 var MEVKI_AD = { k: "Kaleci", d: "Defans", o: "Orta saha", f: "Forvet" };
-var KADRO_ANAHTAR = "radarKadro_v1";
-var kd = { dizilis: "4-4-2", yerler: {}, yedek: [], secili: null };
+var kdAll = { ai: { dizilis: "4-4-2", yerler: {}, yedek: [], secili: null }, bist: { dizilis: "4-4-2", yerler: {}, yedek: [], secili: null } };
+var kd = kdAll.ai;
 var hm = {};
 var kadroEl = document.getElementById("kadro");
 
 function kdKaydet() {
-  try { localStorage.setItem(KADRO_ANAHTAR, JSON.stringify({ dizilis: kd.dizilis, yerler: kd.yerler, yedek: kd.yedek })); } catch (e) {}
+  try { localStorage.setItem(TAKIMLAR[takim].anahtar, JSON.stringify({ dizilis: kd.dizilis, yerler: kd.yerler, yedek: kd.yedek })); } catch (e) {}
 }
-function kdYukle() {
+function kdYukle(t) {
   try {
-    var v = JSON.parse(localStorage.getItem(KADRO_ANAHTAR) || "null");
+    var v = JSON.parse(localStorage.getItem(TAKIMLAR[t].anahtar) || "null");
     if (!v) return;
-    if (DIZILISLER[v.dizilis]) kd.dizilis = v.dizilis;
-    if (v.yerler && typeof v.yerler === "object") kd.yerler = v.yerler;
-    if (Array.isArray(v.yedek)) kd.yedek = v.yedek;
+    var k = kdAll[t];
+    if (DIZILISLER[v.dizilis]) k.dizilis = v.dizilis;
+    if (v.yerler && typeof v.yerler === "object") k.yerler = v.yerler;
+    if (Array.isArray(v.yedek)) k.yedek = v.yedek;
   } catch (e) {}
 }
-kdYukle();
+kdYukle("ai"); kdYukle("bist");
 
 function hatlar() {
   var sayac = { d: 0, o: 0, f: 0 }, liste = [];
@@ -416,7 +431,7 @@ function oyHtml(kod, yer) {
   var h = kod && hm[kod];
   if (!h) return '<button class="oy bos" data-yer="' + yer + '" aria-label="Boş mevki: ' + MEVKI_AD[yer[0]] + '"><span class="top">+</span><span class="etk">' + MEVKI_KISA[yer[0]] + '</span></button>';
   var gunVar = typeof h.gun === "number";
-  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + KATEGORILER[h.kat].renk + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
+  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + tkKat()[h.kat].renk + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
     '<span class="top">' + h.kod + '</span><span class="etk ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></button>';
 }
 
@@ -447,7 +462,7 @@ function dizilisDegis(ad) {
 
 function kadroCiz() {
   if (kadroEl.hidden) return;
-  hm = {}; HISSELER.forEach(function (h) { hm[h.kod] = h; });
+  hm = {}; tkHisseler().forEach(function (h) { hm[h.kod] = h; });
   kdTemizle();
   if (kd.secili && !hm[kd.secili]) kd.secili = null;
 
@@ -460,8 +475,8 @@ function kadroCiz() {
     : '<span class="bos-yazi">Yedeğe almak istediğin hisseyi buraya bırak.</span>';
   document.getElementById("yedekSay").textContent = kd.yedek.length ? kd.yedek.length + " oyuncu" : "";
 
-  var katSira = Object.keys(KATEGORILER);
-  var disarda = HISSELER.filter(function (h) { return konum(h.kod) === "kenar"; })
+  var katSira = Object.keys(tkKat());
+  var disarda = tkHisseler().filter(function (h) { return konum(h.kod) === "kenar"; })
     .sort(function (a, b) { return katSira.indexOf(a.kat) - katSira.indexOf(b.kat) || b.deger - a.deger; });
   document.getElementById("kenarIc").innerHTML = disarda.length
     ? disarda.map(function (h) { return oyHtml(h.kod, "kenar"); }).join("")
@@ -547,7 +562,7 @@ window.addEventListener("pointermove", function (e) {
     surukle.aktif = true;
     hayalet = document.createElement("div");
     hayalet.className = "hayalet";
-    hayalet.style.setProperty("--k", KATEGORILER[hm[surukle.kod].kat].renk);
+    hayalet.style.setProperty("--k", tkKat()[hm[surukle.kod].kat].renk);
     hayalet.innerHTML = '<span class="top">' + surukle.kod + "</span>";
     document.body.appendChild(hayalet);
     surukle.oy.classList.add("kaynak");
@@ -576,11 +591,18 @@ kadroEl.addEventListener("click", function (e) {
   var oy = e.target.closest(".oy"); if (oy) dokun(oy.dataset.kod || null, oy.dataset.yer);
 });
 
-function kadroAc() {
+function kadroAc(t) {
+  takim = TAKIMLAR[t] ? t : "ai";
+  kd = kdAll[takim];
+  kd.secili = null;
+  document.getElementById("kadroAd").textContent = TAKIMLAR[takim].ad;
+  document.getElementById("kenarAd").textContent = TAKIMLAR[takim].kenar;
+  kadroEl.classList.toggle("bist", takim === "bist");
+  dizilisKur();
   kadroEl.hidden = false;
   document.body.style.overflow = "hidden";
   kadroCiz();
-  try { history.replaceState(null, "", "#kadro"); } catch (e) {}
+  try { history.replaceState(null, "", TAKIMLAR[takim].hash); } catch (e) {}
 }
 function kadroKapat() {
   surukleBitir();
@@ -590,7 +612,8 @@ function kadroKapat() {
   try { history.replaceState(null, "", location.pathname); } catch (e) {}
 }
 dizilisKur();
-document.getElementById("kadroAc").addEventListener("click", kadroAc);
+document.getElementById("kadroAc").addEventListener("click", function () { kadroAc("ai"); });
+document.getElementById("kadroAcTr").addEventListener("click", function () { kadroAc("bist"); });
 document.getElementById("kadroKapat").addEventListener("click", kadroKapat);
 document.getElementById("bosalt").addEventListener("click", function () {
   if (!Object.keys(kd.yerler).length && !kd.yedek.length) return;
@@ -610,6 +633,7 @@ function veriYukle(ilk) {
   }).then(function (v) {
     if (!v) return;
     KATEGORILER = v.kategoriler; HISSELER = v.hisseler;
+    if (v.bist && v.bist.hisseler) BIST = v.bist;
     var t = document.getElementById("tarih");
     t.innerHTML = v.guncelleme ? '<i></i>Fiyatlar ' + saat(v.guncelleme) + " · 15 dk gecikmeli" : "Fiyatlar birazdan gelecek";
     if (ilk) seritKur();
@@ -617,7 +641,8 @@ function veriYukle(ilk) {
     ciz();
     if (acikKod) { var i = durum.liste.findIndex(function (h) { return h.kod === acikKod; }); if (i >= 0) ac(i); }
     if (!(surukle && surukle.aktif)) kadroCiz();
-    if (ilk && location.hash === "#kadro") { kadroAc(); return; }
+    if (ilk && location.hash === "#kadro") { kadroAc("ai"); return; }
+    if (ilk && location.hash === "#kadro-tr") { kadroAc("bist"); return; }
     if (ilk) {
       var kod = (location.hash || "").replace("#", "").toUpperCase();
       var j = durum.liste.findIndex(function (h) { return h.kod === kod; });
