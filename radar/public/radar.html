@@ -33,6 +33,12 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .cikis { font-size: .78rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 6px 10px; border-radius: 999px; cursor: pointer; text-decoration: none; }
 .cikis:hover { color: var(--fg); border-color: var(--fg); }
 
+/* Pazar seçici: ABD (yapay zekâ radarı) ile Türkiye (Borsa İstanbul listesi) arasında geçiş */
+.pazar-sec { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 4px; }
+.pazar-sec button { background: none; border: 0; color: var(--muted); font-weight: 800; font-size: .86rem; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.pazar-sec button[aria-pressed="true"] { background: var(--fg); color: #0d1017; }
+.pazar-sec button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.bolum.neden .ikon { color: var(--up); }
 .serit { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px; }
 .serit-ic { display: flex; flex-wrap: wrap; gap: 8px; }
 @media (max-width: 640px) {
@@ -198,8 +204,9 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 <div class="wrap">
   <header class="ust">
     <div>
-      <h1>Yapay Zekâ <span>Radarı</span></h1>
-      <p class="alt">Yapay zekâ devriminin katlarına göre seçilmiş hisseler. Karta dokun, şirketin ne yaptığını ve hikâyedeki yerini iki dakikada öğren.</p>
+      <div class="pazar-sec" role="group" aria-label="Pazar seçimi"><button data-pazar="ai" aria-pressed="true">ABD · Yapay zekâ</button><button data-pazar="bist" aria-pressed="false">Türkiye · Borsa İstanbul</button></div>
+      <h1 id="baslik">Yapay Zekâ <span>Radarı</span></h1>
+      <p class="alt" id="altYazi">Yapay zekâ devriminin katlarına göre seçilmiş hisseler. Karta dokun, şirketin ne yaptığını ve hikâyedeki yerini iki dakikada öğren.</p>
     </div>
     <div class="sag">
       <div class="tarih" id="tarih">Fiyatlar yükleniyor…</div>
@@ -276,31 +283,60 @@ var IKON = {
   ne: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
   ai: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>',
   yatirim: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
-  risk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5v.5"/></svg>'
+  risk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17.5v.5"/></svg>',
+  neden: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>'
 };
-var durum = { kat: "tum", sira: "kat", acik: -1, liste: [] };
+var durum = { kat: "tum", sira: "kat", acik: -1, liste: [], pazar: "ai" };
+try { if (localStorage.getItem("radarPazar") === "bist") durum.pazar = "bist"; } catch (e) {}
+// Ana sayfadaki liste: ABD'de bütün radar hisseleri, Türkiye'de yalnızca ayrıntılı anlatımı yazılmış hisseler (ne/tema/yatirim/risk/neden alanları)
+function aktifKat() { return durum.pazar === "bist" ? BIST.kategoriler : KATEGORILER; }
+function aktifHisseler() { return durum.pazar === "bist" ? BIST.hisseler.filter(function (h) { return h.ne; }) : HISSELER; }
+function pb() { return durum.pazar === "bist" ? "₺" : "$"; }
+var PAZAR_METIN = {
+  ai: { baslik: 'Yapay Zekâ <span>Radarı</span>', alt: "Yapay zekâ devriminin katlarına göre seçilmiş hisseler. Karta dokun, şirketin ne yaptığını ve hikâyedeki yerini iki dakikada öğren.", tema: "Yapay zekâ devrimindeki yeri" },
+  bist: { baslik: 'Borsa İstanbul <span>Radarı</span>', alt: "Toparlanma için seçtiğimiz Türk hisseleri. Karta dokun, şirketin ne yaptığını, artısını, riskini ve neden seçtiğimizi oku.", tema: "Hikâyedeki yeri" }
+};
+function pazarUygula() {
+  document.getElementById("baslik").innerHTML = PAZAR_METIN[durum.pazar].baslik;
+  document.getElementById("altYazi").textContent = PAZAR_METIN[durum.pazar].alt;
+  document.querySelectorAll(".pazar-sec button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.pazar === durum.pazar ? "true" : "false"); });
+}
+document.querySelectorAll(".pazar-sec button").forEach(function (b) {
+  b.addEventListener("click", function () {
+    if (durum.pazar === b.dataset.pazar) return;
+    durum.pazar = b.dataset.pazar; durum.kat = "tum"; durum.acik = -1;
+    try { localStorage.setItem("radarPazar", durum.pazar); } catch (e) {}
+    pazarUygula(); seritKur(); ciz();
+  });
+});
 
 function yuzde(v) { return (v > 0 ? "+" : "") + v.toLocaleString("tr-TR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " %"; }
 function sinif(v) { return v >= 0 ? "up" : "down"; }
-function fiyatYaz(v) { return v.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " $"; }
+function fiyatYaz(v) { return v == null ? "–" : v.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + pb(); }
 function degerYaz(m) {
-  if (m >= 100) return Math.round(m).toLocaleString("tr-TR") + " mr $";
-  if (m >= 1) return m.toLocaleString("tr-TR", { maximumFractionDigits: 1 }) + " mr $";
-  return Math.round(m * 1000).toLocaleString("tr-TR") + " mn $";
+  var b = pb();
+  if (m >= 100) return Math.round(m).toLocaleString("tr-TR") + " mr " + b;
+  if (m >= 1) return m.toLocaleString("tr-TR", { maximumFractionDigits: 1 }) + " mr " + b;
+  return Math.round(m * 1000).toLocaleString("tr-TR") + " mn " + b;
 }
 function mono(kod) { return kod.length > 3 ? kod.slice(0, 4) : kod; }
 function saat(ms) { var d = new Date(ms); return d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }); }
 
 function seritKur() {
   var el = document.getElementById("serit");
+  var K = aktifKat(), kullanilan = {};
+  aktifHisseler().forEach(function (h) { kullanilan[h.kat] = true; });
   var html = '<button class="kat" data-kat="tum" aria-pressed="true"><i></i>Tümü</button>';
-  Object.keys(KATEGORILER).forEach(function (k) {
-    html += '<button class="kat" data-kat="' + k + '" style="--k:' + KATEGORILER[k].renk + '" aria-pressed="false"><i></i>' + KATEGORILER[k].ad + '</button>';
+  Object.keys(K).filter(function (k) { return kullanilan[k]; }).forEach(function (k) {
+    html += '<button class="kat" data-kat="' + k + '" style="--k:' + K[k].renk + '" aria-pressed="false"><i></i>' + K[k].ad + '</button>';
   });
   el.innerHTML = html;
-  el.addEventListener("wheel", function (e) {
-    if (el.scrollWidth > el.clientWidth && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { el.scrollLeft += e.deltaY; e.preventDefault(); }
-  }, { passive: false });
+  if (!el.dataset.wheel) {
+    el.dataset.wheel = "1";
+    el.addEventListener("wheel", function (e) {
+      if (el.scrollWidth > el.clientWidth && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { el.scrollLeft += e.deltaY; e.preventDefault(); }
+    }, { passive: false });
+  }
   el.querySelectorAll(".kat").forEach(function (b) {
     b.addEventListener("click", function () {
       durum.kat = b.dataset.kat;
@@ -318,8 +354,9 @@ document.querySelectorAll(".sira button").forEach(function (b) {
 });
 
 function ciz() {
-  var liste = HISSELER.filter(function (h) { return durum.kat === "tum" || h.kat === durum.kat; });
-  var katSira = Object.keys(KATEGORILER);
+  var K = aktifKat();
+  var liste = aktifHisseler().filter(function (h) { return durum.kat === "tum" || h.kat === durum.kat; });
+  var katSira = Object.keys(K);
   if (durum.sira === "gun") liste.sort(function (a, b) { return b.gun - a.gun; });
   else if (durum.sira === "ytd") liste.sort(function (a, b) { return b.ytd - a.ytd; });
   else liste.sort(function (a, b) { return katSira.indexOf(a.kat) - katSira.indexOf(b.kat) || b.deger - a.deger; });
@@ -327,44 +364,44 @@ function ciz() {
 
   var bilgi = document.getElementById("katBilgi");
   if (durum.kat === "tum") { bilgi.hidden = true; }
-  else { var k = KATEGORILER[durum.kat]; bilgi.style.setProperty("--k", k.renk); bilgi.innerHTML = "<b>" + k.ad + "</b><p>" + k.aciklama + "</p>"; bilgi.hidden = false; }
+  else { var k = K[durum.kat]; bilgi.style.setProperty("--k", k.renk); bilgi.innerHTML = "<b>" + k.ad + "</b><p>" + k.aciklama + "</p>"; bilgi.hidden = false; }
   document.getElementById("sayac").textContent = liste.length + " hisse gösteriliyor";
 
   var html = "";
   liste.forEach(function (h, i) {
-    var k = KATEGORILER[h.kat];
+    var k = K[h.kat] || { renk: "#8e97a8" };
+    var gunVar = typeof h.gun === "number";
     html += '<button class="kart" data-i="' + i + '" style="--k:' + k.renk + '">' +
-      '<span class="olg">' + ["", "Hikâye", "Büyüme", "Yerleşik"][h.olg] + '</span>' +
+      '<span class="olg">' + ["", "Hikâye", "Büyüme", "Yerleşik"][h.olg || 0] + '</span>' +
       '<div class="kart-ust"><div class="mono">' + mono(h.kod) + '</div><div><div class="kod">' + h.kod + '</div><div class="ad">' + h.ad + '</div></div></div>' +
       '<div class="rol">' + h.rol + '</div>' +
-      '<div class="kart-alt"><span class="fiyat">' + fiyatYaz(h.fiyat) + '</span><span class="pil ' + sinif(h.gun) + '">' + yuzde(h.gun) + '</span></div>' +
+      '<div class="kart-alt"><span class="fiyat">' + fiyatYaz(h.fiyat) + '</span><span class="pil ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></div>' +
       '</button>';
   });
-  document.getElementById("izgara").innerHTML = html;
+  document.getElementById("izgara").innerHTML = html || '<div class="bos">Bu listede henüz hisse yok.</div>';
   document.querySelectorAll(".kart").forEach(function (b) { b.addEventListener("click", function () { ac(parseInt(b.dataset.i, 10)); }); });
 }
 
 function ac(i) {
   var h = durum.liste[i]; if (!h) return;
   durum.acik = i;
-  var k = KATEGORILER[h.kat];
+  var k = aktifKat()[h.kat] || { ad: "Diğer", renk: "#8e97a8" };
   var panel = document.getElementById("panel");
   panel.style.setProperty("--k", k.renk);
   document.getElementById("panelBas").innerHTML =
     '<div class="ustsatir"><div class="mono">' + mono(h.kod) + '</div><div><div class="kod" id="panelKod">' + h.kod + '</div><div class="ad">' + h.ad + '</div></div>' +
     '<button class="kapat" id="kapat" aria-label="Kapat">✕</button></div>' +
-    '<div class="etiketler"><span class="etiket kat-e">' + k.ad + '</span><span class="etiket">' + OLGUNLUK[h.olg] + '</span><span class="etiket">Piyasa değeri ' + degerYaz(h.deger) + '</span></div>';
-  var olg = ""; for (var j = 1; j <= 3; j++) olg += '<i class="' + (j <= h.olg ? "dolu" : "") + '"></i>';
+    '<div class="etiketler"><span class="etiket kat-e">' + k.ad + '</span>' + (h.olg ? '<span class="etiket">' + OLGUNLUK[h.olg] + '</span>' : "") + '<span class="etiket">Piyasa değeri ' + degerYaz(h.deger) + '</span>' + (h.grup === "bist100disi" ? '<span class="etiket">BIST 100 dışı</span>' : "") + '</div>';
+  var olg = ""; for (var j = 1; j <= 3; j++) olg += '<i class="' + (j <= (h.olg || 0) ? "dolu" : "") + '"></i>';
+  var sayi = function (v, etiket) { var var_ = typeof v === "number"; return '<div class="sayi"><b class="' + (var_ ? sinif(v) : "") + '">' + (var_ ? yuzde(v) : "–") + '</b><span>' + etiket + '</span></div>'; };
   document.getElementById("panelGovde").innerHTML =
     '<div class="rol-b">' + h.rol + '</div>' +
     '<div class="sayilar">' +
-      '<div class="sayi"><b>' + fiyatYaz(h.fiyat) + '</b><span>Fiyat</span></div>' +
-      '<div class="sayi"><b class="' + sinif(h.gun) + '">' + yuzde(h.gun) + '</b><span>Bugün</span></div>' +
-      '<div class="sayi"><b class="' + sinif(h.ay) + '">' + yuzde(h.ay) + '</b><span>1 ay</span></div>' +
-      '<div class="sayi"><b class="' + sinif(h.ytd) + '">' + yuzde(h.ytd) + '</b><span>Yılbaşından</span></div>' +
+      '<div class="sayi"><b>' + fiyatYaz(h.fiyat) + '</b><span>Fiyat</span></div>' + sayi(h.gun, "Bugün") + sayi(h.ay, "1 ay") + sayi(h.ytd, "Yılbaşından") +
     '</div>' +
-    '<div class="olgunluk"><span>Olgunluk</span><div class="cubuk">' + olg + '</div><span>' + OLGUNLUK[h.olg] + '</span></div>' +
-    bolum("ne", "Ne iş yapar", h.ne) + bolum("ai", "Yapay zekâ devrimindeki yeri", h.ai) + bolum("yatirim", "Yatırımcı gözüyle artısı", h.yatirim) + bolum("risk", "Riski", h.risk) +
+    (h.olg ? '<div class="olgunluk"><span>Olgunluk</span><div class="cubuk">' + olg + '</div><span>' + OLGUNLUK[h.olg] + '</span></div>' : "") +
+    bolum("ne", "Ne iş yapar", h.ne) + bolum("ai", PAZAR_METIN[durum.pazar].tema, h.ai || h.tema) + bolum("yatirim", "Yatırımcı gözüyle artısı", h.yatirim) + bolum("risk", "Riski", h.risk) +
+    (h.neden ? bolum("neden", "Neden seçtik", h.neden) : "") +
     '<div class="gez"><button id="onceki">‹ Önceki</button><button id="sonraki">Sonraki ›</button></div>';
   document.getElementById("perde").hidden = false;
   panel.hidden = false;
@@ -762,7 +799,13 @@ function veriYukle(ilk) {
     if (v.bist && v.bist.hisseler) BIST = v.bist;
     var t = document.getElementById("tarih");
     t.innerHTML = v.guncelleme ? '<i></i>Fiyatlar ' + saat(v.guncelleme) + " · 15 dk gecikmeli" : "Fiyatlar birazdan gelecek";
-    if (ilk) seritKur();
+    if (ilk) {
+      // Adresteki hisse Türkiye listesindeyse o pazarla aç
+      var hk = (location.hash || "").replace("#", "").toUpperCase();
+      if (hk && BIST.hisseler.some(function (h) { return h.kod === hk && h.ne; })) durum.pazar = "bist";
+      else if (hk && HISSELER.some(function (h) { return h.kod === hk; })) durum.pazar = "ai";
+      pazarUygula(); seritKur();
+    }
     var acikKod = durum.acik >= 0 && durum.liste[durum.acik] ? durum.liste[durum.acik].kod : null;
     ciz();
     if (acikKod) { var i = durum.liste.findIndex(function (h) { return h.kod === acikKod; }); if (i >= 0) ac(i); }

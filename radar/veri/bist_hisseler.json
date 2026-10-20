@@ -1,27 +1,220 @@
 [
-  { "kod": "GARAN", "yahoo": "GARAN.IS", "ad": "Garanti BBVA", "kat": "banka", "deger": 556, "rol": "Faiz indiriminde ilk kazanan banka" },
-  { "kod": "AKBNK", "yahoo": "AKBNK.IS", "ad": "Akbank", "kat": "banka", "deger": 349, "rol": "En çok model portföyde olan hisse" },
-  { "kod": "YKBNK", "yahoo": "YKBNK.IS", "ad": "Yapı Kredi", "kat": "banka", "deger": 305, "rol": "Bankaların teknik olarak en güçlüsü" },
-  { "kod": "THYAO", "yahoo": "THYAO.IS", "ad": "Türk Hava Yolları", "kat": "havacilik", "deger": 367, "rol": "BIST 30'un en ucuzu, doluluk rekorda" },
-  { "kod": "TAVHL", "yahoo": "TAVHL.IS", "ad": "TAV Havalimanları", "kat": "havacilik", "deger": 100, "rol": "Euro gelir, Avrupa'nın en yoğun havalimanı" },
-  { "kod": "TUPRS", "yahoo": "TUPRS.IS", "ad": "Tüpraş", "kat": "enerji", "deger": 687, "rol": "Motorin marjı rekorda, net nakit" },
-  { "kod": "ENJSA", "yahoo": "ENJSA.IS", "ad": "Enerjisa", "kat": "enerji", "deger": 132, "rol": "Faiz düşünce en çok rahatlayan borçlu şirket" },
-  { "kod": "BIMAS", "yahoo": "BIMAS.IS", "ad": "BİM", "kat": "tuketim", "deger": 445, "rol": "Savunma hissesi, fonların yeni gözdesi" },
-  { "kod": "CCOLA", "yahoo": "CCOLA.IS", "ad": "Coca-Cola İçecek", "kat": "tuketim", "deger": 210, "rol": "Yabancı dönüşünün barometresi" },
-  { "kod": "ASELS", "yahoo": "ASELS.IS", "ad": "Aselsan", "kat": "savunma", "deger": 1470, "rol": "Tepki gününün lideri, büyüme şampiyonu" },
-  { "kod": "KCHOL", "yahoo": "KCHOL.IS", "ad": "Koç Holding", "kat": "holding", "deger": 514, "rol": "Defterin %35 altında, 3Ç kâr sıçraması" },
-  { "kod": "SAHOL", "yahoo": "SAHOL.IS", "ad": "Sabancı Holding", "kat": "holding", "deger": 180, "rol": "Defterin %57 altında, aile alımı" },
-  { "kod": "TCELL", "yahoo": "TCELL.IS", "ad": "Turkcell", "kat": "telekom", "deger": 212, "rol": "BIST'in en ucuz büyük nakit üreticisi" },
-  { "kod": "MPARK", "yahoo": "MPARK.IS", "ad": "MLP Sağlık", "kat": "saglik", "deger": 77, "rol": "Ekonomiden bağımsız talep, nakit üretiyor" },
-  { "kod": "LOGO", "yahoo": "LOGO.IS", "ad": "Logo Yazılım", "kat": "yazilim", "deger": 11.9, "rol": "En büyük iş yazılımı, hedef +%83", "grup": "bist100disi" },
-  { "kod": "NETCD", "yahoo": "NETCD.IS", "ad": "Netcad Yazılım", "kat": "yazilim", "deger": 11.0, "rol": "Coğrafi bilgi sistemi, net nakit, ROE %28", "grup": "bist100disi" },
-  { "kod": "INDES", "yahoo": "INDES.IS", "ad": "İndeks Bilgisayar", "kat": "yazilim", "deger": 8.6, "rol": "Teknoloji dağıtımı, düşüşte +%11 ayrıştı", "grup": "bist100disi" },
-  { "kod": "DEVA", "yahoo": "DEVA.IS", "ad": "Deva Holding", "kat": "saglik", "deger": 15.1, "rol": "Yerli ilaç, FAVÖK +%123, defterin yarısı", "grup": "bist100disi" },
-  { "kod": "AYDEM", "yahoo": "AYDEM.IS", "ad": "Aydem Yenilenebilir", "kat": "enerji", "deger": 14.8, "rol": "Hidro üretim +%47, hedef +%91", "grup": "bist100disi" },
-  { "kod": "YEOTK", "yahoo": "YEOTK.IS", "ad": "Yeo Teknoloji", "kat": "sanayi", "deger": 20.0, "rol": "Enerji mühendisliği, ROE %59, FAVÖK +%227", "grup": "bist100disi" },
-  { "kod": "YGGYO", "yahoo": "YGGYO.IS", "ad": "Yeni Gimat GYO", "kat": "gyo", "deger": 49.4, "rol": "Ankamall, borçsuz, temettü %5", "grup": "bist100disi" },
-  { "kod": "AKGRT", "yahoo": "AKGRT.IS", "ad": "Aksigorta", "kat": "sigorta", "deger": 7.9, "rol": "F/K 3,4, ROE %31, hedef +%113", "grup": "bist100disi" },
-  { "kod": "EBEBK", "yahoo": "EBEBK.IS", "ad": "Ebebek", "kat": "tuketim", "deger": 12.4, "rol": "Bebek perakendesi, borçsuz, hedef +%51", "grup": "bist100disi" },
-  { "kod": "TATGD", "yahoo": "TATGD.IS", "ad": "Tat Gıda", "kat": "tuketim", "deger": 3.5, "rol": "F/K 5,7, defterin yarısı, nakit üretiyor", "grup": "bist100disi" },
-  { "kod": "ORGE", "yahoo": "ORGE.IS", "ad": "Orge Enerji Elektrik", "kat": "sanayi", "deger": 8.3, "rol": "Elektrik taahhüt, ROIC %42, net nakit", "grup": "bist100disi" }
+
+  {
+    "kod": "GARAN",
+    "yahoo": "GARAN.IS",
+    "ad": "Garanti BBVA",
+    "kat": "banka",
+    "deger": 556,
+    "rol": "Faiz indiriminde ilk kazanan banka"
+  },
+  {
+    "kod": "AKBNK",
+    "yahoo": "AKBNK.IS",
+    "ad": "Akbank",
+    "kat": "banka",
+    "deger": 349,
+    "rol": "En çok model portföyde olan hisse"
+  },
+  {
+    "kod": "YKBNK",
+    "yahoo": "YKBNK.IS",
+    "ad": "Yapı Kredi",
+    "kat": "banka",
+    "deger": 305,
+    "rol": "Bankaların teknik olarak en güçlüsü"
+  },
+  {
+    "kod": "THYAO",
+    "yahoo": "THYAO.IS",
+    "ad": "Türk Hava Yolları",
+    "kat": "havacilik",
+    "deger": 367,
+    "rol": "BIST 30'un en ucuzu, doluluk rekorda"
+  },
+  {
+    "kod": "TAVHL",
+    "yahoo": "TAVHL.IS",
+    "ad": "TAV Havalimanları",
+    "kat": "havacilik",
+    "deger": 100,
+    "rol": "Euro gelir, Avrupa'nın en yoğun havalimanı"
+  },
+  {
+    "kod": "TUPRS",
+    "yahoo": "TUPRS.IS",
+    "ad": "Tüpraş",
+    "kat": "enerji",
+    "deger": 687,
+    "rol": "Motorin marjı rekorda, net nakit"
+  },
+  {
+    "kod": "ENJSA",
+    "yahoo": "ENJSA.IS",
+    "ad": "Enerjisa",
+    "kat": "enerji",
+    "deger": 132,
+    "rol": "Faiz düşünce en çok rahatlayan borçlu şirket"
+  },
+  {
+    "kod": "BIMAS",
+    "yahoo": "BIMAS.IS",
+    "ad": "BİM",
+    "kat": "tuketim",
+    "deger": 445,
+    "rol": "Savunma hissesi, fonların yeni gözdesi"
+  },
+  {
+    "kod": "CCOLA",
+    "yahoo": "CCOLA.IS",
+    "ad": "Coca-Cola İçecek",
+    "kat": "tuketim",
+    "deger": 210,
+    "rol": "Yabancı dönüşünün barometresi"
+  },
+  {
+    "kod": "ASELS",
+    "yahoo": "ASELS.IS",
+    "ad": "Aselsan",
+    "kat": "savunma",
+    "deger": 1470,
+    "rol": "Tepki gününün lideri, büyüme şampiyonu"
+  },
+  {
+    "kod": "KCHOL",
+    "yahoo": "KCHOL.IS",
+    "ad": "Koç Holding",
+    "kat": "holding",
+    "deger": 514,
+    "rol": "Defterin %35 altında, 3Ç kâr sıçraması"
+  },
+  {
+    "kod": "SAHOL",
+    "yahoo": "SAHOL.IS",
+    "ad": "Sabancı Holding",
+    "kat": "holding",
+    "deger": 180,
+    "rol": "Defterin %57 altında, aile alımı"
+  },
+  {
+    "kod": "TCELL",
+    "yahoo": "TCELL.IS",
+    "ad": "Turkcell",
+    "kat": "telekom",
+    "deger": 212,
+    "rol": "BIST'in en ucuz büyük nakit üreticisi"
+  },
+  {
+    "kod": "MPARK",
+    "yahoo": "MPARK.IS",
+    "ad": "MLP Sağlık",
+    "kat": "saglik",
+    "deger": 77,
+    "rol": "Ekonomiden bağımsız talep, nakit üretiyor"
+  },
+  {
+    "kod": "LOGO",
+    "yahoo": "LOGO.IS",
+    "ad": "Logo Yazılım",
+    "kat": "yazilim",
+    "deger": 11.9,
+    "rol": "En büyük iş yazılımı, hedef +%83",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "NETCD",
+    "yahoo": "NETCD.IS",
+    "ad": "Netcad Yazılım",
+    "kat": "yazilim",
+    "deger": 11,
+    "rol": "Coğrafi bilgi sistemi, net nakit, ROE %28",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "INDES",
+    "yahoo": "INDES.IS",
+    "ad": "İndeks Bilgisayar",
+    "kat": "yazilim",
+    "deger": 8.6,
+    "rol": "Teknoloji dağıtımı, düşüşte +%11 ayrıştı",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "DEVA",
+    "yahoo": "DEVA.IS",
+    "ad": "Deva Holding",
+    "kat": "saglik",
+    "deger": 15.1,
+    "rol": "Yerli ilaç, FAVÖK +%123, defterin yarısı",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "AYDEM",
+    "yahoo": "AYDEM.IS",
+    "ad": "Aydem Yenilenebilir Enerji",
+    "kat": "enerji",
+    "deger": 14.8,
+    "rol": "Faiz düşünce rahatlayan hidro üreticisi",
+    "grup": "bist100disi",
+    "olg": 3,
+    "ne": "Türkiye'nin en büyük yenilenebilir enerji üreticilerinden biri. Barajlı hidroelektrik ağırlıklı olmak üzere rüzgâr, güneş ve jeotermal santrallerle elektrik üretir. Ürettiği elektriği ya devletin dolar bazlı alım garantisiyle (YEKDEM) ya da serbest piyasa fiyatıyla satar.",
+    "tema": "Toparlanma listesinde enerji üretimini temsil ediyor. 2026'nın üçüncü çeyreğinde hidro üretimi son beş yılın en yüksek payına çıktı; saatlik piyasa fiyatı 58 dolara inince doğalgaz santralleri yakıt maliyetini bile karşılayamadı, dolar bazlı tarifeyle satan hidro üreticisi kazanan taraf oldu. Aydem'in üçüncü çeyrek üretimi geçen yıla göre %47 arttı.",
+    "yatirim": "Defter değerinin %30'u fiyatına işlem görüyor, F/K 10,5. Dört aracı kurumun ortalama hedefi 42,48 TL; hedefler 40 ile 45 arasında, kurumlar hemfikir. Borcu FAVÖK'ün 4,4 katı; faiz indirim döngüsü başlarsa en çok rahatlayan şirket türü bu. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "Özkaynak kârlılığı %3; kâr artışı düşük bazdan ve kur etkisinden geliyor, satış %3 ve FAVÖK %11 geriledi. Borç dolar cinsinden; kur sıçrarsa finansman gideri kârı yer. Kurak yıl hidro üretimini düşürür. Fiili dolaşım %17, günlük hacim 50 milyon TL civarı; kademeli alınmalı.",
+    "neden": "Listede enerji üretimi yoktu, bu boşluğu dolduruyor. BIST 100 dışındaki yenilenebilir üreticiler arasında hem kâr eden, hem defterin çok altında, hem de borcu taşınabilir olan tek isim; Enda, Biotrend, Naturel ve Margün zararda ya da borç altında, Alfa Solar pahalı. En yakın rakip Akfen Yenilenebilir daha temiz bilançolu ama BIST 100'de olduğu için bu listeye giremedi. Üç tema aynı hissede birleşiyor: hidro üretim artışı, faiz indirimi ve %91 analist potansiyeli."
+  },
+  {
+    "kod": "YEOTK",
+    "yahoo": "YEOTK.IS",
+    "ad": "Yeo Teknoloji",
+    "kat": "sanayi",
+    "deger": 20,
+    "rol": "Enerji mühendisliği, ROE %59, FAVÖK +%227",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "YGGYO",
+    "yahoo": "YGGYO.IS",
+    "ad": "Yeni Gimat GYO",
+    "kat": "gyo",
+    "deger": 49.4,
+    "rol": "Ankamall, borçsuz, temettü %5",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "AKGRT",
+    "yahoo": "AKGRT.IS",
+    "ad": "Aksigorta",
+    "kat": "sigorta",
+    "deger": 7.9,
+    "rol": "F/K 3,4, ROE %31, hedef +%113",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "EBEBK",
+    "yahoo": "EBEBK.IS",
+    "ad": "Ebebek",
+    "kat": "tuketim",
+    "deger": 12.4,
+    "rol": "Bebek perakendesi, borçsuz, hedef +%51",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "TATGD",
+    "yahoo": "TATGD.IS",
+    "ad": "Tat Gıda",
+    "kat": "tuketim",
+    "deger": 3.5,
+    "rol": "F/K 5,7, defterin yarısı, nakit üretiyor",
+    "grup": "bist100disi"
+  },
+  {
+    "kod": "ORGE",
+    "yahoo": "ORGE.IS",
+    "ad": "Orge Enerji Elektrik",
+    "kat": "sanayi",
+    "deger": 8.3,
+    "rol": "Elektrik taahhüt, ROIC %42, net nakit",
+    "grup": "bist100disi"
+  }
 ]
