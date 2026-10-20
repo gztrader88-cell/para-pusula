@@ -227,5 +227,19 @@
     "yatirim": "2026 ilk yarıda satış %26, FAVÖK %39, net kâr %93 arttı; FAVÖK marjı %50 üstü. Borcu yok: 100 milyon finansal borca karşılık 475 milyon nakit, 375 milyon net nakit. Bekleyen iş yükü 5,6 milyar TL, yıllık cironun 1,4 katı. F/K 9, FD/FAVÖK 3,2; sektör medyanının yarısı. ROE %20, ROIC %42. Şirket eylülden beri hemen her gün kendi hissesini geri alıyor; fonlar düşüşte pozisyon artırdı. Beta 0,5, endeksin yarısı kadar oynak.",
     "risk": "Veri merkezi işi bugün cironun %5-7'si; ekmeği hâlâ metro ve büyük bina projeleri, İBB bütçesine bağlı. Alacak devir hızı düşüyor, hakediş tahsilatı gecikebilir. Nakit ve alacak ağırlıklı bilanço enflasyon muhasebesinde her çeyrek parasal kayıp yazıyor. Çeyrekler dalgalı; 2025 son çeyrekte marj %30'a inmişti. Günlük hacim 70 milyon TL, dar. 2017'den beri temettü yok. Finlandiyalı Evli fonu (%8,75) satarsa baskı olur.",
     "neden": "Yapay zekâ temasını yazılımdan değil elektrik ve veri merkezi zincirinden oynamak istiyorum; Orge bu zincirde veri merkezini kuran halka. Uzun vadede Türkiye'de veri merkezi inşaatı arttıkça iş bitirme belgesi ve ilk etap deneyimi olan borçsuz bir elektrikçi avantajlı olur. Bugün veri merkezi hissesi değil, ucuz ve nakitli bir taahhütçü; temayı pahalıya almamış oluyorum. Fon tasfiyesiyle bağı yok, soruşturma listelerinde yok, düşüşte endeksten ayrıştı. Aydem elektriği üretiyor, Yeo depoluyor, Orge binayı kabloluyor; aynı zincir ama ayrı halkalar, hepsini elektrik altyapısı tezi için tutuyorum ve bu temayı portföyün dörtte biriyle sınırlıyorum."
+  },
+  {
+    "kod": "EKGYO",
+    "yahoo": "EKGYO.IS",
+    "ad": "Emlak Konut GYO",
+    "kat": "gyo",
+    "deger": 72.3,
+    "rol": "Faiz inince konut satışı dönen devlet geliştiricisi",
+    "olg": 3,
+    "ne": "Devletin konut geliştiricisi. TOKİ'nin %49 ortağı olduğu, Türkiye'nin en büyük gayrimenkul yatırım ortaklığı. Hazine ve TOKİ'den arsa alır, projeyi gelir paylaşımı modeliyle özel müteahhide yaptırır, konut ve iş yeri satışından aldığı payı gelir yazar. İstanbul başta olmak üzere büyükşehirlerde yüzlerce proje.",
+    "tema": "Toparlanma listesinde gayrimenkulü ve faiz indiriminin en kaldıraçlı tarafını temsil ediyor. Konut kredisi faizi politika faizinin peşinden iner; her indirim taksit hesabını değiştirir ve bekleyen alıcıyı masaya getirir. Kentsel dönüşüm seferberliği ve TOKİ'nin konut programı devletin geliştiricisine iş demek. Bilançodaki 43 milyar TL nakit ve arsa stoku bugünkü fiyatta defterin yarısına satılıyor.",
+    "yatirim": "Defter değerinin %47'sine işlem görüyor. 16 aracı kurum izliyor, 10'u model portföyünde tutuyor, ortalama hedef 32,54 TL ile %71 potansiyel. Takasın %69'u kurumsal: emeklilik fonları altı ayda 100 milyon lot alıp payını %31'e çıkardı, yatırım fonları da alıyor. Her yıl temettü ödüyor, son ödeme haziranda hisse başı 0,60 TL. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adının olmadığını kontrol ettim; ortağı devlet.",
+    "risk": "Kâr proje teslimine bağlı, çeyrekten çeyreğe sert oynar: son çeyrekte net kâr %81 düştü, yıllık toplam eksiye geçti. Finansal borç bir çeyrekte 60 milyardan 95 milyar TL'ye çıktı, finansman gideri çeyrekte 12,7 milyar; faiz inmezse bu yük kârı yer. Yabancı altı ayda 81 milyon lot sattı. Devlet şirketi olmanın bedeli: arsa ve kaynak kararları her zaman ortak lehine olmayabilir.",
+    "neden": "Sahada gayrimenkul yoktu ve faiz indiriminden en çok kazanacak sektörü dışarıda bırakmıştım. Bütün GYO'lara baktım: çoğunun kârı değerleme kârı, nakit üretmiyor; Sinpaş, Özak, Kiler ve İş GYO zararda, Reysaş yılbaşından beri ikiye katlanmış. Konut satışına doğrudan bağlı, likit, analist desteği olan ve temettü ödeyen tek isim Emlak Konut. Günde 137 milyon lot işlem görüyor, istediğim anda girip çıkabilirim. Tezim basit: faiz inerse konut kredisi döner, konut kredisi dönerse ilk satış burada olur."
   }
 ]
