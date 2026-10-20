@@ -1,10 +1,14 @@
 {
   "banka": { "ad": "Banka", "renk": "#3dd6ff", "aciklama": "Faiz indirim döngüsünün ilk adresi; düşüşte en dirençli sektör." },
   "havacilik": { "ad": "Havacılık", "renk": "#5b8cff", "aciklama": "Petrol gevşerse ilk kazanan; doluluk ve yolcu artıyor." },
-  "enerji": { "ad": "Enerji", "renk": "#b6f04a", "aciklama": "Rafineri marjı ve düzenlenmiş gelir; 3. çeyrek kâr sıçraması bekleniyor." },
-  "tuketim": { "ad": "Tüketim", "renk": "#ff8a3d", "aciklama": "Market ve içecek; ekonomi yavaşlasa da satış sürüyor." },
+  "enerji": { "ad": "Enerji", "renk": "#b6f04a", "aciklama": "Rafineri marjı, düzenlenmiş gelir ve hidro üretim; faiz indiriminden rahatlayan borçlu şirketler." },
+  "tuketim": { "ad": "Tüketim", "renk": "#ff8a3d", "aciklama": "Market, içecek, bebek perakendesi ve gıda; ekonomi yavaşlasa da satış sürüyor." },
   "savunma": { "ad": "Savunma", "renk": "#a78bfa", "aciklama": "Büyüme şampiyonu; toparlanma gününde endeksi taşıdı." },
   "holding": { "ad": "Holding", "renk": "#ff5c8a", "aciklama": "Defter değerinin çok altında; iştirakler tek sepette." },
   "telekom": { "ad": "Telekom", "renk": "#2dd4a8", "aciklama": "Nakit üreten, borcu düşük, ucuz çarpanlı savunma hissesi." },
-  "saglik": { "ad": "Sağlık", "renk": "#f5d04c", "aciklama": "Ekonomiden bağımsız talep; marjlar iyileşiyor." }
+  "saglik": { "ad": "Sağlık", "renk": "#f5d04c", "aciklama": "Hastane ve ilaç; ekonomiden bağımsız talep." },
+  "yazilim": { "ad": "Yazılım ve teknoloji", "renk": "#7dd3fc", "aciklama": "İş yazılımı, coğrafi bilgi sistemi ve teknoloji dağıtımı; BIST 100 dışı, nakit üreten büyüme." },
+  "gyo": { "ad": "Gayrimenkul", "renk": "#d4a373", "aciklama": "Kira geliri, borçsuz bilanço; faiz indiriminde çarpanı açılan grup." },
+  "sigorta": { "ad": "Sigorta", "renk": "#c084fc", "aciklama": "Tek haneli F/K, yüksek özkaynak kârlılığı, temettü." },
+  "sanayi": { "ad": "Sanayi ve mühendislik", "renk": "#fb7185", "aciklama": "Enerji mühendisliği ve elektrik taahhüt; yüksek sermaye getirisi, net nakit." }
 }

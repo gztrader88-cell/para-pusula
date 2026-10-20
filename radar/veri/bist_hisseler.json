@@ -12,5 +12,16 @@
   { "kod": "KCHOL", "yahoo": "KCHOL.IS", "ad": "Koç Holding", "kat": "holding", "deger": 514, "rol": "Defterin %35 altında, 3Ç kâr sıçraması" },
   { "kod": "SAHOL", "yahoo": "SAHOL.IS", "ad": "Sabancı Holding", "kat": "holding", "deger": 180, "rol": "Defterin %57 altında, aile alımı" },
   { "kod": "TCELL", "yahoo": "TCELL.IS", "ad": "Turkcell", "kat": "telekom", "deger": 212, "rol": "BIST'in en ucuz büyük nakit üreticisi" },
-  { "kod": "MPARK", "yahoo": "MPARK.IS", "ad": "MLP Sağlık", "kat": "saglik", "deger": 77, "rol": "Ekonomiden bağımsız talep, nakit üretiyor" }
+  { "kod": "MPARK", "yahoo": "MPARK.IS", "ad": "MLP Sağlık", "kat": "saglik", "deger": 77, "rol": "Ekonomiden bağımsız talep, nakit üretiyor" },
+  { "kod": "LOGO", "yahoo": "LOGO.IS", "ad": "Logo Yazılım", "kat": "yazilim", "deger": 11.9, "rol": "En büyük iş yazılımı, hedef +%83", "grup": "bist100disi" },
+  { "kod": "NETCD", "yahoo": "NETCD.IS", "ad": "Netcad Yazılım", "kat": "yazilim", "deger": 11.0, "rol": "Coğrafi bilgi sistemi, net nakit, ROE %28", "grup": "bist100disi" },
+  { "kod": "INDES", "yahoo": "INDES.IS", "ad": "İndeks Bilgisayar", "kat": "yazilim", "deger": 8.6, "rol": "Teknoloji dağıtımı, düşüşte +%11 ayrıştı", "grup": "bist100disi" },
+  { "kod": "DEVA", "yahoo": "DEVA.IS", "ad": "Deva Holding", "kat": "saglik", "deger": 15.1, "rol": "Yerli ilaç, FAVÖK +%123, defterin yarısı", "grup": "bist100disi" },
+  { "kod": "AYDEM", "yahoo": "AYDEM.IS", "ad": "Aydem Yenilenebilir", "kat": "enerji", "deger": 14.8, "rol": "Hidro üretim +%47, hedef +%91", "grup": "bist100disi" },
+  { "kod": "YEOTK", "yahoo": "YEOTK.IS", "ad": "Yeo Teknoloji", "kat": "sanayi", "deger": 20.0, "rol": "Enerji mühendisliği, ROE %59, FAVÖK +%227", "grup": "bist100disi" },
+  { "kod": "YGGYO", "yahoo": "YGGYO.IS", "ad": "Yeni Gimat GYO", "kat": "gyo", "deger": 49.4, "rol": "Ankamall, borçsuz, temettü %5", "grup": "bist100disi" },
+  { "kod": "AKGRT", "yahoo": "AKGRT.IS", "ad": "Aksigorta", "kat": "sigorta", "deger": 7.9, "rol": "F/K 3,4, ROE %31, hedef +%113", "grup": "bist100disi" },
+  { "kod": "EBEBK", "yahoo": "EBEBK.IS", "ad": "Ebebek", "kat": "tuketim", "deger": 12.4, "rol": "Bebek perakendesi, borçsuz, hedef +%51", "grup": "bist100disi" },
+  { "kod": "TATGD", "yahoo": "TATGD.IS", "ad": "Tat Gıda", "kat": "tuketim", "deger": 3.5, "rol": "F/K 5,7, defterin yarısı, nakit üretiyor", "grup": "bist100disi" },
+  { "kod": "ORGE", "yahoo": "ORGE.IS", "ad": "Orge Enerji Elektrik", "kat": "sanayi", "deger": 8.3, "rol": "Elektrik taahhüt, ROIC %42, net nakit", "grup": "bist100disi" }
 ]

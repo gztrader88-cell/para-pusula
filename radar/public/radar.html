@@ -119,6 +119,26 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .top-btn.tr:hover { border-color: #ff5c6c; color: #ff5c6c; }
 .top-btn .rozet { position: absolute; right: -3px; bottom: -3px; width: 19px; height: 19px; border-radius: 50%; background: #e0203c; color: #fff; font-family: var(--display); font-weight: 800; font-size: .7rem; line-height: 19px; text-align: center; border: 2px solid var(--bg); }
 .kadro.bist .kadro-bas h2 svg { color: #ff5c6c; }
+/* Hisse ekle / çıkar / renk paneli: araç çubuğundaki düğmeyle açılır, takıma özel ayarlar cihazda saklanır */
+.duzen { flex-basis: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; max-height: 42vh; overflow-y: auto; }
+.duzen-ekle { display: flex; gap: 6px; align-items: center; }
+.duzen-ekle input { flex: 1; min-width: 0; background: var(--surface-2); border: 1px solid var(--line); color: var(--fg); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: .9rem; text-transform: uppercase; }
+.duzen-ekle button { background: var(--fg); color: #0d1017; border: 0; border-radius: 8px; padding: 7px 12px; font-weight: 800; cursor: pointer; }
+.duzen-not { margin: 0; font-size: .78rem; color: var(--muted); }
+.duzen-liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; }
+.duzen-satir { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 8px; background: var(--surface-2); min-width: 0; }
+.duzen-satir.gizli { opacity: .45; }
+.duzen-satir .renk { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); background: var(--k); cursor: pointer; flex: 0 0 auto; padding: 0; }
+.duzen-satir .kodad { flex: 1; min-width: 0; font-size: .84rem; line-height: 1.2; }
+.duzen-satir .kodad b { font-family: var(--display); }
+.duzen-satir .kodad span { display: block; color: var(--muted); font-size: .72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.duzen-satir .cikar { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 6px; padding: 3px 8px; font-size: .74rem; font-weight: 700; cursor: pointer; }
+.duzen-satir .cikar:hover { color: var(--fg); border-color: var(--fg); }
+.palet { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 8px; background: var(--surface-2); border-radius: 8px; align-items: center; }
+.palet span { font-size: .74rem; color: var(--muted); margin-right: 4px; }
+.palet button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+.palet button[aria-pressed="true"] { border-color: #fff; }
+.palet .sifirla { width: auto; height: auto; border-radius: 6px; border: 1px solid var(--line); background: none; color: var(--muted); font-size: .72rem; padding: 3px 8px; }
 .kadro { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: flex; flex-direction: column; user-select: none; -webkit-user-select: none; }
 .kadro-bas { width: 100%; max-width: 1100px; margin: 0 auto; padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; flex: 0 0 auto; }
 .kadro-bas h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
@@ -220,7 +240,12 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
     <button class="kapat" id="kadroKapat" aria-label="Kadroyu kapat">✕</button>
     <div class="kadro-arac">
       <div class="dizilis" id="dizilis" role="group" aria-label="Diziliş"></div>
-      <button class="bosalt" id="bosalt">Boşalt</button>
+      <div class="dizilis"><button id="duzenAc" aria-pressed="false">Hisseler ve renkler</button><button class="bosalt" id="bosalt">Boşalt</button></div>
+    </div>
+    <div class="duzen" id="duzen" hidden>
+      <div class="duzen-ekle"><input id="duzenKod" type="text" placeholder="Hisse kodu, örnek: ARCLK" maxlength="8" autocomplete="off"><button id="duzenEkle" type="button">Ekle</button></div>
+      <p class="duzen-not" id="duzenNot">Kodu yazıp Ekle'ye bas; fiyatı Yahoo'dan gelir. Listeden "Çıkar" ile kenardan kaldır, renk topuna dokunup rengini seç.</p>
+      <div class="duzen-liste" id="duzenListe"></div>
     </div>
     <p class="kadro-durum" id="kadroDurum" aria-live="polite"></p>
   </div>
@@ -374,7 +399,46 @@ var TAKIMLAR = {
 };
 var takim = "ai";
 function tkKat() { return TAKIMLAR[takim].kategoriler(); }
-function tkHisseler() { return TAKIMLAR[takim].hisseler(); }
+// Takımın kenar listesi: sunucu listesi (kullanıcının çıkardıkları hariç) + kullanıcının eklediği kodlar (fiyatı /api/fiyat'tan)
+var ekFiyatlar = {}; // "tr:KOD" -> {fiyat, gun, ay, ytd}
+var ayarAll = { ai: { ekle: [], gizli: [], renk: {} }, bist: { ekle: [], gizli: [], renk: {} } };
+function ayar() { return ayarAll[takim]; }
+function ayarKaydet() { try { localStorage.setItem("radarKadroAyar_v1", JSON.stringify(ayarAll)); } catch (e) {} }
+function ayarYukle() {
+  try {
+    var v = JSON.parse(localStorage.getItem("radarKadroAyar_v1") || "null"); if (!v) return;
+    ["ai", "bist"].forEach(function (t) {
+      var a = v[t]; if (!a) return;
+      if (Array.isArray(a.ekle)) ayarAll[t].ekle = a.ekle.filter(function (k) { return typeof k === "string"; });
+      if (Array.isArray(a.gizli)) ayarAll[t].gizli = a.gizli.filter(function (k) { return typeof k === "string"; });
+      if (a.renk && typeof a.renk === "object") ayarAll[t].renk = a.renk;
+    });
+  } catch (e) {}
+}
+ayarYukle();
+function pazar(t) { return t === "bist" ? "tr" : "us"; }
+function tkHisseler() {
+  var a = ayar(), temel = TAKIMLAR[takim].hisseler().filter(function (h) { return a.gizli.indexOf(h.kod) < 0; });
+  var varolan = {}; temel.forEach(function (h) { varolan[h.kod] = true; });
+  var ekli = a.ekle.filter(function (k) { return !varolan[k]; }).map(function (k) {
+    var f = ekFiyatlar[pazar(takim) + ":" + k] || {};
+    return { kod: k, ad: "Elle eklendi", kat: "ozel", deger: 0, ozel: true, fiyat: f.fiyat, gun: f.gun, ay: f.ay, ytd: f.ytd };
+  });
+  return temel.concat(ekli);
+}
+function renk(h) { var r = ayar().renk[h.kod]; if (r) return r; var k = tkKat()[h.kat]; return k ? k.renk : "#8e97a8"; }
+var PALET = ["#3dd6ff", "#5b8cff", "#a78bfa", "#c084fc", "#ff5c8a", "#fb7185", "#ff8a3d", "#f5d04c", "#b6f04a", "#2dd4a8", "#7dd3fc", "#d4a373", "#e8e6df", "#8e97a8"];
+// Elle eklenen kodların fiyatlarını sunucudan çeker (her takım kendi pazarıyla), sonra sahayı yeniden çizer
+function ekFiyatYukle() {
+  ["ai", "bist"].forEach(function (t) {
+    var kodlar = ayarAll[t].ekle; if (!kodlar.length) return;
+    fetch("/api/fiyat?pazar=" + pazar(t) + "&kodlar=" + encodeURIComponent(kodlar.join(",")), { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (v) {
+      if (!v || !v.fiyatlar) return;
+      Object.keys(v.fiyatlar).forEach(function (k) { if (v.fiyatlar[k]) ekFiyatlar[pazar(t) + ":" + k] = v.fiyatlar[k]; });
+      if (!(surukle && surukle.aktif)) kadroCiz();
+    }).catch(function () {});
+  });
+}
 var DIZILISLER = {
   "4-4-2": [["d", 4], ["o", 4], ["f", 2]],
   "4-3-3": [["d", 4], ["o", 3], ["f", 3]],
@@ -431,7 +495,7 @@ function oyHtml(kod, yer) {
   var h = kod && hm[kod];
   if (!h) return '<button class="oy bos" data-yer="' + yer + '" aria-label="Boş mevki: ' + MEVKI_AD[yer[0]] + '"><span class="top">+</span><span class="etk">' + MEVKI_KISA[yer[0]] + '</span></button>';
   var gunVar = typeof h.gun === "number";
-  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + tkKat()[h.kat].renk + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
+  return '<button class="oy' + (kd.secili === kod ? " secili" : "") + '" data-yer="' + yer + '" data-kod="' + kod + '" style="--k:' + renk(h) + '" title="' + h.kod + " · " + h.ad + '" aria-label="' + h.kod + '">' +
     '<span class="top">' + h.kod + '</span><span class="etk ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></button>';
 }
 
@@ -482,6 +546,7 @@ function kadroCiz() {
     ? disarda.map(function (h) { return oyHtml(h.kod, "kenar"); }).join("")
     : '<span class="bos-yazi">Bütün hisseler kadroda.</span>';
   document.getElementById("kenarSay").textContent = disarda.length + " hisse";
+  duzenCiz();
 
   var durumEl = document.getElementById("kadroDurum");
   var ilk11 = Object.keys(kd.yerler).map(function (id) { return hm[kd.yerler[id]]; });
@@ -562,7 +627,7 @@ window.addEventListener("pointermove", function (e) {
     surukle.aktif = true;
     hayalet = document.createElement("div");
     hayalet.className = "hayalet";
-    hayalet.style.setProperty("--k", tkKat()[hm[surukle.kod].kat].renk);
+    hayalet.style.setProperty("--k", renk(hm[surukle.kod]));
     hayalet.innerHTML = '<span class="top">' + surukle.kod + "</span>";
     document.body.appendChild(hayalet);
     surukle.oy.classList.add("kaynak");
@@ -591,10 +656,71 @@ kadroEl.addEventListener("click", function (e) {
   var oy = e.target.closest(".oy"); if (oy) dokun(oy.dataset.kod || null, oy.dataset.yer);
 });
 
+// ---- Hisse ekle / çıkar / renk paneli ----
+var duzenRenkAcik = null; // paleti açık olan hisse kodu
+function duzenCiz() {
+  var el = document.getElementById("duzen"); if (el.hidden) return;
+  var a = ayar(), temel = TAKIMLAR[takim].hisseler(), liste = tkHisseler();
+  var gizliler = temel.filter(function (h) { return a.gizli.indexOf(h.kod) >= 0; });
+  var html = liste.concat(gizliler).map(function (h) {
+    var gizli = a.gizli.indexOf(h.kod) >= 0;
+    var satir = '<div class="duzen-satir' + (gizli ? " gizli" : "") + '" style="--k:' + renk(h) + '" data-kod="' + h.kod + '">' +
+      '<button class="renk" data-renk="' + h.kod + '" aria-label="' + h.kod + ' rengini seç" title="Rengi seç"></button>' +
+      '<div class="kodad"><b>' + h.kod + '</b><span>' + (h.ozel ? "Elle eklendi" : h.ad) + '</span></div>' +
+      '<button class="cikar" data-cikar="' + h.kod + '">' + (gizli ? "Geri al" : h.ozel ? "Sil" : "Çıkar") + '</button></div>';
+    if (duzenRenkAcik === h.kod) {
+      satir += '<div class="palet"><span>' + h.kod + ' rengi:</span>' + PALET.map(function (c) { return '<button data-renksec="' + c + '" style="background:' + c + '" aria-pressed="' + (a.renk[h.kod] === c) + '" aria-label="' + c + '"></button>'; }).join("") +
+        '<button class="sifirla" data-renksec="">Sektör rengi</button></div>';
+    }
+    return satir;
+  }).join("");
+  document.getElementById("duzenListe").innerHTML = html || '<span class="bos-yazi">Hisse yok.</span>';
+}
+function duzenEkleKod() {
+  var inp = document.getElementById("duzenKod"), not = document.getElementById("duzenNot");
+  var kod = (inp.value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "");
+  if (!kod) return;
+  var a = ayar();
+  var temel = TAKIMLAR[takim].hisseler().some(function (h) { return h.kod === kod; });
+  if (temel) { a.gizli = a.gizli.filter(function (k) { return k !== kod; }); not.textContent = kod + " zaten listede, kenara geri alındı."; }
+  else if (a.ekle.indexOf(kod) < 0) { a.ekle.push(kod); not.textContent = kod + " eklendi, fiyatı geliyor…"; }
+  else not.textContent = kod + " zaten ekli.";
+  inp.value = "";
+  ayarKaydet(); kadroCiz(); ekFiyatYukle();
+}
+document.getElementById("duzenAc").addEventListener("click", function () {
+  var el = document.getElementById("duzen"); el.hidden = !el.hidden;
+  this.setAttribute("aria-pressed", String(!el.hidden));
+  if (!el.hidden) { duzenCiz(); document.getElementById("duzenKod").focus(); }
+});
+document.getElementById("duzenEkle").addEventListener("click", duzenEkleKod);
+document.getElementById("duzenKod").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); duzenEkleKod(); } });
+document.getElementById("duzenListe").addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b) return;
+  var a = ayar();
+  if (b.dataset.cikar) {
+    var kod = b.dataset.cikar;
+    if (a.ekle.indexOf(kod) >= 0) a.ekle = a.ekle.filter(function (k) { return k !== kod; });
+    else if (a.gizli.indexOf(kod) >= 0) a.gizli = a.gizli.filter(function (k) { return k !== kod; });
+    else a.gizli.push(kod);
+    kd.secili = null; ayarKaydet(); kdKaydet(); kadroCiz(); return;
+  }
+  if (b.dataset.renk) { duzenRenkAcik = duzenRenkAcik === b.dataset.renk ? null : b.dataset.renk; duzenCiz(); return; }
+  if (b.dataset.renksec !== undefined) {
+    var satir = b.closest(".palet").previousElementSibling; var k2 = satir && satir.dataset.kod; if (!k2) return;
+    if (b.dataset.renksec) a.renk[k2] = b.dataset.renksec; else delete a.renk[k2];
+    duzenRenkAcik = null; ayarKaydet(); kadroCiz();
+  }
+});
+
 function kadroAc(t) {
   takim = TAKIMLAR[t] ? t : "ai";
   kd = kdAll[takim];
   kd.secili = null;
+  duzenRenkAcik = null;
+  document.getElementById("duzen").hidden = true;
+  document.getElementById("duzenAc").setAttribute("aria-pressed", "false");
+  ekFiyatYukle();
   document.getElementById("kadroAd").textContent = TAKIMLAR[takim].ad;
   document.getElementById("kenarAd").textContent = TAKIMLAR[takim].kenar;
   kadroEl.classList.toggle("bist", takim === "bist");
@@ -641,6 +767,7 @@ function veriYukle(ilk) {
     ciz();
     if (acikKod) { var i = durum.liste.findIndex(function (h) { return h.kod === acikKod; }); if (i >= 0) ac(i); }
     if (!(surukle && surukle.aktif)) kadroCiz();
+    if (!ilk) ekFiyatYukle();
     if (ilk && location.hash === "#kadro") { kadroAc("ai"); return; }
     if (ilk && location.hash === "#kadro-tr") { kadroAc("bist"); return; }
     if (ilk) {
