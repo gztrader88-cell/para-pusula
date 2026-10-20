@@ -241,5 +241,20 @@
     "yatirim": "Defter değerinin %47'sine işlem görüyor. 16 aracı kurum izliyor, 10'u model portföyünde tutuyor, ortalama hedef 32,54 TL ile %71 potansiyel. Takasın %69'u kurumsal: emeklilik fonları altı ayda 100 milyon lot alıp payını %31'e çıkardı, yatırım fonları da alıyor. Her yıl temettü ödüyor, son ödeme haziranda hisse başı 0,60 TL. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adının olmadığını kontrol ettim; ortağı devlet.",
     "risk": "Kâr proje teslimine bağlı, çeyrekten çeyreğe sert oynar: son çeyrekte net kâr %81 düştü, yıllık toplam eksiye geçti. Finansal borç bir çeyrekte 60 milyardan 95 milyar TL'ye çıktı, finansman gideri çeyrekte 12,7 milyar; faiz inmezse bu yük kârı yer. Yabancı altı ayda 81 milyon lot sattı. Devlet şirketi olmanın bedeli: arsa ve kaynak kararları her zaman ortak lehine olmayabilir.",
     "neden": "Sahada gayrimenkul yoktu ve faiz indiriminden en çok kazanacak sektörü dışarıda bırakmıştım. Bütün GYO'lara baktım: çoğunun kârı değerleme kârı, nakit üretmiyor; Sinpaş, Özak, Kiler ve İş GYO zararda, Reysaş yılbaşından beri ikiye katlanmış. Konut satışına doğrudan bağlı, likit, analist desteği olan ve temettü ödeyen tek isim Emlak Konut. Günde 137 milyon lot işlem görüyor, istediğim anda girip çıkabilirim. Tezim basit: faiz inerse konut kredisi döner, konut kredisi dönerse ilk satış burada olur."
+  },
+  {
+    "kod": "KRONT",
+    "yahoo": "KRONT.IS",
+    "ad": "Kron Teknoloji",
+    "kat": "yazilim",
+    "deger": 2.9,
+    "rol": "Yedek: siber güvenlik ve yapay zekâ ajanı erişim yönetimi",
+    "grup": "bist100disi",
+    "olg": 2,
+    "ne": "Telekom operatörlerine ağ erişim ve kimlik doğrulama yazılımı, kurumlara da Kron PAM adlı ayrıcalıklı erişim yönetimi ürünü satan siber güvenlik şirketi. Turkcell gibi operatörler müşterisi, ABD'de iştiraki var, haziranda Azerbaycan'ın ulusal siber güvenlik ajansıyla anlaştı. Gelirinin dörtte üçü dolar bazlı, giderleri TL.",
+    "tema": "Listemin yedek kulübesindeki tek teknoloji hissesi. Yapay zekâ ajanları şirket sistemlerine girmeye başladıkça kimin neye erişebileceğini yöneten yazılım zorunlu hale geliyor; Kron 1 Ekim'de çıkardığı sürümle tam bu işi yapıyor. Türkiye'nin ilk Siber Güvenlik Kanunu 2025'te yürürlüğe girdi, kamu ve bankalar bu ürünleri almak zorunda.",
+    "yatirim": "Brüt marj %89, net nakit 61 milyon TL, dolar bazlı faturalanan gelir ilk yarıda %26 büyüdü ve gelirin %64'ü her yıl yinelenen abonelik. Halka açıklık %53, fiili dolaşım %65. Emeklilik fonları altı ayda 10,7 milyon lot alıp payını %14,5'e çıkardı, 30 fonda var. Fiyat zirvenin %42 altında. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adının olmadığını kontrol ettim.",
+    "risk": "Kâr düşüyor: son çeyrekte esas faaliyet kârı %36, net kâr %43 geriledi, çünkü abonelik modeli geliri zamana yayıyor ve pazarlama ile ArGe harcaması büyük. F/K 20 ile ucuz değil. Analist kapsaması yok, temettü yok, günlük hacim 20 milyon TL civarı; kademeli alınır, küçük ağırlıkla taşınır.",
+    "neden": "Yazılım şirketlerine şüpheyle bakıyorum, çünkü yazılım yapmak ucuzladı ve Logo'nun yaptığını yarın bir başkası yapar. Kron'u yine de yedek kulübesine aldım, çünkü sattığı şey bir program değil, operatörün ve bankanın en hassas kapısını tutan güven. O kapıyı değiştirmek yıllar sürer. Küçük bir şirket, o yüzden ilk 11'de değil kulübede; teknoloji temasını ucuz yazılımla değil, dolar geliri ve net nakdi olan bir güvenlik ürünüyle temsil etmesini istedim."
   }
 ]
