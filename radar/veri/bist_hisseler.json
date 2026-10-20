@@ -1,5 +1,4 @@
 [
-
   {
     "kod": "GARAN",
     "yahoo": "GARAN.IS",
@@ -166,11 +165,17 @@
   {
     "kod": "YEOTK",
     "yahoo": "YEOTK.IS",
-    "ad": "Yeo Teknoloji",
+    "ad": "Yeo Teknoloji Enerji",
     "kat": "sanayi",
     "deger": 20,
-    "rol": "Enerji mühendisliği, ROE %59, FAVÖK +%227",
-    "grup": "bist100disi"
+    "rol": "Batarya depolama hikâyesi, FAVÖK üç kat",
+    "grup": "bist100disi",
+    "olg": 2,
+    "ne": "Enerji mühendisliği şirketi: güneş ve rüzgâr santralleri, şebeke bağlantıları ve enerji depolama tesislerini anahtar teslim kurar. Tuzla'daki REAP Battery fabrikasında yerli batarya enerji depolama sistemi üretir. Yenilenebilir enerjinin yanında su, maden, çimento ve petrol-gaz tesislerine de otomasyon ve elektrik sistemleri yapar.",
+    "tema": "Toparlanma listesinde yeni enerji altyapısını temsil ediyor. Türkiye depolamalı güneş santrali ihalelerine geçti, Azerbaycan ve Romanya depolama projeleri veriyor; şirket Azerbaycan'da 250 megavatsaatlik batarya projesi için 58,6 milyon dolarlık sözleşme imzaladı ve 20 Ekim'de PAŞA Bank finansmanı kullandırıldı. İlk yarıda alınan yeni iş 206 milyon dolar, bekleyen iş yükü 379 milyon dolar. Fon krizinden önce de düşen trendde olduğu için düşüşü fonlara bağlanamaz; soruşturma listelerinde adı yok.",
+    "yatirim": "Satış %48, FAVÖK %227 arttı; FAVÖK marjı %28, özkaynak kârlılığı %59, sermaye getirisi %35. F/K 7,9 ve FD/FAVÖK 5,0 ile enerji teknolojileri grubunun en ucuzu (sektör medyanı 6,8; Astor 11,2, Europower 7,3). Borcu FAVÖK'ün 1,2 katı. Yılbaşından +%60 ama zirveden yarı yarıya geriledi; 11 Eylül'deki yatırımcı sunumu 2030'a kadar yıl yıl hedef veriyor.",
+    "risk": "Tahta %85 bireysel, dalgalı; fonlar son ayda pozisyonlarını %24 azalttı. Serbest nakit akışı eksi (işletme sermayesi büyümeye gidiyor), geri alım programı yok. Aylık grafik beş aydır kırmızı; teknik görüş 26,18 üstü kapanış istiyor, 23-24 destek. Analist hedefi yok, takip kurumsal değil. Proje şirketi olduğu için çeyrekler dalgalı gelir.",
+    "neden": "Patronun seçimi. Hikâyesi gerçek ve güncel: yerli batarya üretimi, yurt dışı depolama projeleri ve 379 milyon dolarlık iş yükü. Rakipleri arasında en ucuz çarpanla işlem görüyor ve fon tasfiyesiyle bağı yok; düşüşün nedeni kendi trendinin bozulması. Faiz indirimi proje finansmanını kolaylaştırır, depolamalı santral ihaleleri talebi büyütür. Yüksek risk ve yüksek getiri profili; kademeli alınır, 26,18 üstü kapanış teyit sayılır."
   },
   {
     "kod": "YGGYO",
