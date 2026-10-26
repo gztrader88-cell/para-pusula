@@ -20,7 +20,10 @@ const KATEGORILER = oku("veri/kategoriler.json");
 // Borsa İstanbul kadrosu: ikinci top simgesiyle açılan saha için Türk hisseleri (Yahoo'da KOD.IS)
 const BIST_HISSELER = oku("veri/bist_hisseler.json");
 const BIST_KATEGORILER = oku("veri/bist_kategoriler.json");
-const TUM_HISSELER = HISSELER.concat(BIST_HISSELER);
+// Patronun ilk 11'i (iki pazar): ana sayfada gömülü saha. "ozel" girdiler listede olmayan fonlar; yahoo kodu olanların fiyatı çekilir.
+const ILK11 = oku("veri/ilk11.json");
+const OZEL = [].concat.apply([], Object.keys(ILK11).map((k) => (ILK11[k].ozel || []).filter((o) => o.yahoo)));
+const TUM_HISSELER = HISSELER.concat(BIST_HISSELER, OZEL);
 const SAYFA = { radar: fs.readFileSync(path.join(KOK, "public", "radar.html"), "utf8"), giris: fs.readFileSync(path.join(KOK, "public", "giris.html"), "utf8") };
 
 // ---- Hafta ve şifre ----
@@ -80,7 +83,13 @@ async function tekFiyat(kod, yahoo) {
   const kapanis = q.close || [], acilis = q.open || [];
   const seri = [];
   for (let i = 0; i < kapanis.length; i++) if (kapanis[i] != null) seri.push({ d: new Date(ts[i] * 1000).toISOString().slice(0, 10), c: kapanis[i], o: acilis[i] != null ? acilis[i] : kapanis[i] });
-  if (seri.length < 2) throw new Error("yetersiz veri");
+  if (seri.length < 2) {
+    // Geçmişi olmayan yeni fon/hisse (Yahoo tek bar döner): yalnız fiyat ve günlük değişim, ay/yılbaşı boş kalır
+    const sonF = s.meta.regularMarketPrice, oncF = s.meta.chartPreviousClose || s.meta.previousClose;
+    const gunF = oncF ? (sonF / oncF - 1) * 100 : s.meta.regularMarketChangePercent;
+    if (sonF && typeof gunF === "number") return { fiyat: +sonF.toFixed(2), gun: +gunF.toFixed(2) };
+    throw new Error("yetersiz veri");
+  }
   const sonBar = seri[seri.length - 1];
   const son = s.meta.regularMarketPrice || sonBar.c;
   const onceki = seri[seri.length - 2].c;
@@ -168,7 +177,9 @@ http.createServer(async (req, res) => {
     if (!girisliMi(req)) return gonder(res, 401, "application/json", JSON.stringify({ hata: "giriş gerekli" }));
     const hisseler = HISSELER.map((h) => Object.assign({}, h, fiyat.veri[h.kod] || {}));
     const bist = { kategoriler: BIST_KATEGORILER, hisseler: BIST_HISSELER.map((h) => Object.assign({}, h, fiyat.veri[h.kod] || {})) };
-    return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: fiyat.zaman, gecikmeDk: 15, yenilemeDk: YENILEME_DK, hafta: haftaBasi(), kategoriler: KATEGORILER, hisseler, bist }));
+    const ilk11 = {};
+    Object.keys(ILK11).forEach((k) => { ilk11[k] = Object.assign({}, ILK11[k], { ozel: (ILK11[k].ozel || []).map((o) => Object.assign({}, o, fiyat.veri[o.kod] || {})) }); });
+    return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: fiyat.zaman, gecikmeDk: 15, yenilemeDk: YENILEME_DK, hafta: haftaBasi(), kategoriler: KATEGORILER, hisseler, bist, ilk11 }));
   }
 
   // Kadroya elle eklenen hisseler için fiyat: /api/fiyat?kodlar=XXX,YYY (BIST kodu, en çok 40; 15 dk önbellek)
@@ -196,7 +207,7 @@ http.createServer(async (req, res) => {
     const html = "<!doctype html><meta charset=utf-8><title>Radar yönetim</title><style>body{font:16px system-ui;padding:24px;max-width:640px}td{padding:6px 12px;border-bottom:1px solid #ddd}</style>" +
       "<h2>Radar yönetim</h2><p>Bu hafta: <b>" + hb + "</b>" + (process.env.SIFRE ? " (SIFRE ortam değişkeni listeyi eziyor)" : "") + "</p>" +
       "<table>" + satir + "</table>" +
-      "<p>Fiyat yenileme: " + (fiyat.zaman ? new Date(fiyat.zaman + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul)" : "henüz yok") + " · " + Object.keys(fiyat.veri).length + "/" + TUM_HISSELER.length + " hisse (" + HISSELER.length + " ABD + " + BIST_HISSELER.length + " BIST)</p>" +
+      "<p>Fiyat yenileme: " + (fiyat.zaman ? new Date(fiyat.zaman + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul)" : "henüz yok") + " · " + Object.keys(fiyat.veri).length + "/" + TUM_HISSELER.length + " hisse (" + HISSELER.length + " ABD + " + BIST_HISSELER.length + " BIST" + (OZEL.length ? " + " + OZEL.length + " fon" : "") + ")</p>" +
       (fiyat.hata ? "<p style='color:#b00'>Hatalar: " + kacir(fiyat.hata) + "</p>" : "") +
       "<h3>Ziyaret</h3><p style='color:#666;font-size:14px'>Tekil ziyaretçi = aynı gün içinde radarı açan farklı cihaz sayısı. Sayaç " + new Date(istat.baslangic + 3 * 3600 * 1000).toISOString().replace("T", " ").slice(0, 16) + " (İstanbul) itibarıyla tutuluyor; sunucu yeniden başlarsa sıfırlanır, saat başı özet Railway günlüğüne yazılır.</p>" +
       "<table><tr><th>Gün</th><th>Tekil ziyaretçi</th><th>Sayfa açılışı</th><th>Başarılı giriş</th><th>Yanlış şifre</th></tr>" +

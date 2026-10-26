@@ -1,0 +1,25 @@
+{
+  "bist": {
+    "baslik": "Benim İlk 11'im",
+    "dizilis": "4-2-3-1",
+    "tarih": "20 Ekim 2026",
+    "not": "Kalede para piyasası fonu, 10 numarada altın fonu, forvette Orge. Kulübede bir yedek var. Oyuncuya dokun, neden seçtiğimi oku.",
+    "yerler": { "kl": "BGP", "d0": "BIMAS", "d1": "GARAN", "d2": "AKBNK", "d3": "TCELL", "o0": "THYAO", "o1": "EKGYO", "o2": "AYDEM", "o3": "GLDTR", "o4": "YEOTK", "f0": "ORGE" },
+    "mevki": { "kl": "Kaleci · nakit", "d0": "Sol bek", "d1": "Stoper", "d2": "Stoper", "d3": "Sağ bek", "o0": "Orta saha", "o1": "Orta saha", "o2": "Sol açık", "o3": "10 numara · altın", "o4": "Sağ açık", "f0": "Forvet" },
+    "yedek": ["KRONT"],
+    "ozel": [
+      { "kod": "BGP", "ad": "Ak Portföy Üçüncü Para Piyasası Fonu", "rol": "Kaledeki nakit: günlük faizde bekler", "renk": "#dfe6ee", "etiket": "faiz", "ne": "Ak Portföy'ün para piyasası fonu. TEFAS'tan alınır, parayı günlük faizde bekletir. Saha karışınca kalede duran nakit budur.", "neden": "Kaleci faizdir. Borsa düşerken elimde faiz getiren bir nakit olsun, fırsat çıkınca ondan alayım diye kaleye para piyasası fonunu koydum." },
+      { "kod": "GLDTR", "ad": "QNB Portföy Altın Katılım BYF", "rol": "10 numara: fiziki altına dayalı borsa fonu", "renk": "#f5c542", "yahoo": "GLDTR.IS", "ne": "QNB Portföy'ün altın fonu. Borsa İstanbul'da hisse gibi alınıp satılır, fiziki altına dayalıdır. Günde yaklaşık 270 bin lot işlem görür.", "neden": "10 numara altındır. Takımın oyun kurucusu olarak altını seçtim, çünkü hisseler düşerken portföyü ayakta tutan, enflasyona karşı koruyan oyuncu odur." }
+    ]
+  },
+  "ai": {
+    "baslik": "Benim İlk 11'im",
+    "dizilis": "4-3-3",
+    "tarih": "26 Ekim 2026",
+    "not": "Yerleşik şirketler savunmada, büyüme aşamasındakiler orta sahada, hikâye hisseleri hücumda. Kulübede yedi yedek var. Oyuncuya dokun, şirketi oku.",
+    "yerler": { "kl": "NOW", "d0": "ISRG", "d1": "SKHY", "d2": "ON", "d3": "RBRK", "o0": "CRDO", "o1": "NBIS", "o2": "RKLB", "f0": "IREN", "f1": "ASTS", "f2": "TEM" },
+    "mevki": { "kl": "Kaleci", "d0": "Sol bek", "d1": "Stoper", "d2": "Stoper", "d3": "Sağ bek", "o0": "Orta saha", "o1": "Orta saha", "o2": "Orta saha", "f0": "Sol kanat", "f1": "Santrfor", "f2": "Sağ kanat" },
+    "yedek": ["HIMS", "DOCN", "NVTS", "VPG", "OSS", "MARA", "EOSE"],
+    "ozel": []
+  }
+}
