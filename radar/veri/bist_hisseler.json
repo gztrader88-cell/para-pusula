@@ -6,7 +6,12 @@
     "kat": "banka",
     "deger": 556,
     "rol": "Faiz indiriminde ilk kazanan banka",
-    "olg": 3
+    "olg": 3,
+    "ne": "Türkiye'nin en büyük özel bankalarından biri; BBVA'nın çoğunluk ortağı olduğu Garanti BBVA. Bireysel ve ticari kredi, mevduat, kart ve dijital bankacılıkta pazar lideri konumunda. Kârını kredi-mevduat faiz farkından ve komisyonlardan üretir.",
+    "tema": "Toparlanma listesinde bankacılığı temsil ediyor. Faiz indirim döngüsünün ilk adresi bankalardır: mevduat faizi kredi faizinden önce iner, aradaki fark açılır ve bankanın marjı toparlanır. Eylülde kredi-mevduat makası 6,75 puandan 9,18 puana açıldı; altı haftalık düşüşte bankalar bir ayda yalnızca %0,4 kaybederek en dirençli sektör oldu.",
+    "yatirim": "F/K 4,6, defter değerinin 1,14 katı, özkaynak kârlılığı %28 ile büyük bankaların en kârlısı. Üçüncü çeyrekte kârını çeyreklik artırması beklenen tek büyük banka; aracı kurumların beklentisi 31,9 milyar TL net kâr. 34 kurum izliyor, 13'ü model portföyünde tutuyor. Temettü verimi %4. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "Fiili dolaşımı %14 ile düşük; yabancı satışı geldiğinde fiyat sert oynar. Sektörde takipteki kredi oranı 21 aydır artıyor (%3,1), bireysel tarafta %5,4; karşılık giderleri kârı baskılayabilir. Faiz indirimi gecikirse ya da kur bozulursa marj toparlanması ertelenir. MSCI'ın Haziran 2027 kararı bütün bankaları etkiler.",
+    "neden": "Bankalar kalkmadan endeks kalkmaz, bu yüzden savunmanın göbeğine iki banka koydum ve birincisi Garanti. Bütün büyük bankaların karnesine baktım: en yüksek özkaynak kârlılığı, en düşük takipteki kredi oranı ve bu çeyrekte kârını artırması beklenen tek isim o. Faiz inince ilk kazanan banka olacağını düşünüyorum; pahalı değil, çünkü F/K 5'in altında."
   },
   {
     "kod": "AKBNK",
@@ -15,7 +20,12 @@
     "kat": "banka",
     "deger": 349,
     "rol": "En çok model portföyde olan hisse",
-    "olg": 3
+    "olg": 3,
+    "ne": "Sabancı Holding'in bankası. Bireysel ve kurumsal bankacılık, kart ve yatırım hizmetleri; Türkiye'nin en yüksek sermaye yeterliliğine sahip büyük bankalarından biri. Kârını kredi-mevduat faiz farkından ve komisyonlardan üretir.",
+    "tema": "Toparlanma listesinde ikinci banka. Yabancı yatırımcı Türkiye'ye döndüğünde ilk aldığı hisselerden biri, çünkü fiili dolaşımı %53 ile büyük bankaların en yükseği; istediği miktarı fiyatı bozmadan alabiliyor. Faiz indirim döngüsü başladığında Garanti'yle aynı rüzgârı arkasına alır.",
+    "yatirim": "F/K 5,2, defter değerinin 1,08 katı, özkaynak kârlılığı %23. Borsada en çok model portföyde tutulan hisse: 36 kurumun 17'si listesinde. Temettü verimi %3,1. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "Üçüncü çeyrekte kârının çeyreklik %16 gerilemesi bekleniyor; bilanço beklentinin de altında gelirse hisse ceza görür. Sektörde takipteki krediler artıyor, karşılık yükü büyüyor. Faiz indirimi gecikirse marj toparlanması ertelenir. MSCI'ın Haziran 2027 kararı bütün bankaları etkiler.",
+    "neden": "Garanti'nin yanına ikinci stoper olarak Akbank'ı koydum. Kârlılıkta Garanti'nin bir adım gerisinde ama yabancı dönüşünde önde: likit, dolaşımı yüksek ve aracı kurumların en çok önerdiği hisse. İki bankayı birlikte tutmamın nedeni şu: faiz indirimi tezim doğruysa ikisi de kazanır, yanlışsa ikisinin ağırlığını birlikte yarıya indiririm."
   },
   {
     "kod": "YKBNK",
@@ -32,7 +42,12 @@
     "kat": "havacilik",
     "deger": 367,
     "rol": "BIST 30'un en ucuzu, doluluk rekorda",
-    "olg": 3
+    "olg": 3,
+    "ne": "Türk Hava Yolları. Dünyada en çok ülkeye uçan havayolu; İstanbul Havalimanı'nı Avrupa'nın en yoğun aktarma merkezi yapan şirket. Yolcu taşımacılığının yanında kargo (Turkish Cargo), bakım-onarım ve ikram gelirleri var. Gelirinin büyük bölümü döviz.",
+    "tema": "Toparlanma listesinde havacılığı temsil ediyor. Eylülde yolcu sayısı %3,6 arttı, doluluk %86,8 ile 15 aydır artıyor, kargo %13 büyüdü; Uzak Doğu kapasitesi %19 arttı. Petrol gevşerse ilk kazanan sektör havacılık, çünkü yakıt en büyük gider kalemi. Fonlar düşüşte pozisyonlarını %15 artırdı.",
+    "yatirim": "F/K 3,3 ve defter değerinin yalnızca 0,36 katı: BIST 30'un en ucuz hissesi, yatırımcıların \"ucuz\" listelerinde her zaman ilk sırada. 31 kurum izliyor, 18'i model portföyünde tutuyor. Fiili dolaşımı %49, günlük hacmi yüksek. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "Petrol 100 doların üstünde kalırsa yakıt maliyeti kârı yer; jeopolitik gerginlik Orta Doğu uçuşlarını vuruyor (eylülde %17 düşüş). Üçüncü çeyrek kârının yıllık %5 gerilemesi bekleniyor, bilanço 4 Kasım'da. Kıyı havalimanlarında dış hat yolcu düşüyor, turizm zayıf. Uçak teslimat gecikmeleri büyümeyi sınırlayabilir.",
+    "neden": "Orta sahaya en çok iş yapan oyuncuyu koydum. Türk Hava Yolları her ay rekor yolcu taşıyor, doluluğu artıyor, kargo büyüyor; buna rağmen fiyatı defter değerinin üçte birinde. Bu kadar ucuz olmasının nedeni petrol ve savaş korkusu; o korku dağıldığında ilk toparlanacak büyük hisse bu. Şirket değil, fiyat ucuz; bu ikisini ayırmak portföyün tamamında kullandığım ölçüt."
   },
   {
     "kod": "TAVHL",
@@ -65,7 +80,12 @@
     "kat": "tuketim",
     "deger": 445,
     "rol": "Savunma hissesi, fonların yeni gözdesi",
-    "olg": 3
+    "olg": 3,
+    "ne": "BİM. Türkiye'nin en büyük indirim marketi zinciri; on binin üzerinde mağaza, Fas ve Mısır'da da var. Az çeşit, düşük fiyat, yüksek devir modeliyle çalışır. Ekonomi yavaşlasa da insanlar market alışverişini kesmediği için gelirleri dayanıklı.",
+    "tema": "Toparlanma listesinin savunma hissesi. Market kart harcaması dolar bazında %30 arttı; gıda dışı yavaşlarken gıda perakendesi büyümeye devam ediyor. Fonlar yeni kurallarla büyük ve likit hisselerde yoğunlaşıyor ve BİM'deki fon lotu %23 arttı; 20 Ekim'deki ilk tepki gününde endeksi taşıyan üç hisseden biriydi.",
+    "yatirim": "Üçüncü çeyrekte kârını yıllık %31 artırması bekleniyor; özkaynak kârlılığı %16. 27 kurum izliyor, 13'ü model portföyünde; QNB Invest listesine yeni aldı. Yabancı payı %39, fiili dolaşımı %68 ile en likit hisselerden. Serbest nakit akışı artıda. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "F/K 15 ve defter değerinin 2,2 katı ile listenin pahalı hissesi; büyüme beklentinin altında kalırsa çarpan daralır. Enflasyon düşerse ciro büyümesi de yavaşlar. Yurt dışı operasyonlar henüz küçük. Yabancı payı yüksek olduğu için MSCI haberlerinde satış görür.",
+    "neden": "Sol beke savunma oyuncusu lazımdı ve BİM'i seçtim. Portföyün geri kalanı faiz indirimi ve petrol gibi dış koşullara bağlı; BİM ise koşullar ne olursa olsun satış yapan şirket. Ucuz değil, bunu biliyorum, ama bu sahada bir tane pahalı ve güvenilir oyuncu olsun istedim. Fonların düşüşte en çok aldığı büyük hisse olması kararımı kolaylaştırdı."
   },
   {
     "kod": "CCOLA",
@@ -106,7 +126,12 @@
     "kat": "telekom",
     "deger": 212,
     "rol": "BIST'in en ucuz büyük nakit üreticisi",
-    "olg": 3
+    "olg": 3,
+    "ne": "Turkcell. Türkiye'nin en büyük mobil operatörü; mobil ve sabit internet, dijital servisler, finansal hizmetler ve veri merkezi işleri var. Google Cloud ile Ankara'da hiper ölçekli veri merkezi kuruyor. Gelirinin tamamına yakını yinelenen abonelik.",
+    "tema": "Toparlanma listesinde telekomu ve yabancı dönüşünü temsil ediyor. Citibank saklama payı %42 ile en çok yabancının tuttuğu büyük hisselerden; yabancı döndüğünde ilk alınacaklar arasında. Fonlar düşüşte pozisyonlarını %17 artırdı. Şirket 2026 hedeflerini tutturdu, bilanço 9 Kasım'da.",
+    "yatirim": "FD/FAVÖK 2,1 ile Borsa İstanbul'un en ucuz büyük nakit üreticisi; defter değerinin 0,68 katı, F/K 10. Net borcu FAVÖK'ün yalnızca 0,36 katı. 27 kurum izliyor, 14'ü model portföyünde. Küçük yatırımcının \"üç yıl düzenli alım\" listelerinde ilk sırada. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adı yok.",
+    "risk": "Özkaynak kârlılığı %7 ile düşük; enflasyon muhasebesi kârı törpülüyor. Üçüncü çeyrekte kârın yıllık %24 gerilemesi bekleniyor. Tarife artışları düzenleyiciye bağlı; fiyat enflasyonun gerisinde kalırsa marj daralır. Veri merkezi yatırımları büyük sermaye istiyor. Son bir yılda fiyat yerinde saydı, sabır isteyen hisse.",
+    "neden": "Sağ beke sessiz ama sağlam bir oyuncu koydum. Turkcell her ay faturasını kesen, nakit üreten, borcu az bir şirket ve Borsa İstanbul'da bu kadar ucuz başka büyük nakit üreticisi yok. Üstelik yapay zekâ temasına da dokunuyor: Google'la kurduğu veri merkezinin elektriğini Orge yapıyor, ikisi aynı sahada. Hızlı koşmasını beklemiyorum, güvenilir olmasını bekliyorum."
   },
   {
     "kod": "MPARK",
