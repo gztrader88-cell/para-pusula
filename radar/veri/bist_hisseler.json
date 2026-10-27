@@ -5,7 +5,8 @@
     "ad": "Garanti BBVA",
     "kat": "banka",
     "deger": 556,
-    "rol": "Faiz indiriminde ilk kazanan banka"
+    "rol": "Faiz indiriminde ilk kazanan banka",
+    "olg": 3
   },
   {
     "kod": "AKBNK",
@@ -13,7 +14,8 @@
     "ad": "Akbank",
     "kat": "banka",
     "deger": 349,
-    "rol": "En çok model portföyde olan hisse"
+    "rol": "En çok model portföyde olan hisse",
+    "olg": 3
   },
   {
     "kod": "YKBNK",
@@ -29,7 +31,8 @@
     "ad": "Türk Hava Yolları",
     "kat": "havacilik",
     "deger": 367,
-    "rol": "BIST 30'un en ucuzu, doluluk rekorda"
+    "rol": "BIST 30'un en ucuzu, doluluk rekorda",
+    "olg": 3
   },
   {
     "kod": "TAVHL",
@@ -61,7 +64,8 @@
     "ad": "BİM",
     "kat": "tuketim",
     "deger": 445,
-    "rol": "Savunma hissesi, fonların yeni gözdesi"
+    "rol": "Savunma hissesi, fonların yeni gözdesi",
+    "olg": 3
   },
   {
     "kod": "CCOLA",
@@ -101,7 +105,8 @@
     "ad": "Turkcell",
     "kat": "telekom",
     "deger": 212,
-    "rol": "BIST'in en ucuz büyük nakit üreticisi"
+    "rol": "BIST'in en ucuz büyük nakit üreticisi",
+    "olg": 3
   },
   {
     "kod": "MPARK",

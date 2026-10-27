@@ -69,7 +69,6 @@ function denemeAsildi(ip) {
 
 // ---- Fiyatlar ----
 const fiyat = { veri: {}, zaman: 0, hata: null, surum: 0 };
-const ekFiyat = new Map(); // kadroya elle eklenen hisselerin fiyat önbelleği
 async function tekFiyat(kod, yahoo) {
   const r = await fetch("https://query1.finance.yahoo.com/v8/finance/chart/" + encodeURIComponent(yahoo || kod) + "?range=1y&interval=1d", { headers: { "User-Agent": "Mozilla/5.0" } });
   if (!r.ok) throw new Error("HTTP " + r.status);
@@ -180,23 +179,6 @@ http.createServer(async (req, res) => {
     const ilk11 = {};
     Object.keys(ILK11).forEach((k) => { ilk11[k] = Object.assign({}, ILK11[k], { ozel: (ILK11[k].ozel || []).map((o) => Object.assign({}, o, fiyat.veri[o.kod] || {})) }); });
     return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: fiyat.zaman, gecikmeDk: 15, yenilemeDk: YENILEME_DK, hafta: haftaBasi(), kategoriler: KATEGORILER, hisseler, bist, ilk11 }));
-  }
-
-  // Kadroya elle eklenen hisseler için fiyat: /api/fiyat?kodlar=XXX,YYY (BIST kodu, en çok 40; 15 dk önbellek)
-  if (yol === "/api/fiyat") {
-    if (!girisliMi(req)) return gonder(res, 401, "application/json", JSON.stringify({ hata: "giriş gerekli" }));
-    const kodlar = [...new Set(String(url.searchParams.get("kodlar") || "").toUpperCase().split(",").map((k) => k.trim()).filter((k) => /^[A-Z0-9.\-]{1,8}$/.test(k)))].slice(0, 40);
-    const pazar = url.searchParams.get("pazar") === "us" ? "us" : "tr"; // tr: Yahoo'da KOD.IS, us: kod olduğu gibi
-    const simdi = Date.now();
-    const sonuc = {};
-    await Promise.all(kodlar.map(async (kod) => {
-      const anahtar = pazar + ":" + kod;
-      const c = ekFiyat.get(anahtar);
-      if (c && simdi - c.t < YENILEME_DK * 60 * 1000) { sonuc[kod] = c.v; return; }
-      try { const v = await tekFiyat(kod, pazar === "tr" ? kod + ".IS" : kod); ekFiyat.set(anahtar, { t: simdi, v }); sonuc[kod] = v; }
-      catch (e) { ekFiyat.set(anahtar, { t: simdi, v: null }); sonuc[kod] = null; }
-    }));
-    return gonder(res, 200, "application/json; charset=utf-8", JSON.stringify({ guncelleme: simdi, fiyatlar: sonuc }));
   }
 
   if (yol === "/yonetim") {
