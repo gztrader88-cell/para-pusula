@@ -150,7 +150,7 @@ http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://x");
   const yol = url.pathname;
 
-  if (yol === "/saglik") return gonder(res, 200, "text/plain", "ok");
+  if (yol === "/saglik") return gonder(res, 200, "text/plain", "ok " + (process.env.RAILWAY_GIT_COMMIT_SHA || "yerel").slice(0, 7));
 
   if (yol === "/" || yol === "/index.html") {
     if (girisliMi(req)) { sayGoruntuleme(req); return gonder(res, 200, "text/html; charset=utf-8", SAYFA.radar); }
