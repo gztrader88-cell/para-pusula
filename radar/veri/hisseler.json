@@ -286,5 +286,37 @@
     "ai": "Hastanın verisine göre kişiselleştirilmiş tedavi öneren yapay zekâ kuruyor. Milyonlarca abonenin verisi ile doktoru ölçeklemenin yolu bu. Sağlığı tüketici uygulamasına çeviriyor.",
     "yatirim": "Abone sayısı ve gelir hızla büyüdü, kâra geçti. Kilo verme ilaçları yeni devasa pazar. Marka gücü genç kuşakta yüksek.",
     "risk": "Kilo verme ilaçlarında Novo Nordisk ile gerginlik yaşadı ve düzenleyici kurumlar ilaç kopyalama uygulamasını kısıtlayabilir. Hisse haberle çok sert hareket ediyor. Rekabet kolay girilebilir bir pazar."
+  },
+  {
+    "kod": "CBRS",
+    "ad": "Cerebras",
+    "kat": "altyapi",
+    "olg": 2,
+    "deger": 25.7,
+    "fiyat": 108.37,
+    "gun": 0,
+    "ay": 0,
+    "ytd": 0,
+    "rol": "Tabak büyüklüğünde yapay zekâ çipi",
+    "ne": "Yapay zekâ için çip tasarlayan Amerikan şirketi. Herkes küçük çipleri yan yana dizerken Cerebras tek bir silikon plakadan tabak büyüklüğünde tek çip yapıyor. Çipleri kendi veri merkezlerinde çalıştırıp hız satıyor; en büyük müşterisi Birleşik Arap Emirlikleri'nden G42. Mayıs 2026'da halka açıldı.",
+    "ai": "Yapay zekâ modelleri artık eğitimden çok cevap üretme aşamasında ve burada hız para ediyor. Cerebras'ın tek parça çipi, veriyi çipler arasında taşımak zorunda kalmadığı için cevabı Nvidia sistemlerinden kat kat hızlı veriyor. Nvidia'ya gerçek anlamda farklı bir mimariyle meydan okuyan tek halka açık şirket.",
+    "yatirim": "Geliri son bir yılda ikiden fazla katlandı ve yıllık 680 milyon doları geçti. OpenAI'yla büyük kapasite anlaşması var. Nvidia'nın tekelini kırmak isteyen her büyük müşteri için doğal alternatif. Halka arz fiyatının çok altına indi; şirketin hikâyesi değil, hissenin fiyatı değişti.",
+    "risk": "Halka açıldığından beri değerinin üçte ikisini kaybetti: OpenAI'nın bir iş yükünü Nvidia'ya kaptırdığı haberi ve kurucu ortak hisselerinin kademeli satış izni ekim sonuna kadar baskı yaptı. Gelirinin büyük bölümü tek müşteriye bağlı. Zarar ediyor, nakit yakıyor. Nvidia fiyat kırarsa ya da hız avantajını kapatırsa tez zayıflar."
+  },
+  {
+    "kod": "SMR",
+    "ad": "NuScale Power",
+    "kat": "enerji",
+    "olg": 1,
+    "deger": 2.3,
+    "fiyat": 5.27,
+    "gun": 0,
+    "ay": 0,
+    "ytd": 0,
+    "rol": "Veri merkezinin yanına küçük nükleer santral",
+    "ne": "Küçük modüler nükleer reaktör tasarlayan Amerikan şirketi. Modülleri fabrikada üretip sahaya taşıma fikriyle çalışıyor; ABD nükleer düzenleyicisinden tasarım onayı alan ilk ve tek küçük reaktör şirketi. Henüz çalışan bir santrali yok, gelirleri mühendislik hizmetinden geliyor.",
+    "ai": "Veri merkezleri gece gündüz kesintisiz elektrik istiyor ve güneş ya da rüzgâr bunu tek başına veremiyor. Küçük reaktör, veri merkezinin hemen yanına kurulabilen, karbonsuz ve sürekli güç demek. Yapay zekânın enerji açlığı nükleeri yeniden masaya getirdi; NuScale bu masada onayı cebinde olan tek isim.",
+    "yatirim": "Onaylı tasarım yıllar süren ve milyarlar yutan bir engeli aşmış demek. Tennessee Valley Authority ile 6 gigavatlık çerçeve anlaşması ve Romanya'daki ilk proje hikâyenin somut ayakları. İlk kesin sipariş imzalandığında bütün bakış değişir; hisse bu yıl değerinin büyük bölümünü kaybettiği için beklenti çok düşük.",
+    "risk": "Hâlâ kesin bir reaktör siparişi yok ve ilk büyük anlaşmanın müzakeresi 2027'ye sarkabilir. Yılda yaklaşık 800 milyon dolar nakit yakıyor; para bitmeden sipariş gelmeli, gelmezse yeni hisse basar. Son bir yılda %87 düştü, aracı kurumlar arka arkaya sat dedi. Faizler yükselirken gelirsiz şirketler en çok satılan grup. Bu kadroda en riskli oyuncu."
   }
 ]
