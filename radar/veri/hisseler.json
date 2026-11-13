@@ -284,8 +284,8 @@
     "rol": "Telefondan sağlık hizmeti",
     "ne": "Telefon üzerinden doktor görüşmesi ve ilaç teslimi yapan bir platform. Saç dökülmesi, cinsel sağlık, ruh sağlığı ve kilo verme ilaçlarıyla büyüdü.",
     "ai": "Hastanın verisine göre kişiselleştirilmiş tedavi öneren yapay zekâ kuruyor. Milyonlarca abonenin verisi ile doktoru ölçeklemenin yolu bu. Sağlığı tüketici uygulamasına çeviriyor.",
-    "yatirim": "Abone sayısı ve gelir hızla büyüdü, kâra geçti. Kilo verme ilaçları yeni devasa pazar. Marka gücü genç kuşakta yüksek.",
-    "risk": "Kilo verme ilaçlarında Novo Nordisk ile gerginlik yaşadı ve düzenleyici kurumlar ilaç kopyalama uygulamasını kısıtlayabilir. Hisse haberle çok sert hareket ediyor. Rekabet kolay girilebilir bir pazar.",
+    "yatirim": "Satış hızla büyüyor ve şirket yeniden nakit üretmeye başladı. Novo Nordisk ile Eli Lilly’nin zayıflama ilaçları artık bu platformdan satılıyor. Marka gücü genç kuşakta yüksek.",
+    "risk": "Markalı ilaca geçiş kârlılığı düşürdü; son çeyrekte şirket zarar yazdı ve abone sayısı ilk kez azaldı. Amerika’nın tüketiciyi koruyan kurumu şirkete dava açtı. Hisse haberle çok sert hareket ediyor.",
     "bilanco": {
       "donem": "2026 3. çeyrek",
       "tarih": "9 Kasım 2026’da açıklandı",
@@ -384,7 +384,8 @@
           ]
         }
       ],
-      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum.",
+      "kisa": "9 Kasım"
     }
   },
   {

@@ -109,20 +109,28 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .bolum p { margin: 0; font-size: .95rem; line-height: 1.55; }
 .bolum.risk .ikon { color: var(--down); }
 /* Son bilanço: açılır özet (hisseler.json içindeki "bilanco" alanı) */
-.bl { border-top: 1px solid var(--line); }
-.bl-dugme { width: 100%; display: grid; grid-template-columns: 34px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 12px 0; background: none; border: 0; color: var(--fg); text-align: left; cursor: pointer; }
-.bl-dugme:focus-visible { outline: 2px solid var(--k); outline-offset: 2px; border-radius: 10px; }
-.bl-dugme .ikon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--k); }
-.bl-dugme .ikon svg { width: 18px; height: 18px; }
-.bl-dugme b { display: block; font-family: var(--display); font-weight: 700; font-size: .92rem; }
-.bl-dugme small { display: block; color: var(--muted); font-size: .8rem; }
-.bl-dugme .ok { width: 20px; height: 20px; color: var(--muted); }
-.bl-dugme[aria-expanded="true"] .ok { transform: rotate(180deg); }
-.bl-hap { display: inline-block; font-family: var(--body); font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; margin-left: 8px; vertical-align: 1px; white-space: nowrap; }
+.bl { --bl: #f5c451; margin: 0 0 18px; border: 1px solid rgba(245,196,81,.55); border-radius: 16px; background: rgba(245,196,81,.08); overflow: hidden; }
+.bl-dugme { width: 100%; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px; background: none; border: 0; color: var(--fg); text-align: left; cursor: pointer; }
+.bl-dugme:focus-visible { outline: 2px solid var(--bl); outline-offset: -3px; border-radius: 16px; }
+.bl-dugme .ikon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--bl); color: #0d1017; }
+.bl-dugme .ikon svg { width: 22px; height: 22px; }
+.bl-dugme b { display: block; font-family: var(--display); font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
+.bl-dugme small { display: block; color: var(--muted); font-size: .82rem; margin-top: 2px; }
+.bl-oku { display: inline-flex; align-items: center; gap: 4px; background: var(--bl); color: #0d1017; font-weight: 800; font-size: .84rem; padding: 8px 10px 8px 13px; border-radius: 999px; white-space: nowrap; }
+.bl-oku svg { width: 16px; height: 16px; }
+.bl-dugme[aria-expanded="true"] .bl-oku svg { transform: rotate(180deg); }
+.bl-hap { display: inline-block; font-family: var(--body); font-size: .74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; margin-top: 7px; white-space: nowrap; }
 .bl-hap.iyi, .bl-etk.iyi { background: var(--up-soft); color: var(--up); }
 .bl-hap.kotu, .bl-etk.kotu { background: var(--down-soft); color: var(--down); }
 .bl-hap.sari, .bl-etk.sari { background: rgba(245,196,81,.16); color: #f5c451; }
-.bl-ic { background: var(--surface-2); border-radius: 16px; padding: 16px; margin-bottom: 14px; display: grid; gap: 14px; }
+.bl-ic { border-top: 1px solid rgba(245,196,81,.3); padding: 16px 14px; display: grid; gap: 14px; }
+/* Ana sayfa: bilanço özeti olan hisseler şeridi ve kart altı bandı */
+.bl-serit { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 14px; padding: 10px 12px; border: 1px solid rgba(245,196,81,.45); border-radius: 14px; background: rgba(245,196,81,.08); }
+.bl-serit > span { font-family: var(--display); font-weight: 700; font-size: .86rem; color: #f5c451; }
+.bl-serit button { background: #f5c451; color: #0d1017; border: 0; border-radius: 999px; padding: 6px 12px; font-weight: 800; font-size: .82rem; cursor: pointer; }
+.bl-serit button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.kart-bl { display: flex; align-items: center; gap: 6px; margin: 10px -14px -12px; padding: 7px 14px; background: rgba(245,196,81,.16); color: #f5c451; font-weight: 800; font-size: .76rem; }
+.kart-bl svg { width: 14px; height: 14px; flex: 0 0 auto; }
 .bl-hukum { margin: 0; font-family: var(--display); font-weight: 700; font-size: 1.08rem; line-height: 1.35; }
 .bl-uc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .bl-uc div { background: var(--surface); border-radius: 12px; padding: 10px; min-width: 0; }
@@ -340,8 +348,10 @@ function ciz() {
       '<div class="kart-ust"><div class="mono">' + mono(h.kod) + '</div><div><div class="kod">' + h.kod + '</div><div class="ad">' + h.ad + '</div></div></div>' +
       '<div class="rol">' + h.rol + '</div>' +
       '<div class="kart-alt"><span class="fiyat">' + fiyatYaz(h.fiyat) + '</span><span class="pil ' + (gunVar ? sinif(h.gun) : "") + '">' + (gunVar ? yuzde(h.gun) : "–") + '</span></div>' +
+      (h.bilanco && h.bilanco.hukum ? '<div class="kart-bl">' + BL_IKON + 'Bilanço özeti' + (h.bilanco.kisa ? " · " + h.bilanco.kisa : "") + '</div>' : "") +
       '</button>';
   });
+  bilancoSerit();
   document.getElementById("izgara").innerHTML = html || '<div class="bos">Bu listede henüz hisse yok.</div>';
   document.querySelectorAll(".kart").forEach(function (b) { b.addEventListener("click", function () { ac(parseInt(b.dataset.i, 10)); }); });
   ilk11Ciz();
@@ -381,6 +391,7 @@ function panelGoster(h, i) {
     var acik = blD.getAttribute("aria-expanded") === "true";
     blD.setAttribute("aria-expanded", acik ? "false" : "true");
     document.getElementById("blIc").hidden = acik;
+    document.getElementById("blOkuYazi").textContent = acik ? "Oku" : "Kapat";
   });
   if (i >= 0) {
     document.getElementById("onceki").addEventListener("click", function () { ac((i - 1 + durum.liste.length) % durum.liste.length); });
@@ -390,6 +401,22 @@ function panelGoster(h, i) {
 }
 function bolum(tip, baslik, metin) {
   return '<div class="bolum ' + tip + '"><div class="ikon">' + IKON[tip] + '</div><div><h4>' + baslik + '</h4><p>' + metin + '</p></div></div>';
+}
+var BL_IKON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>';
+// Ana sayfada kartların üstünde: bilanço özeti olan hisseler. Düğme, paneli özet açık hâlde getirir.
+function bilancoSerit() {
+  var izgara = document.getElementById("izgara"), serit = document.getElementById("blSerit");
+  if (!serit) { serit = document.createElement("div"); serit.id = "blSerit"; serit.className = "bl-serit"; izgara.parentNode.insertBefore(serit, izgara); }
+  var olan = aktifHisseler().filter(function (h) { return h.bilanco && h.bilanco.hukum; });
+  serit.hidden = !olan.length;
+  serit.innerHTML = "<span>Bilanço özeti gelenler</span>" + olan.map(function (h) { return '<button data-kod="' + h.kod + '">' + h.kod + (h.bilanco.kisa ? " · " + h.bilanco.kisa : "") + '</button>'; }).join("");
+  serit.querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () {
+    var kod = b.dataset.kod, i = -1, h = null;
+    durum.liste.forEach(function (x, j) { if (x.kod === kod) { i = j; h = x; } });
+    if (!h) h = olan.filter(function (x) { return x.kod === kod; })[0];
+    panelGoster(h, i);
+    var d = document.getElementById("blDugme"); if (d) d.click();
+  }); });
 }
 // Son bilanço özeti: kapalı gelir, başlığa dokununca açılır. Veri yoksa hiçbir şey çizmez.
 var BL_ETIKET = { iyi: "Tutuldu", kotu: "Tutulmadı", sari: "Bilgi yok" };
@@ -407,8 +434,8 @@ function bilancoHtml(bl) {
   }).join("");
   return '<div class="bl"><button class="bl-dugme" id="blDugme" aria-expanded="false" aria-controls="blIc">' +
     '<span class="ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>' +
-    '<span><b>Son bilanço' + (bl.rozet ? '<span class="bl-hap ' + (bl.rozetTip || "sari") + '">' + bl.rozet + '</span>' : "") + '</b><small>' + [bl.donem, bl.tarih].filter(Boolean).join(" · ") + '</small></span>' +
-    '<svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>' +
+    '<span><b>Son bilanço özeti</b><small>' + [bl.donem, bl.tarih].filter(Boolean).join(" · ") + '</small>' + (bl.rozet ? '<span class="bl-hap ' + (bl.rozetTip || "sari") + '">' + bl.rozet + '</span>' : "") + '</span>' +
+    '<span class="bl-oku"><span id="blOkuYazi">Oku</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>' +
     '<div class="bl-ic" id="blIc" hidden><p class="bl-hukum">' + bl.hukum + '</p>' + (uc ? '<div class="bl-uc">' + uc + '</div>' : "") +
     '<div>' + kisimlar + '</div>' + (bl.uyari ? '<p class="bl-uyari">' + bl.uyari + '</p>' : "") + '</div></div>';
 }
