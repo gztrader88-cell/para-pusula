@@ -29,7 +29,112 @@
     "ne": "Veri merkezindeki güçlü bilgisayarları titreşime, ısıya ve dar alana dayanacak şekilde yeniden tasarlar. Ürünleri askerî araçlara, uçaklara, dronlara ve maden makinelerine giriyor.",
     "ai": "Yapay zekâ her yerde buluta bağlanamaz. Savaş alanı, maden ya da açık deniz gibi yerlerde yapay zekânın makinenin içinde düşünmesi gerekiyor. OSS tam bu beyni yapıyor.",
     "yatirim": "Savunma programına bir kez girince değiştirilmesi çok zor, bu uzun gelir demek. On dört program ve 42 milyon doların üzerinde çok yıllı potansiyel var, üç yıl önce tek program vardı. Sipariş geliri gelirin 1,7 katı, yani önde giden talep var.",
-    "risk": "Piyasa değeri 200 milyon doların altında, çok küçük bir şirket. Rakamlar küçük tabandan büyüyor. Birkaç büyük müşteriye bağımlı ve savunma bütçeleri siyasete bağlı."
+    "risk": "Piyasa değeri 200 milyon doların altında, çok küçük bir şirket. Rakamlar küçük tabandan büyüyor. Birkaç büyük müşteriye bağımlı ve savunma bütçeleri siyasete bağlı.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "28 Ekim 2026’da açıklandı",
+      "kisa": "28 Ekim",
+      "rozet": "Beklentinin üstünde",
+      "rozetTip": "iyi",
+      "hukum": "Şirket yılın en iyi çeyreğini açıkladığı sabah büyük bir hisse satış izni de aldı; piyasa büyümeyi değil, bu büyümenin hissedara kaça geleceğini fiyatladı.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "12,6 mn $",
+          "alt": "bir yılda +%36",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "100 dolarlık satıştan kalan",
+          "deger": "42,6 $",
+          "alt": "beklenti 38 $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Kasadaki para",
+          "deger": "18,9 mn $",
+          "alt": "Haziran sonunda 31,4 mn $",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "One Stop Systems 28 Ekim’de üçüncü çeyrek bilançosunu açıkladı. Satış 12,6 milyon dolarla beklentinin yüzde 15 üstünde geldi ve yönetim yıl sonu büyüme hedefini bu yıl üçüncü kez yükseltip yüzde 40’a çıkardı. Buna rağmen hisse bilançodan sonraki günlerde yüzde 29 geriledi."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Bilanço sabah 8’de açıklandı, bir buçuk saat sonra şirket 50 milyon dolarlık hisse satma izni aldı. Bu tutar şirketin o günkü piyasa değerinin yüzde 41’i kadar.",
+            "Program şirketi satışa zorlamıyor; finans müdürü piyasa koşullarına göre karar vereceklerini söylüyor. Ama bu büyüklükte bir izin, hissedarın payının ciddi biçimde küçülebileceği anlamına geliyor. Bilanço görüşmesinde dört analistin hiçbiri bu programı sormadı."
+          ]
+        },
+        {
+          "baslik": "Kasa neden eridi",
+          "p": [
+            "Kasadaki para bir çeyrekte 31,4 milyon dolardan 18,9 milyon dolara indi. Bunun 6 milyon doları eski bir davanın uzlaşmasına, 8 milyon doları bellek kıtlığına karşı önceden alınan stoka gitti. Şirketin borcu yok, ama büyürken para harcıyor."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Ağustos’ta yüzde 25–30 büyüme sözü verilmişti, hedef yüzde 40’a çıkarıldı."
+            },
+            {
+              "d": "iyi",
+              "t": "Kâr marjının yüzde 40 civarında kalacağı söylenmişti, yüzde 42,6 geldi."
+            },
+            {
+              "d": "kotu",
+              "t": "Ağustos’ta “hisse çıkarma iznimizi yenilememiz para toplayacağımız anlamına gelmez” denmişti; Ekim’de 50 milyon dolarlık satış programı açıldı."
+            },
+            {
+              "d": "kotu",
+              "t": "Müşterilerin ödediği geliştirme gelirinin süreceği söylenmişti; 944 bin dolardan 230 bin dolara düştü."
+            },
+            {
+              "d": "sari",
+              "t": "8,4 milyon dolarlık istihbarat programında teslimat bilgisi verilmedi."
+            }
+          ]
+        },
+        {
+          "baslik": "İşin kendisi nasıl gidiyor",
+          "p": [
+            "Siparişler satıştan hızlı geliyor; yılbaşından beri alınan sipariş 43,6 milyon dolar. Çok yıllı ordu programı sayısı üç yılda 1’den 14’e çıktı. 26 Ekim’de şirketin ana ürünü, büyük bir sunucu üreticisinin sistemlerinde kullanım onayı aldı. Henüz sipariş yok, ama şirket ilk kez veri merkezi müşterilerine kapı açtı."
+          ]
+        },
+        {
+          "baslik": "Hisse neden düştü",
+          "p": [
+            "Düşüşün sebebi işin kötüleşmesi değil. Piyasa, büyümenin parasını hissedarın ödeyeceğinden korktu. İyi haberin hemen ardından gelen hisse satış izni, şirketi savunan yatırımcıları bile kızdırdı."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Şirketi izleyen dört aracı kurumun dördü de “al” diyor. Fiyat hareketine ve kâr beklentisine bakan sayısal modeller ise “güçlü sat” notu veriyor. Bağımsız analist yazılarının ortak noktası şu: işi herkes beğeniyor, ama büyüme henüz kâra dönmedi."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Dördüncü çeyrek için söz verilen büyük siparişler geldi mi?",
+            "Hisse satış programından gerçekten hisse satıldı mı?",
+            "Veri merkezi onayı ilk siparişe dönüştü mü?"
+          ],
+          "p": [
+            "İş iyi gidiyor ama büyümeyi hissedar finanse ediyor. Siparişler gelir ve hisse satışı sınırlı kalırsa tablo düzelir. Büyük bir satış gelirse hisse başına kalan pay küçülür. Cevabı bir sonraki bilançoda göreceğim."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "ISRG",
@@ -269,7 +374,108 @@
     "ne": "Hastanelerden gelen genetik test, görüntü ve hasta kayıtlarını toplayıp yapay zekâyla analiz ediyor. Özellikle kanser tedavisinde doktora hangi ilacın işe yarayacağı konusunda karar desteği veriyor.",
     "ai": "Sağlıktaki en büyük sorun verinin dağınık olması. Tempus dev bir tıbbi veri kütüphanesi kurdu ve bunu yapay zekâyla işliyor. İlaç şirketleri de bu veriyi araştırma için satın alıyor.",
     "yatirim": "Groupon'un kurucusu Eric Lefkofsky'nin şirketi. Gelir hızlı büyüyor ve veri seti kopyalanması zor bir varlık. Sağlıkta yapay zekânın en saf halka açık oyunlarından biri.",
-    "risk": "Zarar ediyor ve değerleme yüksek. Sağlık verisi düzenlemeye çok açık. Genetik test fiyatları baskı altında, sigorta ödemeleri belirsiz."
+    "risk": "Zarar ediyor ve değerleme yüksek. Sağlık verisi düzenlemeye çok açık. Genetik test fiyatları baskı altında, sigorta ödemeleri belirsiz.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "2 Kasım 2026’da açıklandı",
+      "kisa": "2 Kasım",
+      "rozet": "Beklentinin üstünde",
+      "rozetTip": "iyi",
+      "hukum": "Şirket kendi hedefini aştı ve düzeltilmiş kârda ilk kez anlamlı bir artıya geçti; ama hemen ardından yeni bir masraf geliyor.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "411,5 mn $",
+          "alt": "bir yılda +%23",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Düzeltilmiş kâr",
+          "deger": "25,6 mn $",
+          "alt": "geçen yıl 1,5 mn $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net zarar",
+          "deger": "14,9 mn $",
+          "alt": "geçen yıl 80 mn $ zarar",
+          "yon": ""
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Tempus 2 Kasım’da üçüncü çeyrek bilançosunu açıkladı. Satış 411,5 milyon dolarla şirketin kendi hedefinin üstünde geldi. Düzeltilmiş kâr 25,6 milyon dolar oldu; şirket 15–20 milyon dolar demişti. Kurucu ve genel müdür Eric Lefkofsky “bu çeyrek zararı geride bıraktık” dedi ve hisse bilanço günü yüzde 8,7 yükseldi."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "“Zararı geride bıraktık” sözü üç ölçüden ikisinde doğru. Şirketin kendi ölçüsüyle doğru, çünkü düzeltilmiş kâr artıda. Nakit ölçüsüyle de doğru görünüyor; dokuz ayda faaliyetlerden 72 milyon dolar nakit çıktı, geçen yıl aynı dönemde 181 milyon dolar çıkmıştı.",
+            "Hissedarın ölçüsüyle ise henüz doğru değil. Düzeltilmiş kâr, çalışanlara hisseyle ödenen 50,8 milyon dolarlık maaşı saymıyor. O sayıldığında kâr yaklaşık 25 milyon dolar eksiye dönüyor. Net zararın içinde de 42,8 milyon dolarlık tek seferlik bir kazanç var."
+          ]
+        },
+        {
+          "baslik": "İki iş, iki ayrı hız",
+          "p": [
+            "Veri işi yüzde 33 büyüdü ve gelirin dörtte birine ulaştı; yılbaşından beri imzalanan veri sözleşmeleri 550 milyon doları aştı. Kanser testi geliri yüzde 28 arttı. Zayıf kalan tek kalem kalıtsal test oldu ve geliri yalnız yüzde 3 büyüdü."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Çeyrek için verilen gelir ve düzeltilmiş kâr hedefi aşıldı."
+            },
+            {
+              "d": "iyi",
+              "t": "Veri işi için yüzde 28 büyüme denmişti, yüzde 33 geldi."
+            },
+            {
+              "d": "kotu",
+              "t": "Kalıtsal testin yılın ikinci yarısında toparlanacağı söylenmişti, toparlanma görülmedi."
+            },
+            {
+              "d": "sari",
+              "t": "Yıl sonuna kadar serbest nakit akışının artıya geçeceği sözü bu görüşmede tekrarlanmadı."
+            }
+          ]
+        },
+        {
+          "baslik": "Kârın ardındaki masraf",
+          "p": [
+            "Tempus, sattığı nüks takip testini üreten Personalis’i satın alıyor. Bu test bugün zarar ediyor ve Lefkofsky bunu saklamıyor; test başına kârın 2027 ortasında artıya geçmesini bekliyor. Bedelin ne kadarının hisseyle, ne kadarının borçla ödeneceği belli değil. Personalis hissedarları 30 Kasım’da oylayacak."
+          ]
+        },
+        {
+          "baslik": "2027’nin hesabı",
+          "p": [
+            "1 Ocak 2027’den itibaren doku testi daha yüksek fiyattan ödenecek ve şirket bunun yılda yaklaşık 80 milyon dolar ek gelir getireceğini söylüyor. Ama Personalis’in zararı ve hisseyle ödenen maaş hesabın öbür tarafında duruyor. Fiyat artışının tamamı kâra inmeyecek."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Sosyal medyada hava coşkulu. Aracı kurumlar daha temkinli; 23 kurumun 12’si “tut” diyor. Olumsuz yazan analistler kan testi onayının kesin olmadığını, muhasebe zararının sürdüğünü ve Personalis’in hisse sayısını artıracağını söylüyor."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Personalis bedelinin ne kadarı hisseyle ödenecek?",
+            "Yıl sonunda serbest nakit akışı artıya geçecek mi?",
+            "Kanser testi adedi ve veri işi yüzde 20’nin üstünde büyümeyi sürdürecek mi?"
+          ],
+          "p": [
+            "Bu çeyrek yönetimin sözünü tutabildiğini gösterdi. Önümüzdeki yıl, kazandığını hissedara bırakabildiğini göstermesi gerekiyor. İlk cevap 30 Kasım’daki oylamada, ikincisi Mart başı civarındaki bilançoda gelecek."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "HIMS",
