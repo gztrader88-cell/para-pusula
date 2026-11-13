@@ -182,7 +182,112 @@
     "ne": "Güney Koreli bellek üreticisi. Yüksek bant genişlikli bellek, yani HBM denilen özel belleklerde dünya lideri. Bu bellek Nvidia'nın yapay zekâ çiplerinin hemen yanına takılıyor.",
     "ai": "Yapay zekâ çipi ne kadar güçlü olursa olsun, veriyi yeterince hızlı alamazsa boşta bekler. HBM bu darboğazı çözüyor. Her satılan yapay zekâ çipi için HBM de satılıyor.",
     "yatirim": "Yapay zekâ talebi doğrudan bellek talebine dönüşüyor ve HBM'de arz sınırlı. Nvidia'nın ana tedarikçisi olmak kârı rekor seviyeye taşıdı. Nasdaq'ta ADR olarak alınabiliyor.",
-    "risk": "Bellek tarihi boyunca döngüsel bir iş. Fiyatlar düştüğünde kâr çok hızlı eriyor. Samsung ve Micron HBM'de pay almak için bastırıyor. Bugünkü piyasa değeri çok büyük, beklenti yüksek."
+    "risk": "Bellek tarihi boyunca döngüsel bir iş. Fiyatlar düştüğünde kâr çok hızlı eriyor. Samsung ve Micron HBM'de pay almak için bastırıyor. Bugünkü piyasa değeri çok büyük, beklenti yüksek.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "27 Ekim 2026’da açıklandı",
+      "kisa": "27 Ekim",
+      "rozet": "Beklentinin üstünde",
+      "rozetTip": "iyi",
+      "hukum": "Şirket fabrikasının 2029’a kadar satıldığını söylüyor, piyasa ise aynı kârı 2029’da bitecek bir dalga gibi fiyatlıyor.",
+      "rakamlar": [
+        {
+          "etiket": "Gelir",
+          "deger": "104,6 trilyon won",
+          "alt": "geçen yıl 24,4 trilyon won",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "100 wonluk satıştan kalan faaliyet kârı",
+          "deger": "80 won",
+          "alt": "şirket tarihinin rekoru",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "39,8 trilyon won",
+          "alt": "beklenti 60 trilyon won civarı",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Güney Koreli bellek çipi üreticisi SK hynix, 2026 üçüncü çeyrek bilançosunu 27 Ekim’de açıkladı. Gelir ilk kez 100 trilyon wonu aşıp 104,6 trilyon won oldu ve bir yılda dört kattan fazla büyüdü. Faaliyet kârı 83,3 trilyon wonla beklentinin üstünde geldi. Bu, üst üste altıncı rekor çeyrekti."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Şirket ile piyasa aynı takvime iki ayrı gözle bakıyor. Şirket, önümüzdeki üç yılın üretiminin fiilen satıldığını ve arzın 2030’a kadar talebe yetişmeyeceğini söylüyor. Bilanço açıklandığında analist tahminleri ise kârın 2028’de tepe yapıp 2029’da düşeceğini yazıyordu.",
+            "Bellek işi tarihte hep böyle oldu; zirvede büyük kâr geldi, ardından çöküş yaşandı. Piyasa bu yüzden bu kârı kalıcı saymıyor. Tartışmanın özü, bu kârın kaç yıl süreceği."
+          ]
+        },
+        {
+          "baslik": "Net kâr neden beklentinin altında kaldı",
+          "p": [
+            "Net kâr 39,8 trilyon won geldi, analistler 60 trilyon won civarı bekliyordu. Fark fabrikadan gelmedi. Won dolara karşı güçlendiği için 11,6 trilyon won kur zararı yazıldı ve şirketin elindeki yatırım varlıklarının değeri 22,9 trilyon won aşağı çekildi. İkisinin de çip üretimiyle ve satışıyla ilgisi yok."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Sunucu ve bilgisayar belleği (DRAM) satış adedinin yüzde 10 artacağı söylenmişti, yüzde 10 arttı."
+            },
+            {
+              "d": "iyi",
+              "t": "Uzun vadeli anlaşma yapılan müşteri sayısı yaklaşık 10’dan 14’e çıktı; 2027 ve 2028 kapasitesinin yarısından fazlası bağlandı."
+            },
+            {
+              "d": "iyi",
+              "t": "Ek hissedar dönüşü sözü tutuldu; 2026’da hissedara yaklaşık 100 trilyon won dağıtılacağı açıklandı."
+            },
+            {
+              "d": "kotu",
+              "t": "Depolama çipi (NAND) satış adedinin artacağı söylenmişti, hafif düştü."
+            },
+            {
+              "d": "sari",
+              "t": "2027 yatırım harcaması için “belirgin artış” dendi ama rakam verilmedi."
+            }
+          ]
+        },
+        {
+          "baslik": "Büyümenin parası nereden geliyor",
+          "p": [
+            "Çeyrekte faaliyetten 54,8 trilyon won nakit girdi, yatırıma 12,7 trilyon won gitti. Eylül sonunda kasada 114,5 trilyon won vardı ve borç düşüldüğünde 98,7 trilyon won net nakit kalıyordu. Şirket büyümeyi borçla ya da yeni hisseyle değil, kendi kasasıyla ve müşterilerin depozito yatırdığı anlaşmalarla finanse ediyor."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Hisse bilanço günü yüzde 13,3 yükseldi. İki gün sonra, şirkete özel bir haber yokken, bütün yapay zekâ hisseleriyle birlikte yüzde 7,9 geriledi. İlk hareket şirketin kendi haberiydi, ikincisi sektörün haberiydi; şirketin işinde o iki gün içinde değişen bir şey olmadı."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilanço açıklandığında hisseyi izleyen 15 aracı kurumun 14’ü “al” tarafındaydı. Karşı görüş azınlıktaydı ama itirazı somuttu. Bellek fiyatındaki artış çeyrekler içinde yüzde 65’ten yaklaşık yüzde 20’ye yavaşladı. Rakip Samsung, yapay zekâ çipinin yanına takılan bellekteki pazar payını yüzde 21’den 33’e çıkardı ve Çinli üretici CXMT büyüyor."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Bellek fiyatı herhangi bir çeyrekte düşecek mi?",
+            "Faaliyet kâr marjı yüzde 70’in altına inecek mi?",
+            "Şirketin yapay zekâ belleğindeki pazar payı yüzde 40’ın altına düşecek mi?"
+          ],
+          "p": [
+            "Bu bilanço tartışmayı bitirmedi ama kanıtı şirketin tarafına kaydırdı. Bu işaretlerden ikisi birden gelirse fikrimi değiştiririm. 2027 yatırım rakamını da bir sonraki bilançoda arayacağım."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "CRDO",
@@ -294,7 +399,114 @@
     "ne": "Çinko bazlı, uzun süreli enerji depolama pilleri üretir. Lityumdan farklı olarak yanmıyor ve tamamı ABD'de üretiliyor. Elektriği gündüz depolayıp ihtiyaç anında şebekeye veriyor.",
     "ai": "Veri merkezleri şebekeyi zorluyor ve elektrik şirketleri depolama olmadan yeni bağlantı veremiyor. Yapay zekânın enerji açlığı doğrudan depolama talebine dönüşüyor.",
     "yatirim": "ABD'nin yerli üretim ve Çin'den bağımsızlık politikası lehine. Devlet kredi desteği aldı ve sipariş defteri büyüdü. Tema tutarsa küçük tabandan büyük çarpan.",
-    "risk": "Yıllardır üretimi ölçeklemekte zorlandı ve nakit yakıyor. Hisse çok oynak, bu yıl değerinin büyük kısmını kaybetti. Lityum fiyatları düşerse rekabet avantajı daralır."
+    "risk": "Yıllardır üretimi ölçeklemekte zorlandı ve nakit yakıyor. Hisse çok oynak, bu yıl değerinin büyük kısmını kaybetti. Lityum fiyatları düşerse rekabet avantajı daralır.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Fabrika sözünü tuttu ve rekor üretim yaptı, ama sipariş defteri küçüldü ve brüt kâra geçme sözü sessizce geri çekildi.",
+      "rakamlar": [
+        {
+          "etiket": "Gelir",
+          "deger": "82,7 mn $",
+          "alt": "geçen yıl 30,5 mn $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "100 dolarlık satışın maliyeti",
+          "deger": "153 $",
+          "alt": "geçen yıl 211 $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Sipariş defteri",
+          "deger": "765 mn $",
+          "alt": "önceki çeyrek 807 mn $",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Eos Energy 5 Kasım’da üçüncü çeyrek bilançosunu açıkladı. Gelir 82,7 milyon dolarla bir yılda yaklaşık üç katına çıktı ve beklentinin hafif üstünde geldi. Buna rağmen hisse bilanço günü yüzde 12,1, ertesi gün yüzde 7,5 düştü."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Bu çeyreğin ayrımı üretim ile satış arasında. Üretim tarafı iyi haber verdi, satış tarafı kötü haber verdi. Şirket aldığından fazlasını sevk etti ve sipariş defteri 807 milyon dolardan 765 milyon dolara geriledi.",
+            "Gelirin yüzde 83’ü de Frontier Power’dan geldi. Frontier Power, Eos’un büyük bir yatırım fonuyla birlikte kurduğu ve Eos bataryasıyla proje yapan şirket. Yani şirketin en büyük müşterisi, kendi ortak olduğu şirket."
+          ]
+        },
+        {
+          "baslik": "Fabrika tarafı",
+          "p": [
+            "Şirket tarihinin en yüksek sevkiyatını yaptı; sevkiyat geçen yıla göre yüzde 216 arttı. Yeni fabrika Ekim 2026 ortasından beri günde 24 saat çalışıyor ve ikinci üretim hattı birincinin verimini üç ayda yakaladı. Malzeme, işçilik ve genel gider kalemlerinin üçünde de birim maliyet düştü."
+          ]
+        },
+        {
+          "baslik": "Zararına satış sürüyor",
+          "p": [
+            "Her 100 dolarlık satış şirkete 153 dolara mal oluyor. Bir yıl önce bu rakam 211 dolardı; iyileşme var ama şirket hâlâ zararına satıyor.",
+            "Bilançoda görünen 125 milyon dolarlık net kâr gerçek bir kazanç değil. Hisse fiyatı düştüğü için şirketin verdiği hisse alma haklarının muhasebe değeri azaldı ve bu, kâr gibi yazıldı."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Yeni fabrikanın yıl sonuna kadar 24 saat çalışacağı söylenmişti, Ekim ortasında geçildi."
+            },
+            {
+              "d": "iyi",
+              "t": "Nakit yakımının faaliyet zararını aşmayacağı söylenmişti, aşmadı."
+            },
+            {
+              "d": "kotu",
+              "t": "Yılın son çeyreğinde brüt kârın artıya geçeceği söylenmişti; yeni hedef eksi yüzde 20 ile 25 arası."
+            },
+            {
+              "d": "kotu",
+              "t": "Sipariş defterinin büyüyeceği söylenmişti, defter küçüldü."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "2026 gelir hedefi 300–350 milyon dolardan 300–325 milyon dolara daraltıldı."
+            }
+          ]
+        },
+        {
+          "baslik": "Hisse neden düştü",
+          "p": [
+            "Bilançodan bir gün önce temiz enerji hisseleri seçim sonucuyla yükselmiş ve Eos yüzde 12,6 artmıştı. Bilanço günü ise genel piyasada sert satış vardı. Düşüşün bir kısmı piyasadan, bir kısmı küçülen sipariş defterinden ve geri çekilen kâr sözünden geldi. İş kötüleşmedi; yatırımcı artık üretim değil, sipariş ve nakit kanıtı istiyor."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilanço açıklandığında olumlu yazan analistler talebin gerçek olduğunu ve yerli üretim şartının şirkete yaradığını söylüyordu. Olumsuz yazanlar şirketin kendi kendinin müşterisi olduğunu ve satış kâra dönmeden nakdin bitebileceğini yazıyordu. Hisseyi izleyen 11 aracı kurumun 4’ü “al”, 7’si “tut” diyordu."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Yönetimin sözünü ettiği 3,5 gigavatsaatlik fırsatın ne kadarı siparişe dönecek?",
+            "2026’nın son çeyreğinde 100 dolarlık satışın maliyeti 125 doların altına inecek mi?",
+            "Frontier Power dışındaki satış büyüyecek mi?"
+          ],
+          "p": [
+            "Üretim kanıtlandı, satış ve nakit kanıtlanmadı. Eylül sonunda kasada 344 milyon dolar vardı ve bu paranın ne hızla eridiğine de bakacağım. Cevapları bir sonraki bilançoda göreceğim."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "RKLB",

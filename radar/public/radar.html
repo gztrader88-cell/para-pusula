@@ -427,7 +427,7 @@ function bilancoHtml(bl) {
   }).join("");
   var kisimlar = (bl.kisimlar || []).map(function (k) {
     var ic = "";
-    if (k.soz) ic += '<ul class="bl-soz">' + k.soz.map(function (s) { return '<li><span class="bl-etk ' + s.d + '">' + (BL_ETIKET[s.d] || "") + '</span><span>' + s.t + '</span></li>'; }).join("") + '</ul>';
+    if (k.soz) ic += '<ul class="bl-soz">' + k.soz.map(function (s) { return '<li><span class="bl-etk ' + s.d + '">' + (s.e || BL_ETIKET[s.d] || "") + '</span><span>' + s.t + '</span></li>'; }).join("") + '</ul>';
     if (k.liste) ic += '<ol>' + k.liste.map(function (m) { return '<li>' + m + '</li>'; }).join("") + '</ol>';
     (k.p || []).forEach(function (m) { ic += '<p>' + m + '</p>'; });
     return '<section class="bl-kisim' + (k.izle ? " izle" : "") + '"><h5>' + k.baslik + '</h5>' + ic + '</section>';
