@@ -108,6 +108,40 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .bolum h4 { margin: 0 0 4px; font-family: var(--display); font-weight: 700; font-size: .92rem; }
 .bolum p { margin: 0; font-size: .95rem; line-height: 1.55; }
 .bolum.risk .ikon { color: var(--down); }
+/* Son bilanço: açılır özet (hisseler.json içindeki "bilanco" alanı) */
+.bl { border-top: 1px solid var(--line); }
+.bl-dugme { width: 100%; display: grid; grid-template-columns: 34px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 12px 0; background: none; border: 0; color: var(--fg); text-align: left; cursor: pointer; }
+.bl-dugme:focus-visible { outline: 2px solid var(--k); outline-offset: 2px; border-radius: 10px; }
+.bl-dugme .ikon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--k); }
+.bl-dugme .ikon svg { width: 18px; height: 18px; }
+.bl-dugme b { display: block; font-family: var(--display); font-weight: 700; font-size: .92rem; }
+.bl-dugme small { display: block; color: var(--muted); font-size: .8rem; }
+.bl-dugme .ok { width: 20px; height: 20px; color: var(--muted); }
+.bl-dugme[aria-expanded="true"] .ok { transform: rotate(180deg); }
+.bl-hap { display: inline-block; font-family: var(--body); font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; margin-left: 8px; vertical-align: 1px; white-space: nowrap; }
+.bl-hap.iyi, .bl-etk.iyi { background: var(--up-soft); color: var(--up); }
+.bl-hap.kotu, .bl-etk.kotu { background: var(--down-soft); color: var(--down); }
+.bl-hap.sari, .bl-etk.sari { background: rgba(245,196,81,.16); color: #f5c451; }
+.bl-ic { background: var(--surface-2); border-radius: 16px; padding: 16px; margin-bottom: 14px; display: grid; gap: 14px; }
+.bl-hukum { margin: 0; font-family: var(--display); font-weight: 700; font-size: 1.08rem; line-height: 1.35; }
+.bl-uc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.bl-uc div { background: var(--surface); border-radius: 12px; padding: 10px; min-width: 0; }
+.bl-uc span { font-size: .72rem; color: var(--muted); display: block; line-height: 1.3; }
+.bl-uc b { font-family: var(--display); font-weight: 800; font-size: 1.05rem; display: block; margin: 3px 0 1px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bl-uc i { font-style: normal; font-size: .74rem; font-weight: 600; color: var(--muted); }
+.bl-uc i.iyi { color: var(--up); } .bl-uc i.kotu { color: var(--down); }
+@media (max-width: 460px) { .bl-uc { grid-template-columns: 1fr; } }
+.bl-kisim { padding: 14px 0; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.bl-kisim:first-child { border-top: 0; padding-top: 0; }
+.bl-kisim:last-child { padding-bottom: 0; }
+.bl-kisim h5 { margin: 0; font-family: var(--display); font-weight: 700; font-size: .95rem; }
+.bl-kisim.izle h5 { color: var(--k); }
+.bl-kisim p { margin: 0; font-size: .94rem; line-height: 1.6; }
+.bl-kisim ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: .94rem; line-height: 1.5; font-weight: 600; }
+.bl-soz { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.bl-soz li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; align-items: start; font-size: .92rem; line-height: 1.5; }
+.bl-etk { font-size: .7rem; font-weight: 700; padding: 3px 0; border-radius: 999px; text-align: center; margin-top: 2px; }
+.bl-uyari { margin: 0; font-size: .74rem; color: var(--muted); line-height: 1.45; }
 .gez { display: flex; gap: 8px; margin-top: 18px; }
 .gez button { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); font-weight: 700; cursor: pointer; }
 .gez button:hover { border-color: var(--k); }
@@ -334,6 +368,7 @@ function panelGoster(h, i) {
       '<div class="sayi"><b>' + fiyatYaz(h.fiyat) + '</b><span>Fiyat</span></div>' + sayi(h.gun, "Bugün") + sayi(h.ay, "1 ay") + sayi(h.ytd, "Yılbaşından") +
     '</div>' : "") +
     (h.olg ? '<div class="olgunluk"><span>Olgunluk</span><div class="cubuk">' + olg + '</div><span>' + OLGUNLUK[h.olg] + '</span></div>' : "") +
+    bilancoHtml(h.bilanco) +
     b("ne", "Ne iş yapar", h.ne) + b("ai", PAZAR_METIN[durum.pazar].tema, h.ai || h.tema) + b("yatirim", "Yatırımcı gözüyle artısı", h.yatirim) + b("risk", "Riski", h.risk) +
     b("neden", "Neden seçtim", h.neden) +
     (i >= 0 ? '<div class="gez"><button id="onceki">‹ Önceki</button><button id="sonraki">Sonraki ›</button></div>' : "");
@@ -341,6 +376,12 @@ function panelGoster(h, i) {
   panel.hidden = false;
   document.getElementById("panelGovde").scrollTop = 0;
   document.getElementById("kapat").addEventListener("click", kapat);
+  var blD = document.getElementById("blDugme");
+  if (blD) blD.addEventListener("click", function () {
+    var acik = blD.getAttribute("aria-expanded") === "true";
+    blD.setAttribute("aria-expanded", acik ? "false" : "true");
+    document.getElementById("blIc").hidden = acik;
+  });
   if (i >= 0) {
     document.getElementById("onceki").addEventListener("click", function () { ac((i - 1 + durum.liste.length) % durum.liste.length); });
     document.getElementById("sonraki").addEventListener("click", function () { ac((i + 1) % durum.liste.length); });
@@ -349,6 +390,27 @@ function panelGoster(h, i) {
 }
 function bolum(tip, baslik, metin) {
   return '<div class="bolum ' + tip + '"><div class="ikon">' + IKON[tip] + '</div><div><h4>' + baslik + '</h4><p>' + metin + '</p></div></div>';
+}
+// Son bilanço özeti: kapalı gelir, başlığa dokununca açılır. Veri yoksa hiçbir şey çizmez.
+var BL_ETIKET = { iyi: "Tutuldu", kotu: "Tutulmadı", sari: "Bilgi yok" };
+function bilancoHtml(bl) {
+  if (!bl || !bl.hukum) return "";
+  var uc = (bl.rakamlar || []).map(function (r) {
+    return '<div><span>' + r.etiket + '</span><b>' + r.deger + '</b><i class="' + (r.yon || "") + '">' + (r.alt || "") + '</i></div>';
+  }).join("");
+  var kisimlar = (bl.kisimlar || []).map(function (k) {
+    var ic = "";
+    if (k.soz) ic += '<ul class="bl-soz">' + k.soz.map(function (s) { return '<li><span class="bl-etk ' + s.d + '">' + (BL_ETIKET[s.d] || "") + '</span><span>' + s.t + '</span></li>'; }).join("") + '</ul>';
+    if (k.liste) ic += '<ol>' + k.liste.map(function (m) { return '<li>' + m + '</li>'; }).join("") + '</ol>';
+    (k.p || []).forEach(function (m) { ic += '<p>' + m + '</p>'; });
+    return '<section class="bl-kisim' + (k.izle ? " izle" : "") + '"><h5>' + k.baslik + '</h5>' + ic + '</section>';
+  }).join("");
+  return '<div class="bl"><button class="bl-dugme" id="blDugme" aria-expanded="false" aria-controls="blIc">' +
+    '<span class="ikon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>' +
+    '<span><b>Son bilanço' + (bl.rozet ? '<span class="bl-hap ' + (bl.rozetTip || "sari") + '">' + bl.rozet + '</span>' : "") + '</b><small>' + [bl.donem, bl.tarih].filter(Boolean).join(" · ") + '</small></span>' +
+    '<svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>' +
+    '<div class="bl-ic" id="blIc" hidden><p class="bl-hukum">' + bl.hukum + '</p>' + (uc ? '<div class="bl-uc">' + uc + '</div>' : "") +
+    '<div>' + kisimlar + '</div>' + (bl.uyari ? '<p class="bl-uyari">' + bl.uyari + '</p>' : "") + '</div></div>';
 }
 function kapat() {
   document.getElementById("perde").hidden = true;

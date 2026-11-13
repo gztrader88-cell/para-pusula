@@ -285,7 +285,107 @@
     "ne": "Telefon üzerinden doktor görüşmesi ve ilaç teslimi yapan bir platform. Saç dökülmesi, cinsel sağlık, ruh sağlığı ve kilo verme ilaçlarıyla büyüdü.",
     "ai": "Hastanın verisine göre kişiselleştirilmiş tedavi öneren yapay zekâ kuruyor. Milyonlarca abonenin verisi ile doktoru ölçeklemenin yolu bu. Sağlığı tüketici uygulamasına çeviriyor.",
     "yatirim": "Abone sayısı ve gelir hızla büyüdü, kâra geçti. Kilo verme ilaçları yeni devasa pazar. Marka gücü genç kuşakta yüksek.",
-    "risk": "Kilo verme ilaçlarında Novo Nordisk ile gerginlik yaşadı ve düzenleyici kurumlar ilaç kopyalama uygulamasını kısıtlayabilir. Hisse haberle çok sert hareket ediyor. Rekabet kolay girilebilir bir pazar."
+    "risk": "Kilo verme ilaçlarında Novo Nordisk ile gerginlik yaşadı ve düzenleyici kurumlar ilaç kopyalama uygulamasını kısıtlayabilir. Hisse haberle çok sert hareket ediyor. Rekabet kolay girilebilir bir pazar.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "9 Kasım 2026’da açıklandı",
+      "rozet": "Beklentinin altında",
+      "rozetTip": "kotu",
+      "hukum": "Satış yüzde 49 büyüdü ama abone sayısı ilk kez azaldı ve büyüyen satışın çok azı kâra kaldı.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "890 mn $",
+          "alt": "bir yılda +%49",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "100 dolarlık satıştan kalan",
+          "deger": "57 $",
+          "alt": "geçen yıl 74 $",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Abone",
+          "deger": "2,79 mn",
+          "alt": "üç ayda −100 bin",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Hims & Hers 9 Kasım’da üçüncü çeyrek bilançosunu açıkladı. Satış 890 milyon dolarla beklenen yerde geldi. Ama şirket 33 milyon dolar zarar yazdı, yıllık kâr hedefini indirdi ve abone sayısı tarihinde ilk kez bir çeyrekten ötekine azaldı."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Şirket eskiden zayıflama ilacının muadilini kendi eczanesinde hazırlıyor ve yüksek kârla satıyordu. Mart’tan beri Wegovy gibi markalı ilaçları, üreticinin belirlediği fiyattan satıyor. Yani üreticiden tezgâha dönüşüyor.",
+            "Sonucu rakamda görünüyor. Satış bir yılda 291 milyon dolar arttı ama bunun yalnız 4 milyon doları kâra kaldı. Yüzde 49’luk büyümenin büyük kısmı da Haziran’da satın alınan Avustralyalı şirketten geliyor; Amerika’daki satış yüzde 21 büyüdü."
+          ]
+        },
+        {
+          "baslik": "Abone neden azaldı",
+          "p": [
+            "Üç ayda yaklaşık 100 bin abone eksildi. Yönetim bunun bilinçli olduğunu, zayıflama ilacı reklamını Ocak ayına hazırlanmak için kıstıklarını söylüyor. Analistler düşüşün ne kadarının reklamdan, ne kadarının giden müşteriden geldiğini sordu ve yönetim oran vermedi. Baskının bir çeyrek daha sürebileceğini de ekledi."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Çeyrek için verilen satış ve kâr hedefi tutturuldu."
+            },
+            {
+              "d": "iyi",
+              "t": "Şirket söz verdiği gibi yeniden nakit üretti ve kasaya 26 milyon dolar girdi."
+            },
+            {
+              "d": "kotu",
+              "t": "Yıllık kâr hedefi 275–325 milyon dolardan 257–277 milyon dolara indirildi."
+            },
+            {
+              "d": "sari",
+              "t": "Şirket, yurt dışındaki işinin kâr edip etmediğini açıklamıyor."
+            }
+          ]
+        },
+        {
+          "baslik": "Borç ve dava",
+          "p": [
+            "Kasadaki para yıl başında 926 milyon dolardı, Eylül sonunda 712 milyon dolara indi. Tahvil borcu ise 1,37 milyar dolara çıktı. Amerika’nın tüketiciyi koruyan federal kurumu Temmuz’da şirkete dava açmıştı; 10 Kasım’da beş eyalet daha davaya katıldı ve şirketin davayı düşürme talebi 7 Ocak’ta görüşülecek."
+          ]
+        },
+        {
+          "baslik": "Hisse neden düştü",
+          "p": [
+            "Hisse bilançodan sonraki iki günde değerinin yaklaşık dörtte birini kaybetti. Sebep bu çeyreğin satışı değil. Şirket yılın son çeyreğinde satışın yerinde sayacağını söyledi; piyasa ise büyümenin süreceğini bekliyordu."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "İyimserler abonenin bilerek bırakıldığını ve Ocak’ta geri geleceğini söylüyor. Temkinliler ise bu kadar reklama rağmen abone gidiyorsa müşterinin sadık olmadığını düşünüyor. Hisseyi izleyen 19 aracı kurumdan 14’ü “tut” diyor."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Ocak’ta reklam yeniden açıldığında abone geri gelecek mi?",
+            "Her 100 dolarlık satıştan kalan para 57 dolarda duracak mı?",
+            "7 Ocak’taki dava görüşmesinden ne çıkacak?"
+          ],
+          "p": [
+            "Abone geri gelir ve kârlılıktaki düşüş durursa yönetim haklı çıkar. İkisi de olmazsa sorun reklam değil, işin kendisidir. Cevabı Şubat sonu ya da Mart başındaki bilançoda göreceğim."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "CBRS",
