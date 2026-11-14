@@ -645,5 +645,250 @@
       ],
       "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
     }
+  },
+  {
+    "kod": "MGROS",
+    "yahoo": "MGROS.IS",
+    "ad": "Migros",
+    "kat": "tuketim",
+    "deger": 86,
+    "rol": "Türkiye’nin büyük market zinciri",
+    "olg": 3,
+    "kart": true,
+    "ne": "3.800’den fazla mağazası olan market zinciri. Migros, Macrocenter ve Migros Jet gibi farklı büyüklükte mağazalarla çalışıyor; internetten market ve yemek siparişi de alıyor. İnternet satışları toplam satışın yaklaşık yüzde 23’ü.",
+    "tema": "İndirim marketlerinden farklı olarak orta ve üst gelir grubuna, geniş ürün çeşidiyle hitap ediyor. Bu yüzden tüketici sıkıştığında etkisini daha çok hissediyor, tüketim canlandığında da daha hızlı toparlanıyor.",
+    "yatirim": "Kasası çok güçlü; kira borçları sayılmazsa 35 milyar lira net nakdi var ve banka kredisi kullanmadan büyüyor. Nakit üretiyor ve yılda iki kez temettü ödüyor. İnternet satışları hızlı büyüyor. Yaklaşık otuz aracı kurum izliyor.",
+    "risk": "Tüketim zayıf ve müşteri daha küçük sepetle alışveriş yapıyor. Net kârının büyük kısmı enflasyon muhasebesinden geliyor; tedarikçi vadesinin faizi ve kira giderleri asıl işin kârını inceltiyor. Yoğun indirim kampanyaları ve personel maliyeti marjı baskılıyor.",
+    "neden": "Geçen yıl seçtiğim ve hâlâ elinde tutanların olduğu bir hisse. Bu yüzden bilançosunu takip ediyor ve burada paylaşıyorum.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Kâr beklentiyi aştı ve kâr marjı toparlandı, ama şirket aynı akşam satış hedefini düşürdü; müşteri daha küçük sepetle alışveriş yapıyor.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "143,3 mr ₺",
+          "alt": "bir yılda gerçek artış +%3,3",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Amortisman öncesi faaliyet kârı",
+          "deger": "11,9 mr ₺",
+          "alt": "beklenti 11,4 mr ₺",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "3,53 mr ₺",
+          "alt": "geçen yıl 5,12 mr ₺",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Migros, 2026’nın üçüncü çeyrek bilançosunu 5 Kasım’da açıkladı. Çeyrek satışı 143,3 milyar lira oldu ve enflasyon düşüldükten sonra bir yılda yüzde 3,3 büyüdü. Net kâr 3,53 milyar lirayla on aracı kurumun ortalama beklentisinin yüzde 19 üstünde geldi, ama geçen yılın yüzde 31 altında kaldı. Bütün rakamlar enflasyona göre düzeltilmiş hâliyle verilmiştir."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Şirket bilançoyla aynı akşam bu yılki satış büyümesi hedefini yüzde 5–7 aralığından yüzde 4–5 aralığına indirdi. Gerekçe zayıf tüketim. Yönetime göre müşteriler daha küçük sepetlerle daha sık alışveriş yapıyor; tüketici iştahında belirgin bir bozulma yok, ama iyileşme de yok.",
+            "Kâr sürprizi de asıl işten gelmedi. Şirket bu çeyrekte vergi ödemek yerine vergi geliri yazdı ve beklentiyi aşan kısım büyük ölçüde buradan geldi. Kâr marjı, mağaza açılışı ve yatırım hedefleri ise değiştirilmedi."
+          ]
+        },
+        {
+          "baslik": "İyi gelenler",
+          "p": [
+            "Amortisman öncesi kârın satışa oranı bir önceki çeyrekte yüzde 4,3’tü, bu çeyrekte yüzde 8,3’e çıktı. Bir yıldan uzun süredir açık olan mağazaların satışı önceki çeyrekte hafif gerilemişti, bu çeyrekte yüzde 0,7 arttı. İnternet satışları gerçek anlamda yüzde 17 büyüdü. Yönetim, personel verimliliği, otomasyon ve enerji tasarrufundan gelen kazançların kalıcı olduğunu söylüyor."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "kotu",
+              "t": "Satışın gerçek anlamda yüzde 5–7 büyüyeceği söylenmişti; hedef yüzde 4–5’e indirildi."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "Amortisman öncesi kârın satışa oranının yıl genelinde yüzde 6–7 olacağı söylenmişti; dokuz ayda yüzde 5,9 ve hedef korundu."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "Temmuz’da müşteri sayısında iyileşme görüldüğü söylenmişti; gerileme azaldı ama artıya geçmedi."
+            },
+            {
+              "d": "iyi",
+              "t": "Yıl içinde 180–200 yeni mağaza açılacağı söylenmişti; Ekim sonuna kadar 171 mağaza açıldı."
+            }
+          ]
+        },
+        {
+          "baslik": "Kârın kalitesi ve kasa",
+          "p": [
+            "Kâr tarafı zayıf. Dokuz aylık net kâr 4,6 milyar lira; aynı dönemde enflasyon muhasebesinden yazılan kazanç 22,9 milyar lira. Tedarikçilere vadeli ödeme yapmanın faiz maliyeti ve kira giderleri düşüldüğünde asıl işin kârı çok inceliyor.",
+            "Kasa tarafı ise güçlü. Kira borçları sayılmazsa şirketin 35 milyar lira net nakdi var ve dokuz ayda banka kredisi kullanmadı. Dokuz ayda 9,7 milyar lira serbest nakit üretti ve bilançoyla birlikte yaklaşık 1,2 milyar liralık ara temettü açıkladı."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Ağustos bilançosundan Kasım bilançosuna kadar hisse yaklaşık yüzde 28 değer kaybetti; aynı dönemde borsa geriledi ve yabancı yatırımcı hissede satıcıydı. Bilançodan sonraki ilk işlem gününde hisse yüzde 3,6 yükseldi."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilançodan sonra tavsiyesini düşüren aracı kurum olmadı; bir kurum hedefini biraz indirdi. Yorumlar ikiye ayrıldı. Olumlu bakanlar kâr sürprizini, marjdaki toparlanmayı ve şirketin net nakit taşımasını öne çıkardı. Temkinli bakanlar kârı vergi ve enflasyon muhasebesinin desteklediğini, satış hedefinin düşürüldüğünü ve serbest nakdin azaldığını yazdı. Sosyal medyada en çok konuşulan konu ara temettü oldu."
+          ]
+        },
+        {
+          "baslik": "Bir sonraki bilançodan ne bekliyorum",
+          "izle": true,
+          "liste": [
+            "Kâr marjı toparlandı. Amortisman öncesi kârın satışa oranı bir çeyrekte yüzde 4,3’ten yüzde 8,3’e çıktı.",
+            "Aynı mağazaların satışı eksiden artıya döndü ve müşteri sayısındaki gerileme azaldı.",
+            "Kasa çok güçlü. Şirket banka kredisi kullanmadan büyüyor, nakit üretiyor ve ara temettü ödüyor.",
+            "Yönetim verimlilik kazançlarının kalıcı olduğunu, marjı baskılayan bazı maliyet artışlarının ise sürmeyeceğini söylüyor."
+          ],
+          "p": [
+            "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: yılın yüzde 4–5 gerçek büyümeyle kapanmasına, amortisman öncesi kârın satışa oranının yıl genelinde yüzde 6’nın üstüne çıkmasına ve mağazalara gelen müşteri sayısının artıya geçmesine. Şirket elindekini iyi yönetiyor; eksik olan tüketimin canlanması."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
+  },
+  {
+    "kod": "ESCOM",
+    "yahoo": "ESCOM.IS",
+    "ad": "Escort Teknoloji",
+    "kat": "holding",
+    "deger": 2.5,
+    "rol": "Genç teknoloji şirketlerinin ortağı",
+    "grup": "bist100disi",
+    "olg": 1,
+    "kart": true,
+    "ne": "Adında teknoloji geçse de bir ürün satmıyor; yeni kurulan teknoloji girişimlerine erken aşamada ortak olan bir yatırım şirketi. Ortak olduğu şirketler arasında yapay zekâyla işe alım yapan, internetten elektronik satan ve finans yazılımı geliştiren girişimler var.",
+    "tema": "Bu hisse bir şirketin değil, bir girişim sepetinin fiyatı. Ortak olunan girişimlerin değeri arttıkça şirketin elindeki payların değeri de artıyor; bu artış ancak bir ortaklık satıldığında nakde dönüyor.",
+    "yatirim": "Finansal borcu yok; elindeki ortaklıkları zorla satmak zorunda değil. Defterde yazan değerinin yaklaşık yarısına işlem görüyor. Emeklilik fonları son altı ayda hissedeki paylarını artırdı.",
+    "risk": "Kârı kâğıt üstünde; ortaklıkların değer artışından geliyor ve kasaya para girmiyor. Kasasında nakit yok denecek kadar az. Hedef vermiyor, toplantı yapmıyor ve ortaklıklarının değerini tek tek anlatmıyor. Temettü geçmişi yok. Hissenin çoğu bireysel yatırımcıda ve hareketler çok sert.",
+    "neden": "Geçen yıl seçtiğim ve hâlâ elinde tutanların olduğu bir hisse. Bu yüzden bilançosunu takip ediyor ve burada paylaşıyorum.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "27 Ekim 2026’da açıklandı",
+      "kisa": "27 Ekim",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Kâğıt üstünde kâr sürüyor ama her çeyrek küçülüyor ve kasaya para girmiyor; piyasa şirkete defterde yazan değerinin yaklaşık yarısını veriyor.",
+      "rakamlar": [
+        {
+          "etiket": "Ortaklıkların değer artışından yazılan kazanç",
+          "deger": "276,4 mn ₺",
+          "alt": "önceki çeyrek 469,1 mn ₺",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "91,7 mn ₺",
+          "alt": "önceki çeyrek 220,1 mn ₺",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Kasadaki nakit",
+          "deger": "1,2 mn ₺",
+          "alt": "kâr nakde dönmüyor",
+          "yon": ""
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Escort Teknoloji, 2026’nın üçüncü çeyrek bilançosunu 27 Ekim’de açıkladı. Şirket dokuz ayda 461,8 milyon lira, üçüncü çeyrekte 91,7 milyon lira net kâr yazdı. Bu kârın kaynağı bir satış değil; şirketin ortak olduğu girişimlerin yeniden hesaplanan değeri. Bütün rakamlar enflasyona göre düzeltilmiş hâliyle verilmiştir."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Kâr var, nakit yok. Dokuz ayda 461,8 milyon lira kâr yazıldı, ama aynı dokuz ayda şirketin faaliyetlerinden kasaya para girmedi. Çünkü gelir tablosunda satış diye görünen kalemin neredeyse tamamı, satılmamış ortaklık paylarının yeniden değerlenmesinden geliyor.",
+            "Bu bir hile değil, muhasebe kuralı böyle. Elinizdeki evin değeri arttıysa kâğıt üstünde zenginleşirsiniz, ama evi satmadan cebinize para girmez. Bu yüzden hisse kârına göre çok ucuz görünür; o kâr gerçekleşmiş bir satıştan gelmiyor."
+          ]
+        },
+        {
+          "baslik": "Değer artışı yavaşlıyor",
+          "p": [
+            "Ortaklıkların değer artışından yazılan kazanç yılın ilk çeyreğinde 529,8 milyon lira, ikinci çeyreğinde 469,1 milyon lira, üçüncü çeyreğinde 276,4 milyon lira oldu. Aynı dönemde enflasyon muhasebesi her çeyrek büyük bir kayıp yazdırdı; üçüncü çeyrekte bu kayıp 184,6 milyon liraydı ve kazancın büyük kısmını geri aldı."
+          ]
+        },
+        {
+          "baslik": "Şirket ne söylüyor, ne söylemiyor",
+          "soz": [
+            {
+              "d": "iyi",
+              "e": "Olumlu",
+              "t": "Finansal borç yok; şirket ortaklıklarını zorla satmak zorunda değil."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "Ortaklıkların değer artışı sürdü, ama her çeyrek küçüldü."
+            },
+            {
+              "d": "kotu",
+              "e": "Olumsuz",
+              "t": "2025 kârı için temettü dağıtılmayacağı açıklandı; şirketin temettü geçmişi yok."
+            },
+            {
+              "d": "sari",
+              "t": "2026’da açıklanmış bir ortaklık satışı yok."
+            },
+            {
+              "d": "sari",
+              "t": "Şirket hedef vermiyor, toplantı yapmıyor ve ortaklıklarının değerini tek tek açıklamıyor."
+            }
+          ]
+        },
+        {
+          "baslik": "Defter değeri ve fiyat",
+          "p": [
+            "Eylül sonunda şirketin defterde yazan net değeri 4,6 milyar liraydı. Bilanço açıklandığında piyasa değeri bunun yaklaşık yarısıydı. Bu fark, piyasanın defterdeki değerlemelere tam güvenmediğini ve nakde dönüşü görmek istediğini gösteriyor. Değerlemelerin önemli kısmı, girişimlerin son yatırım turunda biçilen fiyata dayanıyor."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Bilançodan sonraki ilk işlem gününde hisse yüzde 9,8 yükseldi, sonraki işlem gününde yüzde 10 düştü. Ağustos bilançosundan Ekim bilançosuna kadar hisse yaklaşık yüzde 36 değer kaybetti; bu dönem, Türkiye’deki fon krizinde küçük hisselerin topluca satıldığı dönemdi. Hissenin yaklaşık yüzde 81’i bireysel yatırımcıların elinde olduğu için hareketler sert oluyor."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bu şirketi izleyen ve hedef fiyat veren bir aracı kurum yok. Sosyal medyada iki ayrı okuma var. Bir kesim hisseyi kârına ve defter değerine göre “en ucuzlar” listesinde tutuyor. Öteki kesim kârın kâğıt üstünde olduğunu ve şirketin bilgi vermediğini söylüyor. Emeklilik fonları ise son altı ayda hissedeki paylarını artırdı."
+          ]
+        },
+        {
+          "baslik": "Bir sonraki bilançodan ne bekliyorum",
+          "izle": true,
+          "liste": [
+            "Geçen yıl en büyük değerleme kazancı yılın son çeyreğinde yazılmıştı.",
+            "Şirketin finansal borcu yok; elindeki ortaklıkları zorla satmak zorunda değil ve bekleyebilir.",
+            "Emeklilik fonları son altı ayda hissedeki paylarını artırdı.",
+            "Şirket defterde yazan değerinin yaklaşık yarısına işlem görüyor; bir ortaklık defterdeki fiyatına yakın satılırsa bu fark sorgulanır."
+          ],
+          "p": [
+            "Bu şirkette bilanço rakamından çok bir habere bakıyorum: bir ortaklığın satılıp kasaya nakit girmesine. Bunun yanında değer artışı kazancının küçülmeyi bırakmasına ve şirketin ortaklıklarının değerini tek tek açıklamasına bakacağım. Satış gelmeden kâr kâğıt üstünde kalır."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   }
 ]
