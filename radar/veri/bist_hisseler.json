@@ -278,14 +278,124 @@
     "ad": "Kron Teknoloji",
     "kat": "yazilim",
     "deger": 2.9,
-    "rol": "Yedek: siber güvenlik ve yapay zekâ ajanı erişim yönetimi",
+    "rol": "Siber güvenlik ve yapay zekâ ajanı erişim yönetimi",
     "grup": "bist100disi",
     "olg": 2,
-    "ne": "Telekom operatörlerine ağ erişim ve kimlik doğrulama yazılımı, kurumlara da Kron PAM adlı ayrıcalıklı erişim yönetimi ürünü satan siber güvenlik şirketi. Turkcell gibi operatörler müşterisi, ABD'de iştiraki var, haziranda Azerbaycan'ın ulusal siber güvenlik ajansıyla anlaştı. Gelirinin dörtte üçü dolar bazlı, giderleri TL.",
-    "tema": "Listemin yedek kulübesindeki tek teknoloji hissesi. Yapay zekâ ajanları şirket sistemlerine girmeye başladıkça kimin neye erişebileceğini yöneten yazılım zorunlu hale geliyor; Kron 1 Ekim'de çıkardığı sürümle tam bu işi yapıyor. Türkiye'nin ilk Siber Güvenlik Kanunu 2025'te yürürlüğe girdi, kamu ve bankalar bu ürünleri almak zorunda.",
-    "yatirim": "Brüt marj %89, net nakit 61 milyon TL, dolar bazlı faturalanan gelir ilk yarıda %26 büyüdü ve gelirin %64'ü her yıl yinelenen abonelik. Halka açıklık %53, fiili dolaşım %65. Emeklilik fonları altı ayda 10,7 milyon lot alıp payını %14,5'e çıkardı, 30 fonda var. Fiyat zirvenin %42 altında. Tasfiyedeki fonların listesinde ve soruşturmadaki şirketler arasında adının olmadığını kontrol ettim.",
-    "risk": "Kâr düşüyor: son çeyrekte esas faaliyet kârı %36, net kâr %43 geriledi, çünkü abonelik modeli geliri zamana yayıyor ve pazarlama ile ArGe harcaması büyük. F/K 20 ile ucuz değil. Analist kapsaması yok, temettü yok, günlük hacim 20 milyon TL civarı; kademeli alınır, küçük ağırlıkla taşınır.",
-    "neden": "Yazılım şirketlerine şüpheyle bakıyorum, çünkü yazılım yapmak ucuzladı ve Logo'nun yaptığını yarın bir başkası yapar. Kron'u yine de yedek kulübesine aldım, çünkü sattığı şey bir program değil, operatörün ve bankanın en hassas kapısını tutan güven. O kapıyı değiştirmek yıllar sürer. Küçük bir şirket, o yüzden ilk 11'de değil kulübede; teknoloji temasını ucuz yazılımla değil, dolar geliri ve net nakdi olan bir güvenlik ürünüyle temsil etmesini istedim."
+    "kart": true,
+    "ne": "Bir kurumun en yetkili hesaplarının nereye girip ne yaptığını denetleyen siber güvenlik yazılımı üreten bir Türk şirketi. Bankalar, telekom operatörleri ve kamu kurumları müşterisi; 38 ülkede 450’den fazla kurumsal müşterisi var. Faturalarının yarıdan fazlasını dövizle kesiyor, giderlerinin çoğu lira.",
+    "tema": "Yapay zekâ ajanları şirket sistemlerine girmeye başladıkça kimin neye erişebileceğini yöneten yazılım zorunlu hâle geliyor. Kron 1 Ekim 2026’da çıkardığı sürümle bu ajanların erişimini yönetmeye başladı. Türkiye’de Siber Güvenlik Başkanlığı kuruldu; yerli ürünleri öne çıkarması beklenen düzenlemeler bekleniyor.",
+    "yatirim": "Yıl başında rakamla hedef veriyor ve tutuyor. Her 100 liralık satışın 89 lirası elde kalıyor. Yurt dışında büyüyor; yeni müşterilerinin yarısından fazlası yurt dışından geliyor. Kasası borcundan büyük.",
+    "risk": "Kazandığı nakdin neredeyse tamamını ürün geliştirmeye harcıyor, kasada biriken para az. Dövizle kazanıp lirayla harcadığı için liranın değerli kalması aleyhine. Şirketi izleyen aracı kurum yok, küçük bir şirket ve hisse sert hareket ediyor.",
+    "neden": "Yazılım şirketlerine şüpheyle bakıyorum, çünkü yazılım yapmak ucuzladı. Kron’u yine de seçtim, çünkü sattığı şey bir program değil, bankanın ve operatörün en hassas kapısını tutan güven; o kapıyı değiştirmek yıllar sürer. Geçen yıl seçtiğim ve hâlâ elinde tutanların olduğu bir hisse, bu yüzden bilançosunu takip ediyorum.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Hedefle uyumlu",
+      "rozetTip": "iyi",
+      "hukum": "Şirket yıl başında verdiği üç hedefin üçünde de çizginin içinde ve satışı gerçek anlamda yüzde 26 büyüdü; sıradaki sınav bu büyümenin ne kadarının kalıcı gelirden geldiği.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "173,2 mn ₺",
+          "alt": "bir yılda gerçek artış +%26",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Amortisman öncesi kârın satışa oranı",
+          "deger": "%48,4",
+          "alt": "geçen yıl %35,5",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "26,9 mn ₺",
+          "alt": "geçen yıl 0,2 mn ₺ zarar",
+          "yon": "iyi"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Kron Teknoloji, 2026’nın üçüncü çeyrek bilançosunu 5 Kasım’da açıkladı. Çeyrek satışı 173,2 milyon lira oldu ve enflasyon düşüldükten sonra bir yılda yüzde 26 büyüdü. Şirket bir yıl önce bu çeyreği küçük bir zararla kapatmıştı; bu yıl 26,9 milyon lira kâr yazdı. Lira rakamlarının hepsi enflasyona göre düzeltilmiş hâliyle verilmiştir."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Büyüme gerçek, ama bu çeyrekte kalıcı gelirden çok tek seferlik satıştan geldi. Bir yazılım şirketinde en değerli gelir, her yıl yenilenen abonelik ve bakım geliridir. Bu gelirin faturalardaki payı yüzde 64’ten yüzde 61’e indi, tek seferlik lisans satışının payı ise yüzde 32’den yüzde 34’e çıktı.",
+            "Müşterilerden peşin alınıp ileride gelire yazılacak para da üç ayda 40 milyon lira azaldı. Bu, çeyrekteki satışın bir kısmının daha önce faturalanmış işlerden geldiğini gösteriyor."
+          ]
+        },
+        {
+          "baslik": "Yıl hedefleri tutuyor mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Satışın enflasyonun üstünde yüzde 10–14 büyüyeceği söylenmişti; dokuz ayda yüzde 11 büyüdü."
+            },
+            {
+              "d": "iyi",
+              "t": "Amortisman öncesi kârın satışa oranının yüzde 44–48 olacağı söylenmişti; dokuz ayda yüzde 46 oldu."
+            },
+            {
+              "d": "iyi",
+              "t": "Dolar cinsinden yıllık yinelenen gelirin yüzde 33–37 büyüyeceği söylenmişti; yüzde 33 büyüdü ve hedefin alt sınırında."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "Yılın ikinci yarısında yeni müşteri kazanımının artacağı söylenmişti; çeyrekte 18 yeni müşteri geldi, önceki çeyrekle aynı."
+            },
+            {
+              "d": "kotu",
+              "t": "Haziran’da aboneliğe dönüşümün tamamlandığı söylenmişti; bu çeyrekte tek seferlik lisansın payı arttı."
+            }
+          ]
+        },
+        {
+          "baslik": "Kasaya giren para nereye gidiyor",
+          "p": [
+            "Dokuz ayda faaliyetlerden 232 milyon lira nakit girdi, ürün geliştirmeye ve yatırıma 226 milyon lira gitti. Elde kalan yaklaşık 6 milyon lira. Bir yıl önce aynı hesap 36 milyon lira eksideydi; yön iyi, seviye düşük.",
+            "Şirket ürün geliştirme harcamasını gider yazmıyor, bilançosuna varlık olarak koyuyor. Amortisman öncesi kâr bu yüzden parlak görünüyor, ama kasada biriken para az. Eylül sonunda banka borcu düşüldükten sonra şirketin 77,6 milyon lira nakdi vardı."
+          ]
+        },
+        {
+          "baslik": "Yurt dışı ve döviz",
+          "p": [
+            "Şirketin asıl büyüme hikâyesi yurt dışında. Dolar cinsinden yurt dışı faturalar dokuz ayda yüzde 65 arttı. Dokuz ayda kazanılan 49 yeni kurumsal müşterinin 28’i yurt dışından geldi; bir yıl önce aynı dönemde bu sayı 15’ti. Dolar cinsinden yıllık yinelenen gelir 8,7 milyon dolara ulaştı; iki yıl önce 4,1 milyon dolardı.",
+            "Şirket faturalarının yüzde 57’sini dövizle kesiyor, giderlerinin yüzde 86’sı ise lira. Lira değerli kaldıkça bu denge şirketin aleyhine işliyor."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Ağustos bilançosundan Kasım bilançosuna kadar hisse yaklaşık yüzde 40 değer kaybetti. Bu dönem, Türkiye’deki fon krizinde küçük teknoloji hisselerinin topluca satıldığı dönemdi; aynı dönemde şirketin işi bozulmadı, satışı büyüdü. Bilançodan sonraki ilk işlem gününde hisse yüzde 3,2, ikinci gün yüzde 5,8 yükseldi."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bu şirketi izleyip hedef fiyat veren bir aracı kurum yok. Bilançodan sonra kısa not yazan bir kurum sonuçları kısmen olumlu buldu; marjdaki toparlanmayı ve yurt dışındaki ivmeyi öne çıkardı, ama büyümenin lisans gelirine kaymasını ve geliştirme yatırımlarının nakdi tüketmesini eleştirdi. Sosyal medyada hisse az konuşuldu; yorum yapanların çoğu marj artışına ve yurt dışı büyümeye baktı."
+          ]
+        },
+        {
+          "baslik": "Bir sonraki bilançodan ne bekliyorum",
+          "izle": true,
+          "liste": [
+            "Son çeyrek bu şirketin en güçlü çeyreği. Geçen yıl son çeyrekte amortisman öncesi kârın satışa oranı yüzde 55’e çıkmıştı.",
+            "Yönetim yıl hedeflerini Ağustos’ta da Kasım’da da korudu ve dokuz ay sonunda üçünde de çizginin içinde.",
+            "Yurt dışı büyüme hızlanıyor. Yeni müşterilerin yarısından fazlası yurt dışından geliyor ve genel müdür 2027’de Avrupa’nın şirket için yeni bir pazar olacağını söyledi.",
+            "Şirketin borç yükü yok; kasası borcundan büyük ve büyümeyi kendi parasıyla yürütebiliyor."
+          ],
+          "p": [
+            "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: yinelenen gelir payının yeniden yüzde 61’in üstüne çıkmasına, yıllık yinelenen gelir büyümesinin yüzde 33’ün altına inmemesine ve nakit hesabının artıda kalmasına. Yinelenen gelir payı yükselirse bu çeyrekteki tek seferlik satış bir istisna olarak kalır."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "OBASE",
@@ -406,6 +516,130 @@
           ],
           "p": [
             "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: son çeyrekte satışın gerçek anlamda büyümesine, her 100 liralık satıştan kalan paranın 19 liranın üstünde kalmasına ve kurucu ortaklardan alınan borcun artmamasına. Üçü birlikte gelirse 2026 bir geçiş yılı olarak kalır."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
+  },
+  {
+    "kod": "MTRKS",
+    "yahoo": "MTRKS.IS",
+    "ad": "Matriks",
+    "kat": "yazilim",
+    "deger": 1.6,
+    "rol": "Borsanın ekranı ve altyapısı",
+    "grup": "bist100disi",
+    "olg": 3,
+    "kart": true,
+    "ne": "Yatırımcının borsayı izlediği ve emir gönderdiği ekranı, aracı kurumların ve bankaların da emir ve risk altyapısını üreten finansal teknoloji şirketi. Sattığı verinin önemli kısmını borsadan satın alıyor; bu yüzden borsaya ödediği bedeller en büyük maliyet kalemi.",
+    "tema": "Borsa İstanbul’un altyapısında yeri olan bir şirket. Ürünlerine yapay zekâ asistanı ekledi ve aracı kurumların kendi yapay zekâ uygulamalarını Matriks verisine bağlamasını hedefliyor; bu yeni ürünlerin gelirini açıklamıyor.",
+    "yatirim": "Kasası borcundan büyük ve her yıl temettü ödüyor. Asıl işi bir yıl önceki zarardan kâra döndü. Borsaya ödediği bedeller azaldı. Borsa canlandığında bundan ilk yararlanacak şirketlerden biri.",
+    "risk": "Geliri borsadaki işlem hacmine bağlı; borsa durgunken satışı geriliyor. Net kârının büyük kısmı işinden değil, kasasındaki paranın getirisinden ve enflasyon muhasebesinden geliyor. Yeni ürünlere kazandığından fazlasını harcıyor. Şirketi izleyen aracı kurum yok.",
+    "neden": "Geçen yıl seçtiğim ve hâlâ elinde tutanların olduğu bir hisse. Bu yüzden bilançosunu takip ediyor ve burada paylaşıyorum.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Asıl iş bir yıl önceki zarardan kâra döndü, ama satış geriledi ve net kârın yarıdan fazlası hâlâ işten değil, kasadan ve muhasebeden geliyor.",
+      "rakamlar": [
+        {
+          "etiket": "Satış",
+          "deger": "421,5 mn ₺",
+          "alt": "bir yılda gerçek düşüş −%8,4",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Esas faaliyet kârı",
+          "deger": "22,8 mn ₺",
+          "alt": "geçen yıl 15,9 mn ₺ zarar",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "54,6 mn ₺",
+          "alt": "geçen yıl 79,9 mn ₺",
+          "yon": "kotu"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "Matriks, 2026’nın üçüncü çeyrek bilançosunu 5 Kasım’da açıkladı. Çeyrek satışı 421,5 milyon lira oldu ve enflasyon düşüldükten sonra bir yılda yüzde 8,4 geriledi. Asıl işin kârı, yani esas faaliyet kârı, bir yıl önceki 15,9 milyon liralık zarardan 22,8 milyon lira kâra döndü. Net kâr ise 79,9 milyon liradan 54,6 milyon liraya indi. Bütün rakamlar enflasyona göre düzeltilmiş hâliyle verilmiştir."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Bu hisse kârına göre çok ucuz görünür, ama o kârın içine bakmak gerekir. Dokuz ayda şirketin asıl işinden gelen faaliyet kârı 49,3 milyon lira oldu. Aynı dönemde kasadaki paranın getirisi 83,8 milyon lira, enflasyon muhasebesinden yazılan kazanç 58,3 milyon lira oldu.",
+            "Yani işten gelen kâr, kasadan ve muhasebeden gelen kârın üçte biri kadar. İyi haber son iki çeyrekte; asıl iş bir yıl önce zarardaydı, iki çeyrektir üst üste kâr ediyor. Yön düzeldi, seviye düşük."
+          ]
+        },
+        {
+          "baslik": "Kârı belirleyen iki şey",
+          "p": [
+            "Birincisi borsaya ödenen bedeller. Matriks sattığı verinin önemli kısmını borsadan satın alıyor. Bu bedeller çeyrekte bir yıl öncesine göre yüzde 42 azaldı ve her 100 liralık satıştan kalan para 6 liradan 11,7 liraya çıktı.",
+            "İkincisi borsadaki işlem hacmi. Borsa durgunken yatırımcı daha az işlem yapıyor ve şirketin işleme bağlı geliri azalıyor. Bu yüzden Matriks’in satışı borsanın canlılığını izliyor."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Temettü dağıtmayı sürdüreceklerini söylemişlerdi; Mayıs 2026’da 20 milyon lira dağıtıldı."
+            },
+            {
+              "d": "kotu",
+              "t": "İlk yarıda satış yüzde 13 büyümüştü; üçüncü çeyrekte yüzde 8,4 geriledi."
+            },
+            {
+              "d": "kotu",
+              "t": "İlk yarıda net kâr gerçek anlamda yüzde 31 artmıştı; dokuz ayda artış yüzde 2,6’ya indi."
+            },
+            {
+              "d": "sari",
+              "e": "Kısmen",
+              "t": "Çok borçlanmamaya özen gösterdiklerini söylemişlerdi; borç arttı, ama kasa hâlâ borçtan büyük."
+            },
+            {
+              "d": "sari",
+              "t": "Yapay zekâ ürünleri ve çok hızlı işlem altyapısı duyuruldu; gelirleri açıklanmadı."
+            }
+          ]
+        },
+        {
+          "baslik": "Kasa ve yatırım",
+          "p": [
+            "Eylül sonunda borçlar düşüldükten sonra şirketin 190,9 milyon lira nakdi vardı; Haziran sonunda 218,9 milyon liraydı. Dokuz ayda faaliyetlerden 325,4 milyon lira nakit girdi, yazılım ve yatırıma 367,7 milyon lira harcandı. Şirket yeni ürünlere kazandığından yaklaşık 42 milyon lira fazlasını harcadı. Kasa hâlâ dolu, ama eriyor."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Ağustos bilançosundan Kasım bilançosuna kadar hisse yaklaşık yüzde 53 değer kaybetti. Bu dönem, Türkiye’deki fon krizinde küçük teknoloji hisselerinin topluca satıldığı dönemdi. Bilançodan sonraki ilk işlem gününde hisse neredeyse yerinde kaldı. Şirketin sermayesini üç katına çıkaracak bedelsiz pay dağıtımı için yapılan başvuru bilanço açıklandığında onay bekliyordu; bedelsiz, şirketin değerini değiştirmez."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bu şirketi izleyip hedef fiyat veren bir aracı kurum yok. Bilançodan sonra kısa not yazan bir kurum, net kârdaki düşüşü enflasyon muhasebesinden gelen kazancın küçülmesine bağladı. Sosyal medyada hisse “en ucuzlar” listelerinde dolaştı; bilançoyu okuyanlar ise asıl işin kârı ile net kâr arasındaki farka dikkat çekti."
+          ]
+        },
+        {
+          "baslik": "Bir sonraki bilançodan ne bekliyorum",
+          "izle": true,
+          "liste": [
+            "Asıl iş kâra döndü. Bir yıl önce zarar eden esas faaliyet iki çeyrektir üst üste kâr ediyor.",
+            "En büyük maliyet kalemi küçüldü. Borsaya ödenen bedeller bir yılda yüzde 42 azaldı.",
+            "Şirketin kasası borcundan büyük ve temettü ödemeye devam ediyor; zor bir dönemi taşıyacak gücü var.",
+            "Gelir borsadaki işlem hacmine bağlı. Borsa canlandığında bu şirketin satışı da canlanır."
+          ],
+          "p": [
+            "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: satışın gerçek anlamda gerilemeyi bırakmasına, her 100 liralık satıştan kalan paranın 12 liranın üstüne çıkmasına ve kasadaki nakdin erimeyi bırakmasına. Eksik olan satış; o da büyük ölçüde borsanın canlanmasına bağlı."
           ]
         }
       ],
