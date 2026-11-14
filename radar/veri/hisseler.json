@@ -425,21 +425,23 @@
           ]
         },
         {
-          "baslik": "Borç ve kasa",
+          "baslik": "Büyümenin parası nereden geliyor",
           "p": [
-            "Eylül sonunda kasada 5,8 milyar dolar vardı; bunun 2,3 milyar doları belirli işlere ayrılmış, serbestçe kullanılamayan paraydı. Toplam borç 10,2 milyar dolardı ve çoğu ileride hisseye çevrilebilen tahvildi. Müşterilerle imzalanmış sözleşmelerin toplamı 20,3 milyar dolara ulaştı; bunun üçte ikisi Microsoft ve Nvidia’dan."
+            "Çip tarafında parayı artık müşteri veriyor. Çeyrekte imzalanan bir sözleşmede müşteri çip maliyetinin yüzde 90’ını peşin ödedi; şirket daha önce bu oranın yüzde 45 ile 55 arasında olacağını söylemişti. Şirket eski nesil çiplerini de ilk sözleşme fiyatının iki katına yeniden kiraladığını açıkladı.",
+            "Bina, arazi ve elektrik tarafını ise şirket kendi borcuyla kuruyor. Eylül sonunda toplam borç 10,2 milyar dolardı ve çoğu ileride hisseye çevrilebilen tahvildi. Kasadaki 5,8 milyar doların 2,3 milyar doları belirli işlere ayrılmış paraydı. Müşterilerle imzalanmış sözleşmelerin toplamı 20,3 milyar dolara ulaştı; bunun üçte ikisi Microsoft ve Nvidia’dan."
           ]
         },
         {
           "baslik": "Hisse nasıl tepki verdi",
           "p": [
-            "Bilanço piyasa kapandıktan sonra açıklandı. Hisse o gün, açıklamadan önce yüzde 17 düşmüştü; ertesi gün yüzde 20 yükseldi. Bilançodan önceki günlerde veri merkezi hisseleri seçim sonucu ve Microsoft’taki gecikme haberiyle satılmıştı."
+            "Bilanço piyasa kapandıktan sonra açıklandı. Hisse bir gün önce yüzde 11, bilanço günü açıklamadan önce yüzde 17 düşmüştü; sebep seçim sonrası veri merkezi hisselerindeki satış ve Microsoft’taki gecikmenin basına yansımasıydı. Açıklamadan sonraki ilk işlem gününde hisse yüzde 20 yükseldi. Aynı dönemde benzer işi yapan rakip şirketlerin hisseleri de üç ayda yarı yarıya düştü; hareketin büyük kısmı şirketten değil, sektörden geldi."
           ]
         },
         {
           "baslik": "Piyasa ne diyor",
           "p": [
-            "Bilançonun ardından analistler ikiye bölündü. İyimserler 6 milyar dolarlık açığın yönetilebilir olduğunu ve Microsoft’taki gecikmenin geçici olduğunu yazdı. Kötümserler bu açığın bir nakit sıkışıklığına dönebileceğini ve sözleşmelerin yarıya yakınının tek müşteriye bağlı olduğunu söyledi. Bilançodan sonraki hafta birçok aracı kurum hedef fiyatını indirdi; hisseyi izleyen 23 analistin 17’si yine de “al” tarafındaydı."
+            "Bilançodan sonra yazılan 12 bağımsız analist yazısının 8’i olumlu, 2’si kararsız, 2’si olumsuzdu. Talebin gerçek olduğunu hepsi kabul etti; ayrıştıkları yer paraydı. İyimserler 6 milyar dolarlık açığın müşteri peşin ödemeleri ve çip teminatlı kredilerle kapanacağını yazdı. Kötümserler bunun yeni hisse satışına dönebileceğini ve sözleşmelerin yarıya yakınının tek müşteriye bağlı olduğunu söyledi.",
+            "Sosyal medyada en çok paylaşılan haber, müşterinin çip maliyetinin yüzde 90’ını peşin ödemesi oldu. Bilançodan sonraki hafta ise “bilanço güçlü, hisse neden düşüyor” sorusu öne çıktı. Hisseyi izleyen 23 aracı kurum analistinin 17’si “al” tarafındaydı, ama çoğu hedef fiyatını indirdi."
           ]
         },
         {
@@ -451,7 +453,7 @@
             "Microsoft dışındaki müşterilerin payı artacak mı?"
           ],
           "p": [
-            "Bu bilançoda talep tarafında bir sorun görmedim; sınav finansmanda. Hedef bir kez daha kayarsa ya da para pahalıya bulunursa fikrim değişir. Cevabı bir sonraki bilançoda göreceğim."
+            "Bu bilançoda talep tarafında bir sorun görmedim; sınav finansmanda. Para makul koşullarla bulunur ve hedef tutarsa bu çeyrek bir duraklama olarak kalır. Para pahalıya ya da yeni hisseyle bulunursa büyümenin bedelini hissedar öder. Cevabı bir sonraki bilançoda göreceğim."
           ]
         }
       ],
@@ -517,8 +519,8 @@
         {
           "baslik": "Bitcoin satışı ve borç",
           "p": [
-            "Çeyrek bittikten sonra şirket 13.597 Bitcoin sattı, 1,1 milyar doları aşan gelir elde etti ve Bitcoin teminatlı 750 milyon dolarlık borcunu kapattı. Yılbaşından bilanço gününe kadar borç 1,4 milyar dolar azaldı. Yönetim ayrıca 500 milyon dolara kadar kendi hissesini geri alma yetkisi aldı.",
-            "Ağustos’ta yönetim Bitcoin’i elde tutacak bir finansman yöntemi anlatmıştı. Kasım’da yöntem değişti ve Bitcoin satıldı."
+            "Şirket yıllarca ürettiği Bitcoin’i satmayıp biriktirmişti. 2026’nın ilk dokuz ayında yaklaşık 26.984 Bitcoin satıp 1,9 milyar dolar elde etti. Çeyrek bittikten sonra 13.597 Bitcoin daha sattı ve Bitcoin teminatlı 750 milyon dolarlık borcunu kapattı.",
+            "Sonuçta bilanço sağlamlaştı. Yılbaşından bilanço gününe kadar borç 1,4 milyar dolar azaldı. Eylül sonunda eldeki Bitcoin’in yarısından fazlası borca karşılık teminattaydı; borç kapanınca bu oran yüzde 5’in altına indi. Yönetim ayrıca 500 milyon dolara kadar kendi hissesini geri alma yetkisi aldı."
           ]
         },
         {
@@ -534,35 +536,37 @@
             },
             {
               "d": "kotu",
-              "t": "Elektrik portföyü hedefi yaklaşık 4,8 gigavattan “4 gigavatın üstü”ne indi ve açıklama yapılmadı."
+              "t": "Santral alımının Bitcoin elde tutularak finanse edileceği söylenmişti; borç Bitcoin satılarak kapatıldı."
+            },
+            {
+              "d": "kotu",
+              "t": "Elektrik portföyü hedefi yaklaşık 4,8 gigavattan “4 gigavatın üstü”ne indi ve farkın sebebi açıklanmadı."
             },
             {
               "d": "sari",
               "e": "Sürüyor",
               "t": "Ohio’daki doğalgaz santralinin alımı için resmî onay 5 Kasım’da geldi; işlem bilanço günü tamamlanmamıştı."
-            },
-            {
-              "d": "sari",
-              "t": "Söz verilen yatırımcı günü için tarih verilmedi."
             }
           ]
         },
         {
           "baslik": "Yapay zekâ tarafı",
           "p": [
-            "Şirketin planı, sahip olduğu elektrik ve araziyi büyük bulut şirketlerine veri merkezi olarak kiralamak. Bunun için bir yatırım fonuyla ortaklık kurdu ve Ohio’da 505 megavatlık bir doğalgaz santrali satın alıyor. Çoğunluğuna sahip olduğu Fransız bulut şirketi Exaion, dört yıllık 79 milyon dolarlık ilk Amerikalı müşterisini aldı. Büyük bir kira sözleşmesi ise bilanço açıklandığında imzalanmış değildi."
+            "Şirketin planı, sahip olduğu elektrik ve araziyi büyük bulut şirketlerine veri merkezi olarak kiralamak. Bunun için büyük bir gayrimenkul yatırım fonuyla ortaklık kurdu, Ohio’da 505 megavatlık bir doğalgaz santrali satın alıyor ve Teksas’ta 2 gigavata kadar şebeke kapasitesi olan bir arazi için peşin ödemesiz bir anlaşma yaptı. Çoğunluğuna sahip olduğu Fransız bulut şirketi Exaion, dört yıllık 79 milyon dolarlık ilk Amerikalı müşterisini aldı.",
+            "Büyük bir kira sözleşmesi ise bilanço açıklandığında imzalanmış değildi. Genel müdür Fred Thiel seçimden sonra sahalarına gelen talebin belirgin biçimde arttığını söyledi."
           ]
         },
         {
           "baslik": "Hisse nasıl tepki verdi",
           "p": [
-            "Bilanço piyasa kapandıktan sonra açıklandı ve hisse ertesi gün yüzde 10,5 yükseldi. Haberlerde yükseliş, hisse geri alım kararına ve borcun kapatılmasına bağlandı."
+            "Bilanço piyasa kapandıktan sonra açıklandı ve hisse ertesi gün yüzde 10,5 yükseldi. Haberlerde yükseliş, hisse geri alım kararına ve borcun kapatılmasına bağlandı. Aynı haftanın sonunda Bitcoin üç ayın en düşük seviyesine indi ve madencilik hisseleri en çok düşenler arasındaydı. Şirket kendini altyapı şirketi olarak anlatsa da hisse o hafta Bitcoin’i izledi."
           ]
         },
         {
           "baslik": "Piyasa ne diyor",
           "p": [
-            "Bilançonun ardından olumlu yazan analistler borcun azalmasını ve şirketin elektrik varlıklarını öne çıkardı. Temkinli yazanlar, imzalı kira sözleşmesi olmadan hissenin Bitcoin fiyatına bağlı kalacağını söyledi. Bilançodan sonraki hafta üç aracı kurum hedef fiyatını indirdi; hisseyi izleyen 16 analistin 10’u “al” tarafındaydı."
+            "Sosyal medyada en çok konuşulan konu Bitcoin satışı oldu. Destekleyenler zamanlamayı övdü, eleştirenler şirketin “her Bitcoin’i tutarım” sözünden döndüğünü yazdı. İkinci konu, yapay zekâ kiracısının neden gelmediğiydi.",
+            "Bilançodan sonra iki bağımsız analist yazısı çıktı. Biri borcun azalmasını ve elektrik varlıklarını öne çıkarıp olumlu yazdı. Öteki notunu indirdi ve imzalı kira sözleşmesi olmadan hissenin Bitcoin fiyatına bağlı kalacağını söyledi. Hisseyi izleyen 16 aracı kurum analistinin 10’u “al” tarafındaydı; bilançodan sonraki hafta üç kurum hedef fiyatını indirdi."
           ]
         },
         {
@@ -571,7 +575,8 @@
           "liste": [
             "Söz verilen iki kira sözleşmesi imzalanacak mı?",
             "Ohio’daki santral alımı tamamlanacak mı?",
-            "Madencilik dışındaki gelirin payı artacak mı?"
+            "Madencilik dışındaki gelirin payı artacak mı?",
+            "Şirket Bitcoin satmayı sürdürecek mi, yoksa yeniden biriktirmeye mi dönecek?"
           ],
           "p": [
             "Bu bilançoda şirketin kazancı Bitcoin fiyatına bağlıydı ve yapay zekâ hikâyesi bir sözleşmeyle kanıtlanmış değildi. İlk kira sözleşmesi gelirse tablo değişir. Cevabı bir sonraki bilançoda göreceğim."
