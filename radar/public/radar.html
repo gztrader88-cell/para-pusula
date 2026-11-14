@@ -145,7 +145,7 @@ h1 span { background: linear-gradient(90deg, var(--c-altyapi), var(--c-bulut), v
 .bl-kisim h5 { margin: 0; font-family: var(--display); font-weight: 700; font-size: .95rem; }
 .bl-kisim.izle h5 { color: var(--k); }
 .bl-kisim p { margin: 0; font-size: .94rem; line-height: 1.6; }
-.bl-kisim ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: .94rem; line-height: 1.5; font-weight: 600; }
+.bl-kisim ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: .94rem; line-height: 1.5; font-weight: 500; }
 .bl-soz { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .bl-soz li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; align-items: start; font-size: .92rem; line-height: 1.5; }
 .bl-etk { font-size: .7rem; font-weight: 700; padding: 3px 0; border-radius: 999px; text-align: center; margin-top: 2px; }
@@ -261,7 +261,8 @@ function aktifHisseler() {
   var k = ILK11.bist, secili = {};
   if (!k || !k.yerler) return BIST.hisseler.filter(function (h) { return h.ne; });
   Object.keys(k.yerler).forEach(function (id) { secili[k.yerler[id]] = true; });
-  return BIST.hisseler.filter(function (h) { return secili[h.kod]; });
+  // İlk 11'dekiler ve "kart": true işaretli hisseler (kadroda olmayan, yalnız kart olarak gösterilenler)
+  return BIST.hisseler.filter(function (h) { return secili[h.kod] || h.kart === true; });
 }
 function pb() { return durum.pazar === "bist" ? "₺" : "$"; }
 var PAZAR_METIN = {
