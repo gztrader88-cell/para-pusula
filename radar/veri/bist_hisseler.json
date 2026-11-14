@@ -777,34 +777,34 @@
     "olg": 1,
     "kart": true,
     "ne": "Adında teknoloji geçse de bir ürün satmıyor; yeni kurulan teknoloji girişimlerine erken aşamada ortak olan bir yatırım şirketi. Ortak olduğu şirketler arasında yapay zekâyla işe alım yapan, internetten elektronik satan ve finans yazılımı geliştiren girişimler var.",
-    "tema": "Bu hisse bir şirketin değil, bir girişim sepetinin fiyatı. Ortak olunan girişimlerin değeri arttıkça şirketin elindeki payların değeri de artıyor; bu artış ancak bir ortaklık satıldığında nakde dönüyor.",
-    "yatirim": "Finansal borcu yok; elindeki ortaklıkları zorla satmak zorunda değil. Defterde yazan değerinin yaklaşık yarısına işlem görüyor. Emeklilik fonları son altı ayda hissedeki paylarını artırdı.",
-    "risk": "Kârı kâğıt üstünde; ortaklıkların değer artışından geliyor ve kasaya para girmiyor. Kasasında nakit yok denecek kadar az. Hedef vermiyor, toplantı yapmıyor ve ortaklıklarının değerini tek tek anlatmıyor. Temettü geçmişi yok. Hissenin çoğu bireysel yatırımcıda ve hareketler çok sert.",
+    "tema": "Bu hisse bir şirketin değil, bir girişim sepetinin fiyatı. Şirketin işi nakit üretmek değil, ortak olduğu girişimlerin değerini büyütmek. Kazancı o girişimlerin değer artışından gelir; nakit ise bir ortaklık satıldığında girer.",
+    "yatirim": "Elindeki ortaklıkların net değeri 2026’nın ilk dokuz ayında enflasyonun üstünde yüzde 11 büyüdü. Finansal borcu yok; ortaklıklarını zorla satmak zorunda değil. Defterde yazan değerinin yaklaşık yarısına işlem görüyor. Emeklilik fonları son altı ayda hissedeki paylarını artırdı.",
+    "risk": "Değerlemeler büyük ölçüde girişimlerin son yatırım turunda biçilen fiyata dayanıyor; girişimlerin değeri düşerse şirketin değeri de düşer. Şirket ortaklıklarının değerini tek tek açıklamıyor, hedef vermiyor ve toplantı yapmıyor. Temettü geçmişi yok. Hissenin çoğu bireysel yatırımcıda ve hareketler çok sert.",
     "neden": "Geçen yıl seçtiğim ve hâlâ elinde tutanların olduğu bir hisse. Bu yüzden bilançosunu takip ediyor ve burada paylaşıyorum.",
     "bilanco": {
       "donem": "2026 3. çeyrek",
       "tarih": "27 Ekim 2026’da açıklandı",
       "kisa": "27 Ekim",
-      "rozet": "Karışık",
-      "rozetTip": "sari",
-      "hukum": "Kâğıt üstünde kâr sürüyor ama her çeyrek küçülüyor ve kasaya para girmiyor; piyasa şirkete defterde yazan değerinin yaklaşık yarısını veriyor.",
+      "rozet": "Değeri büyüyor",
+      "rozetTip": "iyi",
+      "hukum": "Şirketin elindeki ortaklıkların net değeri enflasyonun üstünde büyümeye devam etti, ama büyüme hızı her çeyrek yavaşlıyor; piyasa ise bu değerin yaklaşık yarısını ödüyor.",
       "rakamlar": [
         {
-          "etiket": "Ortaklıkların değer artışından yazılan kazanç",
+          "etiket": "Ortaklıkların net değeri",
+          "deger": "4,59 mr ₺",
+          "alt": "dokuz ayda gerçek artış +%11",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Çeyrekte yazılan değer artışı",
           "deger": "276,4 mn ₺",
           "alt": "önceki çeyrek 469,1 mn ₺",
           "yon": "kotu"
         },
         {
-          "etiket": "Net kâr",
+          "etiket": "Enflasyon düşüldükten sonra kalan kazanç",
           "deger": "91,7 mn ₺",
           "alt": "önceki çeyrek 220,1 mn ₺",
-          "yon": "kotu"
-        },
-        {
-          "etiket": "Kasadaki nakit",
-          "deger": "1,2 mn ₺",
-          "alt": "kâr nakde dönmüyor",
           "yon": ""
         }
       ],
@@ -812,20 +812,21 @@
         {
           "baslik": "Ne oldu",
           "p": [
-            "Escort Teknoloji, 2026’nın üçüncü çeyrek bilançosunu 27 Ekim’de açıkladı. Şirket dokuz ayda 461,8 milyon lira, üçüncü çeyrekte 91,7 milyon lira net kâr yazdı. Bu kârın kaynağı bir satış değil; şirketin ortak olduğu girişimlerin yeniden hesaplanan değeri. Bütün rakamlar enflasyona göre düzeltilmiş hâliyle verilmiştir."
+            "Escort Teknoloji, 2026’nın üçüncü çeyrek bilançosunu 27 Ekim’de açıkladı. Şirketin elindeki ortaklıkların net değeri Eylül sonunda 4,59 milyar liraya ulaştı. Bu değer 2026’nın ilk dokuz ayında enflasyonun üstünde yüzde 11 büyüdü. Bütün rakamlar enflasyona göre düzeltilmiş hâliyle verilmiştir."
           ]
         },
         {
-          "baslik": "Asıl mesele",
+          "baslik": "Bu şirket nasıl okunur",
           "p": [
-            "Kâr var, nakit yok. Dokuz ayda 461,8 milyon lira kâr yazıldı, ama aynı dokuz ayda şirketin faaliyetlerinden kasaya para girmedi. Çünkü gelir tablosunda satış diye görünen kalemin neredeyse tamamı, satılmamış ortaklık paylarının yeniden değerlenmesinden geliyor.",
-            "Bu bir hile değil, muhasebe kuralı böyle. Elinizdeki evin değeri arttıysa kâğıt üstünde zenginleşirsiniz, ama evi satmadan cebinize para girmez. Bu yüzden hisse kârına göre çok ucuz görünür; o kâr gerçekleşmiş bir satıştan gelmiyor."
+            "Escort bir ürün satıp nakit üreten bir şirket değil; genç teknoloji şirketlerine ortak olan bir yatırım şirketi. Bu yüzden onu satışla ya da kasadaki parayla ölçmek doğru olmaz. Gelir tablosunda satış diye görünen kalem, ortak olunan girişimlerin değer artışıdır.",
+            "Bakılacak asıl ölçü, elindeki ortaklıkların net değeri ve bu değerin enflasyonun üstünde büyüyüp büyümediğidir. Nakit, bu iş modelinde ancak bir ortaklık satıldığında girer; o güne kadar kazanç değer artışı olarak birikir."
           ]
         },
         {
-          "baslik": "Değer artışı yavaşlıyor",
+          "baslik": "Değer artışı sürüyor, hızı yavaşlıyor",
           "p": [
-            "Ortaklıkların değer artışından yazılan kazanç yılın ilk çeyreğinde 529,8 milyon lira, ikinci çeyreğinde 469,1 milyon lira, üçüncü çeyreğinde 276,4 milyon lira oldu. Aynı dönemde enflasyon muhasebesi her çeyrek büyük bir kayıp yazdırdı; üçüncü çeyrekte bu kayıp 184,6 milyon liraydı ve kazancın büyük kısmını geri aldı."
+            "Ortaklıkların değer artışından yazılan kazanç yılın ilk çeyreğinde 529,8 milyon lira, ikinci çeyreğinde 469,1 milyon lira, üçüncü çeyreğinde 276,4 milyon lira oldu. Yani değer büyümeye devam ediyor, ama her çeyrek daha yavaş.",
+            "Enflasyon muhasebesi bu kazancın enflasyon kadar olan kısmını geri alıyor. Üçüncü çeyrekte enflasyon düşüldükten sonra kalan gerçek kazanç 91,7 milyon lira, dokuz ayda 461,8 milyon lira oldu."
           ]
         },
         {
@@ -834,21 +835,21 @@
             {
               "d": "iyi",
               "e": "Olumlu",
+              "t": "Ortaklıkların net değeri dokuz ayda enflasyonun üstünde yüzde 11 büyüdü."
+            },
+            {
+              "d": "iyi",
+              "e": "Olumlu",
               "t": "Finansal borç yok; şirket ortaklıklarını zorla satmak zorunda değil."
             },
             {
               "d": "sari",
               "e": "Kısmen",
-              "t": "Ortaklıkların değer artışı sürdü, ama her çeyrek küçüldü."
-            },
-            {
-              "d": "kotu",
-              "e": "Olumsuz",
-              "t": "2025 kârı için temettü dağıtılmayacağı açıklandı; şirketin temettü geçmişi yok."
+              "t": "Değer artışı sürdü, ama her çeyrek küçüldü."
             },
             {
               "d": "sari",
-              "t": "2026’da açıklanmış bir ortaklık satışı yok."
+              "t": "2026’da açıklanmış bir ortaklık satışı ya da yeni ortaklık yok."
             },
             {
               "d": "sari",
@@ -859,32 +860,32 @@
         {
           "baslik": "Defter değeri ve fiyat",
           "p": [
-            "Eylül sonunda şirketin defterde yazan net değeri 4,6 milyar liraydı. Bilanço açıklandığında piyasa değeri bunun yaklaşık yarısıydı. Bu fark, piyasanın defterdeki değerlemelere tam güvenmediğini ve nakde dönüşü görmek istediğini gösteriyor. Değerlemelerin önemli kısmı, girişimlerin son yatırım turunda biçilen fiyata dayanıyor."
+            "Bilanço açıklandığında şirketin piyasa değeri, defterde yazan net değerinin yaklaşık yarısıydı. Yatırım şirketleri çoğu zaman defter değerinin altında işlem görür; buradaki fark ise büyük. Bu fark, piyasanın değerlemelerin bir satışla doğrulanmasını beklediğini gösteriyor. Değerlemelerin önemli kısmı, girişimlerin son yatırım turunda biçilen fiyata dayanıyor."
           ]
         },
         {
           "baslik": "Hisse nasıl tepki verdi",
           "p": [
-            "Bilançodan sonraki ilk işlem gününde hisse yüzde 9,8 yükseldi, sonraki işlem gününde yüzde 10 düştü. Ağustos bilançosundan Ekim bilançosuna kadar hisse yaklaşık yüzde 36 değer kaybetti; bu dönem, Türkiye’deki fon krizinde küçük hisselerin topluca satıldığı dönemdi. Hissenin yaklaşık yüzde 81’i bireysel yatırımcıların elinde olduğu için hareketler sert oluyor."
+            "Bilançodan sonraki ilk işlem gününde hisse yüzde 9,8 yükseldi, sonraki işlem gününde yüzde 10 düştü. Ağustos bilançosundan Ekim bilançosuna kadar hisse yaklaşık yüzde 36 değer kaybetti; bu dönem, Türkiye’deki fon krizinde küçük hisselerin topluca satıldığı dönemdi. Aynı dönemde şirketin elindeki ortaklıkların değeri azalmadı, arttı."
           ]
         },
         {
           "baslik": "Piyasa ne diyor",
           "p": [
-            "Bu şirketi izleyen ve hedef fiyat veren bir aracı kurum yok. Sosyal medyada iki ayrı okuma var. Bir kesim hisseyi kârına ve defter değerine göre “en ucuzlar” listesinde tutuyor. Öteki kesim kârın kâğıt üstünde olduğunu ve şirketin bilgi vermediğini söylüyor. Emeklilik fonları ise son altı ayda hissedeki paylarını artırdı."
+            "Bu şirketi izleyen ve hedef fiyat veren bir aracı kurum yok. Sosyal medyada bir kesim hisseyi defter değerine göre “en ucuzlar” listesinde tutuyor; öteki kesim şirketin kendini anlatmamasını eleştiriyor. Emeklilik fonları ise son altı ayda hissedeki paylarını artırdı."
           ]
         },
         {
           "baslik": "Bir sonraki bilançodan ne bekliyorum",
           "izle": true,
           "liste": [
-            "Geçen yıl en büyük değerleme kazancı yılın son çeyreğinde yazılmıştı.",
-            "Şirketin finansal borcu yok; elindeki ortaklıkları zorla satmak zorunda değil ve bekleyebilir.",
-            "Emeklilik fonları son altı ayda hissedeki paylarını artırdı.",
-            "Şirket defterde yazan değerinin yaklaşık yarısına işlem görüyor; bir ortaklık defterdeki fiyatına yakın satılırsa bu fark sorgulanır."
+            "Yıl sonu bu şirket için en önemli dönem. Geçen yıl en büyük değer artışı yılın son çeyreğinde yazılmıştı.",
+            "Ortaklıkların net değeri dokuz ayda enflasyonun üstünde büyüdü; aynı yön sürerse yıl gerçek bir artışla kapanır.",
+            "Şirketin finansal borcu yok; ortaklıklarının olgunlaşmasını bekleyebilir.",
+            "Şirket defter değerinin yaklaşık yarısına işlem görüyor; bir ortaklık yeni yatırım alır ya da defterdeki fiyatına yakın satılırsa değerlemeler doğrulanmış olur."
           ],
           "p": [
-            "Bu şirkette bilanço rakamından çok bir habere bakıyorum: bir ortaklığın satılıp kasaya nakit girmesine. Bunun yanında değer artışı kazancının küçülmeyi bırakmasına ve şirketin ortaklıklarının değerini tek tek açıklamasına bakacağım. Satış gelmeden kâr kâğıt üstünde kalır."
+            "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: ortaklıkların net değerinin enflasyonun üstünde büyümeyi sürdürmesine, ortak olunan girişimlerin yeni yatırım turu haberlerine ve bir ortaklık satışı olursa hangi fiyattan yapıldığına."
           ]
         }
       ],
