@@ -351,7 +351,112 @@
     "ne": "Avustralya kökenli, Kuzey Amerika'da ucuz yenilenebilir enerjiyle bitcoin madenciliği yapan bir şirket. Şimdi aynı tesislere GPU koyup yapay zekâ bulutu satıyor.",
     "ai": "Yapay zekâ için en kıt şey çip değil, elektrik ve o elektriğe bağlı hazır tesis. IREN'in ikisi de elinde var. Madencilik tesisini yapay zekâ veri merkezine çevirmek sıfırdan kurmaktan hızlı.",
     "yatirim": "Bitcoin geliriyle nakit yaratıyor, yapay zekâ geliri hızla ekleniyor. Enerji kapasitesi gigavat ölçeğine yaklaşıyor. Dönüşümde en ileri madencilerden biri.",
-    "risk": "Hâlâ bitcoin fiyatına bağlı. Dönüşüm pahalı ve GPU alımı sürekli sermaye istiyor. Yapay zekâ bulutu rekabeti sert, fiyatlar düşebilir."
+    "risk": "Hâlâ bitcoin fiyatına bağlı. Dönüşüm pahalı ve GPU alımı sürekli sermaye istiyor. Yapay zekâ bulutu rekabeti sert, fiyatlar düşebilir.",
+    "bilanco": {
+      "donem": "Temmuz–Eylül 2026 çeyreği",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Yapay zekâ geliri bir çeyrekte üçe yakın katlandı, ama şirket büyük hedefini erteledi ve finansman piyasası zorlaştığı için yatırımını kıstı.",
+      "rakamlar": [
+        {
+          "etiket": "Toplam gelir",
+          "deger": "228 mn $",
+          "alt": "önceki çeyrek 137 mn $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Yapay zekâ bulut geliri",
+          "deger": "200 mn $",
+          "alt": "geçen yıl 7 mn $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Net zarar",
+          "deger": "263 mn $",
+          "alt": "önceki çeyrek 684 mn $ zarar",
+          "yon": ""
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "IREN, Temmuz–Eylül 2026 çeyreğinin bilançosunu 5 Kasım’da açıkladı. Şirketin mali yılı Temmuz’da başladığı için bu dönem kendi takviminde 2027 mali yılının ilk çeyreği. Gelir 228 milyon dolarla beklentinin biraz üstünde geldi. Şirket 263 milyon dolar zarar yazdı."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "İş şekil değiştirdi. Bir yıl önce gelirin neredeyse tamamı Bitcoin madenciliğinden geliyordu. Bu çeyrekte 228 milyon doların 200 milyon doları yapay zekâ bulutundan geldi ve şirket madenciliği Aralık 2026 sonunda fiilen kapatacağını söyledi.",
+            "Sorun talepte değil, parada. Şirket mali yılın kalanında yaklaşık 15 milyar dolar yatırım planlıyor. Elinde 9 milyar dolarlık nakit ve kredi var, kalan 6 milyar doların finansmanı bağlanmış değil. Eş genel müdür Daniel Roberts “ne pahasına olursa olsun büyümeyeceğiz” dedi."
+          ]
+        },
+        {
+          "baslik": "Ertelenen hedef",
+          "p": [
+            "Şirket Ağustos’ta, yıllık 4 milyar doları aşan gelir hızına Aralık 2026 sonunda ulaşacağını söylemişti. Bu tarih Ocak 2027’ye kaydı ve Şubat sonuna uzayabileceği belirtildi. Gerekçe, en büyük müşteri Microsoft’un ağ tasarımında değişiklik istemesi ve tedarikçi takvimi. Gecikme için ceza ödenmiyor. Eylül sonunda yıllık gelir hızı 1 milyar dolardı."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Eylül sonunda 1 milyar dolarlık yıllık gelir hızına ulaşılacağı söylenmişti, ulaşıldı."
+            },
+            {
+              "d": "iyi",
+              "t": "Müşteri peşin ödemelerinin çip maliyetinin yaklaşık yarısını karşılayacağı söylenmişti; bir sözleşmede bu oran yüzde 90’a çıktı."
+            },
+            {
+              "d": "kotu",
+              "t": "4 milyar dolarlık gelir hızı hedefi Aralık 2026 sonundan Ocak 2027’ye ertelendi."
+            },
+            {
+              "d": "kotu",
+              "t": "Mali yıl yatırımı 25–30 milyar dolardan yaklaşık 20 milyar dolara indirildi."
+            },
+            {
+              "d": "sari",
+              "t": "2027’de açılacak kapasitenin ne kadarının satıldığı soruldu, rakam verilmedi."
+            }
+          ]
+        },
+        {
+          "baslik": "Borç ve kasa",
+          "p": [
+            "Eylül sonunda kasada 5,8 milyar dolar vardı; bunun 2,3 milyar doları belirli işlere ayrılmış, serbestçe kullanılamayan paraydı. Toplam borç 10,2 milyar dolardı ve çoğu ileride hisseye çevrilebilen tahvildi. Müşterilerle imzalanmış sözleşmelerin toplamı 20,3 milyar dolara ulaştı; bunun üçte ikisi Microsoft ve Nvidia’dan."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Bilanço piyasa kapandıktan sonra açıklandı. Hisse o gün, açıklamadan önce yüzde 17 düşmüştü; ertesi gün yüzde 20 yükseldi. Bilançodan önceki günlerde veri merkezi hisseleri seçim sonucu ve Microsoft’taki gecikme haberiyle satılmıştı."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilançonun ardından analistler ikiye bölündü. İyimserler 6 milyar dolarlık açığın yönetilebilir olduğunu ve Microsoft’taki gecikmenin geçici olduğunu yazdı. Kötümserler bu açığın bir nakit sıkışıklığına dönebileceğini ve sözleşmelerin yarıya yakınının tek müşteriye bağlı olduğunu söyledi. Bilançodan sonraki hafta birçok aracı kurum hedef fiyatını indirdi; hisseyi izleyen 23 analistin 17’si yine de “al” tarafındaydı."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "4 milyar dolarlık gelir hızına Ocak ya da Şubat 2027’de ulaşılacak mı?",
+            "Eksik 6 milyar doların finansmanı hangi koşullarla bulunacak?",
+            "Microsoft dışındaki müşterilerin payı artacak mı?"
+          ],
+          "p": [
+            "Bu bilançoda talep tarafında bir sorun görmedim; sınav finansmanda. Hedef bir kez daha kayarsa ya da para pahalıya bulunursa fikrim değişir. Cevabı bir sonraki bilançoda göreceğim."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "MARA",
@@ -367,7 +472,114 @@
     "ne": "Dünyanın en büyük bitcoin madencilerinden biri. Çok miktarda bitcoin biriktirdi ve enerji üretim varlıkları satın alıyor.",
     "ai": "Elindeki enerji ve veri merkezi kapasitesi yapay zekâ için kullanılabilir. Bu dönüşüm için adımlar atıyor ama IREN kadar ilerlemedi.",
     "yatirim": "Bitcoin yükselirse kaldıraçlı kazanç sağlar. Yapay zekâ dönüşümü başarılırsa ikinci bir hikâye doğar. Düşük değerleme ile radarda.",
-    "risk": "Gelir neredeyse tamamen bitcoin fiyatına bağlı. Sürekli hisse basarak büyüdü, bu ortakları sulandırdı. Yapay zekâ tarafı henüz kanıtlanmış değil."
+    "risk": "Gelir neredeyse tamamen bitcoin fiyatına bağlı. Sürekli hisse basarak büyüdü, bu ortakları sulandırdı. Yapay zekâ tarafı henüz kanıtlanmış değil.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "9 Kasım 2026’da açıklandı",
+      "kisa": "9 Kasım",
+      "rozet": "Karışık",
+      "rozetTip": "sari",
+      "hukum": "Bilançodaki büyük kâr Bitcoin’in değer kazanmasından geldi; asıl iş olan madencilikte gelir düştü ve söz verilen yapay zekâ kira sözleşmesi imzalanmadı.",
+      "rakamlar": [
+        {
+          "etiket": "Gelir",
+          "deger": "164,2 mn $",
+          "alt": "beklenti 176 mn $",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "632 mn $",
+          "alt": "885 mn $’ı Bitcoin değer artışı",
+          "yon": ""
+        },
+        {
+          "etiket": "Kasadaki nakit",
+          "deger": "946,5 mn $",
+          "alt": "önceki çeyrek 421 mn $",
+          "yon": "iyi"
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "MARA 9 Kasım’da üçüncü çeyrek bilançosunu açıkladı. Gelir 164,2 milyon dolarla beklentinin altında kaldı ve bir yılda yüzde 35 düştü. Buna karşın şirket 632 milyon dolar net kâr yazdı."
+          ]
+        },
+        {
+          "baslik": "Asıl mesele",
+          "p": [
+            "Bu kâr şirketin işinden gelmedi. Şirketin elindeki Bitcoin’lerin değeri çeyrekte arttı ve bu artış 885 milyon dolarlık kazanç olarak yazıldı; kasaya giren bir para değil. Bu kalem çıkarıldığında şirket hisse başına zarar ediyor.",
+            "Gelir düştü, çünkü çeyrekte ortalama Bitcoin fiyatı bir yıl öncesine göre yüzde 37 düşüktü. Şirket kendini yapay zekâ için elektrik ve arazi sağlayan bir altyapı şirketi olarak anlatıyor, ama bir analistin hesabına göre bu çeyrekte gelirin yüzde 97’si madencilikten geldi."
+          ]
+        },
+        {
+          "baslik": "Bitcoin satışı ve borç",
+          "p": [
+            "Çeyrek bittikten sonra şirket 13.597 Bitcoin sattı, 1,1 milyar doları aşan gelir elde etti ve Bitcoin teminatlı 750 milyon dolarlık borcunu kapattı. Yılbaşından bilanço gününe kadar borç 1,4 milyar dolar azaldı. Yönetim ayrıca 500 milyon dolara kadar kendi hissesini geri alma yetkisi aldı.",
+            "Ağustos’ta yönetim Bitcoin’i elde tutacak bir finansman yöntemi anlatmıştı. Kasım’da yöntem değişti ve Bitcoin satıldı."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Genel yönetim giderinin düşeceği söylenmişti, bir yılda yüzde 11 düştü."
+            },
+            {
+              "d": "kotu",
+              "t": "Yıl bitmeden en az iki kira sözleşmesi imzalanacağı söylenmişti; çeyrekte imza gelmedi ve yönetim tarihin 2027’ye kayabileceğini söyledi."
+            },
+            {
+              "d": "kotu",
+              "t": "Elektrik portföyü hedefi yaklaşık 4,8 gigavattan “4 gigavatın üstü”ne indi ve açıklama yapılmadı."
+            },
+            {
+              "d": "sari",
+              "e": "Sürüyor",
+              "t": "Ohio’daki doğalgaz santralinin alımı için resmî onay 5 Kasım’da geldi; işlem bilanço günü tamamlanmamıştı."
+            },
+            {
+              "d": "sari",
+              "t": "Söz verilen yatırımcı günü için tarih verilmedi."
+            }
+          ]
+        },
+        {
+          "baslik": "Yapay zekâ tarafı",
+          "p": [
+            "Şirketin planı, sahip olduğu elektrik ve araziyi büyük bulut şirketlerine veri merkezi olarak kiralamak. Bunun için bir yatırım fonuyla ortaklık kurdu ve Ohio’da 505 megavatlık bir doğalgaz santrali satın alıyor. Çoğunluğuna sahip olduğu Fransız bulut şirketi Exaion, dört yıllık 79 milyon dolarlık ilk Amerikalı müşterisini aldı. Büyük bir kira sözleşmesi ise bilanço açıklandığında imzalanmış değildi."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Bilanço piyasa kapandıktan sonra açıklandı ve hisse ertesi gün yüzde 10,5 yükseldi. Haberlerde yükseliş, hisse geri alım kararına ve borcun kapatılmasına bağlandı."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilançonun ardından olumlu yazan analistler borcun azalmasını ve şirketin elektrik varlıklarını öne çıkardı. Temkinli yazanlar, imzalı kira sözleşmesi olmadan hissenin Bitcoin fiyatına bağlı kalacağını söyledi. Bilançodan sonraki hafta üç aracı kurum hedef fiyatını indirdi; hisseyi izleyen 16 analistin 10’u “al” tarafındaydı."
+          ]
+        },
+        {
+          "baslik": "Neyi izliyorum",
+          "izle": true,
+          "liste": [
+            "Söz verilen iki kira sözleşmesi imzalanacak mı?",
+            "Ohio’daki santral alımı tamamlanacak mı?",
+            "Madencilik dışındaki gelirin payı artacak mı?"
+          ],
+          "p": [
+            "Bu bilançoda şirketin kazancı Bitcoin fiyatına bağlıydı ve yapay zekâ hikâyesi bir sözleşmeyle kanıtlanmış değildi. İlk kira sözleşmesi gelirse tablo değişir. Cevabı bir sonraki bilançoda göreceğim."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   },
   {
     "kod": "DOCN",
