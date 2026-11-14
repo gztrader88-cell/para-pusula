@@ -348,10 +348,10 @@
     "ay": -24.9,
     "ytd": -9.8,
     "rol": "Bitcoin madencisinden yapay zekâ bulutuna",
-    "ne": "Avustralya kökenli, Kuzey Amerika'da ucuz yenilenebilir enerjiyle bitcoin madenciliği yapan bir şirket. Şimdi aynı tesislere GPU koyup yapay zekâ bulutu satıyor.",
+    "ne": "Avustralya kökenli bir veri merkezi şirketi. Bitcoin madenciliğinden çıkıyor; kendi arazisine ve kendi elektriğine kurduğu tesislerde yapay zekâ çipi kiralıyor.",
     "ai": "Yapay zekâ için en kıt şey çip değil, elektrik ve o elektriğe bağlı hazır tesis. IREN'in ikisi de elinde var. Madencilik tesisini yapay zekâ veri merkezine çevirmek sıfırdan kurmaktan hızlı.",
-    "yatirim": "Bitcoin geliriyle nakit yaratıyor, yapay zekâ geliri hızla ekleniyor. Enerji kapasitesi gigavat ölçeğine yaklaşıyor. Dönüşümde en ileri madencilerden biri.",
-    "risk": "Hâlâ bitcoin fiyatına bağlı. Dönüşüm pahalı ve GPU alımı sürekli sermaye istiyor. Yapay zekâ bulutu rekabeti sert, fiyatlar düşebilir.",
+    "yatirim": "Yapay zekâ geliri hızla büyüyor ve müşteriler çipin parasını peşin ödüyor. En büyük müşterisi Microsoft. Elinde gigavatlarca bağlanmış elektrik var; bu, yapay zekâ veri merkezleri için en zor bulunan varlık.",
+    "risk": "Her şeyi kendisi kurduğu için sürekli büyük sermaye istiyor; borcu yüksek ve yatırımının bir kısmının finansmanı bağlanmış değil. Sözleşmelerin büyük kısmı birkaç müşteriye bağlı. Hedef tarihleri kayabiliyor.",
     "bilanco": {
       "donem": "Temmuz–Eylül 2026 çeyreği",
       "tarih": "5 Kasım 2026’da açıklandı",
