@@ -1054,5 +1054,130 @@
     "ai": "Veri merkezleri gece gündüz kesintisiz elektrik istiyor ve güneş ya da rüzgâr bunu tek başına veremiyor. Küçük reaktör, veri merkezinin hemen yanına kurulabilen, karbonsuz ve sürekli güç demek. Yapay zekânın enerji açlığı nükleeri yeniden masaya getirdi; NuScale bu masada onayı cebinde olan tek isim.",
     "yatirim": "Onaylı tasarım yıllar süren ve milyarlar yutan bir engeli aşmış demek. Tennessee Valley Authority ile 6 gigavatlık çerçeve anlaşması ve Romanya'daki ilk proje hikâyenin somut ayakları. İlk kesin sipariş imzalandığında bütün bakış değişir; hisse bu yıl değerinin büyük bölümünü kaybettiği için beklenti çok düşük.",
     "risk": "Hâlâ kesin bir reaktör siparişi yok ve ilk büyük anlaşmanın müzakeresi 2027'ye sarkabilir. Yılda yaklaşık 800 milyon dolar nakit yakıyor; para bitmeden sipariş gelmeli, gelmezse yeni hisse basar. Son bir yılda %87 düştü, aracı kurumlar arka arkaya sat dedi. Faizler yükselirken gelirsiz şirketler en çok satılan grup. Bu kadroda en riskli oyuncu."
+  },
+  {
+    "kod": "IONQ",
+    "ad": "IonQ",
+    "kat": "kuantum",
+    "olg": 1,
+    "deger": 12.5,
+    "rol": "Kuantum bilgisayarın en büyük şirketi",
+    "ne": "Kuantum bilgisayar yapıp satan bir Amerikan şirketi. Müşteri makineyi kendi binasına kurdurabiliyor ya da büyük bulut hizmetleri üzerinden saatlik kullanabiliyor. Son dönemde yaptığı satın almalarla bilgisayarın yanına çip fabrikası, güvenli haberleşme ve siber güvenlik işlerini de ekledi.",
+    "ai": "Yapay zekâ harcamasından doğrudan pay alan bir şirket değil. Kuantum işlemcinin yapay zekâ çipinin yerine değil, yanına yerleşeceğini savunuyor. Yapay zekâ çiplerinin en büyük üreticisi Nvidia, kuantum araştırma merkezine ilk bilgisayarı IonQ’dan alıyor. Bu iddia deneme aşamasında.",
+    "yatirim": "Alanındaki halka açık şirketlerin en büyüğü. Sipariş defteri dolu; imzalanmış sözleşmeler 1,2 milyar dolara ulaştı ve yeni nesil bilgisayarın 2027 üretim kapasitesi satıldı. Kasası çok güçlü ve kayda değer banka borcu yok.",
+    "risk": "Asıl işi büyük zarar ediyor ve teknoloji olgunlaşmış değil. Büyümesinin önemli kısmı satın aldığı şirketlerden geliyor. Satın almaları, maaşları ve kasasını yeni hisse basarak finanse ediyor; hissedarın payı küçülüyor. Hisse çok sert hareket ediyor.",
+    "bilanco": {
+      "donem": "2026 3. çeyrek",
+      "tarih": "5 Kasım 2026’da açıklandı",
+      "kisa": "5 Kasım",
+      "rozet": "Beklentinin üstünde",
+      "rozetTip": "iyi",
+      "hukum": "Gelir beklentiyi açık farkla geçti ve siparişler dolu, ama gelirin yarısı satın alınan çip fabrikasından geldi, asıl iş büyük zarar etti ve büyümenin faturası yeni hisseyle ödeniyor.",
+      "rakamlar": [
+        {
+          "etiket": "Gelir",
+          "deger": "173,8 mn $",
+          "alt": "beklenti yaklaşık 142 mn $",
+          "yon": "iyi"
+        },
+        {
+          "etiket": "Asıl işin zararı",
+          "deger": "433 mn $",
+          "alt": "geçen yıl 169 mn $ zarar",
+          "yon": "kotu"
+        },
+        {
+          "etiket": "Net kâr",
+          "deger": "564 mn $",
+          "alt": "kasaya girmeyen muhasebe kazancı",
+          "yon": ""
+        }
+      ],
+      "kisimlar": [
+        {
+          "baslik": "Ne oldu",
+          "p": [
+            "IonQ, 2026’nın üçüncü çeyrek bilançosunu 5 Kasım’da açıkladı. Gelir 173,8 milyon dolar oldu; bir yıl önceki 39,9 milyon doların dört katından fazla ve beklentinin yaklaşık 30 milyon dolar üstünde. Şirket yıl sonu gelir hedefini 450–460 milyon dolardan 505–515 milyon dolara çıkardı. Tabloda 564 milyon dolar net kâr görünüyor, ama asıl işin zararı 433 milyon dolar."
+          ]
+        },
+        {
+          "baslik": "Bu şirket nasıl okunur",
+          "p": [
+            "IonQ, olgunlaşmamış bir teknolojide en büyük oyuncu olmaya para harcayan bir şirket. Bu aşamadaki bir şirketi bugünkü kârıyla ölçmek doğru olmaz. Bakılacak ölçüler şunlar: sipariş defteri büyüyor mu, makineler takviminde teslim ediliyor mu, kasadaki para kaç yıl yetiyor ve bu büyüme için hissedarın payı ne kadar küçülüyor."
+          ]
+        },
+        {
+          "baslik": "Gelir nereden geldi",
+          "p": [
+            "Gelirin 83,5 milyon doları, Temmuz’da satın alınan çip fabrikasının iki aylık gelirinden geldi; geçen yıl bu iş şirkette yoktu. Kuantum işinin kendi geliri 90,3 milyon dolar oldu ve bir yılda yüzde 127 arttı; bu artışın içinde de son bir yılda satın alınan şirketler var.",
+            "Yönetim Ağustos’ta satın almalar sayılmadan yüzde 100 büyüme hedefi vermişti. Kasım görüşmesinde bu rakam açıklanmadı. Olumlu taraf sipariş defterinde: kuantum işinin bekleyen sözleşmeleri bir çeyrekte 485 milyon dolardan 689 milyon dolara çıktı."
+          ]
+        },
+        {
+          "baslik": "Net kâr nereden geldi",
+          "p": [
+            "Net kârın tamamı, şirketin geçmişte yatırımcılara verdiği hisse alma haklarının yeniden değerlenmesinden geliyor. Bu kalem çeyrekte 896 milyon dolar kazanç yazdırdı ve kasaya para sokmadı; şirketin finans yöneticisi de bu kazancın işin performansını göstermediğini söyledi. Yılın ilk dokuz ayında asıl işin zararı 1 milyar doları geçti ve kasadan 570 milyon dolar nakit çıktı."
+          ]
+        },
+        {
+          "baslik": "Yönetim sözünü tuttu mu",
+          "soz": [
+            {
+              "d": "iyi",
+              "t": "Yıl sonu gelir hedefinin yükseltileceği söylenmişti; hedef iki kez yukarı çekildi."
+            },
+            {
+              "d": "iyi",
+              "t": "Amerikan savunma araştırma kurumunun kuantum programında son aşamaya geçmeyi beklediklerini söylemişlerdi; Ekim’de seçildiler."
+            },
+            {
+              "d": "iyi",
+              "t": "Bekleyen sözleşmelerin büyüyeceği söylenmişti; kuantum işinde 485 milyon dolardan 689 milyon dolara çıktı."
+            },
+            {
+              "d": "kotu",
+              "t": "Maliyet disiplininin süreceği söylenmişti; düzeltilmiş zarar 120 milyon dolardan 134 milyon dolara büyüdü."
+            },
+            {
+              "d": "sari",
+              "t": "Satın almalar sayılmadan yüzde 100 büyüme hedefi verilmişti; Kasım’da bu rakam açıklanmadı."
+            }
+          ]
+        },
+        {
+          "baslik": "Büyümenin faturasını kim ödüyor",
+          "p": [
+            "Şirket büyümeyi kazandığı parayla değil, yeni hisse basarak yapıyor. Ekim 2026’da 2 milyar dolarlık hisse sattı ve alıcılara 100 milyon hisselik alım hakkı verdi. Kasım başında 1,15 milyar dolarlık bir siber güvenlik şirketini yeni hisseyle satın aldı. Dokuz ayda çalışanlarına 417 milyon dolarlık hisse verdi.",
+            "Olumlu tarafı şu: bu satışlardan sonra kasada 3,7 milyar dolar var ve kayda değer banka borcu yok; finans yöneticisine göre bu para birkaç yıl yetiyor. Olumsuz tarafı şu: şirket büyüse bile her hisseye düşen pay küçülüyor."
+          ]
+        },
+        {
+          "baslik": "Hisse nasıl tepki verdi",
+          "p": [
+            "Hisse bilançonun ertesi günü yüzde 23,4, sonraki işlem günü yüzde 8,3 yükseldi. Aynı haftanın sonunda bu kazancın çoğunu geri verdi. Düşüşü getiren şey siparişlerdeki bir değişiklik değildi; rakip kuantum şirketlerinin zayıf bilançoları sektörü sattırdı ve 13 Kasım’da şirketin finans yöneticisinin görevinden hemen ayrıldığı duyuruldu."
+          ]
+        },
+        {
+          "baslik": "Piyasa ne diyor",
+          "p": [
+            "Bilanço açıklandığında görüş bildiren 14 aracı kurumun 12’si “al” tarafındaydı, “sat” diyen yoktu; bilanço haftasında yedi kurum hedefini indirdi ve gerekçe şirket değil, kuantum hisselerinin genelinde düşen değerlemeydi. Sosyal medyada bilanço günü rekor gelir ve yükselen hedef konuşuldu; bir hafta sonra konu hisse sayısındaki artışa ve finans yöneticisinin ayrılığına döndü."
+          ]
+        },
+        {
+          "baslik": "Bir sonraki bilançodan ne bekliyorum",
+          "izle": true,
+          "liste": [
+            "Siparişler dolu. İmzalanmış sözleşmelerin toplamı 1,2 milyar dolara ulaştı ve yeni nesil bilgisayarın 2027 üretim kapasitesinin tamamı satıldı.",
+            "Yönetim yıl hedefini bu yıl iki kez yükseltti ve yıl sonu çeyreğinde zararın küçüleceğini söyledi.",
+            "Kasa çok güçlü. 3,7 milyar dolar nakit var ve şirket zor bir dönemi yeni para aramadan geçirebilir.",
+            "Yeni nesil bilgisayarların 2027’nin ilk yarısında müşteriye kurulması planlanıyor; bu, siparişin gelire döndüğü ilk büyük sınav olacak."
+          ],
+          "p": [
+            "Bunların gerçekleştiğini anlamak için üç şeye bakacağım: yönetimin satın almalar sayılmadan büyüme rakamını yeniden açıklamasına, düzeltilmiş zararın 134 milyon dolardan aşağı inmesine ve hisse sayısının ne kadar arttığına. Yeni finans yöneticisinin kârlılık takvimi için ne söyleyeceği de önemli."
+          ]
+        }
+      ],
+      "uyari": "Bu özet yatırım tavsiyesi değildir; kimseye al ya da sat demiyorum."
+    }
   }
 ]
