@@ -1584,8 +1584,39 @@ function renderShortcuts(){
     delBtn.style.cssText='position:absolute;top:-5px;right:-5px;width:14px;height:14px;border-radius:50%;background:var(--red);border:none;color:white;font-size:.55rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;line-height:1;padding:0;';
     delBtn.onclick=(e)=>{e.preventDefault();e.stopPropagation();const sc=getShortcuts();sc.splice(i,1);setShortcuts(sc);renderShortcuts();};
     btn.appendChild(delBtn);
+    // Surukle-birak ile siralama
+    btn.draggable=true;
+    btn.style.cursor='grab';
+    btn.addEventListener('dragstart',e=>{scDragIdx=i;btn.style.opacity='.4';e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',s.name);}catch(_){}});
+    btn.addEventListener('dragend',()=>{scDragIdx=-1;btn.style.opacity='1';scClearDropMarks();});
+    btn.addEventListener('dragover',e=>{
+      if(scDragIdx<0||scDragIdx===i) return;
+      e.preventDefault(); e.dataTransfer.dropEffect='move';
+      const r=btn.getBoundingClientRect(); const after=e.clientX>r.left+r.width/2;
+      scClearDropMarks();
+      btn.style.boxShadow=after?'3px 0 0 0 var(--accent)':'-3px 0 0 0 var(--accent)';
+    });
+    btn.addEventListener('dragleave',()=>{btn.style.boxShadow='';});
+    btn.addEventListener('drop',e=>{
+      if(scDragIdx<0||scDragIdx===i) return;
+      e.preventDefault();
+      const r=btn.getBoundingClientRect(); const after=e.clientX>r.left+r.width/2;
+      const sc=getShortcuts(); const from=scDragIdx; scDragIdx=-1;
+      if(!Array.isArray(sc)||from>=sc.length||i>=sc.length) return;
+      const n=sc.length;
+      const moved=sc.splice(from,1)[0];
+      let to=i+(after?1:0); if(from<to) to--;
+      sc.splice(to,0,moved);
+      if(sc.length!==n) return;
+      setShortcuts(sc); renderShortcuts();
+    });
     wrap.appendChild(btn);
   });
+}
+let scDragIdx=-1;
+function scClearDropMarks(){
+  const w=document.getElementById('topbarShortcuts'); if(!w) return;
+  Array.from(w.children).forEach(c=>c.style.boxShadow='');
 }
 
 function openShortcutModal(){
