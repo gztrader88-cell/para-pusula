@@ -44,6 +44,7 @@ function serveStatic(req, res) {
     const ext = path.extname(file).toLowerCase();
     const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream' };
     if (ext !== '.html') headers['Cache-Control'] = 'public, max-age=86400';
+    else headers['Cache-Control'] = 'no-cache'; // sayfa değişiklikleri telefonda hemen görünsün
     res.writeHead(200, headers);
     res.end(data);
   });

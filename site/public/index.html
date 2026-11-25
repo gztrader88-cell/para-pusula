@@ -171,7 +171,11 @@
         function isaret() { if (document.hidden) gitti = true; }
         document.addEventListener("visibilitychange", isaret);
         window.addEventListener("pagehide", function () { gitti = true; });
-        window.location.href = "instagram://user?username=" + m[1];
+        if (/Android/i.test(navigator.userAgent)) {
+          window.location.href = "intent://instagram.com/_u/" + m[1] + "/#Intent;package=com.instagram.android;scheme=https;S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
+        } else {
+          window.location.href = "instagram://user?username=" + m[1];
+        }
         setTimeout(function () {
           document.removeEventListener("visibilitychange", isaret);
           if (!gitti && !document.hidden) window.location.href = web;
