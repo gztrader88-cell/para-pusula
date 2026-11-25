@@ -156,5 +156,29 @@
     else if (/iPhone|iPad|iPod/i.test(ua)) { ios.classList.add("oncelik"); }
   })();
 </script>
+<script>
+  // Telefonda Instagram bağlantıları tarayıcı yerine Instagram uygulamasında açılır.
+  // Uygulama açılmazsa kısa bir beklemeden sonra normal web adresine gidilir.
+  (function () {
+    if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "")) return;
+    var baglantilar = document.querySelectorAll('a[href*="instagram.com/"]');
+    Array.prototype.forEach.call(baglantilar, function (a) {
+      var m = a.href.match(/instagram\.com\/([A-Za-z0-9._]+)\/?$/);
+      if (!m) return;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var web = a.href, gitti = false;
+        function isaret() { if (document.hidden) gitti = true; }
+        document.addEventListener("visibilitychange", isaret);
+        window.addEventListener("pagehide", function () { gitti = true; });
+        window.location.href = "instagram://user?username=" + m[1];
+        setTimeout(function () {
+          document.removeEventListener("visibilitychange", isaret);
+          if (!gitti && !document.hidden) window.location.href = web;
+        }, 1600);
+      });
+    });
+  })();
+</script>
 </body>
 </html>
