@@ -38,7 +38,9 @@ function serveStatic(req, res) {
   const file = path.normalize(path.join(PUBLIC, p));
   if (!file.startsWith(PUBLIC)) return html(res, 403, 'Yasak');
   fs.readFile(file, (err, data) => {
-    if (err) return html(res, 404, '<!doctype html><meta charset="utf-8"><title>Sayfa bulunamadı</title><p style="font-family:sans-serif;padding:40px">Sayfa bulunamadı. <a href="/">Ana sayfa</a></p>');
+    // Kaldırılan sayfalara (eğitim, ön kayıt vb.) gelen eski bağlantılar ana sayfaya döner.
+    if (err && path.extname(file).toLowerCase() === '.html') { res.writeHead(302, { Location: '/' }); return res.end(); }
+    if (err) return html(res, 404,'<!doctype html><meta charset="utf-8"><title>Sayfa bulunamadı</title><p style="font-family:sans-serif;padding:40px">Sayfa bulunamadı. <a href="/">Ana sayfa</a></p>');
     const ext = path.extname(file).toLowerCase();
     const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream' };
     if (ext !== '.html') headers['Cache-Control'] = 'public, max-age=86400';
