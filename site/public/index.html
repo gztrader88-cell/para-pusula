@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gürbüz Güler | Her gün 3 dakikada borsa yorumu</title>
 <meta name="description" content="Gürbüz Güler'in günlük borsa videoları, abonelik ve uygulamaları tek sayfada.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -80,15 +80,18 @@
   .kart p.not { text-align: center; font-size: 13px; color: var(--ink-3); margin-top: 8px; }
   .adim { flex: 1 1 100%; border: 1.5px solid var(--accent); border-radius: 12px; padding: 12px 14px; font-size: 15px; color: var(--ink-2); text-align: center; }
   .adim strong { display: block; font-family: var(--display); color: var(--ink); margin-bottom: 2px; }
+  a.kart.pasif { cursor: default; }
+  a.kart.pasif:hover { transform: none; border-color: var(--line); }
+  a.kart.pasif .hesap { color: var(--ink-2); font-weight: 500; }
   footer { text-align: center; color: var(--ink-3); font-size: 13px; padding: 8px 16px 0; }
 </style>
 </head>
 <body>
 
 <header class="ust">
-  <img src="assets/gurbuz-guler.webp" alt="Gürbüz Güler">
+  <img src="/assets/gurbuz-guler.webp" alt="Gürbüz Güler">
   <h1>Gürbüz Güler</h1>
-  <p>Her gün 3 dakikada borsa yorumu</p>
+  <p id="altbaslik">Her gün 3 dakikada borsa yorumu</p>
 </header>
 
 <main>
@@ -112,7 +115,7 @@
 
   <div class="baslik">Günlük videolar</div>
 
-  <a class="kart" href="https://www.instagram.com/gurbuzguler8/" target="_blank" rel="noopener">
+  <a class="kart" id="kart-bist" href="https://www.instagram.com/gurbuzguler8/" target="_blank" rel="noopener">
     <div class="rozet" aria-hidden="true">🇹🇷</div>
     <div class="govde">
       <h2>Borsa İstanbul günlük yorum</h2>
@@ -122,7 +125,7 @@
     <svg class="ok" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4l6 6-6 6"/></svg>
   </a>
 
-  <a class="kart" href="https://www.instagram.com/gurbuzguler.nasdaq/" target="_blank" rel="noopener">
+  <a class="kart" id="kart-abd" href="https://www.instagram.com/gurbuzguler.nasdaq/" target="_blank" rel="noopener">
     <div class="rozet" aria-hidden="true">🇺🇸</div>
     <div class="govde">
       <h2>ABD borsası günlük yorum</h2>
@@ -163,18 +166,36 @@
   // Uygulama açılmazsa kısa bir beklemeden sonra normal web adresine gidilir.
   (function () {
     var ua = navigator.userAgent || "";
-    if (/Instagram/i.test(ua)) {
+    // Nasdaq hesabının profilindeki bağlantı /nasdaq adresine gelir.
+    var nasdaqtan = /^\/nasdaq\/?$/i.test(location.pathname);
+    var bist = document.getElementById("kart-bist"), abd = document.getElementById("kart-abd");
+    if (nasdaqtan) {
+      document.getElementById("altbaslik").textContent = "Her gün ABD borsası yorumu";
+      abd.parentNode.insertBefore(abd, bist);
+    }
+    if (/Instagram/i.test(ua) || /[?&]ig=1/.test(location.search)) {
       // Sayfa Instagram'ın içinden açıldıysa uygulamaya geri gönderilemez.
-      // Abone ol düğmesi yerine ne yapılacağını anlatan bir kutu gösterilir.
+      // Düğme ve hesap kartları yerine kişiye ne yapacağı yazıyla anlatılır.
       var abone = document.getElementById("abone"), not = document.querySelector(".kart p.not");
       if (abone) {
         var kutu = document.createElement("div");
         kutu.className = "adim";
-        kutu.innerHTML = "<strong>Instagram'da abone olmak için</strong>Bu sayfayı kapatıp profilime dönün ve &quot;Abone ol&quot; düğmesine basın.";
+        kutu.innerHTML = "<strong>Instagram'da abone olmak için</strong>" + (nasdaqtan
+          ? "Bu sayfayı kapatın, profildeki @gurbuzguler8 yazısına basın ve açılan hesapta &quot;Abone ol&quot; düğmesine basın."
+          : "Bu sayfayı kapatıp profilime dönün ve &quot;Abone ol&quot; düğmesine basın.");
         abone.parentNode.replaceChild(kutu, abone);
       }
       if (not) not.parentNode.removeChild(not);
-      Array.prototype.forEach.call(document.querySelectorAll('a[href*="instagram.com/"]'), function (a) { a.removeAttribute("target"); });
+      function yaziyaCevir(kart, yazi) {
+        var ok = kart.querySelector(".ok");
+        if (ok) ok.parentNode.removeChild(ok);
+        kart.removeAttribute("href"); kart.removeAttribute("target");
+        kart.classList.add("pasif");
+        kart.querySelector(".hesap").textContent = yazi;
+      }
+      var geldigi = nasdaqtan ? abd : bist, diger = nasdaqtan ? bist : abd;
+      yaziyaCevir(geldigi, "Şu an bu hesaptan geldiniz.");
+      yaziyaCevir(diger, "Bu sayfayı kapatıp profildeki " + (nasdaqtan ? "@gurbuzguler8" : "@gurbuzguler.nasdaq") + " yazısına basın.");
       return;
     }
     if (!/Android|iPhone|iPad|iPod/i.test(ua)) return;

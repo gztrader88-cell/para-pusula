@@ -33,7 +33,7 @@ function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 
 function serveStatic(req, res) {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  if (p === '/') p = '/index.html';
+  if (p === '/' || /^\/nasdaq\/?$/i.test(p)) p = '/index.html'; // /nasdaq aynı sayfayı Nasdaq hesabından gelene göre gösterir
   if (!path.extname(p)) p += '.html'; // /hakkimda → hakkimda.html
   const file = path.normalize(path.join(PUBLIC, p));
   if (!file.startsWith(PUBLIC)) return html(res, 403, 'Yasak');
