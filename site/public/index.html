@@ -78,6 +78,8 @@
   ul.ozellik { margin: 10px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; }
   ul.ozellik li { margin: 2px 0; }
   .kart p.not { text-align: center; font-size: 13px; color: var(--ink-3); margin-top: 8px; }
+  .adim { flex: 1 1 100%; border: 1.5px solid var(--accent); border-radius: 12px; padding: 12px 14px; font-size: 15px; color: var(--ink-2); text-align: center; }
+  .adim strong { display: block; font-family: var(--display); color: var(--ink); margin-bottom: 2px; }
   footer { text-align: center; color: var(--ink-3); font-size: 13px; padding: 8px 16px 0; }
 </style>
 </head>
@@ -160,7 +162,22 @@
   // Telefonda Instagram bağlantıları tarayıcı yerine Instagram uygulamasında açılır.
   // Uygulama açılmazsa kısa bir beklemeden sonra normal web adresine gidilir.
   (function () {
-    if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "")) return;
+    var ua = navigator.userAgent || "";
+    if (/Instagram/i.test(ua)) {
+      // Sayfa Instagram'ın içinden açıldıysa uygulamaya geri gönderilemez.
+      // Abone ol düğmesi yerine ne yapılacağını anlatan bir kutu gösterilir.
+      var abone = document.getElementById("abone"), not = document.querySelector(".kart p.not");
+      if (abone) {
+        var kutu = document.createElement("div");
+        kutu.className = "adim";
+        kutu.innerHTML = "<strong>Instagram'da abone olmak için</strong>Bu sayfayı kapatıp profilime dönün ve &quot;Abone ol&quot; düğmesine basın.";
+        abone.parentNode.replaceChild(kutu, abone);
+      }
+      if (not) not.parentNode.removeChild(not);
+      Array.prototype.forEach.call(document.querySelectorAll('a[href*="instagram.com/"]'), function (a) { a.removeAttribute("target"); });
+      return;
+    }
+    if (!/Android|iPhone|iPad|iPod/i.test(ua)) return;
     var baglantilar = document.querySelectorAll('a[href*="instagram.com/"]');
     Array.prototype.forEach.call(baglantilar, function (a) {
       var m = a.href.match(/instagram\.com\/([A-Za-z0-9._]+)\/?$/);
