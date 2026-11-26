@@ -137,7 +137,7 @@
 
   <div class="baslik">Diğer çalışmam</div>
 
-  <a class="kart" href="https://transistrade.com/" target="_blank" rel="noopener">
+  <a class="kart" id="kart-transis" href="https://transistrade.com/" target="_blank" rel="noopener">
     <div class="govde">
       <h2>TransisTrade</h2>
       <p>Kurucu ortağı olduğum yazılım. TradingView'de kurduğunuz alarmı MetaTrader 5 hesabınıza otomatik olarak iletir.</p>
@@ -219,6 +219,27 @@
           if (!gitti && !document.hidden) window.location.href = web;
         }, 1600);
       });
+    });
+  })();
+</script>
+<script>
+  // Sayaç: sayfaya kaç kişi geldi ve hangi düğmeye basıldı. Kişi bilgisi gönderilmez, yalnız olay adı gider.
+  (function () {
+    var giris = /^\/nasdaq\/?$/i.test(location.pathname) ? "nasdaq" : "ana";
+    var ig = (/Instagram/i.test(navigator.userAgent || "") || /[?&]ig=1/.test(location.search)) ? 1 : 0;
+    function say(olay) {
+      try {
+        var veri = JSON.stringify({ o: olay, s: giris, ig: ig });
+        if (navigator.sendBeacon) navigator.sendBeacon("/api/say", veri);
+        else fetch("/api/say", { method: "POST", body: veri, keepalive: true });
+      } catch (e) {}
+    }
+    var ilk = true; // aynı ziyarette sayfa yenilenirse ikinci kez sayılmaz
+    try { if (sessionStorage.getItem("gor")) ilk = false; else sessionStorage.setItem("gor", "1"); } catch (e) {}
+    if (ilk) say("gor");
+    [["abone", "abone"], ["ios", "ios"], ["android", "android"], ["kart-bist", "bist"], ["kart-abd", "abd"], ["kart-transis", "transis"]].forEach(function (c) {
+      var el = document.getElementById(c[0]);
+      if (el && el.tagName === "A" && el.getAttribute("href")) el.addEventListener("click", function () { say(c[1]); });
     });
   })();
 </script>

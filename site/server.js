@@ -19,6 +19,52 @@ const MIME = {
 
 const sonIstekler = new Map(); // ip -> zaman damgaları (basit hız sınırı)
 
+// Sayaç: bağlantı sayfasına kaç kişi geldi, hangi düğmeye kaç kez basıldı.
+// Kişi bilgisi tutulmaz; yalnız gün, giriş (ana ya da nasdaq), Instagram içi olup olmadığı ve olay adı sayılır.
+const SAYAC_FILE = path.join(DATA_DIR, 'sayac.json');
+const SAYAC_ANAHTAR = process.env.SAYAC_ANAHTAR || 'gg-sayac-7k2m9q4x';
+const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis']);
+const sayacIstekler = new Map();
+let sayac = {};
+try { sayac = JSON.parse(fs.readFileSync(SAYAC_FILE, 'utf8')); } catch {}
+let sayacKirli = false;
+setInterval(() => {
+  if (!sayacKirli) return;
+  sayacKirli = false;
+  fs.mkdir(DATA_DIR, { recursive: true }, () => fs.writeFile(SAYAC_FILE, JSON.stringify(sayac), () => {}));
+}, 10000).unref();
+
+function sayAl(req, res) {
+  const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+  const simdi = Date.now();
+  const liste = (sayacIstekler.get(ip) || []).filter(t => simdi - t < 10 * 60 * 1000);
+  liste.push(simdi);
+  sayacIstekler.set(ip, liste);
+  if (sayacIstekler.size > 5000) sayacIstekler.clear();
+  let govde = '';
+  req.on('data', c => { govde += c; if (govde.length > 500) req.destroy(); });
+  req.on('end', () => {
+    res.writeHead(204); res.end();
+    if (liste.length > 40) return; // aynı adresten aşırı istek sayılmaz
+    if (/bot|crawl|spider|facebookexternalhit|preview/i.test(req.headers['user-agent'] || '')) return;
+    let veri;
+    try { veri = JSON.parse(govde); } catch { return; }
+    if (!veri || !SAYAC_OLAYLAR.has(veri.o)) return;
+    const gun = new Date(simdi + 3 * 3600 * 1000).toISOString().slice(0, 10); // Türkiye saatiyle gün
+    const anahtar = (veri.s === 'nasdaq' ? 'nasdaq' : 'ana') + '.' + (veri.ig ? 'ig' : 'dis') + '.' + veri.o;
+    if (!sayac[gun]) sayac[gun] = {};
+    sayac[gun][anahtar] = (sayac[gun][anahtar] || 0) + 1;
+    sayacKirli = true;
+  });
+}
+
+function sayacOku(req, res) {
+  const u = new URL(req.url, 'http://x');
+  if (u.searchParams.get('anahtar') !== SAYAC_ANAHTAR) return html(res, 403, 'Yetkisiz');
+  res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.end(JSON.stringify({ okuma: new Date().toISOString(), gunler: sayac }));
+}
+
 function json(res, code, obj) {
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(obj));
@@ -117,6 +163,8 @@ function yonetimCsv(req, res) {
 http.createServer((req, res) => {
   const p = new URL(req.url, 'http://x').pathname;
   if (req.method === 'POST' && p === '/api/mesaj') return mesajAl(req, res);
+  if (req.method === 'POST' && p === '/api/say') return sayAl(req, res);
+  if (req.method === 'GET' && p === '/api/sayac') return sayacOku(req, res);
   if (req.method === 'GET' && p === '/yonetim') return yonetim(req, res);
   if (req.method === 'GET' && p === '/yonetim.csv') return yonetimCsv(req, res);
   if (req.method === 'GET' || req.method === 'HEAD') return serveStatic(req, res);
