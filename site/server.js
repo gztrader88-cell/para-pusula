@@ -23,7 +23,8 @@ const sonIstekler = new Map(); // ip -> zaman damgaları (basit hız sınırı)
 // Kişi bilgisi tutulmaz; yalnız gün, giriş (ana ya da nasdaq), Instagram içi olup olmadığı ve olay adı sayılır.
 const SAYAC_FILE = path.join(DATA_DIR, 'sayac.json');
 const SAYAC_ANAHTAR = process.env.SAYAC_ANAHTAR || 'gg-sayac-7k2m9q4x';
-const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis']);
+const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis', 'facebook', 'tiktok']);
+const SAYAC_GIRISLER = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
 const sayacIstekler = new Map();
 let sayac = {};
 try { sayac = JSON.parse(fs.readFileSync(SAYAC_FILE, 'utf8')); } catch {}
@@ -51,7 +52,7 @@ function sayAl(req, res) {
     try { veri = JSON.parse(govde); } catch { return; }
     if (!veri || !SAYAC_OLAYLAR.has(veri.o)) return;
     const gun = new Date(simdi + 3 * 3600 * 1000).toISOString().slice(0, 10); // Türkiye saatiyle gün
-    const anahtar = (veri.s === 'nasdaq' ? 'nasdaq' : 'ana') + '.' + (veri.ig ? 'ig' : 'dis') + '.' + veri.o;
+    const anahtar = (SAYAC_GIRISLER.has(veri.s) ? veri.s : 'ana') + '.' + (veri.ig ? 'ig' : 'dis') + '.' + veri.o;
     if (!sayac[gun]) sayac[gun] = {};
     sayac[gun][anahtar] = (sayac[gun][anahtar] || 0) + 1;
     sayacKirli = true;
@@ -79,7 +80,8 @@ function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<':
 
 function serveStatic(req, res) {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  if (p === '/' || /^\/nasdaq\/?$/i.test(p)) p = '/index.html'; // /nasdaq aynı sayfayı Nasdaq hesabından gelene göre gösterir
+  // /nasdaq, /facebook ve /tiktok aynı sayfayı, kişinin geldiği hesaba göre gösterir
+  if (p === '/' || /^\/(nasdaq|facebook|tiktok)\/?$/i.test(p)) p = '/index.html';
   if (!path.extname(p)) p += '.html'; // /hakkimda → hakkimda.html
   const file = path.normalize(path.join(PUBLIC, p));
   if (!file.startsWith(PUBLIC)) return html(res, 403, 'Yasak');
