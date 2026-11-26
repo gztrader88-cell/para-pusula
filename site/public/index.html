@@ -202,6 +202,10 @@
     if (kaynak) {
       var kendi = document.getElementById("kart-" + kaynak.toLowerCase());
       if (kendi) kendi.parentNode.removeChild(kendi);
+      // Facebook ve TikTok'ta henüz abonelik yok; gelen kişiye aboneliğin Instagram'da olduğu açıkça söylenir.
+      // Bu hesaplarda abonelik açıldığında bu not kaldırılır ve o hesabın kendi abone düğmesi eklenir.
+      var aboneNotu = document.querySelector(".kart p.not");
+      if (aboneNotu) aboneNotu.textContent = "Abonelik şu an yalnız Instagram hesabımda. Açılan profilde \"Abone ol\" düğmesine basın.";
     }
     if (/Instagram/i.test(ua) || /[?&]ig=1/.test(location.search)) {
       // Sayfa Instagram'ın içinden açıldıysa uygulamaya geri gönderilemez.
