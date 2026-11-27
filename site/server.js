@@ -145,7 +145,7 @@ const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
 const TELEGRAM_API = process.env.TELEGRAM_API || 'https://api.telegram.org';
 const BASVURU_FILE = path.join(DATA_DIR, 'robot-basvurular.jsonl');
-const SERMAYELER = { '1': '500 bin TL altı', '2': '500 bin – 1 milyon TL', '3': '1 – 3 milyon TL', '4': '3 milyon TL üstü' };
+const SERMAYELER = { '1': '250 – 500 bin TL', '2': '500 – 750 bin TL', '3': '750 bin – 1 milyon TL', '4': '1 milyon TL ve üstü' };
 const KAYNAKLAR = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
 const basvuruIstekler = new Map();
 
