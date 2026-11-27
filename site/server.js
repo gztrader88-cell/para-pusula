@@ -149,6 +149,13 @@ const TELEGRAM_API = process.env.TELEGRAM_API || 'https://api.telegram.org';
 const BASVURU_FILE = path.join(DATA_DIR, 'robot-basvurular.jsonl');
 const SERMAYELER = { '1': '250 – 500 bin TL', '2': '500 – 750 bin TL', '3': '750 bin – 1 milyon TL', '4': '1 milyon TL ve üstü' };
 const KAYNAKLAR = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
+// Telegram mesajında kişinin hangi profildeki bağlantıdan geldiği açık adıyla yazılır.
+const KAYNAK_ADLARI = {
+  ana: 'Instagram ana hesap (@gurbuzguler8) ya da doğrudan site adresi',
+  nasdaq: 'Instagram Nasdaq hesabı (@gurbuzguler.nasdaq)',
+  tiktok: 'TikTok',
+  facebook: 'Facebook'
+};
 const basvuruIstekler = new Map();
 
 function telegramGonder(metin) {
@@ -195,7 +202,7 @@ function basvuruAl(req, res) {
     const zaman = new Date(simdi + 3 * 3600 * 1000).toISOString().replace('T', ' ').slice(0, 16);
     const telefon = temiz(veri.telefon, 24);
     const metin = '🤖 Yeni robot başvurusu\n\nAd soyad: ' + ad + ' ' + soyad + '\nTelefon: ' + telefon +
-      '\nYaklaşık sermaye: ' + sermaye + '\nGeldiği yer: ' + kaynak + '\nZaman: ' + zaman + ' (Türkiye)';
+      '\nYaklaşık sermaye: ' + sermaye + '\nGeldiği yer: ' + KAYNAK_ADLARI[kaynak] + '\nZaman: ' + zaman + ' (Türkiye)';
     // Yedek: Telegram o an ulaşmazsa başvuru kaybolmasın diye dosyaya da yazılır.
     fs.mkdir(DATA_DIR, { recursive: true }, () => {
       fs.appendFile(BASVURU_FILE, JSON.stringify({ zaman, ad, soyad, telefon, sermaye, kaynak }) + '\n', () => {});
