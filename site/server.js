@@ -2,6 +2,7 @@
 // public/ klasörünü yayınlar, /api/mesaj'a gelen formları data/mesajlar.jsonl dosyasına yazar.
 'use strict';
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -23,7 +24,7 @@ const sonIstekler = new Map(); // ip -> zaman damgaları (basit hız sınırı)
 // Kişi bilgisi tutulmaz; yalnız gün, giriş (ana ya da nasdaq), Instagram içi olup olmadığı ve olay adı sayılır.
 const SAYAC_FILE = path.join(DATA_DIR, 'sayac.json');
 const SAYAC_ANAHTAR = process.env.SAYAC_ANAHTAR || 'gg-sayac-7k2m9q4x';
-const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis', 'facebook', 'tiktok']);
+const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis', 'facebook', 'tiktok', 'robot', 'basvuru']);
 const SAYAC_GIRISLER = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
 const sayacIstekler = new Map();
 let sayac = {};
@@ -137,6 +138,108 @@ function mesajAl(req, res) {
   });
 }
 
+// ── Robot bölümü ──
+// Başvuru: ad, soyad, telefon ve yaklaşık sermaye Telegram'a mesaj olarak gider.
+// Bot anahtarı ve sohbet kimliği yalnız ortam değişkeninde durur, koda yazılmaz.
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
+const TELEGRAM_API = process.env.TELEGRAM_API || 'https://api.telegram.org';
+const BASVURU_FILE = path.join(DATA_DIR, 'robot-basvurular.jsonl');
+const SERMAYELER = { '1': '500 bin TL altı', '2': '500 bin – 1 milyon TL', '3': '1 – 3 milyon TL', '4': '3 milyon TL üstü' };
+const KAYNAKLAR = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
+const basvuruIstekler = new Map();
+
+function telegramGonder(metin) {
+  return new Promise((coz, ret) => {
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return ret(new Error('Telegram ayarı yok'));
+    const u = new URL(TELEGRAM_API + '/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage');
+    const govde = JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: metin, disable_web_page_preview: true });
+    const istek = (u.protocol === 'http:' ? http : https).request(u, {
+      method: 'POST', timeout: 8000,
+      headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(govde) }
+    }, r => {
+      let c = ''; r.on('data', d => { c += d; });
+      r.on('end', () => (r.statusCode === 200 ? coz() : ret(new Error('Telegram ' + r.statusCode))));
+    });
+    istek.on('timeout', () => istek.destroy(new Error('Telegram zaman aşımı')));
+    istek.on('error', ret);
+    istek.end(govde);
+  });
+}
+
+function basvuruAl(req, res) {
+  const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+  const simdi = Date.now();
+  const liste = (basvuruIstekler.get(ip) || []).filter(t => simdi - t < 60 * 60 * 1000);
+  if (liste.length >= 5) return json(res, 429, { hata: 'Çok fazla deneme yapıldı. Lütfen bir süre sonra yeniden deneyin.' });
+  let govde = '';
+  req.on('data', c => { govde += c; if (govde.length > 4000) req.destroy(); });
+  req.on('end', () => {
+    let veri;
+    try { veri = JSON.parse(govde); } catch { return json(res, 400, { hata: 'Geçersiz veri' }); }
+    if (!veri || typeof veri !== 'object') return json(res, 400, { hata: 'Geçersiz veri' });
+    if (veri.site) return json(res, 200, { ok: true }); // bot tuzağı doluysa sessizce yoksay
+    const temiz = (v, n) => String(v || '').replace(/[\u0000-\u001f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
+    const ad = temiz(veri.ad, 60), soyad = temiz(veri.soyad, 60);
+    const rakam = String(veri.telefon || '').replace(/\D/g, '');
+    const sermaye = Object.prototype.hasOwnProperty.call(SERMAYELER, String(veri.sermaye)) ? SERMAYELER[String(veri.sermaye)] : '';
+    if (ad.length < 2 || soyad.length < 2) return json(res, 400, { hata: 'Lütfen adınızı ve soyadınızı yazın.' });
+    if (rakam.length < 10 || rakam.length > 15) return json(res, 400, { hata: 'Lütfen telefon numaranızı alan koduyla birlikte yazın.' });
+    if (!sermaye) return json(res, 400, { hata: 'Lütfen yaklaşık sermaye aralığını seçin.' });
+    if (veri.riza !== true) return json(res, 400, { hata: 'Başvuru için onay kutusunu işaretlemeniz gerekir.' });
+    liste.push(simdi); basvuruIstekler.set(ip, liste);
+    if (basvuruIstekler.size > 5000) basvuruIstekler.clear();
+    const kaynak = KAYNAKLAR.has(veri.kaynak) ? veri.kaynak : 'ana';
+    const zaman = new Date(simdi + 3 * 3600 * 1000).toISOString().replace('T', ' ').slice(0, 16);
+    const telefon = temiz(veri.telefon, 24);
+    const metin = '🤖 Yeni robot başvurusu\n\nAd soyad: ' + ad + ' ' + soyad + '\nTelefon: ' + telefon +
+      '\nYaklaşık sermaye: ' + sermaye + '\nGeldiği yer: ' + kaynak + '\nZaman: ' + zaman + ' (Türkiye)';
+    // Yedek: Telegram o an ulaşmazsa başvuru kaybolmasın diye dosyaya da yazılır.
+    fs.mkdir(DATA_DIR, { recursive: true }, () => {
+      fs.appendFile(BASVURU_FILE, JSON.stringify({ zaman, ad, soyad, telefon, sermaye, kaynak }) + '\n', () => {});
+    });
+    telegramGonder(metin).then(() => json(res, 200, { ok: true })).catch(err => {
+      console.error('BASVURU Telegram hatası:', err.message);
+      json(res, 502, { hata: 'Başvurunuz şu an iletilemedi. Lütfen birkaç dakika sonra yeniden deneyin.' });
+    });
+  });
+}
+
+// Geriye dönük test panelinin son günleri. Veri müşteri panelinden yalnız okunur ve beş dakika bellekte tutulur;
+// ziyaretçinin tarayıcısı müşteri panelinin adresini hiç görmez.
+const SERI_KAYNAK = process.env.ROBOT_SERI_KAYNAK || 'https://authentic-passion-production-d90e.up.railway.app/api/yedili-gunluk?son=90';
+let seriBellek = { zaman: 0, govde: '[]' }, seriBekleyen = null;
+function seriCek() {
+  if (seriBekleyen) return seriBekleyen;
+  seriBekleyen = new Promise(coz => {
+    const u = new URL(SERI_KAYNAK);
+    const istek = (u.protocol === 'http:' ? http : https).get(u, { timeout: 8000 }, r => {
+      let c = ''; r.on('data', d => { c += d; if (c.length > 500000) istek.destroy(); });
+      r.on('end', () => {
+        try {
+          const satirlar = JSON.parse(c);
+          if (r.statusCode === 200 && Array.isArray(satirlar)) {
+            // Yalnız panelin kullandığı iki alan dışarı verilir.
+            seriBellek = { zaman: Date.now(), govde: JSON.stringify(satirlar.map(q => ({ tarih: q.tarih, pct: q.pct }))) };
+          }
+        } catch {}
+        coz();
+      });
+    });
+    istek.on('timeout', () => istek.destroy());
+    istek.on('error', () => coz());
+  }).then(() => { seriBekleyen = null; });
+  return seriBekleyen;
+}
+function seriVer(req, res) {
+  const gonder = () => {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
+    res.end(seriBellek.govde);
+  };
+  if (Date.now() - seriBellek.zaman < 5 * 60 * 1000) return gonder();
+  seriCek().then(gonder);
+}
+
 function yonetim(req, res) {
   const u = new URL(req.url, 'http://x');
   if (!ADMIN_ANAHTAR || u.searchParams.get('anahtar') !== ADMIN_ANAHTAR) return html(res, 403, 'Yetkisiz');
@@ -166,6 +269,8 @@ http.createServer((req, res) => {
   const p = new URL(req.url, 'http://x').pathname;
   if (req.method === 'POST' && p === '/api/mesaj') return mesajAl(req, res);
   if (req.method === 'POST' && p === '/api/say') return sayAl(req, res);
+  if (req.method === 'POST' && p === '/api/robot-basvuru') return basvuruAl(req, res);
+  if (req.method === 'GET' && p === '/api/robot-seri') return seriVer(req, res);
   if (req.method === 'GET' && p === '/api/sayac') return sayacOku(req, res);
   if (req.method === 'GET' && p === '/yonetim') return yonetim(req, res);
   if (req.method === 'GET' && p === '/yonetim.csv') return yonetimCsv(req, res);

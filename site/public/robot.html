@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robot | Gürbüz Güler</title>
+<meta name="description" content="Robota başvuru formu ve geriye dönük test paneli.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --kart: #ffffff; --ink: #0f1a2e; --ink-2: #44506a; --ink-3: #7b86a0;
+    --line: #dde3ec; --navy: #0f2a5f; --navy-2: #163a7d; --accent: #e8a317; --accent-ink: #1a1300;
+    --hata: #b3261e; --tamam: #1b7a43;
+    --golge: 0 6px 24px rgba(15, 26, 46, 0.08);
+    --display: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c1424; --kart: #121d33; --ink: #eef2f8; --ink-2: #b7c1d6; --ink-3: #7f8ba6;
+      --line: #243352; --navy: #16305f; --navy-2: #1e3f7a; --accent: #f0b43a;
+      --hata: #ff8a80; --tamam: #5fd08f;
+      --golge: 0 6px 24px rgba(0, 0, 0, 0.4); color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--body); font-size: 16px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .ust {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff; text-align: center; padding: 20px 16px 64px;
+  }
+  .ust .geri { display: block; max-width: 520px; margin: 0 auto 14px; text-align: left; color: #d5def0; font-size: 14px; text-decoration: none; }
+  .ust h1 { font-family: var(--display); font-weight: 800; font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+  .ust p { margin: 6px 0 0; color: #d5def0; font-size: 16px; }
+  main { margin: -40px auto 0; padding: 0 16px 40px; }
+  .dar { max-width: 520px; margin: 0 auto; }
+  .genis { max-width: 1240px; margin: 0 auto; }
+  .baslik {
+    font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3); margin: 28px 4px 10px;
+  }
+  .kart {
+    background: var(--kart); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--golge); padding: 18px; margin-bottom: 12px;
+  }
+  .kart h2 { font-family: var(--display); font-weight: 700; font-size: 18px; margin: 0 0 6px; line-height: 1.25; }
+  .kart p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .dugmeler { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .dugme {
+    flex: 1 1 150px; text-align: center; padding: 12px 14px; border-radius: 12px; border: 0; cursor: pointer;
+    font-family: var(--display); font-weight: 700; font-size: 15px; text-decoration: none;
+    background: var(--accent); color: var(--accent-ink);
+  }
+  .dugme.ikinci { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .dugme:hover, .dugme:focus-visible { filter: brightness(1.05); outline: 2px solid var(--accent); outline-offset: 2px; }
+  .dugme[disabled] { opacity: .6; cursor: default; }
+  form label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+  form input[type=text], form input[type=tel], form select {
+    width: 100%; padding: 12px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: var(--bg); color: var(--ink); font: inherit;
+  }
+  form input:focus-visible, form select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .iki { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .riza { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; font-size: 13.5px; color: var(--ink-2); font-weight: 400; }
+  .riza input { flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--accent); }
+  .kucuk { font-size: 13px; color: var(--ink-3); margin-top: 10px; }
+  .gizli { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  #durum { margin-top: 12px; font-size: 15px; font-weight: 600; min-height: 1px; }
+  #durum.hata { color: var(--hata); }
+  #tamam h2 { color: var(--tamam); }
+  .uyari {
+    border-left: 4px solid var(--accent); background: var(--kart); border-radius: 0 12px 12px 0;
+    padding: 12px 14px; font-size: 14.5px; color: var(--ink-2); margin-bottom: 12px;
+  }
+  .uyari strong { color: var(--ink); }
+  #panel { display: block; width: 100%; border: 0; border-radius: 16px; min-height: 900px; background: #0c0f16; }
+  footer { text-align: center; color: var(--ink-3); font-size: 13px; padding: 16px 16px 0; }
+  footer p { margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<header class="ust">
+  <a class="geri" id="geri" href="/">← Ana sayfa</a>
+  <h1>Robot</h1>
+  <p>Başvuru ve geriye dönük test sonuçları</p>
+</header>
+
+<main>
+  <div class="dar">
+    <div class="kart">
+      <h2>Robot nedir?</h2>
+      <p>Robot, vadeli işlemler piyasasında altı hissede önceden belirlenmiş kurallara göre kendiliğinden işlem yapan bir yazılımdır. Hesap sizin adınıza ve sizin aracı kurumunuzda durur.</p>
+      <div class="dugmeler">
+        <a class="dugme" href="#basvuru">Başvuru yap</a>
+        <a class="dugme ikinci" href="#test">Test sonuçlarını gör</a>
+      </div>
+    </div>
+
+    <div class="baslik" id="basvuru">Başvuru</div>
+
+    <div class="kart" id="formKart">
+      <h2>Robota başvuru</h2>
+      <p>Bilgilerinizi bırakın, sizi arayıp ayrıntıları anlatalım.</p>
+      <form id="form" novalidate>
+        <div class="iki">
+          <div>
+            <label for="ad">Adınız</label>
+            <input type="text" id="ad" name="ad" autocomplete="given-name" maxlength="60" required>
+          </div>
+          <div>
+            <label for="soyad">Soyadınız</label>
+            <input type="text" id="soyad" name="soyad" autocomplete="family-name" maxlength="60" required>
+          </div>
+        </div>
+        <label for="telefon">Telefon numaranız</label>
+        <input type="tel" id="telefon" name="telefon" autocomplete="tel" inputmode="tel" placeholder="05xx xxx xx xx" maxlength="24" required>
+        <label for="sermaye">Robotta değerlendirmeyi düşündüğünüz yaklaşık tutar</label>
+        <select id="sermaye" name="sermaye" required>
+          <option value="">Seçin</option>
+          <option value="1">500 bin TL altı</option>
+          <option value="2">500 bin – 1 milyon TL</option>
+          <option value="3">1 – 3 milyon TL</option>
+          <option value="4">3 milyon TL üstü</option>
+        </select>
+        <div class="gizli" aria-hidden="true">
+          <label for="site">Bu alanı boş bırakın</label>
+          <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="riza" for="riza">
+          <input type="checkbox" id="riza" name="riza" required>
+          <span>Adımın, soyadımın, telefon numaramın ve yukarıda seçtiğim tutar bilgisinin, robot başvurum hakkında benimle iletişime geçilmesi amacıyla Gürbüz Güler tarafından işlenmesine açık rıza veriyorum.</span>
+        </label>
+        <div class="dugmeler">
+          <button class="dugme" id="gonder" type="submit">Başvuruyu gönder</button>
+        </div>
+        <div id="durum" role="status" aria-live="polite"></div>
+        <p class="kucuk">Bilgileriniz yalnız başvurunuz için sizi aramak amacıyla kullanılır ve başka kimseyle paylaşılmaz. Başvurunuz bize Telegram üzerinden ulaşır. Bilgilerinizin silinmesini dilediğiniz zaman isteyebilirsiniz. Ayrıntılar <a href="/gizlilik" target="_blank" rel="noopener">Gizlilik ve KVKK metninde</a> yazıyor.</p>
+      </form>
+    </div>
+
+    <div class="kart" id="tamam" hidden>
+      <h2>Başvurunuz bize ulaştı.</h2>
+      <p>En kısa sürede yazdığınız telefon numarasından sizi arayacağız. Aşağıda robotun geriye dönük test sonuçlarını inceleyebilirsiniz.</p>
+    </div>
+
+    <div class="baslik" id="test">Geriye dönük test</div>
+
+    <div class="uyari">
+      <strong>Okumadan geçmeyin.</strong> Aşağıdaki panel gerçek bir hesabın sonucu değildir. Robotun kurallarının geçmiş fiyatlar üzerinde bilgisayarda denenmesiyle elde edilmiştir. Geçmiş test sonuçları gelecek için garanti değildir, gerçek sonuçlar farklı olabilir ve zarar edilebilir. Bu sayfadaki hiçbir bilgi yatırım tavsiyesi değildir.
+    </div>
+  </div>
+
+  <div class="genis">
+    <iframe id="panel" src="/robot-panel.html" title="Geriye dönük test paneli" loading="lazy" scrolling="no"></iframe>
+  </div>
+
+  <footer>
+    <p>Geçmiş test sonuçları gelecek için garanti değildir. Bu sayfadaki içerikler yatırım tavsiyesi değildir.</p>
+    <p>© Gürbüz Güler</p>
+  </footer>
+</main>
+
+<script>
+  // Panelin yüksekliği içeriğine göre ayarlanır, böylece panelin içinde ayrı bir kaydırma çubuğu oluşmaz.
+  (function () {
+    var cerceve = document.getElementById("panel");
+    function boyutla() {
+      try {
+        var b = cerceve.contentDocument && cerceve.contentDocument.body;
+        if (b) cerceve.style.height = Math.max(600, b.scrollHeight + 4) + "px";
+      } catch (e) {}
+    }
+    cerceve.addEventListener("load", function () {
+      boyutla();
+      try {
+        if (window.ResizeObserver) new ResizeObserver(boyutla).observe(cerceve.contentDocument.body);
+        else setInterval(boyutla, 1500);
+      } catch (e) {}
+    });
+    window.addEventListener("resize", boyutla);
+  })();
+</script>
+<script>
+  (function () {
+    // Kişinin hangi hesaptan geldiği ana sayfadaki karttan taşınır (ana, nasdaq, facebook, tiktok).
+    var k = (location.search.match(/[?&]k=(nasdaq|facebook|tiktok)\b/i) || [])[1];
+    var kaynak = k ? k.toLowerCase() : "ana";
+    if (k) document.getElementById("geri").href = "/" + kaynak;
+    var ig = /Instagram/i.test(navigator.userAgent || "") ? 1 : 0;
+    function say(olay) {
+      try {
+        var veri = JSON.stringify({ o: olay, s: kaynak, ig: ig });
+        if (navigator.sendBeacon) navigator.sendBeacon("/api/say", veri);
+        else fetch("/api/say", { method: "POST", body: veri, keepalive: true });
+      } catch (e) {}
+    }
+
+    var form = document.getElementById("form"), durum = document.getElementById("durum"), gonder = document.getElementById("gonder");
+    function hata(yazi, alan) {
+      durum.className = "hata"; durum.textContent = yazi;
+      if (alan) alan.focus();
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var ad = form.ad.value.trim(), soyad = form.soyad.value.trim(), telefon = form.telefon.value.trim();
+      var rakam = telefon.replace(/\D/g, "");
+      if (ad.length < 2) return hata("Lütfen adınızı yazın.", form.ad);
+      if (soyad.length < 2) return hata("Lütfen soyadınızı yazın.", form.soyad);
+      if (rakam.length < 10 || rakam.length > 15) return hata("Lütfen telefon numaranızı alan koduyla birlikte yazın.", form.telefon);
+      if (!form.sermaye.value) return hata("Lütfen yaklaşık tutarı seçin.", form.sermaye);
+      if (!form.riza.checked) return hata("Başvuru için onay kutusunu işaretlemeniz gerekir.", form.riza);
+      durum.className = ""; durum.textContent = "Gönderiliyor…";
+      gonder.disabled = true;
+      fetch("/api/robot-basvuru", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ad: ad, soyad: soyad, telefon: telefon, sermaye: form.sermaye.value, riza: true, site: form.site.value, kaynak: kaynak })
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; });
+      }).then(function (s) {
+        if (!s.ok) { gonder.disabled = false; return hata(s.j.hata || "Başvurunuz gönderilemedi. Lütfen yeniden deneyin."); }
+        say("basvuru");
+        document.getElementById("formKart").hidden = true;
+        var tamam = document.getElementById("tamam");
+        tamam.hidden = false;
+        tamam.scrollIntoView({ block: "center" });
+      }).catch(function () {
+        gonder.disabled = false;
+        hata("Bağlantı kurulamadı. İnternetinizi kontrol edip yeniden deneyin.");
+      });
+    });
+  })();
+</script>
+</body>
+</html>
