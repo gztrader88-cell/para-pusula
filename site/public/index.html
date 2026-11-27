@@ -274,9 +274,15 @@
     var yol = (location.pathname.match(/^\/(nasdaq|facebook|tiktok)\/?$/i) || [])[1];
     var giris = yol ? yol.toLowerCase() : "ana";
     var ig = (/Instagram/i.test(navigator.userAgent || "") || /[?&]ig=1/.test(location.search)) ? 1 : 0;
+    // Kişinin nereden geldiği: uygulama içi tarayıcının kimliğinden ya da geldiği sayfanın adresinden anlaşılır.
+    // ig = Instagram, tt = TikTok, fb = Facebook, dis = dış bağlantı ya da adresi kendisi yazdı (WhatsApp dahil).
+    var ua = navigator.userAgent || "", ref = document.referrer || "";
+    var kaynak = ig || /instagram\.com/i.test(ref) ? "ig"
+      : (/musical_ly|Bytedance|TikTok/i.test(ua) || /tiktok\.com/i.test(ref)) ? "tt"
+      : (/FBAN|FBAV|FB_IAB/i.test(ua) || /facebook\.com/i.test(ref)) ? "fb" : "dis";
     function say(olay) {
       try {
-        var veri = JSON.stringify({ o: olay, s: giris, ig: ig });
+        var veri = JSON.stringify({ o: olay, s: giris, ig: ig, k: kaynak });
         if (navigator.sendBeacon) navigator.sendBeacon("/api/say", veri);
         else fetch("/api/say", { method: "POST", body: veri, keepalive: true });
       } catch (e) {}

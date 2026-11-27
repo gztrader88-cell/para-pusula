@@ -53,7 +53,9 @@ function sayAl(req, res) {
     try { veri = JSON.parse(govde); } catch { return; }
     if (!veri || !SAYAC_OLAYLAR.has(veri.o)) return;
     const gun = new Date(simdi + 3 * 3600 * 1000).toISOString().slice(0, 10); // Türkiye saatiyle gün
-    const anahtar = (SAYAC_GIRISLER.has(veri.s) ? veri.s : 'ana') + '.' + (veri.ig ? 'ig' : 'dis') + '.' + veri.o;
+    // Kaynak: ig (Instagram), tt (TikTok), fb (Facebook), dis (dış bağlantı ya da adresi kendisi yazdı).
+    const kaynak = ['ig', 'tt', 'fb', 'dis'].includes(veri.k) ? veri.k : (veri.ig ? 'ig' : 'dis');
+    const anahtar = (SAYAC_GIRISLER.has(veri.s) ? veri.s : 'ana') + '.' + kaynak + '.' + veri.o;
     if (!sayac[gun]) sayac[gun] = {};
     sayac[gun][anahtar] = (sayac[gun][anahtar] || 0) + 1;
     sayacKirli = true;
