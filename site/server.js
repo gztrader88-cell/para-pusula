@@ -24,7 +24,7 @@ const sonIstekler = new Map(); // ip -> zaman damgaları (basit hız sınırı)
 // Kişi bilgisi tutulmaz; yalnız gün, giriş (ana ya da nasdaq), Instagram içi olup olmadığı ve olay adı sayılır.
 const SAYAC_FILE = path.join(DATA_DIR, 'sayac.json');
 const SAYAC_ANAHTAR = process.env.SAYAC_ANAHTAR || 'gg-sayac-7k2m9q4x';
-const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis', 'facebook', 'tiktok', 'robot', 'basvuru']);
+const SAYAC_OLAYLAR = new Set(['gor', 'abone', 'ios', 'android', 'bist', 'abd', 'transis', 'facebook', 'tiktok', 'robot', 'basvuru', 'tekrar']);
 const SAYAC_GIRISLER = new Set(['ana', 'nasdaq', 'facebook', 'tiktok']);
 const sayacIstekler = new Map();
 let sayac = {};

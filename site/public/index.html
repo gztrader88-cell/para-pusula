@@ -281,15 +281,46 @@
         else fetch("/api/say", { method: "POST", body: veri, keepalive: true });
       } catch (e) {}
     }
-    var ilk = true; // aynı ziyarette sayfa yenilenirse ikinci kez sayılmaz
-    try { if (sessionStorage.getItem("gor")) ilk = false; else sessionStorage.setItem("gor", "1"); } catch (e) {}
-    if (ilk) say("gor");
+    // Aynı kişi iki kez sayılmaz: her olay (geliş ve her düğme) bu cihazda yalnız ilk seferinde sayılır.
+    // Kayıt cihazın kendi tarayıcısında durur, sunucuya kişi bilgisi gitmez.
+    // Daha önce gelmiş biri yeniden geldiğinde günde bir kez "tekrar" olarak ayrıca sayılır.
+    var ANAHTAR = "gg_sayilan";
+    function sayilanlar() {
+      try { return JSON.parse(localStorage.getItem(ANAHTAR) || "{}") || {}; } catch (e) { return null; }
+    }
+    function birKez(olay) {
+      var s = sayilanlar();
+      if (s === null) { // tarayıcı kayda izin vermiyorsa en azından aynı ziyarette tekrar sayma
+        try { if (sessionStorage.getItem("s_" + olay)) return; sessionStorage.setItem("s_" + olay, "1"); } catch (e) {}
+        return say(olay);
+      }
+      if (s[olay]) return;
+      s[olay] = 1;
+      try { localStorage.setItem(ANAHTAR, JSON.stringify(s)); } catch (e) {}
+      say(olay);
+    }
+    (function () {
+      var s = sayilanlar();
+      var bugun = new Date().toISOString().slice(0, 10);
+      if (s && s.gor) {
+        if (s.tekrarGun !== bugun) {
+          s.tekrarGun = bugun;
+          try { localStorage.setItem(ANAHTAR, JSON.stringify(s)); } catch (e) {}
+          say("tekrar");
+        }
+      } else {
+        birKez("gor");
+        // İlk geldiği gün yeniden açarsa "tekrar" sayılmasın.
+        var y = sayilanlar();
+        if (y) { y.tekrarGun = bugun; try { localStorage.setItem(ANAHTAR, JSON.stringify(y)); } catch (e) {} }
+      }
+    })();
     // Robot sayfası, kişinin hangi hesaptan geldiğini bilsin diye giriş adı bağlantıya eklenir.
     var robot = document.getElementById("kart-robot");
     if (robot && yol) robot.href = "/robot?k=" + giris;
     [["kart-robot", "robot"], ["abone", "abone"], ["ios", "ios"], ["android", "android"], ["kart-bist", "bist"], ["kart-abd", "abd"], ["kart-transis", "transis"], ["kart-tiktok", "tiktok"], ["kart-facebook", "facebook"]].forEach(function (c) {
       var el = document.getElementById(c[0]);
-      if (el && el.tagName === "A" && el.getAttribute("href")) el.addEventListener("click", function () { say(c[1]); });
+      if (el && el.tagName === "A" && el.getAttribute("href")) el.addEventListener("click", function () { birKez(c[1]); });
     });
   })();
 </script>
